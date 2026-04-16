@@ -1,0 +1,32 @@
+/*
+Theme Name: Gorvita Child
+Template: blocksy
+Version: 1.0.0
+*/
+
+:root {
+    --gorvita-green: #16a34a;
+    --gorvita-green-dark: #15803d;
+    --gorvita-gray: #737373;
+    --gorvita-light: #fafafa;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.button, button, input[type="submit"],
+.woocommerce a.button, .woocommerce button.button {
+    background-color: var(--gorvita-green);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.button:hover, button:hover,
+.woocommerce a.button:hover, .woocommerce button.button:hover {
+    background-color: var(--gorvita-green-dark);
+    transform: translateY(-1px);
+}

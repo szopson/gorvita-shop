@@ -1,0 +1,142 @@
+version: "3.8"
+
+services:
+  traefik:
+    image: traefik:v3.0
+    container_name: gorvita-traefik
+    restart: unless-stopped
+    command:
+      - "--api.dashboard=true"
+      - "--api.insecure=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=gorvita-public"
+      - "--log.level=INFO"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik_letsencrypt:/letsencrypt
+    networks:
+      - gorvita-public
+
+  mariadb:
+    image: mariadb:11
+    container_name: gorvita-mariadb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-gorvita}
+      MYSQL_USER: ${MYSQL_USER:-gorvita}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./config/mysql/my.cnf:/etc/mysql/conf.d/custom.cnf:ro
+    networks:
+      - gorvita-internal
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: gorvita-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    networks:
+      - gorvita-internal
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  wordpress:
+    build:
+      context: .
+      dockerfile: Dockerfile.wordpress
+    container_name: gorvita-wordpress
+    restart: unless-stopped
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE:-gorvita}
+      WORDPRESS_DB_USER: ${MYSQL_USER:-gorvita}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_TABLE_PREFIX: ${WP_TABLE_PREFIX:-wp_}
+      WORDPRESS_DEBUG: ${WP_DEBUG:-false}
+      WORDPRESS_HOME: https://${WP_DOMAIN}
+      WORDPRESS_SITEURL: https://${WP_DOMAIN}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    volumes:
+      - wordpress_data:/var/www/html
+      - ./wp-content/themes/gorvita-child:/var/www/html/wp-content/themes/gorvita-child:ro
+      - ./wp-content/plugins/gorvita-chatbot:/var/www/html/wp-content/plugins/gorvita-chatbot:ro
+      - ./plugins:/var/plugins:ro
+      - ./scripts:/var/scripts:ro
+      - ./config:/var/config:ro
+      - ./data:/var/data:ro
+      - uploads_data:/var/www/html/wp-content/uploads
+    networks:
+      - gorvita-public
+      - gorvita-internal
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gorvita-prod.rule=Host(\`${WP_DOMAIN}\`)"
+      - "traefik.http.routers.gorvita-prod.entrypoints=websecure"
+      - "traefik.http.routers.gorvita-prod.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.gorvita-prod.service=gorvita-svc"
+      - "traefik.http.services.gorvita-svc.loadbalancer.server.port=80"
+
+  backup:
+    image: fradelg/mysql-cron-backup
+    container_name: gorvita-backup
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+    environment:
+      MYSQL_HOST: mariadb
+      MYSQL_USER: root
+      MYSQL_PASS: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DB: ${MYSQL_DATABASE:-gorvita}
+      CRON_TIME: "0 3 * * *"
+      MAX_BACKUPS: 7
+      GZIP_LEVEL: 9
+    volumes:
+      - backup_data:/backup
+    networks:
+      - gorvita-internal
+
+networks:
+  gorvita-public:
+    name: gorvita-public
+    driver: bridge
+  gorvita-internal:
+    name: gorvita-internal
+    driver: bridge
+    internal: true
+
+volumes:
+  traefik_letsencrypt:
+  mariadb_data:
+  redis_data:
+  wordpress_data:
+  uploads_data:
+  backup_data:
