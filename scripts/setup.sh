@@ -53,6 +53,18 @@ if wp theme is-installed gorvita-child --allow-root 2>/dev/null; then
     wp theme activate gorvita-child --allow-root
 fi
 
+# Fix uploads permissions — bind-mounted volumes often end up root-owned,
+# but WordPress runs as www-data inside the container. Ensures plugins
+# (PDF invoices, WC logs, media uploads) can write.
+# See also: scripts/fix-permissions.sh (can be run standalone)
+mkdir -p "$WP_PATH/wp-content/uploads/wc-logs"
+mkdir -p "$WP_PATH/wp-content/uploads/wpo_wcpdf/attachments"
+mkdir -p "$WP_PATH/wp-content/uploads/wpo_wcpdf/fonts"
+mkdir -p "$WP_PATH/wp-content/uploads/wpo_wcpdf/tmp"
+chown -R www-data:www-data "$WP_PATH/wp-content/uploads" 2>/dev/null || true
+find "$WP_PATH/wp-content/uploads" -type d -exec chmod 755 {} \; 2>/dev/null || true
+find "$WP_PATH/wp-content/uploads" -type f -exec chmod 644 {} \; 2>/dev/null || true
+
 # Flush
 wp cache flush --allow-root || true
 wp rewrite flush --allow-root || true

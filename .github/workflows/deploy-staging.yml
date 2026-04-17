@@ -40,10 +40,11 @@ jobs:
             --exclude='vendor/' \
             ./ deploy@${{ secrets.VPS_HOST }}:/opt/gorvita-shop/
 
-      - name: Flush WP cache
+      - name: Fix permissions + flush WP cache
         run: |
           ssh deploy@${{ secrets.VPS_HOST }} << 'EOF'
             cd /opt/gorvita-shop
+            docker compose exec -T wordpress bash /var/scripts/fix-permissions.sh || true
             docker compose exec -T wordpress wp cache flush --allow-root || true
             docker compose exec -T wordpress wp rewrite flush --allow-root || true
           EOF
