@@ -14,9 +14,10 @@ Text Domain: gorvita-child
    DESIGN TOKENS
    ========================================================================= */
 :root {
-    /* Primary */
-    --gorvita-green: #2D5016;
-    --gorvita-green-dark: #1F3A0F;
+    /* Primary — actual Gorvita brand (from sklep.gorvita.com.pl theme-color meta) */
+    --gorvita-green: #009036;
+    --gorvita-green-dark: #00722A;
+    --gorvita-green-deep: #005C21;
     --gorvita-sage: #6B8E5F;
     --gorvita-sage-light: #A8BFA0;
 
@@ -26,10 +27,12 @@ Text Domain: gorvita-child
     --gorvita-gray-500: #737373;
     --gorvita-gray-300: #D4D4D4;
     --gorvita-gray-100: #F5F5F5;
-    --gorvita-cream: #F5F3F0;
+    --gorvita-cream: #FAF7F2;
     --gorvita-white: #FFFFFF;
 
-    /* Accent */
+    /* Accent — Gorvita terracotta from inline CSS of old shop */
+    --gorvita-terracotta: #A74C28;
+    --gorvita-terracotta-light: #C97B63;
     --gorvita-earth: #8B7355;
     --gorvita-rose: #C97B63;
     --gorvita-gold: #C9A961;
@@ -39,9 +42,10 @@ Text Domain: gorvita-child
     --gorvita-warning: #D97706;
     --gorvita-error: #DC2626;
 
-    /* Typography */
+    /* Typography — matches gorvita shop's Lato-based identity,
+       with Fraunces used for display headings to add warmth */
     --font-heading: 'Fraunces', Georgia, 'Times New Roman', serif;
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-body: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
     /* Type scale */
     --fs-hero: clamp(2.5rem, 5vw, 4rem);
@@ -1054,11 +1058,45 @@ header.site-header {
    LANDING PAGE — hero, sections, CTAs
    ========================================================================= */
 .gorvita-landing-hero {
+    position: relative;
     background: linear-gradient(135deg, var(--gorvita-cream) 0%, rgba(168, 191, 160, 0.18) 100%);
     padding-block: var(--space-16);
     text-align: center;
     border-radius: var(--radius-xl);
     margin-bottom: var(--space-12);
+    overflow: hidden;
+}
+
+/* Photo hero variant — Gorce mountains landscape */
+.gorvita-landing-hero--photo {
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.55) 100%),
+        url('assets/images/hero-gorce.jpg') center/cover no-repeat;
+    background-color: var(--gorvita-green-deep);
+    color: var(--gorvita-white);
+    padding-block: var(--space-24);
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.gorvita-landing-hero--photo h1,
+.gorvita-landing-hero--photo .lead {
+    color: var(--gorvita-white);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+.gorvita-landing-hero--photo .button {
+    background: var(--gorvita-white);
+    color: var(--gorvita-green-dark);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.gorvita-landing-hero--photo .button:hover {
+    background: var(--gorvita-cream);
+    color: var(--gorvita-green-deep);
+    transform: translateY(-2px);
 }
 
 .gorvita-landing-hero h1 {

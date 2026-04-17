@@ -15,10 +15,10 @@ define('GORVITA_CHILD_URI', get_stylesheet_directory_uri());
  * Enqueue parent + child styles and Google Fonts.
  */
 function gorvita_enqueue_styles() {
-    // Google Fonts: Fraunces (headings) + Inter (body)
+    // Google Fonts: Fraunces (display headings) + Lato (body, matches legacy shop)
     wp_enqueue_style(
         'gorvita-fonts',
-        'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Lato:wght@300;400;700;900&display=swap',
         [],
         null
     );

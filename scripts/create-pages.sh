@@ -144,9 +144,10 @@ EOF
 # ----------------------------- O MARCE -------------------------------------
 cat > "$TMP/o-marce.html" <<'EOF'
 <!-- wp:html -->
-<section class="gorvita-landing-hero">
-    <h1>O marce Gorvita</h1>
-    <p class="lead">Polska marka naturalnych suplementów i kosmetyków ziołowych na bazie unikalnej wody termalnej z Rabki-Zdroju.</p>
+<section class="gorvita-landing-hero gorvita-landing-hero--photo">
+    <h1>Natura z Rabki-Zdroju</h1>
+    <p class="lead">Polska marka naturalnych suplementów i kosmetyków ziołowych — od ponad 25 lat tworzona w sercu Gorców, z wykorzystaniem tradycyjnej wiedzy ziołoleczniczej i wody mineralnej ze źródeł Rabki.</p>
+    <p><a href="/shop/" class="button">Poznaj naszą ofertę</a></p>
 </section>
 <!-- /wp:html -->
 
