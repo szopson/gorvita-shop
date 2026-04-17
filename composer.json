@@ -1,0 +1,51 @@
+{
+    "name": "gorvita/shop",
+    "description": "Gorvita WooCommerce shop — plugins managed via Composer + WPackagist",
+    "type": "project",
+    "license": "proprietary",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org",
+            "only": [
+                "wpackagist-plugin/*",
+                "wpackagist-theme/*"
+            ]
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "composer/installers": "^2.0",
+        "wpackagist-plugin/woocommerce": "*",
+        "wpackagist-plugin/seo-by-rank-math": "*",
+        "wpackagist-plugin/redis-cache": "*",
+        "wpackagist-plugin/fluent-smtp": "*",
+        "wpackagist-plugin/wp-crontrol": "*",
+        "wpackagist-plugin/safe-svg": "*",
+        "wpackagist-plugin/wordpress-seo-schema": "*",
+        "wpackagist-plugin/redirection": "*",
+        "wpackagist-plugin/wps-hide-login": "*",
+        "wpackagist-plugin/wordfence": "*",
+        "wpackagist-plugin/wp-mail-smtp": "*",
+        "wpackagist-plugin/contact-form-7": "*",
+        "wpackagist-plugin/woocommerce-pdf-invoices-packing-slips": "*",
+        "wpackagist-theme/blocksy": "*"
+    },
+    "require-dev": {
+        "wpackagist-plugin/query-monitor": "*",
+        "wpackagist-plugin/debug-bar": "*"
+    },
+    "extra": {
+        "installer-paths": {
+            "wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+            "wp-content/themes/{$name}/": ["type:wordpress-theme"]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
+}

@@ -1,0 +1,72 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [production]
+  workflow_dispatch:
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://sklep.gorvita.pl
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: DB backup before deploy
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no \
+            deploy@${{ secrets.VPS_HOST }} << 'EOF'
+            cd /opt/gorvita-shop
+            TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+            docker compose exec -T wordpress wp db export /tmp/pre-deploy-$TIMESTAMP.sql --allow-root
+            docker compose cp wordpress:/tmp/pre-deploy-$TIMESTAMP.sql ./backups/ 2>/dev/null || true
+          EOF
+
+      - name: Rsync to VPS
+        run: |
+          rsync -avz --delete \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='.env' \
+            --exclude='data/images/' \
+            --exclude='docs/' \
+            --exclude='backups/' \
+            --exclude='node_modules/' \
+            --exclude='vendor/' \
+            -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
+            ./ deploy@${{ secrets.VPS_HOST }}:/opt/gorvita-shop/
+
+      - name: Composer install + flush
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no \
+            deploy@${{ secrets.VPS_HOST }} << 'EOF'
+            cd /opt/gorvita-shop
+            docker compose exec -T wordpress composer install --no-dev --no-interaction
+            docker compose exec -T wordpress wp cache flush --allow-root
+            docker compose exec -T wordpress wp rewrite flush --allow-root
+            docker compose exec -T wordpress wp transient delete --all --allow-root
+          EOF
+
+      - name: Smoke test
+        run: |
+          curl -sSf -o /dev/null -w "HTTP %{http_code}\n" https://sklep.gorvita.pl/ || exit 1
+
+      - name: Notify
+        if: always()
+        run: |
+          STATUS="${{ job.status }}"
+          echo "Deploy: $STATUS → https://sklep.gorvita.pl"

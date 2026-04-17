@@ -3,6 +3,17 @@
 !.env.example
 *.log
 wp-content/uploads/
+wp-content/plugins/
+!wp-content/themes/gorvita-child/
 vendor/
 node_modules/
 .DS_Store
+__pycache__/
+*.pyc
+.venv/
+data/images/
+data/products.json
+data/categories.json
+backups/
+*.sql
+*.sql.gz

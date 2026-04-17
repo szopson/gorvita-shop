@@ -1,0 +1,55 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
+      - '.github/**'
+
+concurrency:
+  group: staging-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Rsync to VPS
+        run: |
+          rsync -avz --delete \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='.env' \
+            --exclude='data/images/' \
+            --exclude='docs/' \
+            --exclude='node_modules/' \
+            --exclude='vendor/' \
+            -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
+            ./ deploy@${{ secrets.VPS_HOST }}:/opt/gorvita-shop/
+
+      - name: Run composer + flush WP cache
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no \
+            deploy@${{ secrets.VPS_HOST }} << 'EOF'
+            cd /opt/gorvita-shop
+            docker compose exec -T wordpress composer install --no-dev --no-interaction || true
+            docker compose exec -T wordpress wp cache flush --allow-root
+            docker compose exec -T wordpress wp rewrite flush --allow-root
+          EOF
+
+      - name: Notify success
+        if: success()
+        run: echo "✓ Staging deploy complete → https://gorvita.srv1594477.hstgr.cloud"

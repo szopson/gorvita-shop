@@ -1,0 +1,893 @@
+[
+  {
+    "sku": "GV-22",
+    "id": "22",
+    "title": "Acerola 500mg 60 kapsułek",
+    "scraped_filename": "acerola-500mg.jpg",
+    "local_file": "acerola-500mg-x60-kaps..jpg",
+    "score": 2.2,
+    "reason": "hero=1/1 overlap=5/5 size=4"
+  },
+  {
+    "sku": "GV-133",
+    "id": "133",
+    "title": "Apleplus C,E 30 kapsułek",
+    "scraped_filename": "apleplus-ce-x30-kaps.jpg",
+    "local_file": "apleplus_cie-30kaps..jpg",
+    "score": 1.77,
+    "reason": "hero=1/1 overlap=3/3 size=2"
+  },
+  {
+    "sku": "GV-31",
+    "id": "31",
+    "title": "ARTREVIT 60 kapsułek",
+    "scraped_filename": "artrevit-x60-kaps.jpg",
+    "local_file": "artrevit-60kaps..tif",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=3/3 size=2"
+  },
+  {
+    "sku": "GV-33",
+    "id": "33",
+    "title": "Artrofit 3w1 60 kapsułek",
+    "scraped_filename": "artrofit-x60-kaps.jpg",
+    "local_file": null,
+    "score": 0.0,
+    "reason": "manual override: Brak dedykowanego zdjęcia w pakiecie — wymaga pakshota od klienta"
+  },
+  {
+    "sku": "GV-35",
+    "id": "35",
+    "title": "Babka Płesznik 60 kapsułek",
+    "scraped_filename": "babka-plesznik-x60-kaps.jpg",
+    "local_file": "babka-plesznik-60kaps..jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-127",
+    "id": "127",
+    "title": "BABKA PŁESZNIK mielona 150g",
+    "scraped_filename": "babka-plesznik-150g.jpg",
+    "local_file": "babka-plesznik-mielona-150gram.jpg",
+    "score": 1.77,
+    "reason": "hero=2/2 overlap=4/5 size=1"
+  },
+  {
+    "sku": "GV-114",
+    "id": "114",
+    "title": "Calcium Natural 70 kapsułek",
+    "scraped_filename": "calciummini.jpg",
+    "local_file": "calcium-natural-70kaps..jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-135",
+    "id": "135",
+    "title": "CARBOsal syrop 100ml",
+    "scraped_filename": "carbosal_syropmini.jpg",
+    "local_file": "carbosal_syrop-100ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-134",
+    "id": "134",
+    "title": "CARBOSAL + z czarną jagodą 30 kapsułek",
+    "scraped_filename": "carbosal_jagoda30c.jpg",
+    "local_file": "carbosal_jagoda30.jpg",
+    "score": 0.57,
+    "reason": "hero=1/2 overlap=1/5 size=0"
+  },
+  {
+    "sku": "GV-139",
+    "id": "139",
+    "title": "Chrom Forte",
+    "scraped_filename": "465_1c.jpg",
+    "local_file": "zdjecia-mini/chrom_forte.jpg",
+    "score": 1.8,
+    "reason": "hero=2/2 overlap=2/2 size=0"
+  },
+  {
+    "sku": "GV-140",
+    "id": "140",
+    "title": "Chrom z zieloną herbatą",
+    "scraped_filename": "466_1c.jpg",
+    "local_file": "chrom-z-zielona-herbata60kaps.jpg",
+    "score": 1.437,
+    "reason": "hero=2/2 overlap=2/3 size=0"
+  },
+  {
+    "sku": "GV-141",
+    "id": "141",
+    "title": "Chrom z zieloną herbatą",
+    "scraped_filename": "467_1c.jpg",
+    "local_file": "chrom-z-zielona-herbata60kaps.jpg",
+    "score": 1.437,
+    "reason": "hero=2/2 overlap=2/3 size=0"
+  },
+  {
+    "sku": "GV-103",
+    "id": "103",
+    "title": "Citrogreft 60 kapsułek",
+    "scraped_filename": "citrogreft.jpg",
+    "local_file": "citrogeft-60-kaps..jpg",
+    "score": 1.437,
+    "reason": "hero=1/1 overlap=2/3 size=2"
+  },
+  {
+    "sku": "GV-40",
+    "id": "40",
+    "title": "Colacal - kolagen z wapniem 60 kapsułek",
+    "scraped_filename": "colacal.jpg",
+    "local_file": "colacal-60-kaps..jpg",
+    "score": 1.4,
+    "reason": "hero=1/2 overlap=3/5 size=2"
+  },
+  {
+    "sku": "GV-41",
+    "id": "41",
+    "title": "Colafit 60 kostek",
+    "scraped_filename": "colafit-kolagen-nowy.jpg",
+    "local_file": "colafit-x60-kostek-1.jpg",
+    "score": 2.17,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-42",
+    "id": "42",
+    "title": "Colafit SLIM z Chitosanem 60 kapsułek",
+    "scraped_filename": "colafitslim.jpg",
+    "local_file": "colafit_slim-60-kaps..jpg",
+    "score": 2.0,
+    "reason": "hero=2/2 overlap=4/5 size=2"
+  },
+  {
+    "sku": "GV-43",
+    "id": "43",
+    "title": "Colahial 60 kapsułek",
+    "scraped_filename": "colahial.jpg",
+    "local_file": "colahial-60kaps..jpg",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=3/3 size=2"
+  },
+  {
+    "sku": "GV-44",
+    "id": "44",
+    "title": "Cynk + witamina B6 30 tabletek",
+    "scraped_filename": "cynk.jpg",
+    "local_file": "cynk-z-witamina-b6-30tabl..jpg",
+    "score": 1.97,
+    "reason": "hero=2/2 overlap=4/5 size=2"
+  },
+  {
+    "sku": "GV-142",
+    "id": "142",
+    "title": "Energia",
+    "scraped_filename": "469_1c.jpg",
+    "local_file": "energia-30-kaps.jpg",
+    "score": 1.34,
+    "reason": "hero=1/1 overlap=1/1 size=0"
+  },
+  {
+    "sku": "GV-47",
+    "id": "47",
+    "title": "Erotic dla kobiet - afrodyzjak 20 kapsułek",
+    "scraped_filename": "erotic-k.jpg",
+    "local_file": "erotic-dla-kobiet-20kaps..tif",
+    "score": 2.033,
+    "reason": "hero=2/2 overlap=5/6 size=2"
+  },
+  {
+    "sku": "GV-46",
+    "id": "46",
+    "title": "Erotic dla mężczyzn - afrodyzjak 20 kapsułek",
+    "scraped_filename": "erotic-m.jpg",
+    "local_file": "erotic-dla-mezczyzn-20kaps..jpg",
+    "score": 2.033,
+    "reason": "hero=2/2 overlap=5/6 size=2"
+  },
+  {
+    "sku": "GV-130",
+    "id": "130",
+    "title": "Geriafix x60 kapsułek",
+    "scraped_filename": "geriafix-mini.jpg",
+    "local_file": "geriafix-60-kaps..jpg",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=3/3 size=2"
+  },
+  {
+    "sku": "GV-110",
+    "id": "110",
+    "title": "GOTU KOLA x60 kapsułek",
+    "scraped_filename": "wiz_gotukola_bez_fitomini.jpg",
+    "local_file": "gotukola-60-kaps..jpg",
+    "score": 1.67,
+    "reason": "hero=2/2 overlap=2/4 size=2"
+  },
+  {
+    "sku": "GV-136",
+    "id": "136",
+    "title": "Hepasal 40 kapsułek",
+    "scraped_filename": "hepasal-nowe-zdjeciemini.jpg",
+    "local_file": "hepasal_opak.png",
+    "score": 0.733,
+    "reason": "hero=1/1 overlap=1/3 size=0"
+  },
+  {
+    "sku": "GV-49",
+    "id": "49",
+    "title": "Hepasal 40 kapsułek",
+    "scraped_filename": "hepasal-komplet.jpg",
+    "local_file": "hepasal_opak.png",
+    "score": 0.733,
+    "reason": "hero=1/1 overlap=1/3 size=0"
+  },
+  {
+    "sku": "GV-105",
+    "id": "105",
+    "title": "Jarmuż 60 kapsułek",
+    "scraped_filename": "jarmuz2c.jpg",
+    "local_file": "jarmuz-60-kaps..jpg",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=3/3 size=2"
+  },
+  {
+    "sku": "GV-50",
+    "id": "50",
+    "title": "KUDZU 60 kapsułek",
+    "scraped_filename": "kudzu.jpg",
+    "local_file": "kudzu-60-kaps..jpg",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=3/3 size=2"
+  },
+  {
+    "sku": "GV-112",
+    "id": "112",
+    "title": "Magnez B6 60 kapsułek",
+    "scraped_filename": "magnez-b6c.jpg",
+    "local_file": "magnez-z-witamina-b6-60kaps..jpg",
+    "score": 1.97,
+    "reason": "hero=1/1 overlap=4/4 size=3"
+  },
+  {
+    "sku": "GV-143",
+    "id": "143",
+    "title": "Olej CBD w Kapsułkach",
+    "scraped_filename": "opakcbdkapsulki111c.jpg",
+    "local_file": "zdjecia-mini/olej_kokosowy.jpg",
+    "score": 0.703,
+    "reason": "hero=1/2 overlap=1/3 size=0"
+  },
+  {
+    "sku": "GV-122",
+    "id": "122",
+    "title": "Olej z konopii CBD 10% 10ml",
+    "scraped_filename": "olej-z-konopi-wiz_10ml-10mini.jpg",
+    "local_file": "olej-z-konopi-wiz_10ml-10",
+    "score": 2.383,
+    "reason": "hero=2/2 overlap=5/6 size=3"
+  },
+  {
+    "sku": "GV-123",
+    "id": "123",
+    "title": "Olej z konopii CBD 10% 20ml",
+    "scraped_filename": "olej-z-konopi-wiz_20ml-10-mini.jpg",
+    "local_file": "olej-z-konopi-wiz_20ml-10",
+    "score": 2.757,
+    "reason": "hero=2/2 overlap=6/7 size=4"
+  },
+  {
+    "sku": "GV-124",
+    "id": "124",
+    "title": "Olej z konopii CBD 5% 10ml",
+    "scraped_filename": "olej-z-konopi-wiz_10ml-5mini.jpg",
+    "local_file": "olej-z-konopi-wiz_10ml-5",
+    "score": 2.533,
+    "reason": "hero=2/2 overlap=5/6 size=3"
+  },
+  {
+    "sku": "GV-125",
+    "id": "125",
+    "title": "Olej z konopii CBD 5% 20ml",
+    "scraped_filename": "olej-z-konopi-wiz_20ml-5-mini.jpg",
+    "local_file": "olej-z-konopi-wiz_20ml-5",
+    "score": 2.533,
+    "reason": "hero=2/2 overlap=5/6 size=3"
+  },
+  {
+    "sku": "GV-129",
+    "id": "129",
+    "title": "OSTROPEST mielony 150g",
+    "scraped_filename": "wiz_ostropest_mielony-mini.jpg",
+    "local_file": "ostropest-mielony-150-gram.jpg",
+    "score": 1.72,
+    "reason": "hero=2/2 overlap=3/4 size=1"
+  },
+  {
+    "sku": "GV-128",
+    "id": "128",
+    "title": "OSTROPEST x60 kaps.",
+    "scraped_filename": "wiz_ostropest_kapsulki-mini.jpg",
+    "local_file": "ostropest-60-kaps..jpg",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=3/3 size=2"
+  },
+  {
+    "sku": "GV-115",
+    "id": "115",
+    "title": "Resveratrol 60 kapsułek",
+    "scraped_filename": "resvera.jpg",
+    "local_file": "resveratrol-60-kaps..jpg",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=3/3 size=2"
+  },
+  {
+    "sku": "GV-104",
+    "id": "104",
+    "title": "Rokitnik i Acerola 60 kapsułek",
+    "scraped_filename": "rokitnik_acerola1c.jpg",
+    "local_file": "rokitnik_acerola-60kaps..png",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-76",
+    "id": "76",
+    "title": "Silicum + H ( KRZEM+ BIOTYNA ) 30 tabletek",
+    "scraped_filename": "sylicummini.jpg",
+    "local_file": "silicum-30tabl..tif",
+    "score": 0.97,
+    "reason": "hero=1/2 overlap=2/5 size=1"
+  },
+  {
+    "sku": "GV-102",
+    "id": "102",
+    "title": "Spirulina 60 kapsułek",
+    "scraped_filename": "spirulina2c.jpg",
+    "local_file": "spirulina-60kaps..jpg",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=3/3 size=2"
+  },
+  {
+    "sku": "GV-81",
+    "id": "81",
+    "title": "Zielona Kawa 60 kapsułek",
+    "scraped_filename": "zielona-kawa.jpg",
+    "local_file": "zielona-kawa-60-kaps..jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-83",
+    "id": "83",
+    "title": "Zielony Jęczmień 120 kapsułek",
+    "scraped_filename": "zielona-jecz-120kaps.jpg",
+    "local_file": "zielony-jeczmien-120-kaps..tif",
+    "score": 2.0,
+    "reason": "hero=2/2 overlap=4/4 size=1"
+  },
+  {
+    "sku": "GV-82",
+    "id": "82",
+    "title": "Zielony Jęczmień 60 kapsułek",
+    "scraped_filename": "zielony-jeczmie-60-kaps.jpg",
+    "local_file": "zielny-jeczmien-60-kaps..jpg",
+    "score": 1.52,
+    "reason": "hero=1/2 overlap=3/4 size=2"
+  },
+  {
+    "sku": "GV-84",
+    "id": "84",
+    "title": "Zielony Jęczmień w proszku 100 gram",
+    "scraped_filename": "jeczmien-proszek.jpg",
+    "local_file": "zielony-jeczmien-w-proszku-100gram.jpg",
+    "score": 1.77,
+    "reason": "hero=2/2 overlap=4/5 size=1"
+  },
+  {
+    "sku": "GV-23",
+    "id": "23",
+    "title": "Alantoin Maść 50 ml",
+    "scraped_filename": "alantoin-masc-50ml.jpg",
+    "local_file": "alantoin_masc-50ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-24",
+    "id": "24",
+    "title": "AloeVera Żel 150 ml",
+    "scraped_filename": "aloe-vera-zel-150ml.jpg",
+    "local_file": "aloevera-zel-150ml-ean-5907636994367.tif",
+    "score": 1.71,
+    "reason": "hero=1/1 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-30",
+    "id": "30",
+    "title": "ARCACET pianka 100 ml",
+    "scraped_filename": "arcacet-pianka-100ml.jpg",
+    "local_file": "arcacet-pianka-100ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-32",
+    "id": "32",
+    "title": "ArtroŻel 100 ml",
+    "scraped_filename": "artro-zel-100ml.jpg",
+    "local_file": "artrozel-100ml.jpg",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=3/3 size=2"
+  },
+  {
+    "sku": "GV-36",
+    "id": "36",
+    "title": "Balsam do ust z witaminami A,E,F 20 ml",
+    "scraped_filename": "balsam-do-ust-20ml.jpg",
+    "local_file": "balsam_do_ust-20ml.jpg",
+    "score": 1.633,
+    "reason": "hero=1/2 overlap=5/6 size=2"
+  },
+  {
+    "sku": "GV-52",
+    "id": "52",
+    "title": "Balsam Koński 250 ml",
+    "scraped_filename": "konski-balsam-250-ml.jpg",
+    "local_file": "konski-balsam.jpg",
+    "score": 1.3,
+    "reason": "hero=2/2 overlap=2/4 size=0"
+  },
+  {
+    "sku": "GV-37",
+    "id": "37",
+    "title": "Balsam z Konopii 5% CBD 200 ml",
+    "scraped_filename": "balsam-z-konopi-200ml.jpg",
+    "local_file": "balsam-z-konopii-200ml.jpg",
+    "score": 1.867,
+    "reason": "hero=2/2 overlap=4/6 size=2"
+  },
+  {
+    "sku": "GV-145",
+    "id": "145",
+    "title": "BLIZNA Maść na blizny 20ml",
+    "scraped_filename": "blizna-20-ml.jpg",
+    "local_file": "masc-witaminowa-20ml.jpg",
+    "score": 1.27,
+    "reason": "hero=1/2 overlap=3/6 size=2"
+  },
+  {
+    "sku": "GV-45",
+    "id": "45",
+    "title": "Diabelski (Czarci) Pazur balsam 200 ml",
+    "scraped_filename": "czarci-pazur.jpg",
+    "local_file": "gorvita_balsam-czarci-rgb.jpg",
+    "score": 0.703,
+    "reason": "hero=1/2 overlap=2/6 size=0"
+  },
+  {
+    "sku": "GV-58",
+    "id": "58",
+    "title": "Końska Maść 250 ml",
+    "scraped_filename": "czerwona-konska-130ml-i-250ml.jpg",
+    "local_file": "zdjecia-mini/masc_konska.jpg",
+    "score": 1.3,
+    "reason": "hero=2/2 overlap=2/4 size=0"
+  },
+  {
+    "sku": "GV-59",
+    "id": "59",
+    "title": "Końska Maść Chłodząca 130 ml",
+    "scraped_filename": "chlodzaca-konska-130ml-1c.jpg",
+    "local_file": "masc-arnikowa-130ml.jpg",
+    "score": 1.37,
+    "reason": "hero=1/2 overlap=3/5 size=2"
+  },
+  {
+    "sku": "GV-54",
+    "id": "54",
+    "title": "Maść Arnikowa 130 ml",
+    "scraped_filename": "arminkowa-masc.jpg",
+    "local_file": "masc-arnikowa-130ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-55",
+    "id": "55",
+    "title": "Maść Borowinowa 130 ml",
+    "scraped_filename": "masc-borowinowa.jpg",
+    "local_file": "masc-borowinowa-130ml-ean-5907636994626.jpg",
+    "score": 2.11,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-56",
+    "id": "56",
+    "title": "Maść dla Sportowców 150 ml",
+    "scraped_filename": "masc-dla-sportowcow.jpg",
+    "local_file": "masc-dla-sportowcw-150ml.jpg",
+    "score": 1.97,
+    "reason": "hero=2/2 overlap=4/5 size=2"
+  },
+  {
+    "sku": "GV-57",
+    "id": "57",
+    "title": "Maść Kasztanowa 130 ml",
+    "scraped_filename": "masc-kasztanowa.jpg",
+    "local_file": "masc-kasztanowa-130ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-126",
+    "id": "126",
+    "title": "Maść Konopna 5% CBD",
+    "scraped_filename": "masc_konopna-wizmini.jpg",
+    "local_file": "masc-konopna-z-cbd-80ml.jpg",
+    "score": 1.49,
+    "reason": "hero=2/2 overlap=3/4 size=0"
+  },
+  {
+    "sku": "GV-109",
+    "id": "109",
+    "title": "Maść Nagietkowa 130ml",
+    "scraped_filename": "masc-nagietkowa-mini.jpg",
+    "local_file": "masc-nagietkowa-130ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-60",
+    "id": "60",
+    "title": "Maść Niedźwiedzi Ząb 200 ml",
+    "scraped_filename": "wiz_gorvita_balsam_cmyk.jpg",
+    "local_file": "masc-nzedzwaedzi-zab-200ml.jpg",
+    "score": 1.57,
+    "reason": "hero=1/2 overlap=4/5 size=2"
+  },
+  {
+    "sku": "GV-61",
+    "id": "61",
+    "title": "Maść Propolisowa 10% z witaminami A,E,F 50 ml",
+    "scraped_filename": "mascpropolisowa.jpg",
+    "local_file": "alantoin_masc-50ml.jpg",
+    "score": 1.199,
+    "reason": "hero=1/2 overlap=3/7 size=2"
+  },
+  {
+    "sku": "GV-111",
+    "id": "111",
+    "title": "Maść Rokitnikowa 140ml",
+    "scraped_filename": "wiz_rokitnik-mini.jpg",
+    "local_file": "masc-rokitnikowa-140ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-148",
+    "id": "148",
+    "title": "Maść Rumiankowa z olejem CBD 5% 80 ml",
+    "scraped_filename": "gor-41-kopia.jpg",
+    "local_file": "masc-konopna-z-cbd-80ml.jpg",
+    "score": 1.341,
+    "reason": "hero=1/2 overlap=4/7 size=2"
+  },
+  {
+    "sku": "GV-100",
+    "id": "100",
+    "title": "Maść Świerkowa 135 ml",
+    "scraped_filename": "masc_swierkowa_wiz_fin23c.jpg",
+    "local_file": "masc-wierkowa-135ml.jpg",
+    "score": 1.52,
+    "reason": "hero=1/2 overlap=3/4 size=2"
+  },
+  {
+    "sku": "GV-62",
+    "id": "62",
+    "title": "Maść Witaminowa A,E,F 20ml",
+    "scraped_filename": "masc-witaminowa.jpg",
+    "local_file": "masc-witaminowa-20ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-132",
+    "id": "132",
+    "title": "Maść z kurkumą, nagietkiem i olejem CBD 5% 80 ml",
+    "scraped_filename": "wiz_kurkuma_fin-wizualizacja.jpg",
+    "local_file": "masc-konopna-z-cbd-80ml.jpg",
+    "score": 1.27,
+    "reason": "hero=1/2 overlap=4/8 size=2"
+  },
+  {
+    "sku": "GV-64",
+    "id": "64",
+    "title": "Maść z Żyworódki 130 ml",
+    "scraped_filename": "wiz_zyworodka_250416_v5c.jpg",
+    "local_file": "masc-arnikowa-130ml.jpg",
+    "score": 1.52,
+    "reason": "hero=1/2 overlap=3/4 size=2"
+  },
+  {
+    "sku": "GV-131",
+    "id": "131",
+    "title": "Maść żywokostowa z olejem CBD 140ml",
+    "scraped_filename": "masc-zywokostowa_210216_1ok-wizualizacja.jpg",
+    "local_file": "masc-rokitnikowa-140ml.jpg",
+    "score": 1.27,
+    "reason": "hero=1/2 overlap=3/6 size=2"
+  },
+  {
+    "sku": "GV-149",
+    "id": "149",
+    "title": "Mosqitos 100ml",
+    "scraped_filename": "mosqitos-100ml.jpg",
+    "local_file": "mosqitos.jpg",
+    "score": 0.733,
+    "reason": "hero=1/1 overlap=1/3 size=0"
+  },
+  {
+    "sku": "GV-150",
+    "id": "150",
+    "title": "Mosqitos Zestaw Płyn 20ml i Żel 20ml",
+    "scraped_filename": "zestawmini.jpg",
+    "local_file": "mosqitos.jpg",
+    "score": 0.567,
+    "reason": "hero=1/2 overlap=1/6 size=0"
+  },
+  {
+    "sku": "GV-99",
+    "id": "99",
+    "title": "Olej Kokosowy w żelu 200 ml",
+    "scraped_filename": "wiz_sloik_olej_kokosowy-mini.png",
+    "local_file": "olej-kokosowy-w-zelu-200ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=5/5 size=2"
+  },
+  {
+    "sku": "GV-66",
+    "id": "66",
+    "title": "Olejek Pichtowy 100 ml",
+    "scraped_filename": "olejek_pichtowy.jpg",
+    "local_file": "olejek-pichtowy-w-zelu-100ml.jpg",
+    "score": 2.17,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-67",
+    "id": "67",
+    "title": "Panthenol Pianka 100 ml",
+    "scraped_filename": "panthenol-pianka.jpg",
+    "local_file": "panthenol-pianka-100ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-68",
+    "id": "68",
+    "title": "Panthenol Żel 100 ml",
+    "scraped_filename": "panthenolzel.jpg",
+    "local_file": "panthenol-zel-100ml.jpg",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-87",
+    "id": "87",
+    "title": "Pneumovit Żel 100 ml",
+    "scraped_filename": "pneumovitzeltuba.jpg",
+    "local_file": "pneumovit_zel-100ml.jpg",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-88",
+    "id": "88",
+    "title": "Pneumovit Żel 200 ml",
+    "scraped_filename": "pneumovit-zel-200ml-nowy-karton.jpg",
+    "local_file": "pneumovit_zel-200ml.jpg",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-74",
+    "id": "74",
+    "title": "Puder Rodzinny Pielęgnacyjny 50 ml",
+    "scraped_filename": "puder-rodzinny.jpg",
+    "local_file": "puder_rodzinny-50ml.jpg",
+    "score": 2.0,
+    "reason": "hero=2/2 overlap=4/5 size=2"
+  },
+  {
+    "sku": "GV-108",
+    "id": "108",
+    "title": "RABKA SPA MINERALE spray 200 ml",
+    "scraped_filename": "rabka-spray.jpg",
+    "local_file": "rabka-minerale-spray.jpg",
+    "score": 1.3,
+    "reason": "hero=2/2 overlap=3/6 size=0"
+  },
+  {
+    "sku": "GV-107",
+    "id": "107",
+    "title": "RABKA SPA MINERALE żel 200 ml",
+    "scraped_filename": "rabka-zel.jpg",
+    "local_file": "rabka-zel-200ml.jpg",
+    "score": 1.467,
+    "reason": "hero=1/2 overlap=4/6 size=2"
+  },
+  {
+    "sku": "GV-77",
+    "id": "77",
+    "title": "Venal Spray 115 ml",
+    "scraped_filename": "venal-spray.jpg",
+    "local_file": "venal-spray-115ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-78",
+    "id": "78",
+    "title": "Venal Żel 150 ml",
+    "scraped_filename": "venal-zel.jpg",
+    "local_file": "venal_zel-150ml.jpg",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-79",
+    "id": "79",
+    "title": "Zdrowa Stopa Kremo - Żel do stóp 100 ml",
+    "scraped_filename": "stopa.jpg",
+    "local_file": "zdrowa-stopa-100ml.jpg",
+    "score": 1.7,
+    "reason": "hero=2/2 overlap=4/8 size=2"
+  },
+  {
+    "sku": "GV-85",
+    "id": "85",
+    "title": "Żel Anticelluitis 200 ml",
+    "scraped_filename": "antycelulit.jpg",
+    "local_file": "antycel.jpg",
+    "score": 1.0,
+    "reason": "manual override: Lokalne zdjęcie ma inną pisownię (antycel), ale to ten sam produkt"
+  },
+  {
+    "sku": "GV-86",
+    "id": "86",
+    "title": "Żel kasztanowy z rutyną 200 ml",
+    "scraped_filename": "kasztanowy-z-rutyna.JPG",
+    "local_file": "zel-kasztanowy-z-rutyna-200ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=5/5 size=2"
+  },
+  {
+    "sku": "GV-147",
+    "id": "147",
+    "title": "Żel łagodzący po ukąszeniach owadów 20ml",
+    "scraped_filename": "gor-233-kopia.jpg",
+    "local_file": null,
+    "score": 0.0,
+    "reason": "manual override: Brak dedykowanego zdjęcia — można użyć zdjęcia z serii Mosqitos jako placeholder"
+  },
+  {
+    "sku": "GV-89",
+    "id": "89",
+    "title": "Żel z Arniką i Bursztynem 200 ml",
+    "scraped_filename": "arnika-i-bursztyn.jpg",
+    "local_file": "zel-z-arnika-i-bursztynem-200ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=5/5 size=2"
+  },
+  {
+    "sku": "GV-92",
+    "id": "92",
+    "title": "Żel z Kasztanowcem 200 ml",
+    "scraped_filename": "el-z-kasztanowcem.jpg",
+    "local_file": "zel-z-kasztanowcem-200ml.jpg",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-90",
+    "id": "90",
+    "title": "Żel z Kasztanowcem, Miłorzębem i Babką Lancetowatą 200 ml",
+    "scraped_filename": "el-kasztan-milorzab-babka-nowy.jpg",
+    "local_file": "zel-z-kasztanowcem-milorebem-i-babka-lancetowata-200ml.jpg",
+    "score": 2.027,
+    "reason": "hero=2/2 overlap=6/7 size=2"
+  },
+  {
+    "sku": "GV-94",
+    "id": "94",
+    "title": "Żel z Żywkostem 200 ml",
+    "scraped_filename": "el-zywokost.jpg",
+    "local_file": "zel_zywokostowy-200ml.jpg",
+    "score": 1.0,
+    "reason": "manual override: Typo w oryginalnym tytule: 'Żywkostem' zamiast 'Żywokostem'. Lokalny plik to 'żywokostowy'."
+  },
+  {
+    "sku": "GV-95",
+    "id": "95",
+    "title": "Żel ze świetlikiem i kolagenem 20 ml",
+    "scraped_filename": "swietlik1c.jpg",
+    "local_file": "zel-ze-swietlikiem-i-kolagenem-20ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=6/6 size=2"
+  },
+  {
+    "sku": "GV-93",
+    "id": "93",
+    "title": "Żel Żywokostowy z Boswellią 200 ml",
+    "scraped_filename": "el-zywokostowy-z-boswellia-200ml.jpg",
+    "local_file": "zel-z-zywokostem-i-boswela-200ml.jpg",
+    "score": 1.74,
+    "reason": "hero=2/2 overlap=3/5 size=2"
+  },
+  {
+    "sku": "GV-96",
+    "id": "96",
+    "title": "Żel Żywokostowy z Jałowcem i MSM 200 ml",
+    "scraped_filename": "el-zywokostowy-z-jalowcem.jpg",
+    "local_file": "zel-zywokostowy-z-jlbowcem-i-msm-200ml.jpg",
+    "score": 1.603,
+    "reason": "hero=1/2 overlap=5/6 size=2"
+  },
+  {
+    "sku": "GV-98",
+    "id": "98",
+    "title": "Żyworódka w Zasypce 50 ml",
+    "scraped_filename": "yworodka-w-zasypce.jpg",
+    "local_file": "zasypka-z-zyworodki-50ml.jpg",
+    "score": 1.64,
+    "reason": "hero=2/2 overlap=2/4 size=2"
+  },
+  {
+    "sku": "GV-27",
+    "id": "27",
+    "title": "APHTIHELP gel 10 g",
+    "scraped_filename": "aphtihelp-10g.jpg",
+    "local_file": "aphtihelp_tuba-10gram.tif",
+    "score": 1.19,
+    "reason": "hero=1/1 overlap=2/4 size=1"
+  },
+  {
+    "sku": "GV-34",
+    "id": "34",
+    "title": "Aurix 35 ml",
+    "scraped_filename": "aurix-35ml.jpg",
+    "local_file": "aurix-35ml.jpg",
+    "score": 1.8,
+    "reason": "hero=1/1 overlap=3/3 size=2"
+  },
+  {
+    "sku": "GV-69",
+    "id": "69",
+    "title": "Pneumovit BABY 35 ml",
+    "scraped_filename": "pneumovit-baby.jpg",
+    "local_file": "pneumovit_baby-35ml.jpg",
+    "score": 2.2,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  },
+  {
+    "sku": "GV-72",
+    "id": "72",
+    "title": "Pneumovit Spray do nosa 35 ml",
+    "scraped_filename": "pneumovit-do-nosa-nowe-zdjecia.jpg",
+    "local_file": "pneumovit_spray_35ml.tif",
+    "score": 1.867,
+    "reason": "hero=2/2 overlap=4/6 size=2"
+  },
+  {
+    "sku": "GV-73",
+    "id": "73",
+    "title": "Pneumovit Zatoki 50 ml",
+    "scraped_filename": "pneumovit-zatoki.jpg",
+    "local_file": "pneumovit_zatoki_spray-50ml.tif",
+    "score": 2.17,
+    "reason": "hero=2/2 overlap=4/4 size=2"
+  }
+]
