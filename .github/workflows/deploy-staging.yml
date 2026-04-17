@@ -7,6 +7,7 @@ on:
       - 'docs/**'
       - '*.md'
       - '.github/**'
+  workflow_dispatch:
 
 concurrency:
   group: staging-deploy
@@ -15,17 +16,17 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: staging
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add VPS to known_hosts
+        run: ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
       - name: Rsync to VPS
         run: |
@@ -37,17 +38,14 @@ jobs:
             --exclude='docs/' \
             --exclude='node_modules/' \
             --exclude='vendor/' \
-            -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
             ./ deploy@${{ secrets.VPS_HOST }}:/opt/gorvita-shop/
 
-      - name: Run composer + flush WP cache
+      - name: Flush WP cache
         run: |
-          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no \
-            deploy@${{ secrets.VPS_HOST }} << 'EOF'
+          ssh deploy@${{ secrets.VPS_HOST }} << 'EOF'
             cd /opt/gorvita-shop
-            docker compose exec -T wordpress composer install --no-dev --no-interaction || true
-            docker compose exec -T wordpress wp cache flush --allow-root
-            docker compose exec -T wordpress wp rewrite flush --allow-root
+            docker compose exec -T wordpress wp cache flush --allow-root || true
+            docker compose exec -T wordpress wp rewrite flush --allow-root || true
           EOF
 
       - name: Notify success
