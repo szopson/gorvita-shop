@@ -110,6 +110,7 @@ require_once GORVITA_CHILD_DIR . '/inc/woocommerce.php';
 require_once GORVITA_CHILD_DIR . '/inc/performance.php';
 require_once GORVITA_CHILD_DIR . '/inc/mobile-ux.php';
 require_once GORVITA_CHILD_DIR . '/inc/wishlist.php';
+require_once GORVITA_CHILD_DIR . '/inc/quick-views.php';
 
 /**
  * Remove WP version from head (security hygiene).

@@ -997,6 +997,162 @@ header.site-header {
 }
 
 /* =========================================================================
+   CATEGORY TILES (homepage + landing)
+   ========================================================================= */
+.gorvita-category-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+    gap: var(--space-4);
+    margin-block: var(--space-8);
+}
+
+.gorvita-category-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-2);
+    padding: var(--space-6) var(--space-4);
+    background: var(--gorvita-cream);
+    border: 1px solid transparent;
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: var(--gorvita-ink);
+    transition: transform var(--t), border-color var(--t), box-shadow var(--t), background var(--t);
+    min-height: 160px;
+    justify-content: center;
+}
+
+.gorvita-category-tile:hover {
+    transform: translateY(-3px);
+    border-color: var(--gorvita-sage);
+    background: var(--gorvita-white);
+    box-shadow: var(--shadow-lg);
+    text-decoration: none;
+    color: var(--gorvita-green);
+}
+
+.gorvita-category-tile__icon {
+    font-size: 2.25rem;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+}
+
+.gorvita-category-tile__name {
+    font-family: var(--font-heading);
+    font-size: var(--fs-body-lg);
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.gorvita-category-tile__count {
+    font-size: var(--fs-small);
+    color: var(--gorvita-gray-500);
+}
+
+/* =========================================================================
+   LANDING PAGE — hero, sections, CTAs
+   ========================================================================= */
+.gorvita-landing-hero {
+    background: linear-gradient(135deg, var(--gorvita-cream) 0%, rgba(168, 191, 160, 0.18) 100%);
+    padding-block: var(--space-16);
+    text-align: center;
+    border-radius: var(--radius-xl);
+    margin-bottom: var(--space-12);
+}
+
+.gorvita-landing-hero h1 {
+    font-size: var(--fs-hero);
+    max-width: 22ch;
+    margin: 0 auto var(--space-4);
+}
+
+.gorvita-landing-hero .lead {
+    font-size: var(--fs-body-lg);
+    color: var(--gorvita-gray-700);
+    max-width: 60ch;
+    margin: 0 auto var(--space-6);
+}
+
+.gorvita-landing-section {
+    margin-block: var(--space-12);
+}
+
+.gorvita-landing-section h2 {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h2);
+    margin-bottom: var(--space-4);
+    text-align: center;
+}
+
+.gorvita-landing-section h2 + p {
+    text-align: center;
+    color: var(--gorvita-gray-700);
+    max-width: 65ch;
+    margin: 0 auto var(--space-8);
+}
+
+.gorvita-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: var(--space-6);
+    margin-block: var(--space-8);
+}
+
+.gorvita-benefit {
+    padding: var(--space-6);
+    background: var(--gorvita-white);
+    border: 1px solid var(--gorvita-gray-300);
+    border-radius: var(--radius-lg);
+    text-align: left;
+}
+
+.gorvita-benefit__icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-3);
+}
+
+.gorvita-benefit h3 {
+    font-size: var(--fs-h3);
+    margin-bottom: var(--space-2);
+}
+
+.gorvita-benefit p {
+    color: var(--gorvita-gray-700);
+    margin: 0;
+}
+
+.gorvita-cta-block {
+    background: var(--gorvita-green);
+    color: var(--gorvita-white);
+    padding: var(--space-12);
+    border-radius: var(--radius-xl);
+    text-align: center;
+    margin-block: var(--space-12);
+}
+
+.gorvita-cta-block h2 {
+    color: var(--gorvita-white);
+    margin-bottom: var(--space-4);
+}
+
+.gorvita-cta-block p {
+    color: rgba(255,255,255,0.85);
+    max-width: 55ch;
+    margin: 0 auto var(--space-6);
+}
+
+.gorvita-cta-block .button {
+    background: var(--gorvita-white);
+    color: var(--gorvita-green);
+}
+
+.gorvita-cta-block .button:hover {
+    background: var(--gorvita-cream);
+    color: var(--gorvita-green-dark);
+}
+
+/* =========================================================================
    PRINT
    ========================================================================= */
 @media print {
