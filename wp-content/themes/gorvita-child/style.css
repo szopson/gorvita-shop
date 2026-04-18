@@ -1223,3 +1223,119 @@ header.site-header {
     color: #bbb;
     margin: 0 2px;
 }
+
+/* =========================================================================
+   HEADER — hide site title text, keep logo image only
+   ========================================================================= */
+.site-title-container {
+    display: none !important;
+}
+
+/* =========================================================================
+   LIQUID GLASS BUTTONS — global (hero, shop, product pages)
+   ========================================================================= */
+:root {
+    --gv-btn-rgb: 45, 106, 79;
+    --gv-btn-border: rgba(255, 255, 255, 0.22);
+    --gv-btn-text: rgba(255, 255, 255, 0.94);
+}
+
+.wp-element-button,
+.wp-block-button__link,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce #respond input#submit,
+.added_to_cart {
+    background: linear-gradient(135deg,
+        rgba(var(--gv-btn-rgb), 0.88),
+        rgba(var(--gv-btn-rgb), 0.66)
+    ) !important;
+    color: var(--gv-btn-text) !important;
+    border: 1px solid var(--gv-btn-border) !important;
+    border-radius: 12px !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.12),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.wp-element-button:hover,
+.wp-block-button__link:hover,
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover,
+.woocommerce #respond input#submit:hover,
+.added_to_cart:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 12px 36px rgba(0, 0, 0, 0.16),
+        0 0 28px rgba(var(--gv-btn-rgb), 0.38);
+    background: linear-gradient(135deg,
+        rgba(var(--gv-btn-rgb), 0.97),
+        rgba(var(--gv-btn-rgb), 0.75)
+    ) !important;
+    border-color: rgba(255, 255, 255, 0.36) !important;
+    color: #fff !important;
+}
+
+.wp-element-button:focus-visible,
+.wp-block-button__link:focus-visible,
+.woocommerce a.button:focus-visible,
+.woocommerce button.button:focus-visible,
+.button:focus-visible {
+    outline: 3px solid rgba(var(--gv-btn-rgb), 0.4);
+    outline-offset: 2px;
+}
+
+/* Keep "ghost" / outline buttons on hero readable */
+.gorvita-hero .wp-block-button__link[style*="background:transparent"],
+.gorvita-hero .wp-block-button__link[style*="background: transparent"] {
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-color: rgba(255, 255, 255, 0.55) !important;
+}
+.gorvita-hero .wp-block-button__link[style*="background:transparent"]:hover,
+.gorvita-hero .wp-block-button__link[style*="background: transparent"]:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+    box-shadow: 0 0 24px rgba(255, 255, 255, 0.12);
+}
+
+/* =========================================================================
+   PRODUCT CARDS — equal height, CTA always pinned to bottom
+   ========================================================================= */
+.woocommerce ul.products li.product,
+.gorvita-products-section .woocommerce ul.products li.product {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Push price + button to bottom */
+.woocommerce ul.products li.product .woocommerce-loop-product__title {
+    flex: 1;
+}
+
+/* Card visual polish — subtle glass elevation */
+.woocommerce ul.products li.product {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.04);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    background: #fff;
+}
+.woocommerce ul.products li.product:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* =========================================================================
+   LAYOUT — ensure sections are properly centred
+   ========================================================================= */
+.wp-site-blocks > * {
+    max-width: 100%;
+}

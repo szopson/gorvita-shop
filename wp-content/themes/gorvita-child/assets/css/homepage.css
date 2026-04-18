@@ -442,3 +442,18 @@
   color: #bbb;
   margin: 0 2px;
 }
+
+/* =============================================
+   PRODUCT CARDS — pin button to bottom
+   ============================================= */
+.gorvita-products-section .woocommerce ul.products li.product .button {
+  margin-top: auto !important;
+  margin-left: 16px !important;
+  margin-right: 16px !important;
+  margin-bottom: 16px !important;
+}
+
+/* Title takes remaining space → button sticks to bottom */
+.gorvita-products-section .woocommerce ul.products li.product .woocommerce-loop-product__title {
+  flex: 1;
+}
