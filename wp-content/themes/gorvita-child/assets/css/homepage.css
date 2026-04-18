@@ -1,0 +1,444 @@
+/* =============================================
+   GORVITA HOMEPAGE — Design System
+   ============================================= */
+
+/* Hero */
+.gorvita-hero .wp-block-cover__image-background {
+  object-position: center 40% !important;
+}
+
+/* Value Strip */
+.gorvita-value-strip {
+  border-bottom: 1px solid #E8E8E8;
+}
+.gorvita-value-strip .wp-block-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Category Cards */
+.gorvita-cat-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.gorvita-cat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+}
+.gorvita-cat-card .wp-block-image {
+  margin: 0;
+  overflow: hidden;
+}
+.gorvita-cat-card .wp-block-image img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.gorvita-cat-card:hover .wp-block-image img {
+  transform: scale(1.03);
+}
+.gorvita-cat-card__body {
+  padding: 16px 20px 20px;
+}
+.gorvita-cat-card__body h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.gorvita-cat-card__body p {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+}
+.gorvita-cat-card__body a {
+  color: #2D6A4F;
+  text-decoration: none;
+}
+
+/* Products Shortcode grid */
+.gorvita-products-section .woocommerce ul.products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+.gorvita-products-section .woocommerce ul.products li.product {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin: 0;
+  float: none;
+  width: auto;
+}
+.gorvita-products-section .woocommerce ul.products li.product:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+}
+.gorvita-products-section .woocommerce ul.products li.product a img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  padding: 16px;
+  background: #F9F9F9;
+  display: block;
+}
+.gorvita-products-section .woocommerce ul.products li.product .woocommerce-loop-product__title {
+  font-family: Fraunces, serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #111;
+  padding: 12px 16px 4px;
+  margin: 0;
+}
+.gorvita-products-section .woocommerce ul.products li.product .price {
+  padding: 0 16px 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2D6A4F;
+}
+.gorvita-products-section .woocommerce ul.products li.product .button {
+  margin: auto 16px 16px;
+  background: #2D6A4F;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-family: Lato, sans-serif;
+  letter-spacing: 0.04em;
+  text-align: center;
+  display: block;
+  transition: background 0.2s;
+}
+.gorvita-products-section .woocommerce ul.products li.product .button:hover {
+  background: #235c42;
+}
+
+/* Brand Story */
+.gorvita-brand-story .wp-block-column:first-child img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 480px;
+  display: block;
+}
+
+/* Newsletter */
+.gorvita-newsletter input[type=email] {
+  border-radius: 4px;
+  border: none;
+  padding: 14px 20px;
+  font-size: 15px;
+  width: 300px;
+  max-width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .gorvita-products-section .woocommerce ul.products {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+@media (max-width: 480px) {
+  .gorvita-products-section .woocommerce ul.products {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+
+/* Fade-in-up */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Header scroll */
+.scrolled {
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08) !important;
+  transition: box-shadow 0.3s ease;
+}
+@media (max-width: 768px) {
+  header.hidden, .site-header.hidden, #masthead.hidden {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+}
+
+/* Hero parallax — overflow hidden on parent */
+.gorvita-hero {
+  overflow: hidden;
+}
+.gorvita-hero .wp-block-cover__image-background {
+  will-change: transform;
+  transform-origin: center center;
+}
+
+/* Stream Section — Ken Burns */
+.gorvita-stream-section {
+  position: relative;
+  min-height: 480px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gorvita-stream-section::before {
+  content: '';
+  position: absolute;
+  inset: -10%;
+  background-image: var(--stream-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1.1);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.gorvita-stream-section.is-ready::before {
+  opacity: 1;
+  animation: kenBurns 18s ease-in-out infinite alternate;
+}
+.gorvita-stream-section.no-animation::before {
+  opacity: 1;
+  transform: scale(1);
+  animation: none;
+}
+@keyframes kenBurns {
+  0%   { transform: scale(1.1) translate(0, 0); }
+  33%  { transform: scale(1.18) translate(-2%, 1%); }
+  66%  { transform: scale(1.12) translate(2%, -1%); }
+  100% { transform: scale(1.1) translate(-1%, 2%); }
+}
+.gorvita-stream-section .stream-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(18,48,31,0.72) 0%, rgba(18,48,31,0.45) 100%);
+  z-index: 1;
+}
+.gorvita-stream-section .stream-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 80px 24px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Category cards — nature image style (object-cover, no padding) */
+.gorvita-cat-card.nature-img .wp-block-image img {
+  object-fit: cover !important;
+  padding: 0 !important;
+  background: none !important;
+}
+
+/* =============================================
+   CATEGORY GRID (CSS Grid — pełna kontrola)
+   ============================================= */
+.gorvita-section {
+  width: 100%;
+  box-sizing: border-box;
+}
+.gorvita-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.gorvita-cat-item {
+  display: block;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.gorvita-cat-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+}
+.gorvita-cat-img {
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+.gorvita-cat-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.gorvita-cat-item:hover .gorvita-cat-img img {
+  transform: scale(1.04);
+}
+.gorvita-cat-body {
+  padding: 18px 20px 22px;
+}
+.gorvita-cat-body h3 {
+  color: #111111;
+  font-family: Fraunces, serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+.gorvita-cat-body span {
+  font-size: 13px;
+  color: #2D6A4F;
+  font-family: Lato, sans-serif;
+  font-weight: 600;
+}
+@media (max-width: 900px) {
+  .gorvita-cat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .gorvita-cat-grid { grid-template-columns: 1fr; gap: 16px; }
+  .gorvita-section { padding: 60px 16px !important; }
+}
+
+/* Brand Story HTML */
+.gorvita-brand-story-html {
+  flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+  .gorvita-brand-story-html { flex-direction: column; }
+  .gorvita-brand-story-html > div { flex: none !important; width: 100% !important; }
+}
+
+/* FIX: Newsletter button centering */
+.gorvita-newsletter .wp-block-buttons.fade-in-up,
+.gorvita-newsletter .wp-block-buttons {
+  display: flex !important;
+  justify-content: center !important;
+  flex-wrap: wrap;
+}
+
+/* FIX: Brand story text visible by default (no fade — it's deep below fold) */
+.gorvita-brand-story-html .fade-in-up {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* FIX: Brand story text forced visible against dark bg */
+.gorvita-brand-story-html * {
+  color: inherit;
+}
+.gorvita-brand-story-html p,
+.gorvita-brand-story-html h2,
+.gorvita-brand-story-html span {
+  color: inherit !important;
+}
+.gorvita-brand-story-html > div:last-child {
+  background: #111111;
+}
+
+/* FIX: Brand story right column — force white text over dark bg */
+.gorvita-brand-story-html > div:last-child,
+.gorvita-brand-story-html > div:last-child * {
+  color: #ffffff !important;
+}
+.gorvita-brand-story-html > div:last-child > p:first-child {
+  color: #95C9A8 !important;
+}
+.gorvita-brand-story-html > div:last-child p:not(:first-child) {
+  color: rgba(255,255,255,0.72) !important;
+}
+
+/* =============================================
+   BENEFITS SECTION — Poznaj korzyści
+   ============================================= */
+.gorvita-benefits-section {
+  width: 100%;
+  box-sizing: border-box;
+}
+.gorvita-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.gorvita-benefit-item {
+  text-align: center;
+}
+.gorvita-benefit-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 1px solid rgba(149, 201, 168, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  color: #95C9A8;
+}
+.gorvita-benefit-item h3 {
+  color: #ffffff !important;
+  font-family: Fraunces, serif;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 12px;
+  line-height: 1.3;
+}
+.gorvita-benefit-item p {
+  color: rgba(255,255,255,0.70) !important;
+  font-family: Lato, sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .gorvita-benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    max-width: 400px;
+  }
+}
+
+/* =============================================
+   BREADCRUMBS
+   ============================================= */
+.gorvita-breadcrumbs {
+  padding: 12px 0;
+  margin: 0;
+  background: transparent;
+}
+.gorvita-breadcrumbs .woocommerce-breadcrumb {
+  font-size: 13px;
+  color: #666;
+  font-family: Lato, sans-serif;
+}
+.gorvita-breadcrumbs a {
+  color: #2D6A4F;
+  text-decoration: none;
+}
+.gorvita-breadcrumbs a:hover {
+  text-decoration: underline;
+}
+.gorvita-breadcrumbs span[aria-hidden] {
+  color: #bbb;
+  margin: 0 2px;
+}

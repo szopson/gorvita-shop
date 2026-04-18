@@ -94,3 +94,32 @@ add_filter('rest_authentication_errors', function ($result) {
         ['status' => 401]
     );
 });
+
+/**
+ * Homepage-specific CSS — enqueued only on front page.
+ */
+add_action('wp_enqueue_scripts', function () {
+    if (is_front_page()) {
+        wp_enqueue_style(
+            'gorvita-homepage',
+            get_stylesheet_directory_uri() . '/assets/css/homepage.css',
+            [],
+            '1.3'
+        );
+    }
+}, 20);
+
+/**
+ * Homepage animations JS — parallax, Ken Burns, fade-in, header scroll.
+ */
+add_action('wp_enqueue_scripts', function () {
+    if (is_front_page()) {
+        wp_enqueue_script(
+            'gorvita-animations',
+            get_stylesheet_directory_uri() . '/assets/js/animations.js',
+            [],
+            '1.1',
+            true
+        );
+    }
+}, 20);
