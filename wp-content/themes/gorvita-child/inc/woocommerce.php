@@ -33,8 +33,15 @@ add_filter('loop_shop_per_page', function () { return 12; });
 add_filter('woocommerce_breadcrumb_defaults', function ($defaults) {
     $defaults['delimiter'] = ' <span aria-hidden="true">/</span> ';
     $defaults['home'] = __('Strona główna', 'gorvita-child');
+    $defaults['wrap_before'] = '<nav class="woocommerce-breadcrumb gorvita-breadcrumbs" aria-label="' . esc_attr__('Breadcrumbs', 'gorvita-child') . '"><div class="ct-container">';
+    $defaults['wrap_after'] = '</div></nav>';
     return $defaults;
 });
+
+/**
+ * Render breadcrumbs on shop archive + single product (Blocksy parent doesn't).
+ */
+add_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 15);
 
 /**
  * Remove "Description" tab title duplicate on single product.
