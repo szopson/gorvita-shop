@@ -419,6 +419,68 @@
 }
 
 /* =============================================
+   VALUE STRIP — SVG icons
+   ============================================= */
+.gorvita-vstrip {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #E8E8E8;
+  box-sizing: border-box;
+}
+.gorvita-vstrip__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+.gorvita-vstrip__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  justify-content: center;
+  padding: 18px 16px;
+  font-size: 13px;
+  color: #444;
+  font-family: Lato, sans-serif;
+  border-right: 1px solid #E8E8E8;
+}
+.gorvita-vstrip__item:last-child {
+  border-right: none;
+}
+.gorvita-vstrip__item svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: #2D6A4F;
+}
+.gorvita-vstrip__item strong {
+  color: #222;
+}
+@media (max-width: 640px) {
+  .gorvita-vstrip__inner {
+    flex-wrap: wrap;
+  }
+  .gorvita-vstrip__item {
+    flex: none;
+    width: 50%;
+    border-right: none;
+    border-bottom: 1px solid #E8E8E8;
+    padding: 14px 12px;
+    justify-content: flex-start;
+  }
+  .gorvita-vstrip__item:nth-child(odd) {
+    border-right: 1px solid #E8E8E8;
+  }
+  .gorvita-vstrip__item:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+}
+
+/* =============================================
    BREADCRUMBS
    ============================================= */
 .gorvita-breadcrumbs {
