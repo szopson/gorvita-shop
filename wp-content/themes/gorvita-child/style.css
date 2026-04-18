@@ -1199,3 +1199,27 @@ header.site-header {
     .cart, .checkout, button, .button { display: none !important; }
     body { color: black; background: white; }
 }
+
+/* =========================================================================
+   WOOCOMMERCE BREADCRUMBS
+   ========================================================================= */
+.gorvita-breadcrumbs {
+    padding: 12px 0;
+    background: transparent;
+}
+.gorvita-breadcrumbs .woocommerce-breadcrumb {
+    font-size: 13px;
+    color: #666;
+    font-family: var(--gorvita-font-body, Lato, sans-serif);
+}
+.gorvita-breadcrumbs a {
+    color: var(--gorvita-green-deep, #2D6A4F);
+    text-decoration: none;
+}
+.gorvita-breadcrumbs a:hover {
+    text-decoration: underline;
+}
+.gorvita-breadcrumbs span[aria-hidden] {
+    color: #bbb;
+    margin: 0 2px;
+}
