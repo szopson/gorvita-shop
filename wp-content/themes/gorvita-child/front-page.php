@@ -272,7 +272,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                     ['label'=>'CBD · Konopie',       'slug'=>'cbd-konopie',          'count'=>9,  'big'=>false, 'shade'=>'linear-gradient(160deg,#3a3320,#6b5a33)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/cbd.jpg'],
                     ['label'=>'Wątroba i trawienie', 'slug'=>'watroba-trawienie',    'count'=>12, 'big'=>false, 'shade'=>'linear-gradient(160deg,#6b5a33,#8B7355)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/watroba_trawienie.jpg'],
                     ['label'=>'Energia i stres',     'slug'=>'energia-stres',        'count'=>8,  'big'=>false, 'shade'=>'linear-gradient(160deg,#5a6b4a,#8ea07a)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/energia_stres.jpg'],
-                    ['label'=>'Nos, gardło, usta',   'slug'=>'nos-gardlo-jama-ustna','count'=>7,  'big'=>false, 'shade'=>'linear-gradient(160deg,#c9a961,#d4bb7a)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/nos_gardlo.jpg'],
+                    ['label'=>'Nos, gardło, usta',   'slug'=>'nos-gardlo-jama-ustna','count'=>7,  'big'=>false, 'shade'=>'linear-gradient(160deg,#c9a961,#d4bb7a)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/nos_gardlo_spray.png'],
                 ];
                 foreach ($cats as $c):
                     $term  = get_term_by('slug', $c['slug'], 'product_cat');
