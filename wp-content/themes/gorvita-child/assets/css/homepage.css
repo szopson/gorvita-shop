@@ -769,8 +769,8 @@
 }
 .gorvita-ingredients__grid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 64px;
+  grid-template-columns: 1fr 1.7fr;
+  gap: 56px;
   align-items: center;
 }
 .gorvita-ingredients__chips {
@@ -874,6 +874,19 @@
 .gorvita-ingr-panel p { font-size: 14.5px; color: var(--g-gray-700); line-height: 1.65; margin-bottom: 20px; }
 .gorvita-ingr-panel__props { display: flex; gap: 20px; flex-wrap: wrap; font-family: var(--f-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--g-green); }
 .gorvita-ingr-panel__props span::before { content: '→ '; opacity: .5; }
+
+.gorvita-ingredients__cta {
+  text-align: center;
+  margin-top: 40px;
+}
+.gorvita-ingredients__cta .gorvita-btn span {
+  margin-left: 8px;
+  display: inline-block;
+  transition: transform .2s var(--ease);
+}
+.gorvita-ingredients__cta .gorvita-btn:hover span {
+  transform: translateX(4px);
+}
 
 /* =========== CBD CALLOUT =========== */
 .gorvita-cbd-callout {
@@ -1059,8 +1072,11 @@
 }
 @media (max-width: 860px) {
   .gorvita-homepage-root { --sec-pad-y: 72px; }
-  .gorvita-hero__grid { grid-template-columns: 1fr; }
-  .gorvita-hero__visual { aspect-ratio: 4/3; max-width: 520px; }
+  .gorvita-hero__grid { grid-template-columns: 1fr; text-align: center; }
+  .gorvita-hero__copy { align-items: center; }
+  .gorvita-hero__cta { justify-content: center; }
+  .gorvita-hero__stats { justify-items: center; }
+  .gorvita-hero__visual { aspect-ratio: 4/3; max-width: 520px; margin: 0 auto; }
   .gorvita-spring__inner { grid-template-columns: 1fr; }
   .gorvita-spring__visual { min-height: 300px; }
   .gorvita-spring__copy { padding: 50px 36px; }
@@ -1077,19 +1093,98 @@
   .gorvita-usp:nth-child(2) { border-right: 0; }
   .gorvita-usp:nth-child(-n+2) { border-bottom: 1px solid var(--g-gray-200); }
   .gorvita-testim-grid { grid-template-columns: 1fr; }
+  /* Carousel — tablet: 2 visible cards + peek */
+  .gorvita-carousel-wrap { position: relative; }
+  .gorvita-prod-grid {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 14px;
+    padding-bottom: 4px;
+  }
+  .gorvita-prod-grid::-webkit-scrollbar { display: none; }
+  .gorvita-prod-grid .gorvita-prod {
+    flex: 0 0 calc(50% - 7px);
+    scroll-snap-align: start;
+    min-width: 0;
+  }
 }
 @media (max-width: 560px) {
   .gorvita-homepage-root { --sec-pad-y: 56px; }
   .gorvita-hero__title { font-size: clamp(44px, 12vw, 60px); }
   .gorvita-hero__stats { grid-template-columns: 1fr 1fr; gap: 14px; }
   .gorvita-hero__stats > :nth-child(3) { grid-column: span 2; }
-  .gorvita-prod-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  /* Carousel — mobile: 1 card + peek */
+  .gorvita-prod-grid .gorvita-prod { flex: 0 0 calc(85vw - 20px); }
   .gorvita-cat-band { grid-template-columns: repeat(2, 1fr); }
   .gorvita-usp-grid { grid-template-columns: 1fr; }
   .gorvita-usp { border-right: 0; border-bottom: 1px solid var(--g-gray-200); }
   .gorvita-usp:last-child { border-bottom: 0; }
   .gorvita-announce span + span { margin-left: 14px; }
   .gorvita-hero__card { max-width: 220px; padding: 12px 14px; }
+  .gorvita-newsletter__form { flex-direction: column; }
+  .gorvita-newsletter__form input[type="email"] { width: 100%; }
+  .gorvita-newsletter__form button { width: 100%; justify-content: center; }
+}
+@media (max-width: 400px) {
+  .gorvita-homepage-root { --sec-pad-y: 48px; }
+  .gorvita-hero__title { font-size: clamp(36px, 11vw, 50px); }
+  .gorvita-hero__stats { grid-template-columns: 1fr; }
+  .gorvita-hero__stats > :nth-child(3) { grid-column: span 1; }
+  .gorvita-wrap { padding-inline: 16px; }
+  .gorvita-prod-grid .gorvita-prod { flex: 0 0 calc(92vw - 16px); }
+  .gorvita-cat-band { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .gorvita-ingr-chips { gap: 8px; }
+}
+
+/* =========== CAROUSEL CONTROLS =========== */
+.gorvita-carousel-wrap { position: relative; }
+.gorvita-carousel__arrows {
+  display: none;
+}
+.gorvita-carousel__dots {
+  display: none;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 16px;
+}
+.gorvita-carousel__dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--g-gray-300);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background .25s, transform .25s;
+}
+.gorvita-carousel__dot.is-active {
+  background: var(--g-green);
+  transform: scale(1.4);
+}
+.gorvita-carousel__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--g-white);
+  border: 1px solid var(--g-gray-200);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background .2s, box-shadow .2s;
+}
+.gorvita-carousel__btn:hover { background: var(--g-bone); box-shadow: 0 4px 16px rgba(0,0,0,0.14); }
+.gorvita-carousel__btn--prev { left: -20px; }
+.gorvita-carousel__btn--next { right: -20px; }
+@media (max-width: 860px) {
+  .gorvita-carousel__dots { display: flex; }
+  .gorvita-carousel__arrows { display: flex; }
+  .gorvita-carousel__btn--prev { left: 0; }
+  .gorvita-carousel__btn--next { right: 0; }
 }
 
 /* Footer styles moved to style.css (global) */
