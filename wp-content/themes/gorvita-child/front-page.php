@@ -464,7 +464,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                         </div>
                     </div>
                     <div class="gorvita-cbd-callout__visual">
-                        <img class="gorvita-cbd-callout__visual-img" src="https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/cbd2.png" alt="Polska konopia CBD Gorvita" loading="lazy">
+                        <img class="gorvita-cbd-callout__visual-img" src="https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/cbd.jpg" alt="Polska konopia CBD Gorvita" loading="lazy">
                         <div class="gorvita-cbd-callout__visual-grade"></div>
                     </div>
                 </div>
