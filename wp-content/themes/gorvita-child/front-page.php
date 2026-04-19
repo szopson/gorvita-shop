@@ -265,23 +265,25 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
             <div class="gorvita-cat-band">
                 <?php
                 $cats = [
-                    ['label'=>'Stawy i mięśnie',     'slug'=>'stawy-miesnie',      'count'=>18, 'big'=>true,  'shade'=>'linear-gradient(160deg,#3a4a28,#2d5016)'],
-                    ['label'=>'Odporność',           'slug'=>'odpornosc',          'count'=>14, 'big'=>false, 'shade'=>'linear-gradient(160deg,#8ea07a,#6B8E5F)'],
-                    ['label'=>'Skóra i ciało',       'slug'=>'skora-cialo',        'count'=>22, 'big'=>false, 'shade'=>'linear-gradient(160deg,#a8bfa0,#8ea07a)'],
-                    ['label'=>'Krążenie',            'slug'=>'krazenie',           'count'=>11, 'big'=>false, 'shade'=>'linear-gradient(160deg,#3a4a5a,#4a7a94)'],
-                    ['label'=>'CBD · Konopie',       'slug'=>'cbd-konopie',        'count'=>9,  'big'=>false, 'shade'=>'linear-gradient(160deg,#3a3320,#6b5a33)'],
-                    ['label'=>'Wątroba i trawienie', 'slug'=>'watroba-trawienie',  'count'=>12, 'big'=>false, 'shade'=>'linear-gradient(160deg,#6b5a33,#8B7355)'],
-                    ['label'=>'Energia i stres',     'slug'=>'energia-stres',      'count'=>8,  'big'=>false, 'shade'=>'linear-gradient(160deg,#5a6b4a,#8ea07a)'],
-                    ['label'=>'Nos, gardło, usta',   'slug'=>'nos-gardlo-jama-ustna','count'=>7,'big'=>false, 'shade'=>'linear-gradient(160deg,#c9a961,#d4bb7a)'],
+                    ['label'=>'Stawy i mięśnie',     'slug'=>'stawy-miesnie',        'count'=>18, 'big'=>true,  'shade'=>'linear-gradient(160deg,#3a4a28,#2d5016)', 'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/stawy_miesnie.jpg'],
+                    ['label'=>'Odporność',           'slug'=>'odpornosc',            'count'=>14, 'big'=>false, 'shade'=>'linear-gradient(160deg,#8ea07a,#6B8E5F)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/odpornosc.jpg'],
+                    ['label'=>'Skóra i ciało',       'slug'=>'skora-cialo',          'count'=>22, 'big'=>false, 'shade'=>'linear-gradient(160deg,#a8bfa0,#8ea07a)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/skora_cialo.jpg'],
+                    ['label'=>'Krążenie',            'slug'=>'krazenie',             'count'=>11, 'big'=>false, 'shade'=>'linear-gradient(160deg,#3a4a5a,#4a7a94)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/krazenie.jpg'],
+                    ['label'=>'CBD · Konopie',       'slug'=>'cbd-konopie',          'count'=>9,  'big'=>false, 'shade'=>'linear-gradient(160deg,#3a3320,#6b5a33)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/cbd.jpg'],
+                    ['label'=>'Wątroba i trawienie', 'slug'=>'watroba-trawienie',    'count'=>12, 'big'=>false, 'shade'=>'linear-gradient(160deg,#6b5a33,#8B7355)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/watroba_trawienie.jpg'],
+                    ['label'=>'Energia i stres',     'slug'=>'energia-stres',        'count'=>8,  'big'=>false, 'shade'=>'linear-gradient(160deg,#5a6b4a,#8ea07a)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/energia_stres.jpg'],
+                    ['label'=>'Nos, gardło, usta',   'slug'=>'nos-gardlo-jama-ustna','count'=>7,  'big'=>false, 'shade'=>'linear-gradient(160deg,#c9a961,#d4bb7a)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/nos_gardlo_spray.png'],
                 ];
                 foreach ($cats as $c):
-                    // Try to pull live count from WooCommerce.
-                    $term = get_term_by('slug', $c['slug'], 'product_cat');
+                    $term  = get_term_by('slug', $c['slug'], 'product_cat');
                     $count = $term && !is_wp_error($term) && $term->count ? $term->count : $c['count'];
                     $link  = $term && !is_wp_error($term) ? get_term_link($term) : '/product-category/' . $c['slug'] . '/';
+                    $ph_style = !empty($c['img'])
+                        ? 'background-image: url(' . esc_url($c['img']) . ');'
+                        : 'background: ' . esc_attr($c['shade']) . ';';
                 ?>
                     <a href="<?php echo esc_url($link); ?>" class="gorvita-cat-tile <?php echo $c['big'] ? 'gorvita-cat-tile--big' : ''; ?>">
-                        <div class="gorvita-cat-tile__ph" style="background: <?php echo esc_attr($c['shade']); ?>"></div>
+                        <div class="gorvita-cat-tile__ph" style="<?php echo $ph_style; // phpcs:ignore ?>"></div>
                         <div class="gorvita-cat-tile__label">
                             <span class="count"><?php echo esc_html(str_pad($count, 2, '0', STR_PAD_LEFT)); ?> · kategoria</span>
                             <?php echo esc_html($c['label']); ?>
@@ -394,12 +396,12 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
             </div>
             <?php
             $ings = [
-                ['key'=>'zywokost',    'name'=>'Żywokost lekarski',  'latin'=>'Symphytum officinale',  'desc'=>'Wielowiekowy składnik tradycyjnego zielarstwa polskiego. Zawiera alantoinę — naturalny regenerator tkanek. Wspiera regenerację stawów, ścięgien i skóry po urazach.', 'props'=>['Regeneracja','Anti-inflammatory','Alantoina 0.8%']],
-                ['key'=>'kasztanowiec','name'=>'Kasztanowiec',        'latin'=>'Aesculus hippocastanum','desc'=>'Ekstrakt z nasion kasztanowca — aescyna uszczelnia naczynia krwionośne. Klasyczny składnik preparatów na ciężkie nogi i żylaki.', 'props'=>['Aescyna 2.1%','Krążenie','Anti-edema']],
-                ['key'=>'cbd',         'name'=>'CBD Full-spectrum',  'latin'=>'Cannabis sativa L.',     'desc'=>'Kannabidiol z ekologicznych konopi siewnych. Zimnotłoczony, bez THC. Wspiera układ endokannabinoidowy — równowaga, sen, regeneracja.', 'props'=>['<0.2% THC','Full-spectrum','Certyfikat COA']],
-                ['key'=>'kolagen',     'name'=>'Kolagen rybny',      'latin'=>'Type I Marine Collagen', 'desc'=>'Hydrolizat kolagenu typu I o niskiej masie cząsteczkowej — 90% biodostępność. Budulec skóry, stawów i chrząstki.', 'props'=>['Typ I','90% biodost.','10 kDa']],
-                ['key'=>'rokitnik',    'name'=>'Rokitnik',           'latin'=>'Hippophae rhamnoides',   'desc'=>'Superowoc północy — 15× więcej witaminy C niż cytryna. Bogaty w omega-7 z rzadkimi flawonoidami. Odporność i witalność.', 'props'=>['Wit. C 200mg','Omega-7','Flawonoidy']],
-                ['key'=>'propolis',    'name'=>'Propolis',           'latin'=>'Propolis apium',          'desc'=>'Kit pszczeli — naturalne antybiotykowe działanie. Galangina i pinocembryna dla tarczy odpornościowej.', 'props'=>['Galangina','Antibakt.','Odporność']],
+                ['key'=>'zywokost',    'name'=>'Żywokost lekarski',  'latin'=>'Symphytum officinale',  'desc'=>'Wielowiekowy składnik tradycyjnego zielarstwa polskiego. Zawiera alantoinę — naturalny regenerator tkanek. Wspiera regenerację stawów, ścięgien i skóry po urazach.', 'props'=>['Regeneracja','Anti-inflammatory','Alantoina 0.8%'], 'color'=>'#4a6b3a','icon'=>'🌿'],
+                ['key'=>'kasztanowiec','name'=>'Kasztanowiec',        'latin'=>'Aesculus hippocastanum','desc'=>'Ekstrakt z nasion kasztanowca — aescyna uszczelnia naczynia krwionośne. Klasyczny składnik preparatów na ciężkie nogi i żylaki.', 'props'=>['Aescyna 2.1%','Krążenie','Anti-edema'],             'color'=>'#7a4a28','icon'=>'🌰'],
+                ['key'=>'cbd',         'name'=>'CBD Full-spectrum',  'latin'=>'Cannabis sativa L.',     'desc'=>'Kannabidiol z ekologicznych konopi siewnych. Zimnotłoczony, bez THC. Wspiera układ endokannabinoidowy — równowaga, sen, regeneracja.', 'props'=>['<0.2% THC','Full-spectrum','Certyfikat COA'],   'color'=>'#2d5016','icon'=>'🌱'],
+                ['key'=>'kolagen',     'name'=>'Kolagen rybny',      'latin'=>'Type I Marine Collagen', 'desc'=>'Hydrolizat kolagenu typu I o niskiej masie cząsteczkowej — 90% biodostępność. Budulec skóry, stawów i chrząstki.', 'props'=>['Typ I','90% biodost.','10 kDa'],                            'color'=>'#8a6a5a','icon'=>'💧'],
+                ['key'=>'rokitnik',    'name'=>'Rokitnik',           'latin'=>'Hippophae rhamnoides',   'desc'=>'Superowoc północy — 15× więcej witaminy C niż cytryna. Bogaty w omega-7 z rzadkimi flawonoidami. Odporność i witalność.', 'props'=>['Wit. C 200mg','Omega-7','Flawonoidy'],                 'color'=>'#c97020','icon'=>'🫐'],
+                ['key'=>'propolis',    'name'=>'Propolis',           'latin'=>'Propolis apium',          'desc'=>'Kit pszczeli — naturalne antybiotykowe działanie. Galangina i pinocembryna dla tarczy odpornościowej.', 'props'=>['Galangina','Antibakt.','Odporność'],                              'color'=>'#a07820','icon'=>'🍯'],
             ];
             ?>
             <div class="gorvita-ingredients">
@@ -409,9 +411,12 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                             <?php foreach ($ings as $i => $ing): ?>
                                 <button
                                     type="button"
+                                    id="chip-<?php echo esc_attr($ing['key']); ?>"
                                     class="gorvita-chip <?php echo $i === 0 ? 'is-active' : ''; ?>"
                                     role="tab"
                                     aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
+                                    aria-controls="panel-<?php echo esc_attr($ing['key']); ?>"
+                                    tabindex="<?php echo $i === 0 ? '0' : '-1'; ?>"
                                     data-ingr="<?php echo esc_attr($ing['key']); ?>"
                                 >
                                     <span class="dot"></span><?php echo esc_html($ing['name']); ?>
@@ -423,8 +428,18 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
 
                     <div class="gorvita-ingr-view">
                         <?php foreach ($ings as $i => $ing): ?>
-                            <div class="gorvita-ingr-panel <?php echo $i === 0 ? 'is-active' : ''; ?>" data-ingr-panel="<?php echo esc_attr($ing['key']); ?>" role="tabpanel">
-                                <div class="gorvita-ingr-panel__img"><?php echo esc_html($ing['key']); ?> · macro</div>
+                            <div
+                                id="panel-<?php echo esc_attr($ing['key']); ?>"
+                                class="gorvita-ingr-panel <?php echo $i === 0 ? 'is-active' : ''; ?>"
+                                data-ingr-panel="<?php echo esc_attr($ing['key']); ?>"
+                                role="tabpanel"
+                                aria-labelledby="chip-<?php echo esc_attr($ing['key']); ?>"
+                                tabindex="0"
+                            >
+                                <div class="gorvita-ingr-panel__img" style="background: linear-gradient(140deg, <?php echo esc_attr($ing['color']); ?>22, <?php echo esc_attr($ing['color']); ?>55);">
+                                    <span class="gorvita-ingr-panel__icon"><?php echo $ing['icon']; // phpcs:ignore ?></span>
+                                    <span class="gorvita-ingr-panel__img-label"><?php echo esc_html($ing['latin']); ?></span>
+                                </div>
                                 <div>
                                     <h3><?php echo esc_html($ing['name']); ?></h3>
                                     <div class="gorvita-ingr-panel__latin"><?php echo esc_html($ing['latin']); ?></div>
@@ -462,7 +477,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                         </div>
                     </div>
                     <div class="gorvita-cbd-callout__visual">
-                        <img class="gorvita-cbd-callout__visual-img" src="<?php echo esc_url($img_url . '/roslina_strumien.webp'); ?>" alt="Rośliny w Gorcach" loading="lazy">
+                        <img class="gorvita-cbd-callout__visual-img" src="https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/cbd.jpg" alt="Polska konopia CBD Gorvita" loading="lazy">
                         <div class="gorvita-cbd-callout__visual-grade"></div>
                     </div>
                 </div>

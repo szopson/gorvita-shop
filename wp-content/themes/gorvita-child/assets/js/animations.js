@@ -37,18 +37,43 @@
         var on = c.dataset.ingr === key;
         c.classList.toggle('is-active', on);
         c.setAttribute('aria-selected', on ? 'true' : 'false');
+        c.setAttribute('tabindex', on ? '0' : '-1');
       });
       panels.forEach(function (p) {
         p.classList.toggle('is-active', p.dataset.ingrPanel === key);
       });
     }
 
+    var chipArr = Array.from(chips);
     chips.forEach(function (c) {
-      c.addEventListener('click', function () { activate(c.dataset.ingr); });
+      c.addEventListener('click', function () {
+        activate(c.dataset.ingr);
+        c.focus();
+      });
       c.addEventListener('keydown', function (e) {
+        var idx = chipArr.indexOf(c);
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           activate(c.dataset.ingr);
+        } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          var next = chipArr[(idx + 1) % chipArr.length];
+          activate(next.dataset.ingr);
+          next.focus();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          var prev = chipArr[(idx - 1 + chipArr.length) % chipArr.length];
+          activate(prev.dataset.ingr);
+          prev.focus();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          activate(chipArr[0].dataset.ingr);
+          chipArr[0].focus();
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          var last = chipArr[chipArr.length - 1];
+          activate(last.dataset.ingr);
+          last.focus();
         }
       });
     });
