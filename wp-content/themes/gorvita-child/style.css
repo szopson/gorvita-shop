@@ -1349,3 +1349,142 @@ header.site-header {
 .wp-block-buttons.is-layout-flex {
     flex-wrap: wrap;
 }
+
+/* =========================================================================
+   HOMEPAGE DESIGN TOKEN ALIASES — needed globally for footer / shared UI
+   (homepage.css uses --g-* shorthand, only loads on front page)
+   ========================================================================= */
+:root {
+    --g-ink:       #14160F;
+    --g-green:     #2D5016;
+    --g-sage:      #6B8E5F;
+    --g-sage-light:#A8BFA0;
+    --g-cream:     #F5F3F0;
+    --g-bone:      #F9F7F3;
+    --g-gray-200:  #E5E5E5;
+    --g-gray-500:  #737373;
+    --g-gray-700:  #404040;
+    --g-gray-800:  #262626;
+    --g-gold:      #C9A961;
+    --f-display:   'Fraunces', Georgia, 'Times New Roman', serif;
+    --f-mono:      'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --r:           8px;
+    --r-lg:        14px;
+    --r-xl:        20px;
+    --r-full:      9999px;
+    --ease:        cubic-bezier(.2,.7,.2,1);
+}
+
+/* =========================================================================
+   GORVITA FOOTER — global, loaded via style.css (not homepage.css)
+   ========================================================================= */
+.gorvita-footer {
+    background: var(--g-ink);
+    color: rgba(255,255,255,0.75);
+    font-size: 14px;
+    line-height: 1.6;
+}
+.gorvita-footer__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 64px 24px 48px;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
+    gap: 48px;
+}
+.gorvita-footer__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.gorvita-footer__logo-img {
+    max-height: 44px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: .85;
+}
+.gorvita-footer__logo-text {
+    font-family: var(--f-display);
+    font-size: 22px;
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+}
+.gorvita-footer__tagline {
+    color: rgba(255,255,255,0.45);
+    font-size: 13px;
+    max-width: 26ch;
+    margin: 0;
+    line-height: 1.65;
+}
+.gorvita-footer__heading {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin: 0 0 14px;
+    font-weight: 400;
+}
+.gorvita-footer__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+.gorvita-footer__links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color .2s;
+}
+.gorvita-footer__links a:hover { color: #fff; }
+.gorvita-footer__address {
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.gorvita-footer__address p { margin: 0; }
+.gorvita-footer__address a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color .2s;
+}
+.gorvita-footer__address a:hover { color: #fff; }
+.gorvita-footer__hours {
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    margin-top: 4px !important;
+}
+.gorvita-footer__bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+.gorvita-footer__bottom-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: rgba(255,255,255,0.32);
+}
+.gorvita-footer__attribution a {
+    color: rgba(255,255,255,0.32);
+    text-decoration: none;
+}
+.gorvita-footer__attribution a:hover { color: rgba(255,255,255,0.6); }
+
+@media (max-width: 900px) {
+    .gorvita-footer__inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .gorvita-footer__brand { grid-column: span 2; }
+}
+@media (max-width: 540px) {
+    .gorvita-footer__inner { grid-template-columns: 1fr; }
+    .gorvita-footer__brand { grid-column: span 1; }
+    .gorvita-footer__bottom-inner { flex-direction: column; text-align: center; }
+}

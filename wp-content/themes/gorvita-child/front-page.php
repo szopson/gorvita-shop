@@ -396,12 +396,12 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
             </div>
             <?php
             $ings = [
-                ['key'=>'zywokost',    'name'=>'Żywokost lekarski',  'latin'=>'Symphytum officinale',  'desc'=>'Wielowiekowy składnik tradycyjnego zielarstwa polskiego. Zawiera alantoinę — naturalny regenerator tkanek. Wspiera regenerację stawów, ścięgien i skóry po urazach.', 'props'=>['Regeneracja','Anti-inflammatory','Alantoina 0.8%']],
-                ['key'=>'kasztanowiec','name'=>'Kasztanowiec',        'latin'=>'Aesculus hippocastanum','desc'=>'Ekstrakt z nasion kasztanowca — aescyna uszczelnia naczynia krwionośne. Klasyczny składnik preparatów na ciężkie nogi i żylaki.', 'props'=>['Aescyna 2.1%','Krążenie','Anti-edema']],
-                ['key'=>'cbd',         'name'=>'CBD Full-spectrum',  'latin'=>'Cannabis sativa L.',     'desc'=>'Kannabidiol z ekologicznych konopi siewnych. Zimnotłoczony, bez THC. Wspiera układ endokannabinoidowy — równowaga, sen, regeneracja.', 'props'=>['<0.2% THC','Full-spectrum','Certyfikat COA']],
-                ['key'=>'kolagen',     'name'=>'Kolagen rybny',      'latin'=>'Type I Marine Collagen', 'desc'=>'Hydrolizat kolagenu typu I o niskiej masie cząsteczkowej — 90% biodostępność. Budulec skóry, stawów i chrząstki.', 'props'=>['Typ I','90% biodost.','10 kDa']],
-                ['key'=>'rokitnik',    'name'=>'Rokitnik',           'latin'=>'Hippophae rhamnoides',   'desc'=>'Superowoc północy — 15× więcej witaminy C niż cytryna. Bogaty w omega-7 z rzadkimi flawonoidami. Odporność i witalność.', 'props'=>['Wit. C 200mg','Omega-7','Flawonoidy']],
-                ['key'=>'propolis',    'name'=>'Propolis',           'latin'=>'Propolis apium',          'desc'=>'Kit pszczeli — naturalne antybiotykowe działanie. Galangina i pinocembryna dla tarczy odpornościowej.', 'props'=>['Galangina','Antibakt.','Odporność']],
+                ['key'=>'zywokost',    'name'=>'Żywokost lekarski',  'latin'=>'Symphytum officinale',  'desc'=>'Wielowiekowy składnik tradycyjnego zielarstwa polskiego. Zawiera alantoinę — naturalny regenerator tkanek. Wspiera regenerację stawów, ścięgien i skóry po urazach.', 'props'=>['Regeneracja','Anti-inflammatory','Alantoina 0.8%'], 'color'=>'#4a6b3a','icon'=>'🌿'],
+                ['key'=>'kasztanowiec','name'=>'Kasztanowiec',        'latin'=>'Aesculus hippocastanum','desc'=>'Ekstrakt z nasion kasztanowca — aescyna uszczelnia naczynia krwionośne. Klasyczny składnik preparatów na ciężkie nogi i żylaki.', 'props'=>['Aescyna 2.1%','Krążenie','Anti-edema'],             'color'=>'#7a4a28','icon'=>'🌰'],
+                ['key'=>'cbd',         'name'=>'CBD Full-spectrum',  'latin'=>'Cannabis sativa L.',     'desc'=>'Kannabidiol z ekologicznych konopi siewnych. Zimnotłoczony, bez THC. Wspiera układ endokannabinoidowy — równowaga, sen, regeneracja.', 'props'=>['<0.2% THC','Full-spectrum','Certyfikat COA'],   'color'=>'#2d5016','icon'=>'🌱'],
+                ['key'=>'kolagen',     'name'=>'Kolagen rybny',      'latin'=>'Type I Marine Collagen', 'desc'=>'Hydrolizat kolagenu typu I o niskiej masie cząsteczkowej — 90% biodostępność. Budulec skóry, stawów i chrząstki.', 'props'=>['Typ I','90% biodost.','10 kDa'],                            'color'=>'#8a6a5a','icon'=>'💧'],
+                ['key'=>'rokitnik',    'name'=>'Rokitnik',           'latin'=>'Hippophae rhamnoides',   'desc'=>'Superowoc północy — 15× więcej witaminy C niż cytryna. Bogaty w omega-7 z rzadkimi flawonoidami. Odporność i witalność.', 'props'=>['Wit. C 200mg','Omega-7','Flawonoidy'],                 'color'=>'#c97020','icon'=>'🫐'],
+                ['key'=>'propolis',    'name'=>'Propolis',           'latin'=>'Propolis apium',          'desc'=>'Kit pszczeli — naturalne antybiotykowe działanie. Galangina i pinocembryna dla tarczy odpornościowej.', 'props'=>['Galangina','Antibakt.','Odporność'],                              'color'=>'#a07820','icon'=>'🍯'],
             ];
             ?>
             <div class="gorvita-ingredients">
@@ -411,9 +411,12 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                             <?php foreach ($ings as $i => $ing): ?>
                                 <button
                                     type="button"
+                                    id="chip-<?php echo esc_attr($ing['key']); ?>"
                                     class="gorvita-chip <?php echo $i === 0 ? 'is-active' : ''; ?>"
                                     role="tab"
                                     aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
+                                    aria-controls="panel-<?php echo esc_attr($ing['key']); ?>"
+                                    tabindex="<?php echo $i === 0 ? '0' : '-1'; ?>"
                                     data-ingr="<?php echo esc_attr($ing['key']); ?>"
                                 >
                                     <span class="dot"></span><?php echo esc_html($ing['name']); ?>
@@ -425,8 +428,18 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
 
                     <div class="gorvita-ingr-view">
                         <?php foreach ($ings as $i => $ing): ?>
-                            <div class="gorvita-ingr-panel <?php echo $i === 0 ? 'is-active' : ''; ?>" data-ingr-panel="<?php echo esc_attr($ing['key']); ?>" role="tabpanel">
-                                <div class="gorvita-ingr-panel__img"><?php echo esc_html($ing['key']); ?> · macro</div>
+                            <div
+                                id="panel-<?php echo esc_attr($ing['key']); ?>"
+                                class="gorvita-ingr-panel <?php echo $i === 0 ? 'is-active' : ''; ?>"
+                                data-ingr-panel="<?php echo esc_attr($ing['key']); ?>"
+                                role="tabpanel"
+                                aria-labelledby="chip-<?php echo esc_attr($ing['key']); ?>"
+                                tabindex="0"
+                            >
+                                <div class="gorvita-ingr-panel__img" style="background: linear-gradient(140deg, <?php echo esc_attr($ing['color']); ?>22, <?php echo esc_attr($ing['color']); ?>55);">
+                                    <span class="gorvita-ingr-panel__icon"><?php echo $ing['icon']; // phpcs:ignore ?></span>
+                                    <span class="gorvita-ingr-panel__img-label"><?php echo esc_html($ing['latin']); ?></span>
+                                </div>
                                 <div>
                                     <h3><?php echo esc_html($ing['name']); ?></h3>
                                     <div class="gorvita-ingr-panel__latin"><?php echo esc_html($ing['latin']); ?></div>
