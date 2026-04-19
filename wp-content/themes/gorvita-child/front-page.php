@@ -203,7 +203,12 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
     <!-- HERO -->
     <section class="gorvita-hero">
         <div class="gorvita-hero__bg">
-            <img src="<?php echo esc_url($img_url . '/gorce.webp'); ?>" alt="" class="gorvita-hero__bg-img" fetchpriority="high">
+            <?php echo wp_get_attachment_image(284, 'full', false, [
+                'class' => 'gorvita-hero__bg-img',
+                'alt'   => '',
+                'fetchpriority' => 'high',
+                'decoding' => 'async',
+            ]); ?>
             <div class="gorvita-hero__bg-fade"></div>
         </div>
         <div class="gorvita-wrap gorvita-hero__grid">
@@ -373,7 +378,14 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
     <!-- USPs -->
     <section class="gorvita-section gorvita-section--tight gorvita-reveal">
         <div class="gorvita-wrap">
-            <div class="gorvita-usp-grid">
+            <div class="gorvita-usp-grid gorvita-usp-grid--photo">
+                <?php echo wp_get_attachment_image(279, 'full', false, [
+                    'class' => 'gorvita-usp-grid__bg',
+                    'alt'   => '',
+                    'loading' => 'lazy',
+                    'decoding' => 'async',
+                ]); ?>
+                <div class="gorvita-usp-grid__overlay" aria-hidden="true"></div>
                 <?php
                 $usps = [
                     ['icon'=>'certificate','h'=>'Tradycja od 1989','p'=>'Trzy pokolenia ziołolecznictwa. Receptury sprawdzone przez tysiące polskich rodzin.'],
@@ -404,60 +416,37 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
             </div>
             <?php
             $ings = [
-                ['key'=>'zywokost',    'name'=>'Żywokost lekarski',  'latin'=>'Symphytum officinale',  'desc'=>'Wielowiekowy składnik tradycyjnego zielarstwa polskiego. Zawiera alantoinę — naturalny regenerator tkanek. Wspiera regenerację stawów, ścięgien i skóry po urazach.', 'props'=>['Regeneracja','Anti-inflammatory','Alantoina 0.8%'], 'color'=>'#4a6b3a','icon'=>'🌿'],
-                ['key'=>'cbd',         'name'=>'CBD Full-spectrum',  'latin'=>'Cannabis sativa L.',     'desc'=>'Kannabidiol z ekologicznych konopi siewnych. Zimnotłoczony, bez THC. Wspiera układ endokannabinoidowy — równowaga, sen, regeneracja.', 'props'=>['<0.2% THC','Full-spectrum','Certyfikat COA'],   'color'=>'#2d5016','icon'=>'🌱'],
-                ['key'=>'kolagen',     'name'=>'Kolagen rybny',      'latin'=>'Type I Marine Collagen', 'desc'=>'Hydrolizat kolagenu typu I o niskiej masie cząsteczkowej — 90% biodostępność. Budulec skóry, stawów i chrząstki.', 'props'=>['Typ I','90% biodost.','10 kDa'],                            'color'=>'#8a6a5a','icon'=>'💧'],
-                ['key'=>'rokitnik',    'name'=>'Rokitnik',           'latin'=>'Hippophae rhamnoides',   'desc'=>'Superowoc północy — 15× więcej witaminy C niż cytryna. Bogaty w omega-7 z rzadkimi flawonoidami. Odporność i witalność.', 'props'=>['Wit. C 200mg','Omega-7','Flawonoidy'],                 'color'=>'#c97020','icon'=>'🫐'],
+                ['key'=>'zywokost',    'name'=>'Żywokost lekarski',  'latin'=>'Symphytum officinale',  'desc'=>'Wielowiekowy składnik tradycyjnego zielarstwa polskiego. Zawiera alantoinę — naturalny regenerator tkanek. Wspiera regenerację stawów, ścięgien i skóry po urazach.', 'props'=>['Regeneracja','Anti-inflammatory','Alantoina 0.8%'], 'img_id'=>315],
+                ['key'=>'cbd',         'name'=>'CBD Full-spectrum',  'latin'=>'Cannabis sativa L.',     'desc'=>'Kannabidiol z ekologicznych konopi siewnych. Zimnotłoczony, bez THC. Wspiera układ endokannabinoidowy — równowaga, sen, regeneracja.', 'props'=>['<0.2% THC','Full-spectrum','Certyfikat COA'],   'img_id'=>313],
+                ['key'=>'kolagen',     'name'=>'Kolagen rybny',      'latin'=>'Type I Marine Collagen', 'desc'=>'Hydrolizat kolagenu typu I o niskiej masie cząsteczkowej — 90% biodostępność. Budulec skóry, stawów i chrząstki.', 'props'=>['Typ I','90% biodost.','10 kDa'],                            'img_id'=>312],
+                ['key'=>'rokitnik',    'name'=>'Rokitnik',           'latin'=>'Hippophae rhamnoides',   'desc'=>'Superowoc północy — 15× więcej witaminy C niż cytryna. Bogaty w omega-7 z rzadkimi flawonoidami. Odporność i witalność.', 'props'=>['Wit. C 200mg','Omega-7','Flawonoidy'],                 'img_id'=>314],
             ];
             ?>
             <div class="gorvita-ingredients">
-                <div class="gorvita-ingredients__grid">
-                    <div>
-                        <div class="gorvita-ingredients__chips" role="tablist" aria-label="Składniki">
-                            <?php foreach ($ings as $i => $ing): ?>
-                                <button
-                                    type="button"
-                                    id="chip-<?php echo esc_attr($ing['key']); ?>"
-                                    class="gorvita-chip <?php echo $i === 0 ? 'is-active' : ''; ?>"
-                                    role="tab"
-                                    aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
-                                    aria-controls="panel-<?php echo esc_attr($ing['key']); ?>"
-                                    tabindex="<?php echo $i === 0 ? '0' : '-1'; ?>"
-                                    data-ingr="<?php echo esc_attr($ing['key']); ?>"
-                                >
-                                    <span class="dot"></span><?php echo esc_html($ing['name']); ?>
-                                </button>
-                            <?php endforeach; ?>
-                        </div>
-                        <p class="gorvita-ingredients__hint">To tylko wybrane. Pełny leksykon — z certyfikatami i badaniami — znajdziesz na <strong>gorvita.pl</strong>.</p>
-                    </div>
-
-                    <div class="gorvita-ingr-view">
-                        <?php foreach ($ings as $i => $ing): ?>
-                            <div
-                                id="panel-<?php echo esc_attr($ing['key']); ?>"
-                                class="gorvita-ingr-panel <?php echo $i === 0 ? 'is-active' : ''; ?>"
-                                data-ingr-panel="<?php echo esc_attr($ing['key']); ?>"
-                                role="tabpanel"
-                                aria-labelledby="chip-<?php echo esc_attr($ing['key']); ?>"
-                                tabindex="0"
-                            >
-                                <div class="gorvita-ingr-panel__img" style="background: linear-gradient(140deg, <?php echo esc_attr($ing['color']); ?>22, <?php echo esc_attr($ing['color']); ?>55);">
-                                    <span class="gorvita-ingr-panel__icon"><?php echo $ing['icon']; // phpcs:ignore ?></span>
-                                    <span class="gorvita-ingr-panel__img-label"><?php echo esc_html($ing['latin']); ?></span>
-                                </div>
-                                <div>
-                                    <h3><?php echo esc_html($ing['name']); ?></h3>
-                                    <div class="gorvita-ingr-panel__latin"><?php echo esc_html($ing['latin']); ?></div>
-                                    <p><?php echo esc_html($ing['desc']); ?></p>
-                                    <div class="gorvita-ingr-panel__props">
-                                        <?php foreach ($ing['props'] as $pr): ?><span><?php echo esc_html($pr); ?></span><?php endforeach; ?>
-                                    </div>
+                <div class="gorvita-ingr-cards" role="list">
+                    <?php foreach ($ings as $ing): ?>
+                        <article class="gorvita-ingr-card" role="listitem">
+                            <div class="gorvita-ingr-card__img">
+                                <?php echo wp_get_attachment_image($ing['img_id'], 'medium_large', false, [
+                                    'class' => 'gorvita-ingr-card__photo',
+                                    'alt'   => $ing['name'] . ' — ' . $ing['latin'],
+                                    'loading' => 'lazy',
+                                    'decoding' => 'async',
+                                ]); ?>
+                                <span class="gorvita-ingr-card__latin-overlay"><?php echo esc_html($ing['latin']); ?></span>
+                            </div>
+                            <div class="gorvita-ingr-card__body">
+                                <h3><?php echo esc_html($ing['name']); ?></h3>
+                                <div class="gorvita-ingr-card__latin"><?php echo esc_html($ing['latin']); ?></div>
+                                <p><?php echo esc_html($ing['desc']); ?></p>
+                                <div class="gorvita-ingr-card__props">
+                                    <?php foreach ($ing['props'] as $pr): ?><span><?php echo esc_html($pr); ?></span><?php endforeach; ?>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
-                    </div>
+                        </article>
+                    <?php endforeach; ?>
                 </div>
+                <p class="gorvita-ingredients__hint">To tylko wybrane. Pełny leksykon — z certyfikatami i badaniami — znajdziesz na <strong>gorvita.pl</strong>.</p>
                 <div class="gorvita-ingredients__cta">
                     <a class="gorvita-btn gorvita-btn--primary" href="https://www.gorvita.pl/leksykon#leksykon">
                         Zobacz pełny leksykon składników
