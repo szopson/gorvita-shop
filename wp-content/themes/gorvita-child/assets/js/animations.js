@@ -144,6 +144,73 @@
     });
   }
 
+  // ---------- Product carousel (CSS scroll-snap) ----------
+  function initCarousel() {
+    var wraps = document.querySelectorAll('.gorvita-carousel-wrap[data-carousel]');
+    if (!wraps.length) return;
+
+    wraps.forEach(function (wrap) {
+      var track = wrap.querySelector('.gorvita-prod-grid');
+      var dotsEl = wrap.querySelector('.gorvita-carousel__dots');
+      var btnPrev = wrap.querySelector('.gorvita-carousel__btn--prev');
+      var btnNext = wrap.querySelector('.gorvita-carousel__btn--next');
+      if (!track) return;
+
+      var cards = Array.from(track.children);
+      if (!cards.length) return;
+
+      // Build dots
+      if (dotsEl) {
+        cards.forEach(function (_, i) {
+          var dot = document.createElement('button');
+          dot.className = 'gorvita-carousel__dot' + (i === 0 ? ' is-active' : '');
+          dot.setAttribute('role', 'tab');
+          dot.setAttribute('aria-label', 'Produkt ' + (i + 1));
+          dot.addEventListener('click', function () {
+            track.scrollTo({ left: cards[i].offsetLeft - track.offsetLeft, behavior: 'smooth' });
+          });
+          dotsEl.appendChild(dot);
+        });
+      }
+
+      function getActiveIndex() {
+        var trackLeft = track.getBoundingClientRect().left;
+        var mid = track.clientWidth / 2;
+        var best = 0, bestDist = Infinity;
+        cards.forEach(function (c, i) {
+          var dist = Math.abs(c.getBoundingClientRect().left - trackLeft - mid + c.offsetWidth / 2);
+          if (dist < bestDist) { bestDist = dist; best = i; }
+        });
+        return best;
+      }
+
+      function updateDots() {
+        if (!dotsEl) return;
+        var idx = getActiveIndex();
+        Array.from(dotsEl.children).forEach(function (d, i) {
+          d.classList.toggle('is-active', i === idx);
+        });
+      }
+
+      track.addEventListener('scroll', updateDots, { passive: true });
+
+      if (btnPrev) {
+        btnPrev.addEventListener('click', function () {
+          var idx = getActiveIndex();
+          var target = cards[Math.max(0, idx - 1)];
+          track.scrollTo({ left: target.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+        });
+      }
+      if (btnNext) {
+        btnNext.addEventListener('click', function () {
+          var idx = getActiveIndex();
+          var target = cards[Math.min(cards.length - 1, idx + 1)];
+          track.scrollTo({ left: target.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+        });
+      }
+    });
+  }
+
   // ---------- Header scroll state ----------
   function initHeaderScroll() {
     var header = document.querySelector('header, .site-header, #masthead');
@@ -162,5 +229,6 @@
     initQuickadd();
     initWishlist();
     initHeaderScroll();
+    initCarousel();
   });
 })();

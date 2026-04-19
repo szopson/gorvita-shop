@@ -152,6 +152,7 @@ function gorvita_icon($name, $size = 20) {
         'heart'       => '<path d="M12 20s-7-4.5-9-9a4.5 4.5 0 0 1 9-2.5 4.5 4.5 0 0 1 9 2.5c-2 4.5-9 9-9 9z"/>',
         'chevron'     => '<path d="m6 9 6 6 6-6"/>',
         'arrow-right' => '<path d="M5 12h14M13 6l6 6-6 6"/>',
+        'arrow-left'  => '<path d="M19 12H5M11 18l-6-6 6-6"/>',
         'plus'        => '<path d="M12 5v14M5 12h14"/>',
         'check'       => '<path d="m5 12 5 5L20 7"/>',
         'truck'       => '<path d="M3 7h11v10H3zM14 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/>',
@@ -304,14 +305,21 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                 </div>
                 <p>Produkty, po które wracają nasi klienci. Receptury dopracowane od 1989 roku.</p>
             </div>
-            <div class="gorvita-prod-grid">
-                <?php
-                $render_source = $gorvita_products ?: array_slice($gorvita_product_fallback, 0, 4);
-                $render_source = array_slice($render_source, 0, 4);
-                foreach ($render_source as $p) {
-                    gorvita_render_product_card($p);
-                }
-                ?>
+            <div class="gorvita-carousel-wrap" data-carousel>
+                <div class="gorvita-prod-grid">
+                    <?php
+                    $render_source = $gorvita_products ?: array_slice($gorvita_product_fallback, 0, 4);
+                    $render_source = array_slice($render_source, 0, 4);
+                    foreach ($render_source as $p) {
+                        gorvita_render_product_card($p);
+                    }
+                    ?>
+                </div>
+                <div class="gorvita-carousel__arrows" aria-hidden="true">
+                    <button class="gorvita-carousel__btn gorvita-carousel__btn--prev" aria-label="Poprzednie produkty"><?php gorvita_icon('arrow-left', 18); ?></button>
+                    <button class="gorvita-carousel__btn gorvita-carousel__btn--next" aria-label="Następne produkty"><?php gorvita_icon('arrow-right', 18); ?></button>
+                </div>
+                <div class="gorvita-carousel__dots" role="tablist" aria-label="Produkty"></div>
             </div>
         </div>
     </section>
@@ -389,7 +397,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
         <div class="gorvita-wrap">
             <div class="gorvita-section__head">
                 <div>
-                    <div class="gorvita-eyebrow" style="margin-bottom:20px">LEKSYKON SKŁADNIKÓW</div>
+                    <div class="gorvita-eyebrow" style="margin-bottom:20px">WYBRANE SKŁADNIKI</div>
                     <h2>Poznaj to, co<br><em>wchłania Twoja skóra.</em></h2>
                 </div>
                 <p>Każdy składnik opisany, każda partia przebadana. Transparentność w pełni.</p>
@@ -397,11 +405,9 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
             <?php
             $ings = [
                 ['key'=>'zywokost',    'name'=>'Żywokost lekarski',  'latin'=>'Symphytum officinale',  'desc'=>'Wielowiekowy składnik tradycyjnego zielarstwa polskiego. Zawiera alantoinę — naturalny regenerator tkanek. Wspiera regenerację stawów, ścięgien i skóry po urazach.', 'props'=>['Regeneracja','Anti-inflammatory','Alantoina 0.8%'], 'color'=>'#4a6b3a','icon'=>'🌿'],
-                ['key'=>'kasztanowiec','name'=>'Kasztanowiec',        'latin'=>'Aesculus hippocastanum','desc'=>'Ekstrakt z nasion kasztanowca — aescyna uszczelnia naczynia krwionośne. Klasyczny składnik preparatów na ciężkie nogi i żylaki.', 'props'=>['Aescyna 2.1%','Krążenie','Anti-edema'],             'color'=>'#7a4a28','icon'=>'🌰'],
                 ['key'=>'cbd',         'name'=>'CBD Full-spectrum',  'latin'=>'Cannabis sativa L.',     'desc'=>'Kannabidiol z ekologicznych konopi siewnych. Zimnotłoczony, bez THC. Wspiera układ endokannabinoidowy — równowaga, sen, regeneracja.', 'props'=>['<0.2% THC','Full-spectrum','Certyfikat COA'],   'color'=>'#2d5016','icon'=>'🌱'],
                 ['key'=>'kolagen',     'name'=>'Kolagen rybny',      'latin'=>'Type I Marine Collagen', 'desc'=>'Hydrolizat kolagenu typu I o niskiej masie cząsteczkowej — 90% biodostępność. Budulec skóry, stawów i chrząstki.', 'props'=>['Typ I','90% biodost.','10 kDa'],                            'color'=>'#8a6a5a','icon'=>'💧'],
                 ['key'=>'rokitnik',    'name'=>'Rokitnik',           'latin'=>'Hippophae rhamnoides',   'desc'=>'Superowoc północy — 15× więcej witaminy C niż cytryna. Bogaty w omega-7 z rzadkimi flawonoidami. Odporność i witalność.', 'props'=>['Wit. C 200mg','Omega-7','Flawonoidy'],                 'color'=>'#c97020','icon'=>'🫐'],
-                ['key'=>'propolis',    'name'=>'Propolis',           'latin'=>'Propolis apium',          'desc'=>'Kit pszczeli — naturalne antybiotykowe działanie. Galangina i pinocembryna dla tarczy odpornościowej.', 'props'=>['Galangina','Antibakt.','Odporność'],                              'color'=>'#a07820','icon'=>'🍯'],
             ];
             ?>
             <div class="gorvita-ingredients">
@@ -423,7 +429,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                                 </button>
                             <?php endforeach; ?>
                         </div>
-                        <p class="gorvita-ingredients__hint">Kliknij składnik, żeby zobaczyć jego właściwości i pochodzenie. Wszystkie ekstrakty standaryzowane, z certyfikatem jakości.</p>
+                        <p class="gorvita-ingredients__hint">To tylko wybrane. Pełny leksykon — z certyfikatami i badaniami — znajdziesz na <strong>gorvita.pl</strong>.</p>
                     </div>
 
                     <div class="gorvita-ingr-view">
@@ -451,6 +457,12 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                             </div>
                         <?php endforeach; ?>
                     </div>
+                </div>
+                <div class="gorvita-ingredients__cta">
+                    <a class="gorvita-btn gorvita-btn--primary" href="https://www.gorvita.pl/leksykon#leksykon">
+                        Zobacz pełny leksykon składników
+                        <span aria-hidden="true">→</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -498,12 +510,19 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                     Zobacz wszystkie produkty <?php gorvita_icon('arrow-right', 16); ?>
                 </a>
             </div>
-            <div class="gorvita-prod-grid">
-                <?php
-                foreach (array_slice($gorvita_products, 4, 4) as $p) {
-                    gorvita_render_product_card($p);
-                }
-                ?>
+            <div class="gorvita-carousel-wrap" data-carousel>
+                <div class="gorvita-prod-grid">
+                    <?php
+                    foreach (array_slice($gorvita_products, 4, 4) as $p) {
+                        gorvita_render_product_card($p);
+                    }
+                    ?>
+                </div>
+                <div class="gorvita-carousel__arrows" aria-hidden="true">
+                    <button class="gorvita-carousel__btn gorvita-carousel__btn--prev" aria-label="Poprzednie produkty"><?php gorvita_icon('arrow-left', 18); ?></button>
+                    <button class="gorvita-carousel__btn gorvita-carousel__btn--next" aria-label="Następne produkty"><?php gorvita_icon('arrow-right', 18); ?></button>
+                </div>
+                <div class="gorvita-carousel__dots" role="tablist" aria-label="Produkty"></div>
             </div>
         </div>
     </section>
@@ -519,8 +538,15 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                     Zobacz wszystkie produkty <?php gorvita_icon('arrow-right', 16); ?>
                 </a>
             </div>
-            <div class="gorvita-prod-grid">
-                <?php foreach (array_slice($gorvita_product_fallback, 4, 4) as $p) gorvita_render_product_card($p); ?>
+            <div class="gorvita-carousel-wrap" data-carousel>
+                <div class="gorvita-prod-grid">
+                    <?php foreach (array_slice($gorvita_product_fallback, 4, 4) as $p) gorvita_render_product_card($p); ?>
+                </div>
+                <div class="gorvita-carousel__arrows" aria-hidden="true">
+                    <button class="gorvita-carousel__btn gorvita-carousel__btn--prev" aria-label="Poprzednie produkty"><?php gorvita_icon('arrow-left', 18); ?></button>
+                    <button class="gorvita-carousel__btn gorvita-carousel__btn--next" aria-label="Następne produkty"><?php gorvita_icon('arrow-right', 18); ?></button>
+                </div>
+                <div class="gorvita-carousel__dots" role="tablist" aria-label="Produkty"></div>
             </div>
         </div>
     </section>

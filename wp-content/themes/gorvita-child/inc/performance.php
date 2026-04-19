@@ -104,7 +104,7 @@ add_action('wp_enqueue_scripts', function () {
             'gorvita-homepage',
             get_stylesheet_directory_uri() . '/assets/css/homepage.css',
             [],
-            '1.3'
+            '1.4'
         );
     }
 }, 20);
@@ -118,7 +118,7 @@ add_action('wp_enqueue_scripts', function () {
             'gorvita-animations',
             get_stylesheet_directory_uri() . '/assets/js/animations.js',
             [],
-            '1.1',
+            '1.2',
             true
         );
     }
