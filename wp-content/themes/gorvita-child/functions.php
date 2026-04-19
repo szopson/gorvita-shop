@@ -1,29 +1,28 @@
 <?php
 /**
- * Gorvita Child Theme — main functions file
+ * Gorvita Child Theme — main functions file.
  *
  * @package GorvitaChild
  */
 
 defined('ABSPATH') || exit;
 
-define('GORVITA_CHILD_VERSION', '1.1.0');
+define('GORVITA_CHILD_VERSION', '1.2.0');
 define('GORVITA_CHILD_DIR', get_stylesheet_directory());
 define('GORVITA_CHILD_URI', get_stylesheet_directory_uri());
 
 /**
  * Enqueue parent + child styles and Google Fonts.
+ * Replaces Lato with Inter + adds JetBrains Mono for eyebrow/stat labels.
  */
 function gorvita_enqueue_styles() {
-    // Google Fonts: Fraunces (display headings) + Lato (body, matches legacy shop)
     wp_enqueue_style(
         'gorvita-fonts',
-        'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Lato:wght@300;400;700;900&display=swap',
+        'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap',
         [],
         null
     );
 
-    // Parent (Blocksy) stylesheet
     wp_enqueue_style(
         'blocksy-parent',
         get_template_directory_uri() . '/style.css',
@@ -31,7 +30,6 @@ function gorvita_enqueue_styles() {
         wp_get_theme(get_template())->get('Version')
     );
 
-    // Child stylesheet
     wp_enqueue_style(
         'gorvita-child',
         get_stylesheet_uri(),
@@ -42,7 +40,7 @@ function gorvita_enqueue_styles() {
 add_action('wp_enqueue_scripts', 'gorvita_enqueue_styles', 20);
 
 /**
- * Preconnect Google Fonts for faster load.
+ * Preconnect Google Fonts.
  */
 function gorvita_resource_hints($hints, $relation_type) {
     if ('preconnect' === $relation_type) {
@@ -54,7 +52,16 @@ function gorvita_resource_hints($hints, $relation_type) {
 add_filter('wp_resource_hints', 'gorvita_resource_hints', 10, 2);
 
 /**
- * WooCommerce support declaration (child theme).
+ * Preload the hero background image on the front page (LCP optimization).
+ */
+add_action('wp_head', function () {
+    if (!is_front_page()) return;
+    $hero_url = GORVITA_CHILD_URI . '/assets/images/gorce.webp';
+    echo '<link rel="preload" as="image" href="' . esc_url($hero_url) . '" type="image/webp" fetchpriority="high">' . "\n";
+}, 2);
+
+/**
+ * WooCommerce support declaration.
  */
 function gorvita_theme_setup() {
     add_theme_support('woocommerce');
@@ -73,7 +80,6 @@ add_action('after_setup_theme', 'gorvita_theme_setup');
 
 /**
  * Auto-install the Gorvita logo on theme activation.
- * Seeds the Customizer "site logo" from theme assets if no logo is set yet.
  */
 function gorvita_install_logo() {
     if (get_theme_mod('custom_logo')) return;
@@ -123,8 +129,39 @@ remove_action('wp_head', 'wp_generator');
 add_filter('xmlrpc_enabled', '__return_false');
 
 /**
- * Admin bar: small style tweak.
+ * Admin bar tweak.
  */
 add_action('admin_head', function () {
     echo '<style>#wpadminbar{background:#1A1A1A !important}</style>';
+});
+
+/**
+ * Expose a per-product "gorvita_shade" meta field for product card backgrounds.
+ * Shows up as a simple text input under the Product Data → General tab.
+ */
+add_action('woocommerce_product_options_general_product_data', function () {
+    woocommerce_wp_text_input([
+        'id' => '_gorvita_shade',
+        'label' => __('Kolor karty (hex)', 'gorvita-child'),
+        'placeholder' => '#8db87a',
+        'desc_tip' => true,
+        'description' => __('Hex kolor (np. #8db87a) używany do radialnego gradientu tła karty produktu na stronie głównej. Pusty = domyślny sage.', 'gorvita-child'),
+    ]);
+    woocommerce_wp_select([
+        'id' => '_gorvita_badge',
+        'label' => __('Badge na karcie', 'gorvita-child'),
+        'options' => [
+            ''     => '— brak —',
+            'best' => 'Bestseller',
+            'new'  => 'Nowość',
+            'sale' => 'Promocja',
+            'cbd'  => 'CBD Gold',
+        ],
+    ]);
+});
+add_action('woocommerce_process_product_meta', function ($post_id) {
+    $shade = isset($_POST['_gorvita_shade']) ? sanitize_hex_color(wp_unslash($_POST['_gorvita_shade'])) : '';
+    update_post_meta($post_id, '_gorvita_shade', $shade ?: '');
+    $badge = isset($_POST['_gorvita_badge']) ? sanitize_text_field(wp_unslash($_POST['_gorvita_badge'])) : '';
+    update_post_meta($post_id, '_gorvita_badge', in_array($badge, ['best','new','sale','cbd'], true) ? $badge : '');
 });

@@ -37,6 +37,7 @@ jobs:
             docker compose cp wordpress:/tmp/pre-deploy-$TIMESTAMP.sql ./backups/ 2>/dev/null || true
           EOF
 
+      # CRITICAL excludes — see deploy-staging.yml for rationale.
       - name: Rsync to VPS
         run: |
           rsync -avz --delete \
@@ -48,6 +49,8 @@ jobs:
             --exclude='backups/' \
             --exclude='node_modules/' \
             --exclude='vendor/' \
+            --exclude='wp-content/uploads/' \
+            --exclude='wp-content/plugins/' \
             ./ deploy@${{ secrets.VPS_HOST }}:/opt/gorvita-shop/
 
       - name: Fix permissions + flush caches
