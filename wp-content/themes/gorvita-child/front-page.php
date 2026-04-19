@@ -265,23 +265,25 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
             <div class="gorvita-cat-band">
                 <?php
                 $cats = [
-                    ['label'=>'Stawy i mięśnie',     'slug'=>'stawy-miesnie',      'count'=>18, 'big'=>true,  'shade'=>'linear-gradient(160deg,#3a4a28,#2d5016)'],
-                    ['label'=>'Odporność',           'slug'=>'odpornosc',          'count'=>14, 'big'=>false, 'shade'=>'linear-gradient(160deg,#8ea07a,#6B8E5F)'],
-                    ['label'=>'Skóra i ciało',       'slug'=>'skora-cialo',        'count'=>22, 'big'=>false, 'shade'=>'linear-gradient(160deg,#a8bfa0,#8ea07a)'],
-                    ['label'=>'Krążenie',            'slug'=>'krazenie',           'count'=>11, 'big'=>false, 'shade'=>'linear-gradient(160deg,#3a4a5a,#4a7a94)'],
-                    ['label'=>'CBD · Konopie',       'slug'=>'cbd-konopie',        'count'=>9,  'big'=>false, 'shade'=>'linear-gradient(160deg,#3a3320,#6b5a33)'],
-                    ['label'=>'Wątroba i trawienie', 'slug'=>'watroba-trawienie',  'count'=>12, 'big'=>false, 'shade'=>'linear-gradient(160deg,#6b5a33,#8B7355)'],
-                    ['label'=>'Energia i stres',     'slug'=>'energia-stres',      'count'=>8,  'big'=>false, 'shade'=>'linear-gradient(160deg,#5a6b4a,#8ea07a)'],
-                    ['label'=>'Nos, gardło, usta',   'slug'=>'nos-gardlo-jama-ustna','count'=>7,'big'=>false, 'shade'=>'linear-gradient(160deg,#c9a961,#d4bb7a)'],
+                    ['label'=>'Stawy i mięśnie',     'slug'=>'stawy-miesnie',        'count'=>18, 'big'=>true,  'shade'=>'linear-gradient(160deg,#3a4a28,#2d5016)', 'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/stawy_miesnie.jpg'],
+                    ['label'=>'Odporność',           'slug'=>'odpornosc',            'count'=>14, 'big'=>false, 'shade'=>'linear-gradient(160deg,#8ea07a,#6B8E5F)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/odpornosc.jpg'],
+                    ['label'=>'Skóra i ciało',       'slug'=>'skora-cialo',          'count'=>22, 'big'=>false, 'shade'=>'linear-gradient(160deg,#a8bfa0,#8ea07a)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/skora_cialo.jpg'],
+                    ['label'=>'Krążenie',            'slug'=>'krazenie',             'count'=>11, 'big'=>false, 'shade'=>'linear-gradient(160deg,#3a4a5a,#4a7a94)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/krazenie.jpg'],
+                    ['label'=>'CBD · Konopie',       'slug'=>'cbd-konopie',          'count'=>9,  'big'=>false, 'shade'=>'linear-gradient(160deg,#3a3320,#6b5a33)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/cbd.jpg'],
+                    ['label'=>'Wątroba i trawienie', 'slug'=>'watroba-trawienie',    'count'=>12, 'big'=>false, 'shade'=>'linear-gradient(160deg,#6b5a33,#8B7355)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/watroba_trawienie.jpg'],
+                    ['label'=>'Energia i stres',     'slug'=>'energia-stres',        'count'=>8,  'big'=>false, 'shade'=>'linear-gradient(160deg,#5a6b4a,#8ea07a)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/energia_stres.jpg'],
+                    ['label'=>'Nos, gardło, usta',   'slug'=>'nos-gardlo-jama-ustna','count'=>7,  'big'=>false, 'shade'=>'linear-gradient(160deg,#c9a961,#d4bb7a)',  'img'=>'https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/nos_gardlo.jpg'],
                 ];
                 foreach ($cats as $c):
-                    // Try to pull live count from WooCommerce.
-                    $term = get_term_by('slug', $c['slug'], 'product_cat');
+                    $term  = get_term_by('slug', $c['slug'], 'product_cat');
                     $count = $term && !is_wp_error($term) && $term->count ? $term->count : $c['count'];
                     $link  = $term && !is_wp_error($term) ? get_term_link($term) : '/product-category/' . $c['slug'] . '/';
+                    $ph_style = !empty($c['img'])
+                        ? 'background-image: url(' . esc_url($c['img']) . ');'
+                        : 'background: ' . esc_attr($c['shade']) . ';';
                 ?>
                     <a href="<?php echo esc_url($link); ?>" class="gorvita-cat-tile <?php echo $c['big'] ? 'gorvita-cat-tile--big' : ''; ?>">
-                        <div class="gorvita-cat-tile__ph" style="background: <?php echo esc_attr($c['shade']); ?>"></div>
+                        <div class="gorvita-cat-tile__ph" style="<?php echo $ph_style; // phpcs:ignore ?>"></div>
                         <div class="gorvita-cat-tile__label">
                             <span class="count"><?php echo esc_html(str_pad($count, 2, '0', STR_PAD_LEFT)); ?> · kategoria</span>
                             <?php echo esc_html($c['label']); ?>
