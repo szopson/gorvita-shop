@@ -577,23 +577,208 @@ header.site-header {
 }
 
 /* =========================================================================
-   FOOTER
+   FOOTER — custom gorvita-footer (replaces Blocksy default)
    ========================================================================= */
-.site-footer,
-.ct-footer {
+
+/* Hide Blocksy's default footer so ours doesn't double up */
+.ct-footer { display: none !important; }
+
+.gorvita-footer {
     background: var(--gorvita-ink);
-    color: var(--gorvita-gray-300);
-    padding-block: var(--space-16);
+    color: var(--gorvita-gray-400);
+    font-size: var(--fs-small);
 }
 
-.site-footer a,
-.ct-footer a {
+/* Main grid row */
+.gorvita-footer__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-16) var(--space-6);
+    display: grid;
+    grid-template-columns: 1.4fr 3fr;
+    gap: var(--space-16);
+}
+
+/* Brand column */
+.gorvita-footer__logo-link { display: inline-block; margin-bottom: var(--space-6); }
+.gorvita-footer__logo {
+    height: 48px;
+    width: auto;
+    max-width: 160px;
+    display: block;
+    /* Converts any color logo to white for dark footer background */
+    filter: brightness(0) invert(1);
+}
+
+.gorvita-footer__address {
+    line-height: 1.7;
+    color: var(--gorvita-gray-500);
+    margin: 0 0 var(--space-6);
+}
+.gorvita-footer__address strong { color: var(--gorvita-gray-300); }
+
+.gorvita-footer__socials {
+    display: flex;
+    gap: var(--space-3);
+}
+.gorvita-footer__social {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.12);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gorvita-gray-500);
+    transition: border-color var(--t-fast), color var(--t-fast);
+}
+.gorvita-footer__social:hover {
+    border-color: var(--gorvita-sage);
     color: var(--gorvita-sage-light);
 }
+.gorvita-footer__social svg { width: 18px; height: 18px; }
 
-.site-footer a:hover,
-.ct-footer a:hover {
-    color: var(--gorvita-white);
+/* Nav columns grid */
+.gorvita-footer__nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+}
+
+/* Section headers (summary) */
+.gorvita-footer__section-head {
+    list-style: none;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gorvita-gray-300);
+    margin-bottom: var(--space-4);
+    cursor: default;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.gorvita-footer__section-head::-webkit-details-marker { display: none; }
+
+.gorvita-footer__chevron { display: none; } /* hidden on desktop */
+
+/* Links */
+.gorvita-footer__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+.gorvita-footer__links a {
+    color: var(--gorvita-gray-500);
+    text-decoration: none;
+    transition: color var(--t-fast);
+    line-height: 1.4;
+}
+.gorvita-footer__links a:hover { color: var(--gorvita-white); }
+
+/* Bottom bar */
+.gorvita-footer__bottom {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-6) calc(var(--space-6) + env(safe-area-inset-bottom));
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+.gorvita-footer__copy,
+.gorvita-footer__credit {
+    margin: 0;
+    color: var(--gorvita-gray-600, #444);
+    font-size: var(--fs-xs);
+}
+.gorvita-footer__copy a,
+.gorvita-footer__credit a {
+    color: var(--gorvita-gray-500);
+    text-decoration: none;
+    transition: color var(--t-fast);
+}
+.gorvita-footer__copy a:hover,
+.gorvita-footer__credit a:hover { color: var(--gorvita-white); }
+
+/* Mobile bottom nav padding on footer */
+@media (max-width: 1023px) {
+    .gorvita-footer__bottom {
+        padding-bottom: calc(var(--space-6) + 64px + env(safe-area-inset-bottom));
+    }
+}
+
+/* ── MOBILE: accordion layout ── */
+@media (max-width: 768px) {
+    .gorvita-footer__inner {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: var(--space-10, 2.5rem) var(--space-6) 0;
+    }
+
+    .gorvita-footer__brand {
+        padding-bottom: var(--space-8);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        text-align: center;
+        margin-bottom: 0;
+    }
+    .gorvita-footer__logo { margin: 0 auto var(--space-4); }
+    .gorvita-footer__socials { justify-content: center; }
+
+    .gorvita-footer__nav {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .gorvita-footer__section {
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Hide content by default on mobile — <details> handles it natively */
+    .gorvita-footer__section:not([open]) > .gorvita-footer__links {
+        display: none;
+    }
+
+    .gorvita-footer__section-head {
+        cursor: pointer;
+        padding: var(--space-4) 0;
+        margin-bottom: 0;
+        font-size: 11px;
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+    }
+    /* Show chevron on mobile */
+    .gorvita-footer__chevron {
+        display: block;
+        width: 18px;
+        height: 18px;
+        color: var(--gorvita-gray-500);
+        transition: transform var(--t-fast);
+        flex-shrink: 0;
+    }
+    .gorvita-footer__section[open] .gorvita-footer__chevron {
+        transform: rotate(180deg);
+        color: var(--gorvita-sage-light);
+    }
+
+    .gorvita-footer__links {
+        padding-bottom: var(--space-4);
+        gap: var(--space-4);
+    }
+
+    .gorvita-footer__bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-2);
+    }
 }
 
 /* =========================================================================

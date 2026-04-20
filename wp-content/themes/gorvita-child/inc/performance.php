@@ -125,6 +125,27 @@ add_action('wp_enqueue_scripts', function () {
 }, 20);
 
 /**
+ * Footer accordion: keep sections open on desktop, closed on mobile.
+ * Inline — tiny, no extra HTTP request.
+ */
+add_action('wp_footer', function () {
+    ?>
+    <script>
+    (function(){
+        function syncFooter(){
+            var open = window.innerWidth > 768;
+            document.querySelectorAll('.gorvita-footer__section').forEach(function(el){
+                if(open) el.setAttribute('open','');
+            });
+        }
+        document.addEventListener('DOMContentLoaded', syncFooter);
+        window.addEventListener('resize', syncFooter);
+    })();
+    </script>
+    <?php
+}, 30);
+
+/**
  * Mobile product tabs accordion — product pages only, loaded in footer.
  */
 add_action('wp_enqueue_scripts', function () {
