@@ -1508,3 +1508,85 @@ header.site-header {
     color: #ffffff !important;
     box-shadow: 0 4px 16px rgba(45,80,22,0.35) !important;
 }
+
+/* =========================================================================
+   TASK 2 — CHECKOUT FORM: single-column layout on mobile
+   ========================================================================= */
+@media (max-width: 768px) {
+    /* Billing/shipping two-column → single column */
+    .woocommerce-checkout .col2-set,
+    .woocommerce-checkout .col2-set .col-1,
+    .woocommerce-checkout .col2-set .col-2 {
+        width: 100% !important;
+        float: none !important;
+    }
+
+    .woocommerce form .form-row-first,
+    .woocommerce form .form-row-last {
+        width: 100% !important;
+        float: none !important;
+        padding: 0 !important;
+    }
+
+    /* Coupon code: stack input + button vertically */
+    .woocommerce form.checkout_coupon {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+    .woocommerce form.checkout_coupon .form-row {
+        width: 100% !important;
+        float: none !important;
+    }
+
+    /* Payment methods: full-width tappable rows */
+    .woocommerce-checkout #payment ul.payment_methods {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+    .woocommerce-checkout #payment ul.payment_methods li {
+        padding: var(--space-3) var(--space-4);
+        border: 1px solid var(--gorvita-gray-300);
+        border-radius: var(--radius);
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .woocommerce-checkout #payment ul.payment_methods li label {
+        flex: 1;
+        margin-bottom: 0;
+        cursor: pointer;
+    }
+
+    /* Order review on checkout page */
+    .woocommerce-checkout #order_review {
+        padding: var(--space-4);
+    }
+    .woocommerce-checkout table.shop_table thead {
+        display: none;
+    }
+    .woocommerce-checkout table.shop_table td {
+        display: block;
+        width: 100% !important;
+        text-align: left;
+        padding: var(--space-2) var(--space-3);
+        border-top: none;
+    }
+    .woocommerce-checkout table.shop_table tr {
+        display: block;
+        border-top: 1px solid var(--gorvita-gray-300);
+        padding-block: var(--space-3);
+    }
+    /* Keep tfoot as a real table so totals line up */
+    .woocommerce-checkout table.shop_table tfoot td,
+    .woocommerce-checkout table.shop_table tfoot th {
+        display: table-cell;
+        width: auto !important;
+    }
+    .woocommerce-checkout table.shop_table tfoot tr {
+        display: table-row;
+        border-top: 1px solid var(--gorvita-gray-300);
+    }
+}
