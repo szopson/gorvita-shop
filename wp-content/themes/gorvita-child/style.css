@@ -1738,3 +1738,70 @@ header.site-header {
         min-width: 0;
     }
 }
+
+/* =========================================================================
+   TASK 5 — PRODUCT TABS: accordion on mobile, standard tabs on desktop
+   ========================================================================= */
+@media (max-width: 768px) {
+    /* Hide horizontal tab list — JS renders accordion triggers instead */
+    .woocommerce div.product .woocommerce-tabs ul.tabs {
+        display: none !important;
+    }
+
+    .gorvita-tab-trigger {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: var(--space-4);
+        background: var(--gorvita-cream);
+        border: none;
+        border-top: 1px solid var(--gorvita-gray-300);
+        cursor: pointer;
+        font-family: var(--font-body);
+        font-size: var(--fs-body);
+        font-weight: 600;
+        color: var(--gorvita-ink);
+        text-align: left;
+        min-height: 52px;
+        transition: background var(--t-fast), color var(--t-fast);
+    }
+    .gorvita-tab-trigger:hover,
+    .gorvita-tab-trigger.is-open {
+        background: var(--gorvita-sage-mist, #E6EEE2);
+        color: var(--gorvita-green);
+    }
+    .gorvita-tab-trigger svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--gorvita-gray-500);
+        transition: transform var(--t-fast), color var(--t-fast);
+    }
+    .gorvita-tab-trigger.is-open svg {
+        transform: rotate(180deg);
+        color: var(--gorvita-green);
+    }
+
+    /* Panel content */
+    .woocommerce-tabs .panel {
+        padding: var(--space-4) var(--space-4) var(--space-6);
+        border: 1px solid var(--gorvita-gray-300);
+        border-top: none;
+        background: var(--gorvita-white);
+    }
+}
+
+/* Desktop: undo any JS-set hidden attribute on panels, hide accordion triggers */
+@media (min-width: 769px) {
+    .gorvita-tab-trigger {
+        display: none !important;
+    }
+    .woocommerce div.product .woocommerce-tabs ul.tabs {
+        display: flex !important;
+    }
+    /* Override panel[hidden] so desktop tabs work normally */
+    .woocommerce-tabs .panel[hidden] {
+        display: block !important;
+    }
+}

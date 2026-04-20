@@ -123,3 +123,18 @@ add_action('wp_enqueue_scripts', function () {
         );
     }
 }, 20);
+
+/**
+ * Mobile product tabs accordion — product pages only, loaded in footer.
+ */
+add_action('wp_enqueue_scripts', function () {
+    if (function_exists('is_product') && is_product()) {
+        wp_enqueue_script(
+            'gorvita-mobile-tabs',
+            get_stylesheet_directory_uri() . '/assets/js/mobile-tabs.js',
+            [],
+            '1.0',
+            true
+        );
+    }
+}, 20);
