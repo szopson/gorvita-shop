@@ -95,10 +95,13 @@ add_action('wp_footer', function () {
             <nav class="gorvita-mega__cats" aria-label="<?php esc_attr_e('Kategorie produktów', 'gorvita-child'); ?>">
                 <p class="gorvita-mega__section-label"><?php esc_html_e('Kategorie', 'gorvita-child'); ?></p>
                 <ul class="gorvita-mega__cat-list">
-                    <?php foreach ($categories as $cat): ?>
+                    <?php foreach ($categories as $cat):
+                        $term_link = get_term_link($cat['slug'], 'product_cat');
+                        $cat_url   = is_wp_error($term_link) ? ($shop_url . 'kategoria/' . $cat['slug'] . '/') : $term_link;
+                    ?>
                     <li>
                         <a class="gorvita-mega__cat-link"
-                           href="<?php echo esc_url(get_term_link($cat['slug'], 'product_cat') ?: ($shop_url . 'kategoria/' . $cat['slug'] . '/')); ?>">
+                           href="<?php echo esc_url($cat_url); ?>">
                             <span class="gorvita-mega__cat-icon" aria-hidden="true"><?php echo $cat['icon']; ?></span>
                             <?php echo esc_html($cat['label']); ?>
                         </a>
