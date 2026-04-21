@@ -9,11 +9,23 @@ defined('ABSPATH') || exit;
 
 /**
  * Disable WooCommerce "Coming Soon" mode (WooCommerce 8.2+).
- * Uses the template-loader filter which WC 9.x exposes directly.
+ *
+ * WC stores the flag in wp_options as woocommerce_coming_soon='yes'.
+ * The template-include check fires AFTER init, so we permanently
+ * flip the option to 'no' on first load — zero-cost on subsequent
+ * requests because the condition is false.
  */
 add_filter('woocommerce_is_coming_soon', '__return_false');
-add_filter('pre_option_woocommerce_coming_soon', '__return_empty_string');
-add_filter('pre_option_woocommerce_store_pages_only', '__return_empty_string');
+add_filter('woocommerce_coming_soon_is_active', '__return_false');
+
+add_action('init', function () {
+    if ('yes' === get_option('woocommerce_coming_soon')) {
+        update_option('woocommerce_coming_soon', 'no');
+    }
+    if ('yes' === get_option('woocommerce_store_pages_only')) {
+        update_option('woocommerce_store_pages_only', 'no');
+    }
+}, 1);
 
 /**
  * Redirect /shop/ → actual WooCommerce shop page (handles English slug from Blocksy menu).
