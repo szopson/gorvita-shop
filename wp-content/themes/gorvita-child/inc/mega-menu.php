@@ -19,14 +19,14 @@ defined('ABSPATH') || exit;
 
 function gorvita_mega_categories(): array {
     return [
-        ['slug' => 'stawy-i-miesnie',    'label' => 'Stawy i mięśnie',       'icon' => '💪'],
-        ['slug' => 'skora-i-cialo',      'label' => 'Skóra i ciało',          'icon' => '🌿'],
-        ['slug' => 'odpornosc',          'label' => 'Odporność',              'icon' => '🛡'],
-        ['slug' => 'watroba-i-trawienie','label' => 'Wątroba i trawienie',    'icon' => '🌱'],
-        ['slug' => 'krazenie',           'label' => 'Krążenie',               'icon' => '❤️'],
-        ['slug' => 'energia-i-stres',    'label' => 'Energia i stres',        'icon' => '⚡'],
-        ['slug' => 'nos-gardlo',         'label' => 'Nos, gardło, jama ustna','icon' => '🌬'],
-        ['slug' => 'cbd',                'label' => 'CBD / Konopie',          'icon' => '🌾'],
+        ['slug' => 'stawy-miesnie',       'label' => 'Stawy i mięśnie',       'icon' => '💪'],
+        ['slug' => 'skora-cialo',         'label' => 'Skóra i ciało',          'icon' => '🌿'],
+        ['slug' => 'odpornosc',           'label' => 'Odporność',              'icon' => '🛡'],
+        ['slug' => 'watroba-trawienie',   'label' => 'Wątroba i trawienie',    'icon' => '🌱'],
+        ['slug' => 'krazenie',            'label' => 'Krążenie',               'icon' => '❤️'],
+        ['slug' => 'energia-stres',       'label' => 'Energia i stres',        'icon' => '⚡'],
+        ['slug' => 'nos-gardlo-jama-ustna','label' => 'Nos, gardło, jama ustna','icon' => '🌬'],
+        ['slug' => 'cbd-konopie',         'label' => 'CBD / Konopie',          'icon' => '🌾'],
     ];
 }
 
