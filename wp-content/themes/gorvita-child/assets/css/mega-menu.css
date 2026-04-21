@@ -4,13 +4,14 @@
    ========================================================== */
 
 .gorvita-mega {
+  display: none; /* JS calls removeAttribute('hidden') to show; setAttribute('hidden','') to hide */
   position: fixed;
   top: 0; /* set dynamically by JS */
   left: 0; right: 0;
   z-index: 9990; /* below search (99999), above page content */
   pointer-events: none;
 }
-.gorvita-mega[hidden] { display: block; } /* override HTML hidden — JS controls opacity */
+.gorvita-mega:not([hidden]) { display: block; }
 .gorvita-mega.is-visible { pointer-events: auto; }
 
 /* ---------------------------------------------------------------
