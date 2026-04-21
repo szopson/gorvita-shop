@@ -2131,3 +2131,63 @@ header.site-header {
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
 }
+
+/* =========================================================================
+   AUDIT FIXES — touch targets, contrast, button heights
+   ========================================================================= */
+
+/* "Do koszyka" loop button — raise to 44px touch target */
+.gv-card-cta .button,
+.gv-card-cta .add_to_cart_button {
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Footer bottom bar — raise contrast + touch targets for links */
+.gorvita-footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.gorvita-footer__copy,
+.gorvita-footer__credit {
+    color: var(--gorvita-gray-300) !important;
+    font-size: var(--fs-small);
+}
+.gorvita-footer__copy a,
+.gorvita-footer__credit a {
+    color: var(--gorvita-gray-300) !important;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding: var(--space-2) 0;
+    display: inline-block;
+    min-height: 44px;
+    line-height: 44px;
+}
+.gorvita-footer__copy a:hover,
+.gorvita-footer__credit a:hover {
+    color: var(--gorvita-white) !important;
+}
+
+/* Footer nav links — raise contrast */
+.gorvita-footer__links a {
+    color: var(--gorvita-gray-300) !important;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
+.gorvita-footer__links a:hover {
+    color: var(--gorvita-white) !important;
+}
+
+/* "Nie pamiętasz hasła?" — ensure 44px height */
+.woocommerce .lost_password a {
+    display: inline-block;
+    padding: var(--space-3) 0;
+    min-height: 44px;
+    line-height: 1.4;
+}
+
+/* WooCommerce Coming Soon page — Polish text override via CSS (fallback) */
+.woocommerce-store-notice,
+.wc-block-store-notice { display: none !important; }

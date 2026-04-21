@@ -185,6 +185,13 @@ function gorvita_polish_strings(string $translated, string $original, string $do
             'Home'                                   => 'Strona główna',
             'Breadcrumb'                             => 'Nawigacja',
 
+            // ── Coming Soon page (WooCommerce 8.2+) ───────────────────────
+            'Great things are on the horizon'        => 'Coś wyjątkowego już wkrótce',
+            'Something big is brewing! Our store is in the works and will be launching soon!' => 'Pracujemy nad czymś wyjątkowym! Nasz sklep będzie wkrótce dostępny.',
+            'Be the first to know when we launch'    => 'Bądź pierwszym, który się dowie o otwarciu',
+            'Coming Soon'                            => 'Wkrótce',
+            'Store is currently unavailable.'        => 'Sklep jest chwilowo niedostępny.',
+
             // ── Misc ───────────────────────────────────────────────────────
             'Required fields are marked'             => 'Pola wymagane są oznaczone',
             'Optional'                               => 'Opcjonalnie',

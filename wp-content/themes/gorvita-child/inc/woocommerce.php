@@ -8,6 +8,29 @@
 defined('ABSPATH') || exit;
 
 /**
+ * Disable WooCommerce "Coming Soon" mode (WooCommerce 8.2+).
+ * Forces store to be publicly accessible regardless of WP Admin setting.
+ */
+add_filter('pre_option_woocommerce_coming_soon', function () {
+    return 'no';
+});
+add_filter('pre_option_woocommerce_store_pages_only', function () {
+    return 'no';
+});
+
+/**
+ * Redirect /shop/ → actual WooCommerce shop page (handles English slug from Blocksy menu).
+ */
+add_action('template_redirect', function () {
+    if (!is_404()) return;
+    $uri = rtrim(parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH), '/');
+    if ($uri === '/shop' && function_exists('wc_get_page_permalink')) {
+        wp_redirect(wc_get_page_permalink('shop'), 301);
+        exit;
+    }
+});
+
+/**
  * Change "Add to cart" button text.
  */
 add_filter('woocommerce_product_single_add_to_cart_text', function () {
