@@ -547,12 +547,19 @@
   gap: 8px;
   font-size: 13px;
   font-weight: 500;
-  transform: translateY(12px);
-  opacity: 0;
+  opacity: 1;
+  transform: translateY(0);
   transition: transform .3s var(--ease), opacity .25s var(--ease), background .2s var(--ease);
   z-index: 2;
 }
-.gorvita-prod:hover .gorvita-prod__quickadd { transform: translateY(0); opacity: 1; }
+/* Desktop hover: subtle lift animation */
+@media (any-hover: hover) {
+  .gorvita-prod__quickadd {
+    opacity: 0.82;
+    transform: translateY(6px);
+  }
+  .gorvita-prod:hover .gorvita-prod__quickadd { transform: translateY(0); opacity: 1; }
+}
 .gorvita-prod__quickadd:hover,
 .gorvita-prod__quickadd.is-added { background: var(--g-green); }
 
