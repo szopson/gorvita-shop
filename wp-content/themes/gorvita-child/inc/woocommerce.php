@@ -9,14 +9,11 @@ defined('ABSPATH') || exit;
 
 /**
  * Disable WooCommerce "Coming Soon" mode (WooCommerce 8.2+).
- * Forces store to be publicly accessible regardless of WP Admin setting.
+ * Uses the template-loader filter which WC 9.x exposes directly.
  */
-add_filter('pre_option_woocommerce_coming_soon', function () {
-    return 'no';
-});
-add_filter('pre_option_woocommerce_store_pages_only', function () {
-    return 'no';
-});
+add_filter('woocommerce_is_coming_soon', '__return_false');
+add_filter('pre_option_woocommerce_coming_soon', '__return_empty_string');
+add_filter('pre_option_woocommerce_store_pages_only', '__return_empty_string');
 
 /**
  * Redirect /shop/ → actual WooCommerce shop page (handles English slug from Blocksy menu).
