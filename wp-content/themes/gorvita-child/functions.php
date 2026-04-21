@@ -119,6 +119,7 @@ require_once GORVITA_CHILD_DIR . '/inc/wishlist.php';
 require_once GORVITA_CHILD_DIR . '/inc/quick-views.php';
 require_once GORVITA_CHILD_DIR . '/inc/translations.php';
 require_once GORVITA_CHILD_DIR . '/inc/search.php';
+require_once GORVITA_CHILD_DIR . '/inc/mega-menu.php';
 
 /**
  * Remove WP version from head (security hygiene).
