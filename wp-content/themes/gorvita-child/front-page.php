@@ -111,13 +111,13 @@ function gorvita_render_product_card($p) {
             <button type="button" class="gorvita-prod__wish" aria-label="Dodaj do ulubionych" data-wish="<?php echo esc_attr($id); ?>">
                 <?php gorvita_icon('heart', 16); ?>
             </button>
-
-            <?php if ($is_wc && $p->is_purchasable() && $p->is_in_stock()): ?>
-                <a class="gorvita-prod__quickadd" href="<?php echo esc_url($add_url); ?>" data-product_id="<?php echo esc_attr($id); ?>" data-quantity="1" rel="nofollow">
-                    <?php gorvita_icon('plus', 16); ?> Do koszyka
-                </a>
-            <?php endif; ?>
         </div>
+
+        <?php if ($is_wc && $p->is_purchasable() && $p->is_in_stock()): ?>
+            <a class="gorvita-prod__quickadd" href="<?php echo esc_url($add_url); ?>" data-product_id="<?php echo esc_attr($id); ?>" data-quantity="1" rel="nofollow">
+                <?php gorvita_icon('plus', 16); ?> Do koszyka
+            </a>
+        <?php endif; ?>
 
         <div class="gorvita-prod__body">
             <?php if ($tag): ?><span class="gorvita-prod__tag"><?php echo esc_html($tag); ?></span><?php endif; ?>
@@ -325,7 +325,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                     <button class="gorvita-carousel__btn gorvita-carousel__btn--prev" aria-label="Poprzednie produkty"><?php gorvita_icon('arrow-left', 18); ?></button>
                     <button class="gorvita-carousel__btn gorvita-carousel__btn--next" aria-label="Następne produkty"><?php gorvita_icon('arrow-right', 18); ?></button>
                 </div>
-                <div class="gorvita-carousel__dots" role="tablist" aria-label="Produkty"></div>
+                <div class="gorvita-carousel__dots" aria-label="Nawigacja karuzeli"></div>
             </div>
         </div>
     </section>
@@ -507,7 +507,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                     <button class="gorvita-carousel__btn gorvita-carousel__btn--prev" aria-label="Poprzednie produkty"><?php gorvita_icon('arrow-left', 18); ?></button>
                     <button class="gorvita-carousel__btn gorvita-carousel__btn--next" aria-label="Następne produkty"><?php gorvita_icon('arrow-right', 18); ?></button>
                 </div>
-                <div class="gorvita-carousel__dots" role="tablist" aria-label="Produkty"></div>
+                <div class="gorvita-carousel__dots" aria-label="Nawigacja karuzeli"></div>
             </div>
         </div>
     </section>
@@ -531,7 +531,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                     <button class="gorvita-carousel__btn gorvita-carousel__btn--prev" aria-label="Poprzednie produkty"><?php gorvita_icon('arrow-left', 18); ?></button>
                     <button class="gorvita-carousel__btn gorvita-carousel__btn--next" aria-label="Następne produkty"><?php gorvita_icon('arrow-right', 18); ?></button>
                 </div>
-                <div class="gorvita-carousel__dots" role="tablist" aria-label="Produkty"></div>
+                <div class="gorvita-carousel__dots" aria-label="Nawigacja karuzeli"></div>
             </div>
         </div>
     </section>
