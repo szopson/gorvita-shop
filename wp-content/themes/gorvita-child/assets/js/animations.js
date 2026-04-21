@@ -164,8 +164,8 @@
         cards.forEach(function (_, i) {
           var dot = document.createElement('button');
           dot.className = 'gorvita-carousel__dot' + (i === 0 ? ' is-active' : '');
-          dot.setAttribute('role', 'tab');
-          dot.setAttribute('aria-label', 'Produkt ' + (i + 1));
+          dot.setAttribute('aria-label', 'Przejdź do produktu ' + (i + 1));
+          dot.setAttribute('type', 'button');
           dot.addEventListener('click', function () {
             track.scrollTo({ left: cards[i].offsetLeft - track.offsetLeft, behavior: 'smooth' });
           });
@@ -223,6 +223,14 @@
     }, { passive: true });
   }
 
+  // ---------- Footer accordion (mobile only) ----------
+  function initFooterAccordion() {
+    if (window.innerWidth > 768) return;
+    document.querySelectorAll('.gorvita-footer__section[open]').forEach(function (el) {
+      el.removeAttribute('open');
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initReveal();
     initIngredients();
@@ -230,5 +238,6 @@
     initWishlist();
     initHeaderScroll();
     initCarousel();
+    initFooterAccordion();
   });
 })();
