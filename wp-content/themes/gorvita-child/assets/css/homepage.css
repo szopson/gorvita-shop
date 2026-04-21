@@ -1249,27 +1249,28 @@
   margin-top: 16px;
 }
 .gorvita-carousel__dot {
-  /* Reset browser button defaults — prevents white background / oversized hit area */
   appearance: none;
   -webkit-appearance: none;
   display: block;
   flex-shrink: 0;
   position: relative;
-  width: 8px; height: 8px;
+  width: 6px; height: 6px;
   border-radius: 50%;
-  background: var(--g-gray-300);
-  border: none;
+  background: transparent;
+  border: 1.5px solid var(--g-gray-400);
+  opacity: 0.55;
   cursor: pointer;
-  transition: background .25s, transform .25s;
+  transition: background .25s, border-color .25s, opacity .25s;
 }
 .gorvita-carousel__dot::before {
   content: '';
   position: absolute;
-  inset: -8px; /* 24px touch target without affecting layout */
+  inset: -8px;
 }
 .gorvita-carousel__dot.is-active {
   background: var(--g-green);
-  transform: scale(1.35);
+  border-color: var(--g-green);
+  opacity: 1;
 }
 .gorvita-carousel__btn {
   position: absolute;
