@@ -125,12 +125,12 @@
   cursor: pointer;
   border: none;
 }
-.gorvita-btn--primary { background: var(--g-green); color: var(--g-white); }
+.gorvita-btn--primary { background: var(--g-green); color: #fff; }
 .gorvita-btn--primary:hover {
   background: var(--g-green-dark);
   transform: translateY(-1px);
   box-shadow: 0 12px 28px -10px color-mix(in oklab, var(--g-green) 70%, transparent);
-  color: var(--g-white);
+  color: #fff;
 }
 .gorvita-btn--ghost {
   color: var(--g-ink);
@@ -260,7 +260,7 @@
   max-width: 480px;
   margin-bottom: 36px;
 }
-.gorvita-hero__cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.gorvita-hero__cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: center; }
 
 .gorvita-hero__stats {
   display: grid;

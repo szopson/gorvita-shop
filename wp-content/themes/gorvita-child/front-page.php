@@ -238,8 +238,8 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                         <div class="gorvita-stat-label">Produktów</div>
                     </div>
                     <div>
-                        <div class="gorvita-stat-num">14<sup>min</sup></div>
-                        <div class="gorvita-stat-label">Mineralizacji</div>
+                        <div class="gorvita-stat-num">14<sup>+</sup></div>
+                        <div class="gorvita-stat-label">Minerałów</div>
                     </div>
                 </div>
             </div>
