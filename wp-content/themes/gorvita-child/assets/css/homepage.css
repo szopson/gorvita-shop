@@ -537,8 +537,8 @@
   position: absolute;
   left: 16px; right: 16px;
   bottom: 16px;
-  background: var(--g-ink);
-  color: var(--g-bone);
+  background: var(--g-green);
+  color: #fff;
   height: 40px;
   border-radius: var(--r-full);
   display: flex;
