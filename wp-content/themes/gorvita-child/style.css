@@ -1424,7 +1424,7 @@ header.site-header {
    LIQUID GLASS BUTTONS — global (hero, shop, product pages)
    ========================================================================= */
 :root {
-    --gv-btn-rgb: 45, 106, 79;
+    --gv-btn-rgb: 45, 80, 22; /* #2D5016 — Gorvita forest green */
     --gv-btn-border: rgba(255, 255, 255, 0.22);
     --gv-btn-text: rgba(255, 255, 255, 0.94);
 }
@@ -1442,7 +1442,7 @@ header.site-header {
     ) !important;
     color: var(--gv-btn-text) !important;
     border: 1px solid var(--gv-btn-border) !important;
-    border-radius: 12px !important;
+    border-radius: 999px !important;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow:

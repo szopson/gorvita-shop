@@ -7,7 +7,7 @@
 
 defined('ABSPATH') || exit;
 
-define('GORVITA_CHILD_VERSION', '1.2.0');
+define('GORVITA_CHILD_VERSION', '1.3.0');
 define('GORVITA_CHILD_DIR', get_stylesheet_directory());
 define('GORVITA_CHILD_URI', get_stylesheet_directory_uri());
 
