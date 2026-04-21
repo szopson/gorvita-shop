@@ -462,7 +462,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
         <div class="gorvita-wrap">
             <div class="gorvita-cbd-callout">
                 <div class="gorvita-cbd-callout__grid">
-                    <div>
+                    <div class="gorvita-cbd-callout__copy">
                         <div class="gorvita-eyebrow">LINIA CBD GOLD · NOWOŚĆ</div>
                         <h2>Polska konopia,<br><em>premium extraction.</em></h2>
                         <p>Pierwsza polska linia CBD zimnotłoczonego w standardzie farmaceutycznym. Od ekologicznych upraw do laboratorium — pełen łańcuch pod kontrolą Gorvity.</p>
