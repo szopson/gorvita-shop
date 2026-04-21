@@ -235,7 +235,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                         <div class="gorvita-stat-label">Lat tradycji</div>
                     </div>
                     <div>
-                        <div class="gorvita-stat-num"><?php echo esc_html(wp_count_posts('product')->publish ?: '108'); ?></div>
+                        <div class="gorvita-stat-num">100<sup>+</sup></div>
                         <div class="gorvita-stat-label">Produktów</div>
                     </div>
                     <div>
