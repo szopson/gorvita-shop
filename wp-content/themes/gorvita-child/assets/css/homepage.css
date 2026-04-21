@@ -1220,9 +1220,12 @@
   .gorvita-usp-grid--photo .gorvita-usp { border-bottom-color: rgba(255,255,255,0.15); }
   .gorvita-announce span + span { margin-left: 14px; }
   .gorvita-hero__card { max-width: 220px; padding: 12px 14px; }
-  .gorvita-newsletter__form { flex-direction: column; }
-  .gorvita-newsletter__form input[type="email"] { width: 100%; }
-  .gorvita-newsletter__form button { width: 100%; justify-content: center; }
+  .gorvita-newsletter { padding: 40px 20px; }
+  .gorvita-newsletter h2 { font-size: 22px; margin-bottom: 10px; }
+  .gorvita-newsletter p { font-size: 14px; margin-bottom: 20px; }
+  .gorvita-newsletter__form { max-width: 100%; padding: 4px 4px 4px 14px; gap: 6px; }
+  .gorvita-newsletter__form input { font-size: 14px; }
+  .gorvita-newsletter__form .gorvita-btn { height: 38px; padding: 0 16px; font-size: 13px; white-space: nowrap; flex-shrink: 0; }
 }
 @media (max-width: 400px) {
   .gorvita-homepage-root { --sec-pad-y: 48px; }
