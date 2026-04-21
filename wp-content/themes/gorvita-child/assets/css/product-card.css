@@ -231,7 +231,10 @@
     font-size: var(--fs-small);
 }
 
-/* CTA — always visible, override any Blocksy/WooCommerce hover-only hiding */
+/* CTA — always visible.
+   background needs !important: style.css has a glass-gradient rule for
+   .woocommerce a.button with higher specificity that resolves to transparent
+   when --gv-btn-rgb is unset in this context. */
 .gv-card-cta .button,
 .gv-card-cta .add_to_cart_button {
     display: block !important;
@@ -240,7 +243,7 @@
     width: 100%;
     text-align: center;
     padding: var(--space-3) var(--space-4);
-    background: var(--gorvita-green);
+    background: var(--gorvita-green) !important;
     color: #fff !important;
     border: none;
     border-radius: var(--radius-full);
@@ -255,7 +258,7 @@
 
 .gv-card-cta .button:hover,
 .gv-card-cta .add_to_cart_button:hover {
-    background: var(--gorvita-green-dark);
+    background: var(--gorvita-green-dark) !important;
     transform: translateY(-1px);
     color: #fff !important;
 }
