@@ -171,13 +171,13 @@ add_action('wp_enqueue_scripts', function () {
         'gorvita-product-card',
         get_stylesheet_directory_uri() . '/assets/css/product-card.css',
         ['gorvita-child'],
-        '1.0'
+        '1.1'
     );
     wp_enqueue_script(
         'gorvita-product-card',
         get_stylesheet_directory_uri() . '/assets/js/product-card.js',
         [],
-        '1.0',
+        '1.1',
         true
     );
 }, 20);

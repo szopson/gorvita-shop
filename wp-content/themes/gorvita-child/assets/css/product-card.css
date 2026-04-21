@@ -195,10 +195,12 @@
     font-size: var(--fs-small);
 }
 
-/* CTA — override WooCommerce default button */
+/* CTA — override WooCommerce + Blocksy default button (force always visible) */
 .gv-card-cta .button,
 .gv-card-cta .add_to_cart_button {
-    display: block;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
     width: 100%;
     text-align: center;
     padding: var(--space-3) var(--space-4);
