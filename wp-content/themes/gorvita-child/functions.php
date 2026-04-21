@@ -7,7 +7,7 @@
 
 defined('ABSPATH') || exit;
 
-define('GORVITA_CHILD_VERSION', '1.2.0');
+define('GORVITA_CHILD_VERSION', '1.3.0');
 define('GORVITA_CHILD_DIR', get_stylesheet_directory());
 define('GORVITA_CHILD_URI', get_stylesheet_directory_uri());
 
@@ -34,7 +34,7 @@ function gorvita_enqueue_styles() {
         'gorvita-child',
         get_stylesheet_uri(),
         ['blocksy-parent'],
-        GORVITA_CHILD_VERSION
+        filemtime(get_stylesheet_directory() . '/style.css') ?: GORVITA_CHILD_VERSION
     );
 }
 add_action('wp_enqueue_scripts', 'gorvita_enqueue_styles', 20);

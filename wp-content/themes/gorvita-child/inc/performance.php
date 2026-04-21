@@ -104,7 +104,7 @@ add_action('wp_enqueue_scripts', function () {
             'gorvita-homepage',
             get_stylesheet_directory_uri() . '/assets/css/homepage.css',
             [],
-            '1.4'
+            filemtime(get_stylesheet_directory() . '/assets/css/homepage.css') ?: '1.5'
         );
     }
 }, 20);
@@ -118,7 +118,7 @@ add_action('wp_enqueue_scripts', function () {
             'gorvita-animations',
             get_stylesheet_directory_uri() . '/assets/js/animations.js',
             [],
-            '1.2',
+            filemtime(get_stylesheet_directory() . '/assets/js/animations.js') ?: '1.2',
             true
         );
     }
@@ -154,7 +154,7 @@ add_action('wp_enqueue_scripts', function () {
             'gorvita-mobile-tabs',
             get_stylesheet_directory_uri() . '/assets/js/mobile-tabs.js',
             [],
-            '1.0',
+            filemtime(get_stylesheet_directory() . '/assets/js/mobile-tabs.js') ?: '1.0',
             true
         );
     }
@@ -171,13 +171,13 @@ add_action('wp_enqueue_scripts', function () {
         'gorvita-product-card',
         get_stylesheet_directory_uri() . '/assets/css/product-card.css',
         ['gorvita-child'],
-        '1.0'
+        filemtime(get_stylesheet_directory() . '/assets/css/product-card.css') ?: '1.2'
     );
     wp_enqueue_script(
         'gorvita-product-card',
         get_stylesheet_directory_uri() . '/assets/js/product-card.js',
         [],
-        '1.0',
+        filemtime(get_stylesheet_directory() . '/assets/js/product-card.js') ?: '1.2',
         true
     );
 }, 20);
