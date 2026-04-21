@@ -335,7 +335,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
             <div class="gorvita-spring">
                 <div class="gorvita-spring__inner">
                     <div class="gorvita-spring__visual">
-                        <img class="gorvita-spring__visual-img" src="<?php echo esc_url($img_url . '/strumien.webp'); ?>" alt="Strumień w Gorcach" loading="lazy">
+                        <img class="gorvita-spring__visual-img" src="<?php echo esc_url($img_url . '/strumien.png'); ?>" alt="Strumień w Gorcach" loading="lazy">
                         <div class="gorvita-spring__visual-grade"></div>
                         <div class="gorvita-spring__coord">
                             <span>49°34'N</span>
