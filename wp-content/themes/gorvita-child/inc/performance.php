@@ -159,3 +159,25 @@ add_action('wp_enqueue_scripts', function () {
         );
     }
 }, 20);
+
+/**
+ * Product card CSS + LQIP JS — shop, category archives, and single product pages.
+ */
+add_action('wp_enqueue_scripts', function () {
+    if (!is_shop() && !is_product_category() && !is_product_tag() && !is_product()) {
+        return;
+    }
+    wp_enqueue_style(
+        'gorvita-product-card',
+        get_stylesheet_directory_uri() . '/assets/css/product-card.css',
+        ['gorvita-child'],
+        '1.0'
+    );
+    wp_enqueue_script(
+        'gorvita-product-card',
+        get_stylesheet_directory_uri() . '/assets/js/product-card.js',
+        [],
+        '1.0',
+        true
+    );
+}, 20);
