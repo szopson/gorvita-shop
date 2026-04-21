@@ -32,8 +32,11 @@ $account_edit = $account_url . 'edit-account/';
         </div>
 
         <!-- Informacje -->
-        <nav class="gorvita-footer__col" aria-label="Informacje">
-            <h3 class="gorvita-footer__heading">Informacje</h3>
+        <details class="gorvita-footer__section" open>
+            <summary class="gorvita-footer__section-head">
+                Informacje
+                <?php gorvita_icon('chevron', 16); ?>
+            </summary>
             <ul class="gorvita-footer__links">
                 <li><a href="<?php echo esc_url(home_url('/o-marce/')); ?>">O firmie</a></li>
                 <li><a href="<?php echo esc_url(home_url('/regulamin/')); ?>">Regulamin</a></li>
@@ -42,22 +45,28 @@ $account_edit = $account_url . 'edit-account/';
                 <li><a href="<?php echo esc_url(home_url('/platnosc/')); ?>">Płatność</a></li>
                 <li><a href="<?php echo esc_url(home_url('/kontakt/')); ?>">Kontakt</a></li>
             </ul>
-        </nav>
+        </details>
 
         <!-- Twoje konto -->
-        <nav class="gorvita-footer__col" aria-label="Twoje konto">
-            <h3 class="gorvita-footer__heading">Twoje konto</h3>
+        <details class="gorvita-footer__section" open>
+            <summary class="gorvita-footer__section-head">
+                Twoje konto
+                <?php gorvita_icon('chevron', 16); ?>
+            </summary>
             <ul class="gorvita-footer__links">
                 <li><a href="<?php echo esc_url($account_url); ?>">Logowanie</a></li>
                 <li><a href="<?php echo esc_url($account_url); ?>">Rejestracja</a></li>
                 <li><a href="<?php echo esc_url($orders_url); ?>">Twoje zamówienia</a></li>
                 <li><a href="<?php echo esc_url($account_edit); ?>">Edycja danych</a></li>
             </ul>
-        </nav>
+        </details>
 
         <!-- Kontakt -->
-        <div class="gorvita-footer__col gorvita-footer__col--contact">
-            <h3 class="gorvita-footer__heading">Kontakt z nami</h3>
+        <details class="gorvita-footer__section" open>
+            <summary class="gorvita-footer__section-head">
+                Kontakt z nami
+                <?php gorvita_icon('chevron', 16); ?>
+            </summary>
             <address class="gorvita-footer__address">
                 <p>
                     <a href="tel:+48183324181">18 332 41 81</a> /
@@ -75,7 +84,7 @@ $account_edit = $account_url . 'edit-account/';
                 <p>Małopolskie, Polska</p>
                 <p class="gorvita-footer__hours">Poniedziałek – Piątek: 8:00–16:00</p>
             </address>
-        </div>
+        </details>
 
     </div><!-- .gorvita-footer__inner -->
 

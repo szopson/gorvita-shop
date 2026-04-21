@@ -223,6 +223,14 @@
     }, { passive: true });
   }
 
+  // ---------- Footer accordion (mobile only) ----------
+  function initFooterAccordion() {
+    if (window.innerWidth > 768) return;
+    document.querySelectorAll('.gorvita-footer__section[open]').forEach(function (el) {
+      el.removeAttribute('open');
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initReveal();
     initIngredients();
@@ -230,5 +238,6 @@
     initWishlist();
     initHeaderScroll();
     initCarousel();
+    initFooterAccordion();
   });
 })();
