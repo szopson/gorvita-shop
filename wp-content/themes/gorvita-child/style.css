@@ -600,14 +600,18 @@ header.site-header {
 }
 
 /* Brand column */
-.gorvita-footer__logo-link { display: inline-block; margin-bottom: var(--space-6); }
+.gorvita-footer__logo-link {
+    display: inline-block;
+    margin-bottom: var(--space-6);
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius);
+}
 .gorvita-footer__logo {
-    height: 48px;
+    height: 40px;
     width: auto;
-    max-width: 160px;
+    max-width: 150px;
     display: block;
-    /* Converts any color logo to white for dark footer background */
-    filter: brightness(0) invert(1);
 }
 
 .gorvita-footer__address {

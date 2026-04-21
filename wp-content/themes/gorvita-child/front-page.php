@@ -203,7 +203,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
     <!-- HERO -->
     <section class="gorvita-hero">
         <div class="gorvita-hero__bg">
-            <?php echo wp_get_attachment_image(284, 'full', false, [
+            <?php echo wp_get_attachment_image(249, 'full', false, [
                 'class' => 'gorvita-hero__bg-img',
                 'alt'   => '',
                 'fetchpriority' => 'high',
