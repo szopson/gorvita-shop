@@ -466,11 +466,6 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                         <div class="gorvita-eyebrow">LINIA CBD GOLD · NOWOŚĆ</div>
                         <h2>Polska konopia,<br><em>premium extraction.</em></h2>
                         <p>Pierwsza polska linia CBD zimnotłoczonego w standardzie farmaceutycznym. Od ekologicznych upraw do laboratorium — pełen łańcuch pod kontrolą Gorvity.</p>
-                        <div class="gorvita-cbd-callout__lines">
-                            <div class="gorvita-cbd-line"><b>Olej CBD 5%</b><span>Codzienna harmonia</span></div>
-                            <div class="gorvita-cbd-line"><b>Olej CBD 10% Gold</b><span>Intensywne wsparcie</span></div>
-                            <div class="gorvita-cbd-line"><b>Maść konopna</b><span>Regeneracja skóry</span></div>
-                        </div>
                         <div style="margin-top: 32px">
                             <a class="gorvita-btn gorvita-btn--gold" href="/cbd/">
                                 Zobacz linię CBD <?php gorvita_icon('arrow-right', 16); ?>
