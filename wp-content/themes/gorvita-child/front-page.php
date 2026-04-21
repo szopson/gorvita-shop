@@ -204,10 +204,11 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
     <section class="gorvita-hero">
         <div class="gorvita-hero__bg">
             <?php echo wp_get_attachment_image(249, 'full', false, [
-                'class' => 'gorvita-hero__bg-img',
-                'alt'   => '',
+                'class'         => 'gorvita-hero__bg-img',
+                'alt'           => '',
                 'fetchpriority' => 'high',
-                'decoding' => 'async',
+                'loading'       => 'eager',
+                'decoding'      => 'sync',
             ]); ?>
             <div class="gorvita-hero__bg-fade"></div>
         </div>
@@ -244,7 +245,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                 </div>
             </div>
             <div class="gorvita-hero__visual">
-                <img class="gorvita-hero__visual-img" src="<?php echo esc_url($img_url . '/gorce2.webp'); ?>" alt="Gorce — szczyty nad mgłą">
+                <img class="gorvita-hero__visual-img" src="<?php echo esc_url($img_url . '/gorce2.webp'); ?>" alt="Gorce — szczyty nad mgłą" loading="lazy" decoding="async">
                 <span class="gorvita-hero__visual-label">SZCZAWA · 49°34'N 20°16'E</span>
                 <div class="gorvita-hero__droplet" aria-hidden="true"></div>
                 <div class="gorvita-hero__card">

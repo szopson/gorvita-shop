@@ -53,11 +53,23 @@ add_filter('wp_resource_hints', 'gorvita_resource_hints', 10, 2);
 
 /**
  * Preload the hero background image on the front page (LCP optimization).
+ * Uses attachment 249 (hero-slide-sklep) — the actual LCP element.
+ * Preloads WebP if available (smaller), falls back to JPEG.
  */
 add_action('wp_head', function () {
     if (!is_front_page()) return;
-    $hero_url = GORVITA_CHILD_URI . '/assets/images/gorce.webp';
-    echo '<link rel="preload" as="image" href="' . esc_url($hero_url) . '" type="image/webp" fetchpriority="high">' . "\n";
+    $webp_url  = wp_get_attachment_image_url(249, 'full', false);
+    // WordPress auto-generates .webp alongside uploads — try that first.
+    $webp_path = get_attached_file(249);
+    if ($webp_path) {
+        $candidate = preg_replace('/\.(jpe?g|png)$/i', '.webp', $webp_path);
+        if (file_exists($candidate)) {
+            $webp_url = preg_replace('/\.(jpe?g|png)$/i', '.webp', $webp_url);
+        }
+    }
+    if (!$webp_url) return;
+    $type = str_ends_with($webp_url, '.webp') ? 'image/webp' : 'image/jpeg';
+    echo '<link rel="preload" as="image" href="' . esc_url($webp_url) . '" type="' . $type . '" fetchpriority="high">' . "\n";
 }, 2);
 
 /**
