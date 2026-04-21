@@ -1059,7 +1059,7 @@
   background: radial-gradient(circle, rgba(107,142,95,.15), transparent 60%);
 }
 .gorvita-newsletter__inner { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; }
-.gorvita-newsletter h2 { margin-bottom: 16px; font-weight: 300; }
+.gorvita-newsletter h2 { margin-bottom: 16px; font-weight: 300; color: var(--g-green); }
 .gorvita-newsletter h2 em { font-style: italic; }
 .gorvita-newsletter p { color: var(--g-gray-700); margin-bottom: 32px; font-size: 15.5px; }
 .gorvita-newsletter__form {
@@ -1085,12 +1085,14 @@
 .gorvita-newsletter__form input::placeholder { color: var(--g-gray-500); }
 .gorvita-newsletter__form .gorvita-btn { height: 46px; }
 .gorvita-newsletter__disclaimer {
+  display: block;
   font-size: 12px;
   font-family: var(--f-mono);
   color: var(--g-gray-500);
-  margin-top: 20px;
+  margin: 20px auto 0;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  text-align: center;
 }
 
 /* =========== REVEAL =========== */
@@ -1213,17 +1215,25 @@
   margin-top: 16px;
 }
 .gorvita-carousel__dot {
-  width: 6px; height: 6px;
+  /* Reset browser button defaults — prevents white background / oversized hit area */
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  flex-shrink: 0;
+  width: 8px; height: 8px;
   border-radius: 50%;
   background: var(--g-gray-300);
   border: none;
-  padding: 0;
+  /* Increase touch target to 24px without changing visual size */
+  padding: 8px;
+  margin: -8px;
+  box-sizing: content-box;
   cursor: pointer;
   transition: background .25s, transform .25s;
 }
 .gorvita-carousel__dot.is-active {
   background: var(--g-green);
-  transform: scale(1.4);
+  transform: scale(1.35);
 }
 .gorvita-carousel__btn {
   position: absolute;
