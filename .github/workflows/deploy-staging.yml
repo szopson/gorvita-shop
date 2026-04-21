@@ -54,9 +54,9 @@ jobs:
           ssh deploy@${{ secrets.VPS_HOST }} << 'EOF'
             cd /opt/gorvita-shop
             docker compose exec -T wordpress bash /var/scripts/fix-permissions.sh || true
-            docker compose exec -T wordpress wp eval 'opcache_reset(); echo "OPcache flushed\n";' --allow-root || true
             docker compose exec -T wordpress wp cache flush --allow-root || true
             docker compose exec -T wordpress wp rewrite flush --allow-root || true
+            docker compose exec -T wordpress apache2ctl graceful || true
           EOF
 
       - name: Notify success
