@@ -187,3 +187,20 @@ add_action('woocommerce_email_after_order_table', function ($order, $sent_to_adm
             : '<p><strong>NIP:</strong> ' . esc_html($nip) . '</p>';
     }
 }, 10, 4);
+
+/**
+ * Last-resort: if WooCommerce's coming-soon template_include still fires,
+ * swap it out for the real shop archive. Child theme registers this AFTER
+ * WC's plugins_loaded callback, so at the same PHP_INT_MAX priority our
+ * filter runs last and wins.
+ */
+add_filter('template_include', function (string $tpl): string {
+    if (false !== strpos($tpl, 'coming-soon')) {
+        $wc_archive = WC()->plugin_path() . '/templates/archive-product.php';
+        if (file_exists($wc_archive)) {
+            return $wc_archive;
+        }
+        return locate_template(['archive.php', 'index.php']) ?: $tpl;
+    }
+    return $tpl;
+}, PHP_INT_MAX);
