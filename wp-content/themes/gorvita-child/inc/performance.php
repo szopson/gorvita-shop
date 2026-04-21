@@ -104,7 +104,7 @@ add_action('wp_enqueue_scripts', function () {
             'gorvita-homepage',
             get_stylesheet_directory_uri() . '/assets/css/homepage.css',
             [],
-            '1.4'
+            '1.5'
         );
     }
 }, 20);
