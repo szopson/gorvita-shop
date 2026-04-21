@@ -123,3 +123,61 @@ add_action('wp_enqueue_scripts', function () {
         );
     }
 }, 20);
+
+/**
+ * Footer accordion: keep sections open on desktop, closed on mobile.
+ * Inline — tiny, no extra HTTP request.
+ */
+add_action('wp_footer', function () {
+    ?>
+    <script>
+    (function(){
+        function syncFooter(){
+            var open = window.innerWidth > 768;
+            document.querySelectorAll('.gorvita-footer__section').forEach(function(el){
+                if(open) el.setAttribute('open','');
+            });
+        }
+        document.addEventListener('DOMContentLoaded', syncFooter);
+        window.addEventListener('resize', syncFooter);
+    })();
+    </script>
+    <?php
+}, 30);
+
+/**
+ * Mobile product tabs accordion — product pages only, loaded in footer.
+ */
+add_action('wp_enqueue_scripts', function () {
+    if (function_exists('is_product') && is_product()) {
+        wp_enqueue_script(
+            'gorvita-mobile-tabs',
+            get_stylesheet_directory_uri() . '/assets/js/mobile-tabs.js',
+            [],
+            '1.0',
+            true
+        );
+    }
+}, 20);
+
+/**
+ * Product card CSS + LQIP JS — shop, category archives, and single product pages.
+ */
+add_action('wp_enqueue_scripts', function () {
+    if (!is_shop() && !is_product_category() && !is_product_tag() && !is_product()) {
+        return;
+    }
+    wp_enqueue_style(
+        'gorvita-product-card',
+        get_stylesheet_directory_uri() . '/assets/css/product-card.css',
+        ['gorvita-child'],
+        '1.0'
+    );
+    wp_enqueue_script(
+        'gorvita-product-card',
+        get_stylesheet_directory_uri() . '/assets/js/product-card.js',
+        [],
+        '1.0',
+        true
+    );
+}, 20);

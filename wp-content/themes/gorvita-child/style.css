@@ -577,23 +577,212 @@ header.site-header {
 }
 
 /* =========================================================================
-   FOOTER
+   FOOTER — custom gorvita-footer (replaces Blocksy default)
    ========================================================================= */
-.site-footer,
-.ct-footer {
+
+/* Hide Blocksy's default footer so ours doesn't double up */
+.ct-footer { display: none !important; }
+
+.gorvita-footer {
     background: var(--gorvita-ink);
-    color: var(--gorvita-gray-300);
-    padding-block: var(--space-16);
+    color: var(--gorvita-gray-400);
+    font-size: var(--fs-small);
 }
 
-.site-footer a,
-.ct-footer a {
+/* Main grid row */
+.gorvita-footer__inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-16) var(--space-6);
+    display: grid;
+    grid-template-columns: 1.4fr 3fr;
+    gap: var(--space-16);
+}
+
+/* Brand column */
+.gorvita-footer__logo-link {
+    display: inline-block;
+    margin-bottom: var(--space-6);
+    background: var(--gorvita-white);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-lg);
+}
+.gorvita-footer__logo {
+    height: 48px;
+    width: auto;
+    max-width: 180px;
+    display: block;
+}
+
+.gorvita-footer__address {
+    line-height: 1.7;
+    color: var(--gorvita-gray-500);
+    margin: 0 0 var(--space-6);
+}
+.gorvita-footer__address strong { color: var(--gorvita-gray-300); }
+
+.gorvita-footer__socials {
+    display: flex;
+    gap: var(--space-3);
+}
+.gorvita-footer__social {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.12);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gorvita-gray-500);
+    transition: border-color var(--t-fast), color var(--t-fast);
+}
+.gorvita-footer__social:hover {
+    border-color: var(--gorvita-sage);
     color: var(--gorvita-sage-light);
 }
+.gorvita-footer__social svg { width: 18px; height: 18px; }
 
-.site-footer a:hover,
-.ct-footer a:hover {
-    color: var(--gorvita-white);
+/* Nav columns grid */
+.gorvita-footer__nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+}
+
+/* Section headers (summary) */
+.gorvita-footer__section-head {
+    list-style: none;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gorvita-gray-300);
+    margin-bottom: var(--space-4);
+    cursor: default;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.gorvita-footer__section-head::-webkit-details-marker { display: none; }
+
+.gorvita-footer__chevron { display: none; } /* hidden on desktop */
+
+/* Links */
+.gorvita-footer__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+.gorvita-footer__links a {
+    color: var(--gorvita-gray-500);
+    text-decoration: none;
+    transition: color var(--t-fast);
+    line-height: 1.4;
+}
+.gorvita-footer__links a:hover { color: var(--gorvita-white); }
+
+/* Bottom bar */
+.gorvita-footer__bottom {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-6) calc(var(--space-6) + env(safe-area-inset-bottom));
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+.gorvita-footer__copy,
+.gorvita-footer__credit {
+    margin: 0;
+    color: var(--gorvita-gray-600, #444);
+    font-size: var(--fs-xs);
+}
+.gorvita-footer__copy a,
+.gorvita-footer__credit a {
+    color: var(--gorvita-gray-500);
+    text-decoration: none;
+    transition: color var(--t-fast);
+}
+.gorvita-footer__copy a:hover,
+.gorvita-footer__credit a:hover { color: var(--gorvita-white); }
+
+/* Mobile bottom nav padding on footer */
+@media (max-width: 1023px) {
+    .gorvita-footer__bottom {
+        padding-bottom: calc(var(--space-6) + 64px + env(safe-area-inset-bottom));
+    }
+}
+
+/* ── MOBILE: accordion layout ── */
+@media (max-width: 768px) {
+    .gorvita-footer__inner {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: var(--space-10, 2.5rem) var(--space-6) 0;
+    }
+
+    .gorvita-footer__brand {
+        padding-bottom: var(--space-8);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        text-align: center;
+        margin-bottom: 0;
+    }
+    .gorvita-footer__logo { margin: 0 auto var(--space-4); }
+    .gorvita-footer__socials { justify-content: center; }
+
+    .gorvita-footer__nav {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .gorvita-footer__section {
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Hide content by default on mobile — <details> handles it natively */
+    .gorvita-footer__section:not([open]) > .gorvita-footer__links {
+        display: none;
+    }
+
+    .gorvita-footer__section-head {
+        cursor: pointer;
+        padding: var(--space-4) 0;
+        margin-bottom: 0;
+        font-size: 11px;
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+    }
+    /* Show chevron on mobile */
+    .gorvita-footer__chevron {
+        display: block;
+        width: 18px;
+        height: 18px;
+        color: var(--gorvita-gray-500);
+        transition: transform var(--t-fast);
+        flex-shrink: 0;
+    }
+    .gorvita-footer__section[open] .gorvita-footer__chevron {
+        transform: rotate(180deg);
+        color: var(--gorvita-sage-light);
+    }
+
+    .gorvita-footer__links {
+        padding-bottom: var(--space-4);
+        gap: var(--space-4);
+    }
+
+    .gorvita-footer__bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-2);
+    }
 }
 
 /* =========================================================================
@@ -1508,3 +1697,497 @@ header.site-header {
     color: #ffffff !important;
     box-shadow: 0 4px 16px rgba(45,80,22,0.35) !important;
 }
+
+/* =========================================================================
+   TASK 2 — CHECKOUT FORM: single-column layout on mobile
+   ========================================================================= */
+@media (max-width: 768px) {
+    /* Billing/shipping two-column → single column */
+    .woocommerce-checkout .col2-set,
+    .woocommerce-checkout .col2-set .col-1,
+    .woocommerce-checkout .col2-set .col-2 {
+        width: 100% !important;
+        float: none !important;
+    }
+
+    .woocommerce form .form-row-first,
+    .woocommerce form .form-row-last {
+        width: 100% !important;
+        float: none !important;
+        padding: 0 !important;
+    }
+
+    /* Coupon code: stack input + button vertically */
+    .woocommerce form.checkout_coupon {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+    .woocommerce form.checkout_coupon .form-row {
+        width: 100% !important;
+        float: none !important;
+    }
+
+    /* Payment methods: full-width tappable rows */
+    .woocommerce-checkout #payment ul.payment_methods {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+    .woocommerce-checkout #payment ul.payment_methods li {
+        padding: var(--space-3) var(--space-4);
+        border: 1px solid var(--gorvita-gray-300);
+        border-radius: var(--radius);
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .woocommerce-checkout #payment ul.payment_methods li label {
+        flex: 1;
+        margin-bottom: 0;
+        cursor: pointer;
+    }
+
+    /* Order review on checkout page */
+    .woocommerce-checkout #order_review {
+        padding: var(--space-4);
+    }
+    .woocommerce-checkout table.shop_table thead {
+        display: none;
+    }
+    .woocommerce-checkout table.shop_table td {
+        display: block;
+        width: 100% !important;
+        text-align: left;
+        padding: var(--space-2) var(--space-3);
+        border-top: none;
+    }
+    .woocommerce-checkout table.shop_table tr {
+        display: block;
+        border-top: 1px solid var(--gorvita-gray-300);
+        padding-block: var(--space-3);
+    }
+    /* Keep tfoot as a real table so totals line up */
+    .woocommerce-checkout table.shop_table tfoot td,
+    .woocommerce-checkout table.shop_table tfoot th {
+        display: table-cell;
+        width: auto !important;
+    }
+    .woocommerce-checkout table.shop_table tfoot tr {
+        display: table-row;
+        border-top: 1px solid var(--gorvita-gray-300);
+    }
+}
+
+/* =========================================================================
+   TASK 3 — CART TABLE: card layout on mobile
+   ========================================================================= */
+@media (max-width: 768px) {
+    /* Hide header row — info is shown inline via data-title */
+    .woocommerce-cart table.cart thead {
+        display: none;
+    }
+    .woocommerce-cart table.cart {
+        border: none;
+        border-radius: 0;
+        overflow: visible;
+    }
+
+    /* Each product row becomes a card */
+    .woocommerce-cart table.cart tbody tr.cart_item {
+        display: grid;
+        grid-template-areas:
+            "thumb name   remove"
+            "thumb price  qty"
+            "thumb sub    sub";
+        grid-template-columns: 84px 1fr auto;
+        gap: var(--space-2) var(--space-3);
+        padding: var(--space-4);
+        margin-bottom: var(--space-3);
+        background: var(--gorvita-white);
+        border: 1px solid var(--gorvita-gray-300);
+        border-radius: var(--radius-lg);
+        align-items: start;
+    }
+    .woocommerce-cart table.cart td {
+        display: block;
+        padding: 0;
+        border: none;
+    }
+
+    /* Thumbnail */
+    .woocommerce-cart table.cart td.product-thumbnail {
+        grid-area: thumb;
+        grid-row: 1 / 4;
+    }
+    .woocommerce-cart table.cart td.product-thumbnail img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: var(--radius);
+        display: block;
+    }
+
+    /* Product name */
+    .woocommerce-cart table.cart td.product-name {
+        grid-area: name;
+        font-weight: 600;
+        font-size: var(--fs-body);
+        align-self: start;
+    }
+    .woocommerce-cart table.cart td.product-name a {
+        color: var(--gorvita-ink);
+        text-decoration: none;
+    }
+    .woocommerce-cart table.cart td.product-name dl.variation {
+        font-size: var(--fs-xs);
+        color: var(--gorvita-gray-500);
+        margin-top: var(--space-1);
+    }
+
+    /* Remove button */
+    .woocommerce-cart table.cart td.product-remove {
+        grid-area: remove;
+        text-align: right;
+    }
+    .woocommerce-cart table.cart td.product-remove a.remove {
+        font-size: 1.2rem;
+        color: var(--gorvita-gray-400) !important;
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+    }
+    .woocommerce-cart table.cart td.product-remove a.remove:hover {
+        color: var(--gorvita-error, #c0392b) !important;
+        background: transparent;
+    }
+
+    /* Unit price */
+    .woocommerce-cart table.cart td.product-price {
+        grid-area: price;
+        font-size: var(--fs-small);
+        color: var(--gorvita-gray-500);
+        align-self: center;
+    }
+    .woocommerce-cart table.cart td.product-price::before {
+        content: attr(data-title) ": ";
+        font-weight: 500;
+        color: var(--gorvita-gray-700);
+    }
+
+    /* Quantity */
+    .woocommerce-cart table.cart td.product-quantity {
+        grid-area: qty;
+        align-self: center;
+        justify-self: end;
+    }
+    .woocommerce-cart table.cart td.product-quantity input.qty {
+        width: 3.5rem;
+        min-height: 40px;
+        padding: var(--space-2);
+        text-align: center;
+    }
+
+    /* Row subtotal */
+    .woocommerce-cart table.cart td.product-subtotal {
+        grid-area: sub;
+        text-align: right;
+        font-weight: 700;
+        color: var(--gorvita-green);
+        font-size: var(--fs-body);
+        padding-top: var(--space-2);
+        border-top: 1px solid var(--gorvita-gray-100);
+        align-self: end;
+    }
+
+    /* Cart totals block: full width below cards */
+    .woocommerce-cart .cart-collaterals { display: block; }
+    .woocommerce-cart .cart-collaterals .cart_totals {
+        width: 100% !important;
+        float: none !important;
+    }
+
+    /* Actions row: stack coupon + update button */
+    .woocommerce-cart .actions {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+    .woocommerce-cart .actions .coupon {
+        display: flex;
+        gap: var(--space-2);
+        flex-wrap: wrap;
+    }
+    .woocommerce-cart .actions .coupon input#coupon_code {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+/* =========================================================================
+   TASK 5 — PRODUCT TABS: accordion on mobile, standard tabs on desktop
+   ========================================================================= */
+@media (max-width: 768px) {
+    /* Hide horizontal tab list — JS renders accordion triggers instead */
+    .woocommerce div.product .woocommerce-tabs ul.tabs {
+        display: none !important;
+    }
+
+    .gorvita-tab-trigger {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: var(--space-4);
+        background: var(--gorvita-cream);
+        border: none;
+        border-top: 1px solid var(--gorvita-gray-300);
+        cursor: pointer;
+        font-family: var(--font-body);
+        font-size: var(--fs-body);
+        font-weight: 600;
+        color: var(--gorvita-ink);
+        text-align: left;
+        min-height: 52px;
+        transition: background var(--t-fast), color var(--t-fast);
+    }
+    .gorvita-tab-trigger:hover,
+    .gorvita-tab-trigger.is-open {
+        background: var(--gorvita-sage-mist, #E6EEE2);
+        color: var(--gorvita-green);
+    }
+    .gorvita-tab-trigger svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        color: var(--gorvita-gray-500);
+        transition: transform var(--t-fast), color var(--t-fast);
+    }
+    .gorvita-tab-trigger.is-open svg {
+        transform: rotate(180deg);
+        color: var(--gorvita-green);
+    }
+
+    /* Panel content */
+    .woocommerce-tabs .panel {
+        padding: var(--space-4) var(--space-4) var(--space-6);
+        border: 1px solid var(--gorvita-gray-300);
+        border-top: none;
+        background: var(--gorvita-white);
+    }
+}
+
+/* Desktop: undo any JS-set hidden attribute on panels, hide accordion triggers */
+@media (min-width: 769px) {
+    .gorvita-tab-trigger {
+        display: none !important;
+    }
+    .woocommerce div.product .woocommerce-tabs ul.tabs {
+        display: flex !important;
+    }
+    /* Override panel[hidden] so desktop tabs work normally */
+    .woocommerce-tabs .panel[hidden] {
+        display: block !important;
+    }
+}
+
+/* =========================================================================
+   TASK 6 — BLOCKSY MOBILE MENU: brand-consistent drawer
+   Blocksy injects inline background via customizer — needs !important.
+   ========================================================================= */
+
+/* Hamburger trigger button in header */
+.ct-toggle-dropdown-mobile {
+    color: var(--gorvita-ink) !important;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius);
+    padding: var(--space-2);
+    transition: background var(--t-fast), color var(--t-fast);
+}
+.ct-toggle-dropdown-mobile:hover {
+    background: var(--gorvita-cream) !important;
+    color: var(--gorvita-green) !important;
+}
+.ct-toggle-dropdown-mobile svg {
+    stroke: currentColor !important;
+}
+
+/* Drawer panel inner — override Blocksy's inline dark background */
+.ct-panel.ct-header .ct-panel-inner {
+    background-color: var(--gorvita-cream) !important;
+    width: min(340px, 88vw) !important;
+    box-shadow: -2px 0 40px rgba(20, 22, 15, 0.14) !important;
+    border-radius: 0 !important;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Panel header row (logo area + close button) */
+.ct-panel.ct-header .ct-panel-actions {
+    padding: var(--space-4) var(--space-5) !important;
+    border-bottom: 1px solid var(--gorvita-gray-200);
+    min-height: 64px;
+}
+.ct-panel.ct-header .ct-panel-heading {
+    font-family: var(--font-heading) !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    color: var(--gorvita-ink) !important;
+    letter-spacing: -0.01em;
+}
+
+/* Close button */
+.ct-panel.ct-header .ct-toggle-close {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    border-radius: var(--radius) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--gorvita-gray-700) !important;
+    background: var(--gorvita-white) !important;
+    border: 1px solid var(--gorvita-gray-300) !important;
+    transition: background var(--t-fast), color var(--t-fast);
+}
+.ct-panel.ct-header .ct-toggle-close:hover {
+    background: var(--gorvita-cream) !important;
+    color: var(--gorvita-ink) !important;
+}
+.ct-panel.ct-header .ct-toggle-close svg {
+    stroke: currentColor !important;
+}
+
+/* Panel content area */
+.ct-panel.ct-header .ct-panel-content-inner {
+    padding: var(--space-3) 0 !important;
+    background: var(--gorvita-cream) !important;
+}
+
+/* Menu links */
+.ct-panel.ct-header .ct-menu-link {
+    display: flex !important;
+    align-items: center !important;
+    padding: var(--space-4) var(--space-6) !important;
+    font-family: var(--font-body) !important;
+    font-size: 1.0625rem !important;
+    font-weight: 500 !important;
+    color: var(--gorvita-ink) !important;
+    text-decoration: none !important;
+    min-height: 52px !important;
+    border-bottom: 1px solid var(--gorvita-gray-100) !important;
+    transition: background var(--t-fast), color var(--t-fast), padding-left var(--t-fast) !important;
+}
+.ct-panel.ct-header .ct-menu-link:hover {
+    background: var(--gorvita-white) !important;
+    color: var(--gorvita-green) !important;
+    padding-left: calc(var(--space-6) + 6px) !important;
+    text-decoration: none !important;
+}
+.ct-panel.ct-header li.current-menu-item > .ct-menu-link {
+    color: var(--gorvita-green) !important;
+    font-weight: 600 !important;
+    border-left: 3px solid var(--gorvita-green) !important;
+}
+
+/* Submenu items */
+.ct-panel.ct-header .sub-menu .ct-menu-link {
+    padding-left: calc(var(--space-6) + var(--space-6)) !important;
+    font-size: var(--fs-body) !important;
+    font-weight: 400 !important;
+    color: var(--gorvita-gray-700) !important;
+    background: var(--gorvita-white) !important;
+    border-bottom-color: var(--gorvita-gray-100) !important;
+    min-height: 44px !important;
+}
+.ct-panel.ct-header .sub-menu .ct-menu-link:hover {
+    color: var(--gorvita-green) !important;
+    background: var(--gorvita-cream) !important;
+    padding-left: calc(var(--space-6) + var(--space-6) + 4px) !important;
+}
+
+/* Submenu toggle chevron */
+.ct-panel.ct-header .ct-toggle-dropdown-mobile {
+    color: var(--gorvita-gray-500) !important;
+    background: transparent !important;
+    margin-left: auto;
+    min-width: 44px !important;
+    min-height: 44px !important;
+}
+
+/* Backdrop overlay */
+.ct-panel.ct-header::before,
+.ct-panel.ct-header .ct-panel-overlay,
+[data-id="mobile-menu"].ct-panel::before {
+    background: rgba(20, 22, 15, 0.5) !important;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+/* =========================================================================
+   AUDIT FIXES — touch targets, contrast, button heights
+   ========================================================================= */
+
+/* "Do koszyka" loop button — raise to 44px touch target */
+.gv-card-cta .button,
+.gv-card-cta .add_to_cart_button {
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Footer bottom bar — raise contrast + touch targets for links */
+.gorvita-footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.gorvita-footer__copy,
+.gorvita-footer__credit {
+    color: var(--gorvita-gray-300) !important;
+    font-size: var(--fs-small);
+}
+.gorvita-footer__copy a,
+.gorvita-footer__credit a {
+    color: var(--gorvita-gray-300) !important;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding: var(--space-2) 0;
+    display: inline-block;
+    min-height: 44px;
+    line-height: 44px;
+}
+.gorvita-footer__copy a:hover,
+.gorvita-footer__credit a:hover {
+    color: var(--gorvita-white) !important;
+}
+
+/* Footer nav links — raise contrast */
+.gorvita-footer__links a {
+    color: var(--gorvita-gray-300) !important;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
+.gorvita-footer__links a:hover {
+    color: var(--gorvita-white) !important;
+}
+
+/* "Nie pamiętasz hasła?" — ensure 44px height */
+.woocommerce .lost_password a {
+    display: inline-block;
+    padding: var(--space-3) 0;
+    min-height: 44px;
+    line-height: 1.4;
+}
+
+/* WooCommerce Coming Soon page — Polish text override via CSS (fallback) */
+.woocommerce-store-notice,
+.wc-block-store-notice { display: none !important; }

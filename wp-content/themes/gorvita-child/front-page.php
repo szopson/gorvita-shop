@@ -203,7 +203,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
     <!-- HERO -->
     <section class="gorvita-hero">
         <div class="gorvita-hero__bg">
-            <?php echo wp_get_attachment_image(284, 'full', false, [
+            <?php echo wp_get_attachment_image(249, 'full', false, [
                 'class' => 'gorvita-hero__bg-img',
                 'alt'   => '',
                 'fetchpriority' => 'high',
@@ -238,8 +238,8 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
                         <div class="gorvita-stat-label">Produktów</div>
                     </div>
                     <div>
-                        <div class="gorvita-stat-num">14<sup>min</sup></div>
-                        <div class="gorvita-stat-label">Mineralizacji</div>
+                        <div class="gorvita-stat-num">14<sup>+</sup></div>
+                        <div class="gorvita-stat-label">Minerałów</div>
                     </div>
                 </div>
             </div>
@@ -335,7 +335,7 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
             <div class="gorvita-spring">
                 <div class="gorvita-spring__inner">
                     <div class="gorvita-spring__visual">
-                        <img class="gorvita-spring__visual-img" src="<?php echo esc_url($img_url . '/strumien.webp'); ?>" alt="Strumień w Gorcach" loading="lazy">
+                        <img class="gorvita-spring__visual-img" src="<?php echo esc_url($img_url . '/strumien.png'); ?>" alt="Strumień w Gorcach" loading="lazy">
                         <div class="gorvita-spring__visual-grade"></div>
                         <div class="gorvita-spring__coord">
                             <span>49°34'N</span>
@@ -462,15 +462,10 @@ $img_url = get_stylesheet_directory_uri() . '/assets/images';
         <div class="gorvita-wrap">
             <div class="gorvita-cbd-callout">
                 <div class="gorvita-cbd-callout__grid">
-                    <div>
+                    <div class="gorvita-cbd-callout__copy">
                         <div class="gorvita-eyebrow">LINIA CBD GOLD · NOWOŚĆ</div>
                         <h2>Polska konopia,<br><em>premium extraction.</em></h2>
                         <p>Pierwsza polska linia CBD zimnotłoczonego w standardzie farmaceutycznym. Od ekologicznych upraw do laboratorium — pełen łańcuch pod kontrolą Gorvity.</p>
-                        <div class="gorvita-cbd-callout__lines">
-                            <div class="gorvita-cbd-line"><b>Olej CBD 5%</b><span>Codzienna harmonia</span></div>
-                            <div class="gorvita-cbd-line"><b>Olej CBD 10% Gold</b><span>Intensywne wsparcie</span></div>
-                            <div class="gorvita-cbd-line"><b>Maść konopna</b><span>Regeneracja skóry</span></div>
-                        </div>
                         <div style="margin-top: 32px">
                             <a class="gorvita-btn gorvita-btn--gold" href="/cbd/">
                                 Zobacz linię CBD <?php gorvita_icon('arrow-right', 16); ?>

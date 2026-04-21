@@ -8,6 +8,38 @@
 defined('ABSPATH') || exit;
 
 /**
+ * Disable WooCommerce "Coming Soon" mode (WooCommerce 8.2+).
+ *
+ * WC stores the flag in wp_options as woocommerce_coming_soon='yes'.
+ * The template-include check fires AFTER init, so we permanently
+ * flip the option to 'no' on first load — zero-cost on subsequent
+ * requests because the condition is false.
+ */
+add_filter('woocommerce_is_coming_soon', '__return_false');
+add_filter('woocommerce_coming_soon_is_active', '__return_false');
+
+add_action('init', function () {
+    if ('yes' === get_option('woocommerce_coming_soon')) {
+        update_option('woocommerce_coming_soon', 'no');
+    }
+    if ('yes' === get_option('woocommerce_store_pages_only')) {
+        update_option('woocommerce_store_pages_only', 'no');
+    }
+}, 1);
+
+/**
+ * Redirect /shop/ → actual WooCommerce shop page (handles English slug from Blocksy menu).
+ */
+add_action('template_redirect', function () {
+    if (!is_404()) return;
+    $uri = rtrim(parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH), '/');
+    if ($uri === '/shop' && function_exists('wc_get_page_permalink')) {
+        wp_redirect(wc_get_page_permalink('shop'), 301);
+        exit;
+    }
+});
+
+/**
  * Change "Add to cart" button text.
  */
 add_filter('woocommerce_product_single_add_to_cart_text', function () {
@@ -155,3 +187,20 @@ add_action('woocommerce_email_after_order_table', function ($order, $sent_to_adm
             : '<p><strong>NIP:</strong> ' . esc_html($nip) . '</p>';
     }
 }, 10, 4);
+
+/**
+ * Last-resort: if WooCommerce's coming-soon template_include still fires,
+ * swap it out for the real shop archive. Child theme registers this AFTER
+ * WC's plugins_loaded callback, so at the same PHP_INT_MAX priority our
+ * filter runs last and wins.
+ */
+add_filter('template_include', function (string $tpl): string {
+    if (false !== strpos($tpl, 'coming-soon')) {
+        $wc_archive = WC()->plugin_path() . '/templates/archive-product.php';
+        if (file_exists($wc_archive)) {
+            return $wc_archive;
+        }
+        return locate_template(['archive.php', 'index.php']) ?: $tpl;
+    }
+    return $tpl;
+}, PHP_INT_MAX);
