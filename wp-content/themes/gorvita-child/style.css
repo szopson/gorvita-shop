@@ -1683,23 +1683,40 @@ header.site-header {
 }
 
 /* =========================================================
-   WC PRODUCT LOOP — solid button (glass is invisible on white cards)
+   WC PRODUCT LOOP — solid button, always visible
+   Blocksy hides loop buttons via opacity/visibility/transform
+   by default — override all three to force visibility.
    ========================================================= */
 .woocommerce ul.products li.product a.button,
-.woocommerce ul.products li.product button.button {
+.woocommerce ul.products li.product button.button,
+.woocommerce ul.products li.product .add_to_cart_button {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    position: relative !important;
+    display: flex !important;
+    margin: auto 16px 16px 16px !important;
+    width: calc(100% - 32px) !important;
     background: #2D5016 !important;
     color: #ffffff !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     border-color: #2D5016 !important;
     box-shadow: 0 2px 8px rgba(45,80,22,0.25) !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    text-align: center;
+    justify-content: center;
+    padding: 12px !important;
 }
 .woocommerce ul.products li.product a.button:hover,
-.woocommerce ul.products li.product button.button:hover {
+.woocommerce ul.products li.product button.button:hover,
+.woocommerce ul.products li.product .add_to_cart_button:hover {
     background: #1F3A0F !important;
     border-color: #1F3A0F !important;
     color: #ffffff !important;
     box-shadow: 0 4px 16px rgba(45,80,22,0.35) !important;
+    transform: translateY(-2px) !important;
 }
 
 /* =========================================================================
