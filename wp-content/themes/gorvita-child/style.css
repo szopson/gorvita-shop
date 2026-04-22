@@ -1610,6 +1610,31 @@ header.site-header {
     margin: 0;
     line-height: 1.65;
 }
+.gorvita-footer__socials {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+.gorvita-footer__social {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.55);
+    transition: background .2s, color .2s;
+    text-decoration: none;
+}
+.gorvita-footer__social:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+}
+.gorvita-footer__social svg {
+    width: 16px;
+    height: 16px;
+}
 .gorvita-footer__heading {
     font-family: var(--f-mono);
     font-size: 10px;
