@@ -1081,7 +1081,7 @@
   gap: 8px;
   background: var(--g-bone);
   padding: 6px;
-  border-radius: var(--r-full);
+  border-radius: var(--r-lg);
   border: 1px solid var(--g-gray-200);
   max-width: 460px;
   margin: 0 auto;
