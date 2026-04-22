@@ -1602,6 +1602,7 @@ header.site-header {
     max-width: 26ch;
     margin: 0;
     line-height: 1.65;
+    text-align: center;
 }
 .gorvita-footer__socials {
     display: flex;
