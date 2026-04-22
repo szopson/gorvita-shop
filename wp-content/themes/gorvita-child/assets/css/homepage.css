@@ -565,15 +565,21 @@
   color: var(--g-gray-500);
 }
 .gorvita-prod__title {
-  font-family: var(--f-display);
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.2;
+  font-family: var(--f-ui);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.25;
   color: var(--g-ink);
   letter-spacing: -0.01em;
   margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: calc(1.25em * 2);
 }
-.gorvita-prod__title a { color: inherit; }
+.gorvita-prod__title a { color: inherit; text-decoration: none; }
+.gorvita-prod__title a:hover { color: var(--g-green); }
 .gorvita-prod__desc {
   font-size: 13.5px;
   color: var(--g-gray-700);
