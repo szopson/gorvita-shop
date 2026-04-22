@@ -1578,14 +1578,16 @@ header.site-header {
     gap: 16px;
 }
 .gorvita-footer__logo {
-    display: inline-flex;
+    display: flex;
+    align-self: flex-start;
     background: rgba(255,255,255,0.12);
     padding: 8px 16px;
     border-radius: 10px;
 }
 .gorvita-footer__logo-img {
-    max-height: 40px;
+    max-height: 48px;
     width: auto;
+    max-width: 160px;
 }
 .gorvita-footer__logo-text {
     font-family: var(--f-display);
