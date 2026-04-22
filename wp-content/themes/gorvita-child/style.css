@@ -631,27 +631,6 @@ header.site-header {
 }
 .gorvita-footer__address strong { color: var(--gorvita-gray-300); }
 
-.gorvita-footer__socials {
-    display: flex;
-    gap: var(--space-3);
-}
-.gorvita-footer__social {
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius);
-    border: 1px solid rgba(255,255,255,0.12);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gorvita-gray-500);
-    transition: border-color var(--t-fast), color var(--t-fast);
-}
-.gorvita-footer__social:hover {
-    border-color: var(--gorvita-sage);
-    color: var(--gorvita-sage-light);
-}
-.gorvita-footer__social svg { width: 18px; height: 18px; }
-
 /* Nav columns grid */
 .gorvita-footer__nav {
     display: grid;
