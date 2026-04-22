@@ -322,6 +322,42 @@ header.site-header {
 }
 
 /* =========================================================================
+   PAGE HERO — Blocksy page title header (non-homepage pages)
+   ========================================================================= */
+
+/*
+ * Blocksy constrains .hero-section to ~1290px centered.
+ * Expanding to full width + adding cream background gives pages
+ * a proper branded header instead of a plain floating title.
+ */
+body:not(.home) .hero-section {
+    max-width: 100%;
+    width: 100%;
+    background: var(--gorvita-cream);
+    border-bottom: 1px solid var(--gorvita-gray-300);
+    padding: var(--space-12) var(--container-padding);
+    margin-bottom: var(--space-8);
+    box-sizing: border-box;
+}
+
+body:not(.home) .hero-section .page-title,
+body:not(.home) .hero-section .entry-title {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h1);
+    font-weight: 500;
+    color: var(--gorvita-green-deep);
+    letter-spacing: -0.02em;
+}
+
+@media (min-width: 1024px) {
+    body:not(.home) .hero-section {
+        padding: var(--space-16) var(--container-padding);
+    }
+}
+
+/* =========================================================================
    WOOCOMMERCE — PRODUCT GRID
    ========================================================================= */
 .woocommerce ul.products {
