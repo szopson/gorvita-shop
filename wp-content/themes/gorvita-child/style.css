@@ -151,6 +151,16 @@ a:focus-visible {
     border-radius: var(--radius-sm);
 }
 
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+    outline: 3px solid var(--gorvita-sage);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
 img { max-width: 100%; height: auto; }
 
 ::selection {
