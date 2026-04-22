@@ -216,6 +216,7 @@ button:hover,
 button:focus-visible {
     outline: 3px solid var(--gorvita-sage);
     outline-offset: 2px;
+    border-radius: var(--radius-sm);
 }
 
 .button.secondary,
@@ -1468,6 +1469,7 @@ header.site-header {
 .button:focus-visible {
     outline: 3px solid rgba(var(--gv-btn-rgb), 0.4);
     outline-offset: 2px;
+    border-radius: var(--radius-sm);
 }
 
 /* Keep "ghost" / outline buttons on hero readable */
