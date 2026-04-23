@@ -1,8 +1,31 @@
 # Decyzje architektoniczne — Gorvita Shop
 
-## Motyw: Blocksy + gorvita-child
-Blocksy jako parent (nie FSE/blocks), gorvita-child dla customizacji.
-Nie używamy Page Buildera (Elementor, Bricks) — zbyt ciężkie dla tego projektu.
+## Motyw: Blocksy-first, gorvita-child dla overrides
+**Architektura trójwarstwowa:**
+
+**Warstwa 1 — Blocksy (admin panel)**
+- Template
+- Layout sekcji
+- Wygląd globalny
+- Archive/Single product z buildera
+- Bannery, gridy, sekcje
+
+**Warstwa 2 — repo (gorvita-child)**
+- Custom CSS (style.css, assets/)
+- Lekkie nadpisania PHP (functions.php, inc/)
+- Chatbot + n8n integracja
+- Małe komponenty
+
+**Warstwa 3 — admin (treść)**
+- Produkty, kategorie, menu
+- Tekst, SEO, promocje
+- Ustawienia WooCommerce
+- Bannery edytowalne
+
+**Strategia:** Najpierw Blocksy template → ustawić layout w adminie → nadpisać tylko niezbędne CSS/komponenty w repo.
+Nie wracaj do nadpisywania szablonów (footer.php, front-page.php itp.) chyba że absolutnie konieczne.
+
+**Nie używamy Page Buildera** (Elementor, Bricks) — zbyt ciężkie. Blocksy builtin tools wystarczają.
 
 ## B2B: B2BKing (nie WooCommerce Memberships, nie własny kod)
 B2BKing $179/rok obsługuje: grupy cenowe, hidden pricing, formularz rejestracji, min. zamówienia.

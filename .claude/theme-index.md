@@ -1,12 +1,15 @@
 # gorvita-child — indeks plików i funkcji
 
-## Pliki główne
+## Status
+⚠️ **Migration w trakcie:** Template overrides (front-page.php, footer.php, woocommerce/) są przenoszone do `disabled-overrides/`. Czytaj `.claude/blocksy-cleanup.md` i `.claude/blocksy-architecture.md`.
+
+## Pliki główne (ACTIVE)
 | Plik | Opis |
 |------|------|
-| `style.css` | CSS variables, design tokens, komponenty BEM |
+| `style.css` | CSS variables, design tokens, komponenty BEM, overrides |
 | `functions.php` | Enqueue, theme setup, SVG icon helper |
-| `front-page.php` | Szablon strony głównej |
-| `footer.php` | Stopka |
+| `functions.php` | **[DISABLED]** front-page.php → disabled-overrides/ (Blocksy handles) |
+| `functions.php` | **[DISABLED]** footer.php → disabled-overrides/ (Blocksy handles) |
 
 ## inc/ — moduły PHP
 | Plik | Opis |
