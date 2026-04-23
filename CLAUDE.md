@@ -92,16 +92,18 @@ docker compose exec wordpress wp cache flush --allow-root
 - Zdjęcia załadowane do WP Media
 - SMTP: FluentSMTP + Resend (test OK, From: contact@nexoperandi.cloud)
 
-### 🔧 Do zrobienia przed launchem
-1. PayU — brak konfiguracji (czeka na credentials od Pawła)
-2. InPost — plugin aktywny, brak API key
-3. B2BKing — do zakupu i konfiguracji
-4. WP Desk Pole NIP — do zakupu
-5. SMTP From → sklep@gorvita.pl + weryfikacja domeny w Resend
-6. GA4 + GTM + Facebook Pixel
-7. DNS: sklep.gorvita.pl → 76.13.156.173 + launch
+### 🔧 Do zrobienia — priorytety
+1. **[NATYCHMIAST]** Blocksy cleanup — move template overrides do disabled-overrides/ (`.claude/tasks/blocksy-cleanup.md`)
+2. **[PO BLOCKSY]** PayU — konfiguracja (czeka credentials od Pawła)
+3. **[PRZED LAUNCHEM]** InPost — plugin aktywny, brak API key
+4. **[PRZED LAUNCHEM]** B2BKing — do zakupu i konfiguracji
+5. **[PRZED LAUNCHEM]** WP Desk Pole NIP — do zakupu
+6. **[PRZED LAUNCHEM]** SMTP From → sklep@gorvita.pl + weryfikacja w Resend
+7. **[PRZED LAUNCHEM]** GA4 + GTM + Facebook Pixel
+8. **[LAUNCH]** DNS: sklep.gorvita.pl → 76.13.156.173
 
 ### 📋 Szczegółowe taski
+- `.claude/tasks/blocksy-cleanup.md` — PRIORITY: move templates do disabled-overrides/
 - `.claude/tasks/smtp.md` — SMTP status i fix
 - `.claude/tasks/payments.md` — PayU, Przelewy24, InPost, FedEx
 - `.claude/tasks/b2b.md` — B2BKing, grupy, rabaty
