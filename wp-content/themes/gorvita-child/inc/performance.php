@@ -161,6 +161,19 @@ add_action('wp_enqueue_scripts', function () {
 }, 20);
 
 /**
+ * Subpages CSS — all pages except front page.
+ */
+add_action('wp_enqueue_scripts', function () {
+    if (is_front_page()) return;
+    wp_enqueue_style(
+        'gorvita-subpages',
+        get_stylesheet_directory_uri() . '/assets/css/subpages.css',
+        ['gorvita-child'],
+        filemtime(get_stylesheet_directory() . '/assets/css/subpages.css') ?: '1.0'
+    );
+}, 20);
+
+/**
  * Product card CSS + LQIP JS — shop, category archives, and single product pages.
  */
 add_action('wp_enqueue_scripts', function () {
