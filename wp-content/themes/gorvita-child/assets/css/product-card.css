@@ -232,11 +232,10 @@
 }
 
 /* CTA — always visible.
-   background needs !important: style.css has a glass-gradient rule for
-   .woocommerce a.button with higher specificity that resolves to transparent
-   when --gv-btn-rgb is unset in this context. */
-.gv-card-cta .button,
-.gv-card-cta .add_to_cart_button {
+   .woocommerce prefix raises specificity to (0,3,0), beating the glass-gradient
+   rule in style.css which matches .woocommerce a.button at (0,2,1). */
+.woocommerce .gv-card-cta .button,
+.woocommerce .gv-card-cta .add_to_cart_button {
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
@@ -256,8 +255,8 @@
     text-decoration: none;
 }
 
-.gv-card-cta .button:hover,
-.gv-card-cta .add_to_cart_button:hover {
+.woocommerce .gv-card-cta .button:hover,
+.woocommerce .gv-card-cta .add_to_cart_button:hover {
     background: var(--gorvita-green-dark) !important;
     transform: translateY(-1px);
     color: #fff !important;
