@@ -1,0 +1,559 @@
+/* ============================================================
+   Gorvita Subpages — shared UI for CMS, B2B, archive, product
+   All tokens from style.css — no new custom properties.
+   ============================================================ */
+
+/* ----------------------------------------------------------------
+   PAGE HEADER  (3 size variants: sm, md, lg)
+   ---------------------------------------------------------------- */
+.gorvita-page-header {
+  position: relative;
+  overflow: hidden;
+  background: var(--gorvita-cream);
+  border-bottom: 1px solid rgba(45, 80, 22, 0.08);
+}
+
+.gorvita-page-header--sm { padding: var(--space-8) 0 var(--space-6); }
+
+.gorvita-page-header--md {
+  padding: var(--space-16) 0 var(--space-12);
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+}
+
+.gorvita-page-header--lg {
+  padding: var(--space-20) 0 var(--space-16);
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+}
+
+/* Background image (B2B hero) */
+.gorvita-page-header[style*="background-image"] {
+  background-size: cover;
+  background-position: center;
+  color: var(--gorvita-white);
+}
+.gorvita-page-header[style*="background-image"]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(20,33,10,0.75) 0%, rgba(45,80,22,0.50) 100%);
+  z-index: 0;
+}
+.gorvita-page-header[style*="background-image"] .container {
+  position: relative;
+  z-index: 1;
+}
+.gorvita-page-header[style*="background-image"] .gorvita-page-header__title,
+.gorvita-page-header[style*="background-image"] .gorvita-page-header__subtitle {
+  color: var(--gorvita-white);
+}
+
+/* Breadcrumb inside header */
+.gorvita-page-header .woocommerce-breadcrumb {
+  font-size: var(--fs-xs);
+  color: var(--gorvita-gray-500);
+  margin: 0 0 var(--space-3);
+  display: block;
+}
+.gorvita-page-header .woocommerce-breadcrumb a {
+  color: var(--gorvita-sage);
+  text-decoration: none;
+}
+.gorvita-page-header[style*="background-image"] .woocommerce-breadcrumb,
+.gorvita-page-header[style*="background-image"] .woocommerce-breadcrumb a {
+  color: rgba(255,255,255,0.75);
+}
+
+/* Title */
+.gorvita-page-header__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.08;
+  color: var(--gorvita-ink);
+  margin: 0 0 var(--space-2);
+}
+.gorvita-page-header--md .gorvita-page-header__title,
+.gorvita-page-header--lg .gorvita-page-header__title {
+  font-size: clamp(1.75rem, 5vw, 3rem);
+}
+
+/* Subtitle */
+.gorvita-page-header__subtitle {
+  font-size: var(--fs-body-lg);
+  color: var(--gorvita-gray-500);
+  max-width: 58ch;
+  margin: 0 0 var(--space-5);
+  line-height: 1.5;
+}
+
+/* CTA row */
+.gorvita-page-header__ctas {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* ----------------------------------------------------------------
+   REUSABLE BUTTON COMPONENT
+   ---------------------------------------------------------------- */
+.gorvita-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: background var(--t), color var(--t), border-color var(--t);
+}
+.gorvita-btn--primary {
+  background: var(--gorvita-green);
+  color: var(--gorvita-white);
+  border-color: var(--gorvita-green);
+}
+.gorvita-btn--primary:hover { background: var(--gorvita-green-dark); border-color: var(--gorvita-green-dark); }
+
+.gorvita-btn--outline {
+  background: transparent;
+  color: var(--gorvita-white);
+  border-color: rgba(255,255,255,0.65);
+}
+.gorvita-btn--outline:hover { border-color: var(--gorvita-white); background: rgba(255,255,255,0.12); }
+
+/* ----------------------------------------------------------------
+   CMS PAGE  (page.php — O marce, Kontakt, Dostawa, Regulamin …)
+   ---------------------------------------------------------------- */
+.gorvita-page {
+  min-height: 60vh;
+  background: var(--gorvita-white);
+}
+
+.gorvita-page__content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6) var(--space-16);
+}
+
+/* Wide variant for B2B (allows full-width Gutenberg columns) */
+.gorvita-page__content--wide {
+  max-width: 1100px;
+}
+
+/* Gutenberg block typography */
+.gorvita-page__content h1,
+.gorvita-page__content h2,
+.gorvita-page__content h3 {
+  font-family: var(--font-heading);
+  color: var(--gorvita-ink);
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-4);
+  line-height: 1.1;
+}
+.gorvita-page__content h2 { font-size: clamp(1.25rem, 3vw, 1.75rem); }
+.gorvita-page__content h3 { font-size: clamp(1rem, 2.5vw, 1.25rem); }
+
+.gorvita-page__content p {
+  color: var(--gorvita-gray-700);
+  line-height: 1.65;
+  margin-bottom: var(--space-4);
+}
+.gorvita-page__content ul,
+.gorvita-page__content ol {
+  color: var(--gorvita-gray-700);
+  padding-left: var(--space-6);
+  margin-bottom: var(--space-4);
+  line-height: 1.65;
+}
+.gorvita-page__content li { margin-bottom: var(--space-1); }
+
+/* Gutenberg quote block */
+.gorvita-page__content .wp-block-quote {
+  border-left: 3px solid var(--gorvita-green);
+  padding: var(--space-4) var(--space-6);
+  margin: var(--space-6) 0;
+  background: var(--gorvita-cream);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.gorvita-page__content .wp-block-quote p {
+  font-style: italic;
+  margin: 0 0 var(--space-2);
+}
+.gorvita-page__content .wp-block-quote cite {
+  font-size: var(--fs-small);
+  font-style: normal;
+  color: var(--gorvita-sage);
+}
+
+/* Gutenberg columns */
+.gorvita-page__content .wp-block-columns { gap: var(--space-8); margin-bottom: var(--space-6); }
+
+/* Gutenberg buttons */
+.gorvita-page__content .wp-block-buttons { margin: var(--space-6) 0; }
+.gorvita-page__content .wp-block-button__link {
+  background: var(--gorvita-green) !important;
+  border-radius: var(--radius-full) !important;
+  font-weight: 600;
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--fs-small);
+}
+.gorvita-page__content .is-style-outline .wp-block-button__link {
+  background: transparent !important;
+  color: var(--gorvita-green) !important;
+  border: 1.5px solid var(--gorvita-green) !important;
+  box-shadow: none !important;
+}
+
+/* ----------------------------------------------------------------
+   CATEGORY ARCHIVE  (woocommerce/archive-product.php)
+   ---------------------------------------------------------------- */
+.gorvita-archive {
+  min-height: 60vh;
+  background: var(--gorvita-white);
+}
+
+.gorvita-archive__header {
+  background: var(--gorvita-cream);
+  padding: var(--space-8) 0 var(--space-6);
+  border-bottom: 1px solid rgba(45,80,22,0.08);
+}
+.gorvita-archive__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: var(--gorvita-ink);
+  margin: var(--space-2) 0 var(--space-1);
+}
+.gorvita-archive__desc {
+  font-size: var(--fs-body);
+  color: var(--gorvita-gray-500);
+  max-width: 60ch;
+  margin: 0;
+  line-height: 1.55;
+}
+
+.gorvita-archive__body { padding: var(--space-8) 0 var(--space-16); }
+
+/* Filter + sort bar */
+.gorvita-archive__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--gorvita-gray-300);
+}
+.gorvita-archive__toolbar .woocommerce-result-count {
+  font-size: var(--fs-small);
+  color: var(--gorvita-gray-500);
+  margin: 0;
+}
+.gorvita-archive__toolbar .woocommerce-ordering select {
+  font-size: var(--fs-small);
+  border: 1px solid var(--gorvita-gray-300);
+  border-radius: var(--radius);
+  padding: var(--space-2) var(--space-4);
+  background: var(--gorvita-white);
+  color: var(--gorvita-gray-700);
+}
+
+/* Product grid */
+.gorvita-archive ul.products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Pagination */
+.gorvita-archive .woocommerce-pagination {
+  margin-top: var(--space-10);
+  display: flex;
+  justify-content: center;
+}
+.gorvita-archive .woocommerce-pagination ul {
+  display: flex;
+  gap: var(--space-1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.gorvita-archive .woocommerce-pagination .page-numbers {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  border-radius: var(--radius);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  background: var(--gorvita-gray-100);
+  color: var(--gorvita-gray-700);
+  text-decoration: none;
+  transition: background var(--t-fast), color var(--t-fast);
+  padding: 0 var(--space-2);
+}
+.gorvita-archive .woocommerce-pagination .page-numbers.current,
+.gorvita-archive .woocommerce-pagination .page-numbers:hover {
+  background: var(--gorvita-green);
+  color: var(--gorvita-white);
+}
+
+/* ----------------------------------------------------------------
+   PRODUCT SINGLE PAGE
+   ---------------------------------------------------------------- */
+.gorvita-product-page {
+  padding: var(--space-8) 0 var(--space-16);
+  background: var(--gorvita-white);
+}
+
+/* Breadcrumb above layout */
+.gorvita-product-page .woocommerce-breadcrumb {
+  font-size: var(--fs-xs);
+  color: var(--gorvita-gray-500);
+  margin-bottom: var(--space-6);
+  display: block;
+}
+.gorvita-product-page .woocommerce-breadcrumb a {
+  color: var(--gorvita-sage);
+  text-decoration: none;
+}
+
+/* 2-column layout */
+.gorvita-product__layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: var(--space-10);
+  align-items: start;
+}
+
+/* Sticky gallery */
+.gorvita-product__gallery-col {
+  position: sticky;
+  top: 100px;
+}
+.gorvita-product__gallery-col .woocommerce-product-gallery {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--gorvita-gray-300);
+}
+.gorvita-product__gallery-col .woocommerce-product-gallery__image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Info column */
+.gorvita-product__info-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Category eyebrow */
+.gorvita-product__category {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--gorvita-sage);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+}
+.gorvita-product__category:hover { color: var(--gorvita-green); }
+
+/* WC title */
+.gorvita-product__info-col .product_title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--gorvita-ink);
+  margin: 0;
+  line-height: 1.1;
+}
+
+/* WC short description */
+.gorvita-product__info-col .woocommerce-product-details__short-description {
+  font-size: var(--fs-body);
+  color: var(--gorvita-gray-500);
+  line-height: 1.6;
+}
+
+/* Price */
+.gorvita-product__info-col .price {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--gorvita-ink);
+  line-height: 1;
+}
+.gorvita-product__info-col .price del {
+  font-size: 1.2rem;
+  color: var(--gorvita-gray-500);
+  margin-right: var(--space-2);
+}
+.gorvita-product__info-col .price ins { text-decoration: none; }
+
+/* Add to cart form */
+.gorvita-product__info-col form.cart {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  flex-wrap: wrap;
+}
+.gorvita-product__info-col .quantity input[type="number"] {
+  width: 72px;
+  height: 48px;
+  border: 1.5px solid var(--gorvita-gray-300);
+  border-radius: var(--radius);
+  text-align: center;
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--gorvita-ink);
+  background: var(--gorvita-white);
+}
+.gorvita-product__info-col .single_add_to_cart_button {
+  flex: 1;
+  min-width: 180px;
+  padding: var(--space-3) var(--space-6);
+  background: var(--gorvita-green) !important;
+  color: var(--gorvita-white) !important;
+  border: none !important;
+  border-radius: var(--radius-full) !important;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--t);
+}
+.gorvita-product__info-col .single_add_to_cart_button:hover {
+  background: var(--gorvita-green-dark) !important;
+}
+
+/* Trust bar */
+.gorvita-product__trust {
+  display: flex;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--gorvita-gray-300);
+  border-bottom: 1px solid var(--gorvita-gray-300);
+}
+.gorvita-product__trust-item {
+  font-size: var(--fs-xs);
+  color: var(--gorvita-gray-500);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* Product meta (SKU, categories) */
+.gorvita-product__info-col .product_meta {
+  font-size: var(--fs-xs);
+  color: var(--gorvita-gray-500);
+}
+.gorvita-product__info-col .product_meta a { color: var(--gorvita-sage); }
+
+/* ---- WooCommerce Tabs (below fold) ---- */
+.gorvita-product__below-fold { margin-top: var(--space-12); }
+
+.gorvita-product__below-fold .woocommerce-tabs ul.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--gorvita-gray-300);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.gorvita-product__below-fold .woocommerce-tabs ul.tabs::-webkit-scrollbar { display: none; }
+
+.gorvita-product__below-fold .woocommerce-tabs ul.tabs li {
+  margin: 0;
+  padding: 0;
+}
+.gorvita-product__below-fold .woocommerce-tabs ul.tabs li a {
+  display: block;
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  color: var(--gorvita-gray-500);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  white-space: nowrap;
+  transition: color var(--t-fast), border-color var(--t-fast);
+}
+.gorvita-product__below-fold .woocommerce-tabs ul.tabs li.active a {
+  color: var(--gorvita-green);
+  border-bottom-color: var(--gorvita-green);
+}
+.gorvita-product__below-fold .woocommerce-tabs ul.tabs li a:hover { color: var(--gorvita-green); }
+
+.gorvita-product__below-fold .woocommerce-tabs .woocommerce-Tabs-panel {
+  padding: var(--space-8) 0;
+  max-width: 720px;
+}
+.gorvita-product__below-fold .woocommerce-tabs .woocommerce-Tabs-panel h2 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--gorvita-ink);
+  margin: 0 0 var(--space-4);
+}
+.gorvita-product__below-fold .woocommerce-tabs .woocommerce-Tabs-panel p {
+  color: var(--gorvita-gray-700);
+  line-height: 1.65;
+}
+
+/* Related / upsells */
+.gorvita-product__below-fold .related,
+.gorvita-product__below-fold .up-sells {
+  margin-top: var(--space-12);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--gorvita-gray-300);
+}
+.gorvita-product__below-fold .related h2,
+.gorvita-product__below-fold .up-sells h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  color: var(--gorvita-ink);
+  margin-bottom: var(--space-6);
+}
+.gorvita-product__below-fold .related ul.products,
+.gorvita-product__below-fold .up-sells ul.products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ----------------------------------------------------------------
+   RESPONSIVE
+   ---------------------------------------------------------------- */
+@media (max-width: 860px) {
+  .gorvita-product__layout { grid-template-columns: 1fr; }
+  .gorvita-product__gallery-col { position: static; }
+  .gorvita-archive ul.products { grid-template-columns: repeat(2, 1fr); }
+  .gorvita-product__below-fold .related ul.products,
+  .gorvita-product__below-fold .up-sells ul.products { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .gorvita-archive ul.products { grid-template-columns: 1fr; }
+  .gorvita-page__content { padding-left: var(--space-4); padding-right: var(--space-4); }
+  .gorvita-page-header--md { min-height: 220px; }
+  .gorvita-page-header__subtitle { font-size: var(--fs-body); }
+}
