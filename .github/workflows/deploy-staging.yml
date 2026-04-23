@@ -40,7 +40,7 @@ jobs:
       #  - data/images/ → scraper output, not deployable
       - name: Rsync to VPS
         run: |
-          rsync -avz --delete \
+          rsync -rlptvz --delete --no-owner --no-group --omit-dir-times \
             --exclude='.git/' \
             --exclude='.github/' \
             --exclude='.env' \
