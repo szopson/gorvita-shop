@@ -134,6 +134,38 @@ require_once GORVITA_CHILD_DIR . '/inc/search.php';
 require_once GORVITA_CHILD_DIR . '/inc/mega-menu.php';
 
 /**
+ * Inline SVG icon helper — lucide-style, 1.5px stroke.
+ * Defined globally so footer.php and other templates can use it.
+ */
+function gorvita_icon($name, $size = 20) {
+    $s = sprintf('width="%d" height="%d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"', $size, $size);
+    $paths = [
+        'search'      => '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+        'cart'        => '<path d="M3 4h3l2 12h11l2-8H7"/><circle cx="9" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/>',
+        'heart'       => '<path d="M12 20s-7-4.5-9-9a4.5 4.5 0 0 1 9-2.5 4.5 4.5 0 0 1 9 2.5c-2 4.5-9 9-9 9z"/>',
+        'chevron'     => '<path d="m6 9 6 6 6-6"/>',
+        'arrow-right' => '<path d="M5 12h14M13 6l6 6-6 6"/>',
+        'arrow-left'  => '<path d="M19 12H5M11 18l-6-6 6-6"/>',
+        'plus'        => '<path d="M12 5v14M5 12h14"/>',
+        'check'       => '<path d="m5 12 5 5L20 7"/>',
+        'truck'       => '<path d="M3 7h11v10H3zM14 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/>',
+        'leaf'        => '<path d="M20 4c0 8-6 14-14 14-1 0-2-.2-2-.2s0-8 6-13c3-2.5 7-2 10-.8z"/><path d="M4 18C8 14 12 10 20 4"/>',
+        'shield'      => '<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3z"/><path d="m9 12 2 2 4-4"/>',
+        'return'      => '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>',
+        'droplet'     => '<path d="M12 3s7 7 7 12a7 7 0 0 1-14 0c0-5 7-12 7-12z"/>',
+        'certificate' => '<circle cx="12" cy="10" r="5"/><path d="m9 14-2 7 5-3 5 3-2-7"/>',
+        'mountain'    => '<path d="m2 20 6-10 4 6 3-4 7 8z"/>',
+        'star'        => '<svg xmlns="http://www.w3.org/2000/svg" width="'.$size.'" height="'.$size.'" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.5 6 .9-4.3 4.2 1 6L12 17l-5.4 2.8 1-6L3.3 9.4l6-.9L12 3z"/></svg>',
+    ];
+    if ($name === 'star') {
+        echo $paths[$name]; // phpcs:ignore
+        return;
+    }
+    if (!isset($paths[$name])) return;
+    echo '<svg xmlns="http://www.w3.org/2000/svg" '.$s.'>'.$paths[$name].'</svg>'; // phpcs:ignore
+}
+
+/**
  * Remove WP version from head (security hygiene).
  */
 remove_action('wp_head', 'wp_generator');
