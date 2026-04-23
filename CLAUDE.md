@@ -74,26 +74,41 @@ docker compose exec wordpress wp cache flush --allow-root
 - Commits: Conventional Commits (`feat:`, `fix:`, `chore:`, `refactor:`, `docs:`)
 
 ## B2B
-- Custom role `b2b_customer` (zamiast B2BKing na start)
-- Guest → widzi produkty, ale cena ukryta → CTA "Zaloguj się aby zobaczyć cenę"
-- Formularz rejestracji B2B: `/b2b-rejestracja` z polami NIP, REGON, adres, osoba kontaktowa
-- Admin approval manual; po zatwierdzeniu role → `b2b_customer`
-- Osobne grupy cenowe przez Woo Memberships lub meta `_b2b_price` (zobacz `inc/b2b.php`)
+- Plan: B2BKing ($179 Startup) — do zakupu przed launchem
+- Grupy: hurtownie farmaceutyczne, apteki, dystrybutorzy, sklepy zielarskie
+- Minimum zamówienia: 250 zł netto
+- WP Desk Pole NIP (~€40/rok) — walidacja NIP + GUS autofill, wymagane do KSeF
+- Szczegóły: `.claude/tasks/b2b.md`
 
-## Scraping źródła (offon.pl)
-- `scripts/scraper.py` — Python BeautifulSoup, input: URL listy produktów, output: `data/products.json` + `data/images/`
-- `scripts/import-products.sh` — WP-CLI: iteruje JSON, `wp wc product create`, ładuje obrazy
-
-## Linki do sprawdzenia
+## Linki
 - Obecny sklep klienta: `sklep.gorvita.com.pl`
 - Strona korporacyjna: `gorvita.pl` (design reference)
 
-## Do zrobienia — priorytety
-1. [BLOCKER VPS] Traefik SSL — `systemctl restart docker && docker compose up -d`
-2. Design system w child theme — ZROBIONE (style.css + functions.php)
-3. Scraping 108 produktów z sklep.gorvita.com.pl
-4. Import WP-CLI + zdjęcia (WeTransfer od klienta)
-5. B2B rejestracja + hidden pricing
-6. Rank Math SEO + schema
-7. PayU + InPost (po otrzymaniu API keys)
-8. DNS `sklep.gorvita.pl` → VPS + launch
+## Stan projektu (2026-04-23)
+### ✅ Zrobione
+- VPS + Docker + Traefik SSL — działa
+- Design system (style.css + functions.php)
+- Produkty zaimportowane (108 szt.)
+- Zdjęcia załadowane do WP Media
+- SMTP: FluentSMTP + Resend (test OK, From: contact@nexoperandi.cloud)
+
+### 🔧 Do zrobienia przed launchem
+1. PayU — brak konfiguracji (czeka na credentials od Pawła)
+2. InPost — plugin aktywny, brak API key
+3. B2BKing — do zakupu i konfiguracji
+4. WP Desk Pole NIP — do zakupu
+5. SMTP From → sklep@gorvita.pl + weryfikacja domeny w Resend
+6. GA4 + GTM + Facebook Pixel
+7. DNS: sklep.gorvita.pl → 76.13.156.173 + launch
+
+### 📋 Szczegółowe taski
+- `.claude/tasks/smtp.md` — SMTP status i fix
+- `.claude/tasks/payments.md` — PayU, Przelewy24, InPost, FedEx
+- `.claude/tasks/b2b.md` — B2BKing, grupy, rabaty
+- `.claude/tasks/launch-checklist.md` — pełna checklista przed launchem
+
+## Kontekst dla AI
+- `.claude/theme-index.md` — mapa wszystkich plików i funkcji gorvita-child
+- `.claude/decisions.md` — dlaczego wybraliśmy dane rozwiązania (nie sugeruj alternatyw)
+- `.claude/project-map.md` — struktura katalogów na VPS i w repo
+- `.claude/wpcli-cheatsheet.md` — gotowe komendy WP-CLI

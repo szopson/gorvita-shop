@@ -17,3 +17,17 @@ data/categories.json
 backups/
 *.sql
 *.sql.gz
+
+# Screenshots / debug
+*.png
+*.jpg
+*.jpeg
+*.gif
+!wp-content/themes/gorvita-child/assets/images/
+
+# Tools
+.playwright-mcp/
+data/scraped/
+
+# Claude Code local settings
+.claude/settings.local.json
