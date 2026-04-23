@@ -91,15 +91,33 @@ docker compose exec wordpress wp cache flush --allow-root
 - Produkty zaimportowane (108 szt.)
 - Zdjęcia załadowane do WP Media
 - SMTP: FluentSMTP + Resend (test OK, From: contact@nexoperandi.cloud)
+- **[NEW]** Blocksy cleanup: 3 template overrides (front-page.php, footer.php, woocommerce/) → disabled-overrides/
+  - Branch: `feat/blocksy-clean-render`
+  - PR #9 open, ready to merge
+  - All inc/ modules + CSS untouched
+  - Git history preserved
 
 ### 🔧 Do zrobienia — priorytety
-1. **[NATYCHMIAST]** Blocksy cleanup — move template overrides do disabled-overrides/ (`.claude/tasks/blocksy-cleanup.md`)
+1. **[TERAZ]** Blocksy cleanup:
+   - ✅ Files moved, PR #9 open
+   - 👉 **Merge PR #9** → GitHub Actions auto-deploys to staging
+   - 👉 Verify on staging: https://gorvita.srv1594477.hstgr.cloud
+   - 👉 Configure Blocksy in admin panel (Customizer + Content Blocks)
+   - 👉 Zbierz CSS tweaks, commit to `assets/css/overrides.css`
+   - See: `.claude/tasks/blocksy-cleanup.md`
+
 2. **[PO BLOCKSY]** PayU — konfiguracja (czeka credentials od Pawła)
+
 3. **[PRZED LAUNCHEM]** InPost — plugin aktywny, brak API key
+
 4. **[PRZED LAUNCHEM]** B2BKing — do zakupu i konfiguracji
+
 5. **[PRZED LAUNCHEM]** WP Desk Pole NIP — do zakupu
+
 6. **[PRZED LAUNCHEM]** SMTP From → sklep@gorvita.pl + weryfikacja w Resend
+
 7. **[PRZED LAUNCHEM]** GA4 + GTM + Facebook Pixel
+
 8. **[LAUNCH]** DNS: sklep.gorvita.pl → 76.13.156.173
 
 ### 📋 Szczegółowe taski
