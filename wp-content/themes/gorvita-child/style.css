@@ -79,3 +79,146 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
 }
+
+/* =========== USP SECTION =========== */
+.gorvita-usp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  background: var(--gorvita-white);
+  border: 1px solid var(--gorvita-gray-300);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+}
+
+.gorvita-usp-grid__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 65%;
+  z-index: 0;
+}
+
+.gorvita-usp-grid__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(45, 80, 22, 0.55) 0%, rgba(45, 80, 22, 0.45) 55%, rgba(45, 80, 22, 0.7) 100%);
+  pointer-events: none;
+}
+
+.gorvita-usp-grid--photo {
+  background: var(--gorvita-green-dark);
+  border-color: transparent;
+  isolation: isolate;
+}
+
+.gorvita-usp {
+  padding: 2rem 1.75rem;
+  border-right: 1px solid var(--gorvita-gray-300);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.gorvita-usp:last-child {
+  border-right: 0;
+}
+
+.gorvita-usp:hover {
+  background: var(--gorvita-sage-light);
+  opacity: 0.95;
+}
+
+.gorvita-usp-grid--photo .gorvita-usp {
+  position: relative;
+  z-index: 2;
+  border-right-color: rgba(255, 255, 255, 0.15);
+  color: var(--gorvita-white);
+}
+
+.gorvita-usp-grid--photo .gorvita-usp:hover {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.gorvita-usp__icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--gorvita-sage-light);
+  color: var(--gorvita-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.gorvita-usp:hover .gorvita-usp__icon {
+  background: var(--gorvita-white);
+}
+
+.gorvita-usp-grid--photo .gorvita-usp__icon {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--gorvita-white);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.gorvita-usp-grid--photo .gorvita-usp:hover .gorvita-usp__icon {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.gorvita-usp h4 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 0.25rem 0 0.125rem;
+  letter-spacing: -0.01em;
+  color: var(--gorvita-ink);
+}
+
+.gorvita-usp-grid--photo .gorvita-usp h4 {
+  color: var(--gorvita-white);
+}
+
+.gorvita-usp p {
+  font-size: 0.875rem;
+  color: var(--gorvita-gray-700);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.gorvita-usp-grid--photo .gorvita-usp p {
+  color: rgba(255, 252, 249, 0.8);
+}
+
+@media (max-width: 1024px) {
+  .gorvita-usp-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .gorvita-usp-grid {
+    grid-template-columns: 1fr;
+  }
+  .gorvita-usp {
+    border-right: 0;
+    border-bottom: 1px solid var(--gorvita-gray-300);
+  }
+  .gorvita-usp:last-child {
+    border-bottom: 0;
+  }
+  .gorvita-usp-grid--photo .gorvita-usp {
+    border-bottom-color: rgba(255, 255, 255, 0.15);
+  }
+}
