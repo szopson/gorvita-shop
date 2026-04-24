@@ -13,6 +13,7 @@ function gorvita_enqueue_styles() {
     wp_enqueue_style( 'gorvita-child-style', get_stylesheet_uri() );
     if ( is_front_page() ) {
         wp_enqueue_style( 'gorvita-homepage', get_stylesheet_directory_uri() . '/assets/css/homepage.css', [], '1.0' );
+        wp_enqueue_script( 'gorvita-animations', get_stylesheet_directory_uri() . '/assets/js/animations.js', [], '1.0', true );
     }
 }
 add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_styles' );
