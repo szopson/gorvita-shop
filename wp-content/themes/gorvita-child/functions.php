@@ -11,6 +11,9 @@ add_action( 'after_setup_theme', 'gorvita_theme_setup' );
 
 function gorvita_enqueue_styles() {
     wp_enqueue_style( 'gorvita-child-style', get_stylesheet_uri() );
+    if ( is_front_page() ) {
+        wp_enqueue_style( 'gorvita-homepage', get_stylesheet_directory_uri() . '/assets/css/homepage.css', [], '1.0' );
+    }
 }
 add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_styles' );
 
