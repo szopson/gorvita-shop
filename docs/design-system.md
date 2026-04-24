@@ -16,12 +16,12 @@ Ekstrahowany z gorvita.pl oraz dostosowany do sklepu B2C+B2B.
 ### Neutral
 | Token | Hex | Użycie |
 |-------|-----|--------|
-| `--gorvita-ink` | `#1A1A1A` | Body text |
+| `--gorvita-ink` | `#3D3D3D` | Body text — warmed to match gorvita.pl |
 | `--gorvita-gray-700` | `#404040` | Secondary text |
 | `--gorvita-gray-500` | `#737373` | Muted text, captions |
 | `--gorvita-gray-300` | `#D4D4D4` | Borders, dividers |
-| `--gorvita-cream` | `#F5F3F0` | Background sekcji, cards |
-| `--gorvita-white` | `#FFFFFF` | Main background |
+| `--gorvita-cream` | `#E6DDCD` | Background sekcji, cards — warmed to match gorvita.pl |
+| `--gorvita-white` | `#FFFCF9` | Main background — warm white like gorvita.pl |
 
 ### Accent
 | Token | Hex | Użycie |
@@ -40,24 +40,24 @@ Ekstrahowany z gorvita.pl oraz dostosowany do sklepu B2C+B2B.
 ## Typografia
 
 ### Rodziny
-- **Headings**: `Fraunces` (Google Fonts) — serif, display, eleganckie, naturalne
-- **Body/UI**: `Inter` (Google Fonts) — sans-serif, czytelne, nowoczesne
+- **Headings**: `Playfair Display` (Google Fonts) — serif, elegant, classic — synced with gorvita.pl
+- **Body/UI**: `Montserrat` (Google Fonts) — sans-serif, geometric, warm — synced with gorvita.pl
 
-### Skala (mobile-first, desktop w nawiasach)
-| Token | Mobile | Desktop | Użycie |
-|-------|--------|---------|--------|
-| `--fs-hero` | 2.5rem (40px) | 4rem (64px) | Hero headlines |
-| `--fs-h1` | 2rem (32px) | 3rem (48px) | Page titles |
-| `--fs-h2` | 1.5rem (24px) | 2rem (32px) | Section headers |
-| `--fs-h3` | 1.25rem (20px) | 1.5rem (24px) | Subsections |
-| `--fs-body-lg` | 1.125rem (18px) | 1.125rem | Lead paragraphs |
-| `--fs-body` | 1rem (16px) | 1rem | Default body |
-| `--fs-small` | 0.875rem (14px) | 0.875rem | Captions, meta |
-| `--fs-xs` | 0.75rem (12px) | 0.75rem | Badges, tags |
+### Skala (fluid typography z clamp)
+| Token | Mobile | Desktop | CSS |
+|-------|--------|---------|-----|
+| `--fs-hero` | 2.5rem (40px) | 4rem (64px) | `clamp(2.5rem, 5vw, 4rem)` |
+| `--fs-h1` | 2rem (32px) | 3rem (48px) | `clamp(2rem, 4vw, 3rem)` |
+| `--fs-h2` | 1.5rem (24px) | 2rem (32px) | `clamp(1.5rem, 3vw, 2rem)` |
+| `--fs-h3` | 1.25rem (20px) | 1.5rem (24px) | `clamp(1.25rem, 2vw, 1.5rem)` |
+| `--fs-body-lg` | 1.125rem (18px) | 1.125rem | Static |
+| `--fs-body` | 1rem (16px) | 1rem | Static |
+| `--fs-small` | 0.875rem (14px) | 0.875rem | Static |
+| `--fs-xs` | 0.75rem (12px) | 0.75rem | Static |
 
 ### Wagi
-- Fraunces: 400, 500, 600
-- Inter: 400, 500, 600, 700
+- Playfair Display: 400, 500, 600, 700
+- Montserrat: 300, 400, 500, 600, 700 (+ italic)
 
 ## Spacing (8pt grid)
 
