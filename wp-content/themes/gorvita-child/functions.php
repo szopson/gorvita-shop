@@ -1,5 +1,5 @@
 <?php
-// Gorvita Child — naked mode. All enqueues and modules disabled for Blocksy configuration.
+require_once get_stylesheet_directory() . '/inc/translations.php';
 
 function gorvita_theme_setup() {
     add_theme_support( 'woocommerce' );
@@ -28,6 +28,7 @@ function gorvita_icon( $name, $size = 20 ) {
         'certificate' => '<circle cx="12" cy="10" r="5"/><path d="m9 14-2 7 5-3 5 3-2-7"/>',
         'truck'       => '<path d="M3 7h11v10H3zM14 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="1.5"/><circle cx="17" cy="18" r="1.5"/>',
         'return'      => '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>',
+        'chevron'     => '<path d="m6 9 6 6 6-6"/>',
     ];
     if ( ! isset( $paths[ $name ] ) ) {
         return;
