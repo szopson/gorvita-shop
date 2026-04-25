@@ -91,7 +91,7 @@ add_shortcode( 'gorvita-vstrip', 'gorvita_vstrip_shortcode' );
 
 // [gorvita-spring] — sekcja "Woda, która leczy od wieków"
 function gorvita_spring_shortcode() {
-    $img_url = get_stylesheet_directory_uri() . '/assets/images/strumien.png';
+    $img_url = get_stylesheet_directory_uri() . '/assets/images/strumien.webp';
     ob_start();
     ?>
     <div class="gorvita-wrap gorvita-reveal">
