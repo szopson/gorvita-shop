@@ -23,11 +23,13 @@ function gorvita_polish_strings(string $translated, string $original, string $do
             // ── Navigation ────────────────────────────────────────────────
             'More'                                   => 'Więcej',
             'Filter by price'                        => 'Filtruj po cenie',
+            'Filter by category'                     => 'Filtruj po kategorii',
             'Filter'                                 => 'Filtruj',
             'Price'                                  => 'Cena',
             'Min price'                              => 'Cena min',
             'Max price'                              => 'Cena maks',
             'Reset'                                  => 'Resetuj',
+            'Best selling products'                  => 'Najlepiej sprzedające się produkty',
 
             // ── Cart ──────────────────────────────────────────────────────
             'Cart'                                   => 'Koszyk',
@@ -200,6 +202,10 @@ function gorvita_polish_strings(string $translated, string $original, string $do
             'Be the first to know when we launch'    => 'Bądź pierwszym, który się dowie o otwarciu',
             'Coming Soon'                            => 'Wkrótce',
             'Store is currently unavailable.'        => 'Sklep jest chwilowo niedostępny.',
+
+            // ── Newsletter ─────────────────────────────────────────────────
+            'Important updates waiting for you!'     => 'Ważne aktualizacje czekają na Ciebie!',
+            'Subscribe and grab 20% OFF!'            => 'Subskrybuj i otrzymaj 20% RABATU!',
 
             // ── Misc ───────────────────────────────────────────────────────
             'Required fields are marked'             => 'Pola wymagane są oznaczone',
