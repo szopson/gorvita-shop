@@ -1,6 +1,11 @@
 <?php
 require_once get_stylesheet_directory() . '/inc/translations.php';
 
+function gorvita_preload_hero() {
+    echo '<link rel="preload" as="image" href="' . esc_url( get_stylesheet_directory_uri() . '/assets/images/gorce2.webp' ) . '" fetchpriority="high">' . "\n";
+}
+add_action( 'wp_head', 'gorvita_preload_hero', 1 );
+
 function gorvita_theme_setup() {
     add_theme_support( 'woocommerce' );
     add_theme_support( 'wc-product-gallery-zoom' );
