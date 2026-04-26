@@ -192,7 +192,7 @@ function gorvita_hero_shortcode() {
                 </div>
             </div>
             <div class="gorvita-hero__visual">
-                <img class="gorvita-hero__visual-img" src="<?php echo esc_url( $gorce_url ); ?>" alt="Gorce — szczyty nad mgłą" loading="lazy" decoding="async">
+                <img class="gorvita-hero__visual-img" src="<?php echo esc_url( $gorce_url ); ?>" alt="Gorce — szczyty nad mgłą" loading="eager" fetchpriority="high" decoding="async">
                 <span class="gorvita-hero__visual-label">SZCZAWA · 49°34'N 20°16'E</span>
                 <div class="gorvita-hero__card">
                     <div class="gorvita-hero__card-dot"></div>
