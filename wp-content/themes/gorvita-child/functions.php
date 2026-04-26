@@ -215,35 +215,40 @@ function gorvita_hero_shortcode() {
 }
 add_shortcode( 'gorvita-hero', 'gorvita_hero_shortcode' );
 
-function gorvita_hover_image() {
+function gorvita_hover_image_css() {
     echo '<style>
+    .gorvita-hover-img {
+        position: absolute !important;
+        opacity: 0;
+        pointer-events: none;
+    }
     .woocommerce ul.products li.product .woocommerce-loop-product__link {
         position: relative;
         display: block;
         overflow: hidden;
     }
-    .woocommerce ul.products li.product .woocommerce-loop-product__link img:first-child {
+    .woocommerce ul.products li.product .woocommerce-loop-product__link img {
+        transition: opacity 0.3s ease;
         display: block;
         width: 100%;
+    }
+    .woocommerce ul.products li.product .gorvita-hover-img {
+        position: absolute !important;
+        top: 0 !important; left: 0 !important;
+        width: 100% !important; height: 100% !important;
+        object-fit: contain;
+        opacity: 0;
         transition: opacity 0.3s ease;
     }
     .woocommerce ul.products li.product:hover .woocommerce-loop-product__link img:first-child {
         opacity: 0;
-    }
-    .woocommerce ul.products li.product .gorvita-hover-img {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        object-fit: contain;
-        opacity: 0;
-        transition: opacity 0.3s ease;
     }
     .woocommerce ul.products li.product:hover .gorvita-hover-img {
         opacity: 1;
     }
     </style>';
 }
-add_action( 'wp_head', 'gorvita_hover_image' );
+add_action( 'wp_head', 'gorvita_hover_image_css' );
 
 function gorvita_add_hover_image() {
     global $product;
