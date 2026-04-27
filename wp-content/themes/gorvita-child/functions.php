@@ -288,3 +288,37 @@ function gorvita_hover_image_js() {
     </script>';
 }
 add_action( 'wp_footer', 'gorvita_hover_image_js' );
+
+function gorvita_nowosc_badge_css() {
+    echo '<style>
+    .gorvita-badge-nowosc {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 10;
+        background: #2D5016;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 3px 8px;
+        border-radius: 3px;
+        pointer-events: none;
+    }
+    .woocommerce ul.products li.product .ct-media-container {
+        position: relative;
+    }
+    </style>';
+}
+add_action( 'wp_head', 'gorvita_nowosc_badge_css' );
+
+function gorvita_nowosc_badge() {
+    $product = wc_get_product( get_the_ID() );
+    if ( ! $product ) return;
+    $tags = wp_get_post_terms( get_the_ID(), 'product_tag', [ 'fields' => 'slugs' ] );
+    if ( in_array( 'nowosc', $tags, true ) ) {
+        echo '<span class="gorvita-badge-nowosc">Nowość</span>';
+    }
+}
+add_action( 'woocommerce_before_shop_loop_item', 'gorvita_nowosc_badge', 5 );
