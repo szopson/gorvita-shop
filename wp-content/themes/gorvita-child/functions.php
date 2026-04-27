@@ -262,17 +262,19 @@ add_action( 'woocommerce_before_shop_loop_item_title', 'gorvita_add_hover_image'
 
 function gorvita_hover_image_js() {
     echo '<script>
-    document.addEventListener("DOMContentLoaded", function() {
+    function gorvitaInitHover() {
         document.querySelectorAll(".woocommerce ul.products li.product").forEach(function(card) {
             var hoverImg = card.querySelector(".gorvita-hover-img");
             var container = card.querySelector(".ct-media-container");
             if (hoverImg && container) {
                 container.appendChild(hoverImg);
-                container.style.overflow = "hidden";
-                container.style.position = "relative";
+                container.setAttribute("style", "overflow:hidden!important;position:relative!important;");
             }
         });
-    });
+    }
+    document.addEventListener("DOMContentLoaded", gorvitaInitHover);
+    window.addEventListener("load", gorvitaInitHover);
+    setTimeout(gorvitaInitHover, 500);
     </script>';
 }
 add_action( 'wp_footer', 'gorvita_hover_image_js' );
