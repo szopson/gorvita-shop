@@ -268,6 +268,8 @@ function gorvita_hover_image_js() {
             var container = card.querySelector(".ct-media-container");
             if (hoverImg && container) {
                 container.appendChild(hoverImg);
+                container.style.overflow = "hidden";
+                container.style.position = "relative";
             }
         });
     });
