@@ -266,15 +266,25 @@ function gorvita_hover_image_js() {
         document.querySelectorAll(".woocommerce ul.products li.product").forEach(function(card) {
             var hoverImg = card.querySelector(".gorvita-hover-img");
             var container = card.querySelector(".ct-media-container");
-            if (hoverImg && container) {
+            if (hoverImg && container && !container.dataset.hoverInit) {
                 container.appendChild(hoverImg);
                 container.setAttribute("style", "overflow:hidden!important;position:relative!important;");
+                container.dataset.hoverInit = "1";
             }
         });
     }
     document.addEventListener("DOMContentLoaded", gorvitaInitHover);
     window.addEventListener("load", gorvitaInitHover);
     setTimeout(gorvitaInitHover, 500);
+    setTimeout(gorvitaInitHover, 1500);
+    setTimeout(gorvitaInitHover, 3000);
+
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(m) {
+            if (m.addedNodes.length) gorvitaInitHover();
+        });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
     </script>';
 }
 add_action( 'wp_footer', 'gorvita_hover_image_js' );
