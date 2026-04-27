@@ -251,11 +251,11 @@ function gorvita_hover_image_css() {
 add_action( 'wp_head', 'gorvita_hover_image_css' );
 
 function gorvita_add_hover_image() {
-    global $product;
+    $product = wc_get_product( get_the_ID() );
+    if ( ! $product ) return;
     $gallery = $product->get_gallery_image_ids();
     if ( ! empty( $gallery ) ) {
-        $img = wp_get_attachment_image( $gallery[0], 'woocommerce_thumbnail', false, [ 'class' => 'gorvita-hover-img' ] );
-        echo $img; // phpcs:ignore
+        echo wp_get_attachment_image( $gallery[0], 'woocommerce_thumbnail', false, [ 'class' => 'gorvita-hover-img' ] ); // phpcs:ignore
     }
 }
 add_action( 'woocommerce_before_shop_loop_item_title', 'gorvita_add_hover_image', 15 );
