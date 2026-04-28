@@ -326,89 +326,205 @@ add_action( 'woocommerce_before_shop_loop_item', 'gorvita_nowosc_badge', 5 );
 function gorvita_product_accordion_js() {
     if ( ! is_product() ) return;
     echo '<script>
-    document.addEventListener("DOMContentLoaded", function() {
+    (function(){
+      document.addEventListener("DOMContentLoaded", function() {
         var descPanel = document.getElementById("tab-description");
-        if (!descPanel) return;
+        if (!descPanel || descPanel.dataset.gorvitaInit) return;
+        descPanel.dataset.gorvitaInit = "1";
 
-        var headings = descPanel.querySelectorAll("h2");
+        var BREAKPOINT = 768;
+        var headings = Array.prototype.slice.call(descPanel.querySelectorAll("h2"));
         if (!headings.length) return;
 
-        headings.forEach(function(h2, index) {
-            var isFaq = h2.textContent.trim() === "FAQ";
-
-            // Zbierz elementy po H2 aż do następnego H2
+        function collectSections() {
+          var secs = [];
+          headings.forEach(function(h2){
             var content = [];
             var next = h2.nextElementSibling;
-            while (next && next.tagName !== "H2") {
-                content.push(next);
-                next = next.nextElementSibling;
+            while(next && next.tagName !== "H2") {
+              content.push(next);
+              next = next.nextElementSibling;
             }
+            secs.push({ title: (h2.textContent||"").trim(), header: h2, content: content });
+          });
+          return secs;
+        }
 
-            // Wrapper dla zawartości
-            var wrapper = document.createElement("div");
-            wrapper.classList.add("gorvita-accordion-content");
-            wrapper.style.display = index === 0 ? "block" : "none";
-            h2.parentNode.insertBefore(wrapper, h2.nextSibling);
-            content.forEach(function(el) { wrapper.appendChild(el); });
+        function isMobile() { return window.innerWidth < BREAKPOINT; }
 
-            // Trigger na H2
+        function clearGenerated() {
+          var nav = descPanel.querySelector(".gorvita-tabs-nav");
+          var panels = descPanel.querySelector(".gorvita-tabs-panels");
+          if (nav) nav.remove();
+          if (panels) panels.remove();
+          descPanel.querySelectorAll(".gorvita-accordion-content").forEach(function(n){ n.remove(); });
+          descPanel.querySelectorAll(".gorvita-accordion-trigger").forEach(function(h){
+            h.classList.remove("gorvita-accordion-trigger","gorvita-accordion-open");
+            h.removeAttribute("aria-expanded");
+            h.removeAttribute("tabindex");
+          });
+        }
+
+        function buildFaqAccordion(container) {
+          if (container.querySelector(".gorvita-faq-item")) return;
+          var ps = Array.prototype.slice.call(container.querySelectorAll("p"));
+          ps.forEach(function(p){
+            var strong = p.querySelector("strong");
+            if (!strong) return;
+            var br = p.querySelector("br");
+            var answerHTML = "";
+            if (br) {
+              var node = br.nextSibling;
+              while(node){
+                answerHTML += (node.outerHTML || node.textContent);
+                node = node.nextSibling;
+              }
+            } else {
+              answerHTML = p.innerHTML.replace(/<\s*strong[^>]*>.*?<\s*\/\s*strong>/i,"").trim();
+            }
+            var q = document.createElement("div");
+            var a = document.createElement("div");
+            var item = document.createElement("div");
+            q.className = "gorvita-faq-question";
+            q.setAttribute("aria-expanded","false");
+            q.setAttribute("role","button");
+            q.tabIndex = 0;
+            q.textContent = strong.textContent.trim();
+            a.className = "gorvita-faq-answer";
+            a.style.display = "none";
+            a.innerHTML = answerHTML;
+            item.className = "gorvita-faq-item";
+            item.appendChild(q);
+            item.appendChild(a);
+            p.parentNode.insertBefore(item, p);
+            p.remove();
+            function toggleFaq() {
+              var open = q.getAttribute("aria-expanded") === "true";
+              q.setAttribute("aria-expanded", open ? "false" : "true");
+              a.style.display = open ? "none" : "block";
+              q.classList.toggle("gorvita-faq-open", !open);
+            }
+            q.addEventListener("click", toggleFaq);
+            q.addEventListener("keydown", function(e){
+              if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleFaq(); }
+            });
+          });
+        }
+
+        function initAccordion() {
+          clearGenerated();
+          var sections = collectSections();
+          sections.forEach(function(section, index){
+            var h2 = section.header;
             h2.classList.add("gorvita-accordion-trigger");
             h2.setAttribute("aria-expanded", index === 0 ? "true" : "false");
+            h2.setAttribute("role","button");
+            h2.tabIndex = 0;
             if (index === 0) h2.classList.add("gorvita-accordion-open");
+            var wrapper = document.createElement("div");
+            wrapper.className = "gorvita-accordion-content";
+            wrapper.style.display = index === 0 ? "block" : "none";
+            section.content.forEach(function(n){ wrapper.appendChild(n); });
+            h2.parentNode.insertBefore(wrapper, h2.nextSibling);
+            function toggleAccordion() {
+              var exp = h2.getAttribute("aria-expanded") === "true";
+              h2.setAttribute("aria-expanded", exp ? "false" : "true");
+              wrapper.style.display = exp ? "none" : "block";
+              h2.classList.toggle("gorvita-accordion-open", !exp);
+            }
+            h2.addEventListener("click", toggleAccordion);
+            h2.addEventListener("keydown", function(e){
+              if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleAccordion(); }
+            });
+            if ((section.title||"").toLowerCase().indexOf("faq") !== -1) buildFaqAccordion(wrapper);
+          });
+        }
 
-            h2.addEventListener("click", function() {
-                var expanded = h2.getAttribute("aria-expanded") === "true";
-                h2.setAttribute("aria-expanded", !expanded ? "true" : "false");
-                wrapper.style.display = !expanded ? "block" : "none";
-                h2.classList.toggle("gorvita-accordion-open", !expanded);
+        function initTabs() {
+          clearGenerated();
+          var sections = collectSections();
+          if (!sections.length) return;
+          var tabNav = document.createElement("div");
+          tabNav.className = "gorvita-tabs-nav";
+          tabNav.setAttribute("role","tablist");
+          var tabPanels = document.createElement("div");
+          tabPanels.className = "gorvita-tabs-panels";
+
+          sections.forEach(function(section, i){
+            var btn = document.createElement("button");
+            btn.className = "gorvita-tab-btn";
+            btn.textContent = section.title || ("Tab "+(i+1));
+            btn.setAttribute("role","tab");
+            btn.id = "gorvita-tab-"+i;
+            btn.setAttribute("aria-selected", i === 0 ? "true" : "false");
+            btn.setAttribute("aria-controls","gorvita-panel-"+i);
+            btn.tabIndex = i === 0 ? 0 : -1;
+            if (i === 0) btn.classList.add("active");
+
+            var panel = document.createElement("div");
+            panel.className = "gorvita-tab-panel";
+            panel.id = "gorvita-panel-"+i;
+            panel.setAttribute("role","tabpanel");
+            panel.setAttribute("aria-labelledby","gorvita-tab-"+i);
+            panel.setAttribute("aria-hidden", i === 0 ? "false" : "true");
+            panel.style.display = i === 0 ? "block" : "none";
+            section.content.forEach(function(n){ panel.appendChild(n); });
+
+            if ((section.title||"").toLowerCase().indexOf("faq") !== -1) buildFaqAccordion(panel);
+
+            function activateTab() {
+              tabNav.querySelectorAll(".gorvita-tab-btn").forEach(function(b){
+                b.classList.remove("active");
+                b.setAttribute("aria-selected","false");
+                b.tabIndex = -1;
+              });
+              tabPanels.querySelectorAll(".gorvita-tab-panel").forEach(function(p){
+                p.style.display = "none";
+                p.setAttribute("aria-hidden","true");
+              });
+              btn.classList.add("active");
+              btn.setAttribute("aria-selected","true");
+              btn.tabIndex = 0;
+              panel.style.display = "block";
+              panel.setAttribute("aria-hidden","false");
+            }
+
+            btn.addEventListener("click", activateTab);
+
+            btn.addEventListener("keydown", function(e){
+              var all = Array.prototype.slice.call(tabNav.querySelectorAll(".gorvita-tab-btn"));
+              var idx = all.indexOf(btn);
+              if (e.key === "ArrowRight") { e.preventDefault(); all[(idx+1)%all.length].click(); all[(idx+1)%all.length].focus(); }
+              if (e.key === "ArrowLeft")  { e.preventDefault(); all[(idx-1+all.length)%all.length].click(); all[(idx-1+all.length)%all.length].focus(); }
+              if (e.key === "Home")       { e.preventDefault(); all[0].click(); all[0].focus(); }
+              if (e.key === "End")        { e.preventDefault(); all[all.length-1].click(); all[all.length-1].focus(); }
             });
 
-            // Jeśli FAQ — zrób sub-accordion dla pytań
-            if (isFaq) {
-                var paragraphs = wrapper.querySelectorAll("p");
-                paragraphs.forEach(function(p) {
-                    var strong = p.querySelector("strong");
-                    var br = p.querySelector("br");
-                    if (!strong || !br) return;
+            tabNav.appendChild(btn);
+            tabPanels.appendChild(panel);
+            section.header.remove();
+          });
 
-                    // Pytanie
-                    var question = document.createElement("div");
-                    question.classList.add("gorvita-faq-question");
-                    question.textContent = strong.textContent;
-                    question.setAttribute("aria-expanded", "false");
+          descPanel.appendChild(tabNav);
+          descPanel.appendChild(tabPanels);
+        }
 
-                    // Odpowiedź — tekst po <br>
-                    var answerText = "";
-                    var node = br.nextSibling;
-                    while (node) {
-                        if (node.nodeType === 3) answerText += node.textContent;
-                        else if (node.nodeType === 1) answerText += node.outerHTML;
-                        node = node.nextSibling;
-                    }
+        var currentMode = isMobile() ? "mobile" : "desktop";
+        currentMode === "mobile" ? initAccordion() : initTabs();
 
-                    var answer = document.createElement("div");
-                    answer.classList.add("gorvita-faq-answer");
-                    answer.innerHTML = answerText.trim();
-                    answer.style.display = "none";
-
-                    var item = document.createElement("div");
-                    item.classList.add("gorvita-faq-item");
-                    item.appendChild(question);
-                    item.appendChild(answer);
-
-                    p.parentNode.insertBefore(item, p);
-                    p.remove();
-
-                    question.addEventListener("click", function() {
-                        var exp = question.getAttribute("aria-expanded") === "true";
-                        question.setAttribute("aria-expanded", !exp ? "true" : "false");
-                        answer.style.display = !exp ? "block" : "none";
-                        question.classList.toggle("gorvita-faq-open", !exp);
-                    });
-                });
+        var resizeTimer = null;
+        window.addEventListener("resize", function(){
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(function(){
+            var newMode = isMobile() ? "mobile" : "desktop";
+            if (newMode !== currentMode) {
+              currentMode = newMode;
+              currentMode === "mobile" ? initAccordion() : initTabs();
             }
+          }, 150);
         });
-    });
+      });
+    })();
     </script>';
 }
 add_action("wp_footer", "gorvita_product_accordion_js");
