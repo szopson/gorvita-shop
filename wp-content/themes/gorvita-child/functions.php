@@ -322,3 +322,93 @@ function gorvita_nowosc_badge() {
     }
 }
 add_action( 'woocommerce_before_shop_loop_item', 'gorvita_nowosc_badge', 5 );
+
+function gorvita_product_accordion_js() {
+    if ( ! is_product() ) return;
+    echo '<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var descPanel = document.getElementById("tab-description");
+        if (!descPanel) return;
+
+        var headings = descPanel.querySelectorAll("h2");
+        if (!headings.length) return;
+
+        headings.forEach(function(h2, index) {
+            var isFaq = h2.textContent.trim() === "FAQ";
+
+            // Zbierz elementy po H2 aż do następnego H2
+            var content = [];
+            var next = h2.nextElementSibling;
+            while (next && next.tagName !== "H2") {
+                content.push(next);
+                next = next.nextElementSibling;
+            }
+
+            // Wrapper dla zawartości
+            var wrapper = document.createElement("div");
+            wrapper.classList.add("gorvita-accordion-content");
+            wrapper.style.display = index === 0 ? "block" : "none";
+            h2.parentNode.insertBefore(wrapper, h2.nextSibling);
+            content.forEach(function(el) { wrapper.appendChild(el); });
+
+            // Trigger na H2
+            h2.classList.add("gorvita-accordion-trigger");
+            h2.setAttribute("aria-expanded", index === 0 ? "true" : "false");
+            if (index === 0) h2.classList.add("gorvita-accordion-open");
+
+            h2.addEventListener("click", function() {
+                var expanded = h2.getAttribute("aria-expanded") === "true";
+                h2.setAttribute("aria-expanded", !expanded ? "true" : "false");
+                wrapper.style.display = !expanded ? "block" : "none";
+                h2.classList.toggle("gorvita-accordion-open", !expanded);
+            });
+
+            // Jeśli FAQ — zrób sub-accordion dla pytań
+            if (isFaq) {
+                var paragraphs = wrapper.querySelectorAll("p");
+                paragraphs.forEach(function(p) {
+                    var strong = p.querySelector("strong");
+                    var br = p.querySelector("br");
+                    if (!strong || !br) return;
+
+                    // Pytanie
+                    var question = document.createElement("div");
+                    question.classList.add("gorvita-faq-question");
+                    question.textContent = strong.textContent;
+                    question.setAttribute("aria-expanded", "false");
+
+                    // Odpowiedź — tekst po <br>
+                    var answerText = "";
+                    var node = br.nextSibling;
+                    while (node) {
+                        if (node.nodeType === 3) answerText += node.textContent;
+                        else if (node.nodeType === 1) answerText += node.outerHTML;
+                        node = node.nextSibling;
+                    }
+
+                    var answer = document.createElement("div");
+                    answer.classList.add("gorvita-faq-answer");
+                    answer.innerHTML = answerText.trim();
+                    answer.style.display = "none";
+
+                    var item = document.createElement("div");
+                    item.classList.add("gorvita-faq-item");
+                    item.appendChild(question);
+                    item.appendChild(answer);
+
+                    p.parentNode.insertBefore(item, p);
+                    p.remove();
+
+                    question.addEventListener("click", function() {
+                        var exp = question.getAttribute("aria-expanded") === "true";
+                        question.setAttribute("aria-expanded", !exp ? "true" : "false");
+                        answer.style.display = !exp ? "block" : "none";
+                        question.classList.toggle("gorvita-faq-open", !exp);
+                    });
+                });
+            }
+        });
+    });
+    </script>';
+}
+add_action("wp_footer", "gorvita_product_accordion_js");
