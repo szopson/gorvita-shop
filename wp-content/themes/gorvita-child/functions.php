@@ -70,10 +70,10 @@ add_shortcode( 'gorvita-usp', 'gorvita_usp_shortcode' );
 // [gorvita-vstrip] — animowany pasek marquee z wartościami
 function gorvita_vstrip_shortcode() {
     $items = [
-        [ 'icon' => 'truck',       'strong' => 'Dostawa 24H',      'text' => '— od 149 zł gratis' ],
+        [ 'icon' => 'truck',       'strong' => 'Dostawa 24H',      'text' => '— od 249 zł gratis' ],
         [ 'icon' => 'leaf',        'strong' => '100% naturalne',    'text' => '— ekstrakty roślinne' ],
         [ 'icon' => 'certificate', 'strong' => 'Tradycja od 1989',  'text' => '— polski producent' ],
-        [ 'icon' => 'return',      'strong' => '30 dni na zwrot',   'text' => '— bezpieczne zakupy' ],
+        [ 'icon' => 'return',      'strong' => '14 dni na zwrot',   'text' => '— bezpieczne zakupy' ],
         [ 'icon' => 'shield',      'strong' => 'GMP + ISO 9001',    'text' => '— farmaceutyczny standard' ],
     ];
     $all = array_merge( $items, $items ); // duplikat dla seamless loop
