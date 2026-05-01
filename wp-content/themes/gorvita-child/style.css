@@ -4,7 +4,7 @@ Template: blocksy
 Version: 2.0.0-naked
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap');
 
 :root {
   /* Brand greens */
@@ -31,9 +31,10 @@ Version: 2.0.0-naked
   --gorvita-warning:     #D97706;
   --gorvita-error:       #DC2626;
 
-  /* Typography */
-  --font-body:    'Montserrat', sans-serif;
-  --font-heading: 'Playfair Display', serif;
+  /* Typography — aligned with v6.1 DESIGN.md */
+  --font-body:    'Inter', sans-serif;
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-mono:    'JetBrains Mono', monospace;
 
   /* Font sizes */
   --fs-hero:    clamp(2.5rem, 5vw, 4rem);
