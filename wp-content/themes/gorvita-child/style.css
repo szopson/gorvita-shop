@@ -4,7 +4,9 @@ Template: blocksy
 Version: 2.0.0-naked
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap');
+/* Fonts (Cormorant Garamond + Inter + JetBrains Mono) are loaded by the v6.2
+   Premium CSS in WP Customizer → Additional CSS. Importing here would duplicate
+   the request. If you ever decouple from Customizer, restore the @import. */
 
 :root {
   /* Brand greens */

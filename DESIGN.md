@@ -1,6 +1,20 @@
 # Design
 
-Captured from the live "Premium CSS v6.1" currently in WP Customizer → Additional CSS on staging (`gorvita.srv1594477.hstgr.cloud`). This file is the *source of truth* for visual decisions, *not* the older `--gorvita-*` tokens in `wp-content/themes/gorvita-child/style.css`.
+Captured from the live "Premium CSS v6.2" currently in WP Customizer → Additional CSS on staging (`gorvita.srv1594477.hstgr.cloud`). This file is the *source of truth* for visual decisions, *not* the older `--gorvita-*` tokens in `wp-content/themes/gorvita-child/style.css`.
+
+**v6.2 deltas vs v6.1** (added in soul-pass-2, post-impeccable critique):
+
+- Vstrip background moved from muddy `--gorvita-ink` `#3D3D3D` → `var(--gor-text)` `#1A1A18` near-black tinted-warm. Resolves the "third neutral" anti-pattern.
+- New tokens: `--gor-sage` `#6B8E5F`, `--gor-sage-on-dark` `#8DC87A` (formerly hardcoded), `--gor-rose-faint`/`--gor-rose` for warm chips, `--gor-focus-dark` for sage-tinted focus rings on dark backgrounds, `--gor-font-mono` for `JetBrains Mono`.
+- Add-to-cart hierarchy: loop `add_to_cart_button` becomes outlined by default (transparent + 1.5px green-dark border), fills green on hover. Three-tier loudness: hero CTA > single-product CTA > loop CTA.
+- Add-to-cart success: `.added_to_cart` renders as a filled green pill with `✓` prefix instead of underlined text link.
+- Universal disabled state (`opacity: 0.4`, `cursor: not-allowed`) and brand-tinted loading pulse replacing Woo's GIF spinner.
+- Quantity input pilled to match button shape.
+- Wishlist/compare/quick-view quietened (cream-tinted, fills green-light on hover) so they stop competing with primary CTAs.
+- Woo notifications (`.woocommerce-message`, `.woocommerce-info`, `.woocommerce-error`) restyled into branded banners.
+- Dark-section ghost button: any `wp-block-button` inside `.gorvita-spring` auto-flips to white-on-transparent.
+- Editorial utilities ready for Gutenberg: `.gorvita-pull` (pulled italic quote), `.gorvita-dropcap` (magazine first-letter), `.gorvita-divider` (centered hairline), `.gorvita-link-view-all` (text + animated arrow), `.gorvita-mono` (JetBrains data label), `.gorvita-chip--limited` (warm rose chip).
+- `::selection` brand-tinted, `scroll-behavior: smooth`, `prefers-reduced-motion` respected globally — closes DESIGN.md open-questions #3.
 
 ## Theme
 
@@ -10,25 +24,30 @@ Light, **cream-on-mountain-green**. Editorial-natural register: enough negative 
 
 **Strategy: Restrained.** Tinted neutrals carry 90%+ of the surface, deep forest green is the single committed accent, and a desaturated sage (`#8DC87A`) appears only inside dark sections as a quiet emphasis color.
 
-### Tokens (verbatim from v6.1)
+### Tokens (verbatim from v6.2)
 
 | Token | Value | Use |
 |---|---|---|
 | `--gor-green` | `#2D5016` | Primary action, brand. Buttons, focus, active states. |
-| `--gor-green-dark` | `#1E3A0F` | Button hover, deeper accent. |
+| `--gor-green-dark` | `#1E3A0F` | Button hover, deeper accent, loop-CTA outline border. |
 | `--gor-green-deeper` | `#17310a` | Deepest gradient stop on button hover. |
-| `--gor-green-light` | `#EEF4E8` | Outlined-button hover background. Quiet "selected" state. |
+| `--gor-green-light` | `#EEF4E8` | Outlined-button hover background. Quiet "selected" state. Wishlist hover. |
 | `--gor-cream` | `#F9F9F9` | Page background. Tinted neutral, not pure white. |
 | `--gor-cream-card` | `#F9F9F9` | Product / category card background. |
 | `--gor-cream-light` | `#FBF8F2` | Subtle warm secondary surface. |
-| `--gor-text` | `#1A1A18` | Headings, primary copy. Tinted near-black. |
+| `--gor-text` | `#1A1A18` | Headings, primary copy. Tinted near-black. **Also: vstrip background (v6.2).** |
 | `--gor-text-body` | `#3A3A38` | Body copy. |
-| `--gor-text-muted` | `#6A6A66` | Secondary labels, footer links, sidebar widget titles. |
-| `--gor-text-faint` | `#9A9A96` | Placeholder text, very low-emphasis meta. |
+| `--gor-text-muted` | `#6A6A66` | Secondary labels, footer links, sidebar widget titles, mono data labels. |
+| `--gor-text-faint` | `#9A9A96` | Placeholder text, very low-emphasis meta, divider labels. |
 | `--gor-border` | `rgba(45,80,22,0.08)` | Default border. Tinted toward brand green. |
 | `--gor-border-hover` | `rgba(45,80,22,0.16)` | Border on hover / focus-within. |
-| `--gor-focus` | `rgba(107,142,80,0.20)` | Focus-ring color (sage at 20% alpha). |
-| Sage emphasis | `#8DC87A` | Used only inside `.gorvita-spring` and dark `gspb_row-id-*` sections for italic em / link emphasis. |
+| `--gor-focus` | `rgba(107,142,80,0.20)` | Focus-ring color on light backgrounds (sage at 20% alpha). |
+| `--gor-sage` *(v6.2)* | `#6B8E5F` | Base sage. Tokenized from prior hardcoded uses. |
+| `--gor-sage-on-dark` *(v6.2)* | `#8DC87A` | Italic emphasis + link color inside dark sections. Loop-CTA loading pulse. |
+| `--gor-rose` *(v6.2)* | `#C97B63` | Warm accent (limited-stock chip text). |
+| `--gor-rose-faint` *(v6.2)* | `rgba(201,123,99,0.10)` | Warm chip background. Use sparingly — once or twice per page. |
+| `--gor-focus-dark` *(v6.2)* | `rgba(141,200,122,0.30)` | Focus ring on dark backgrounds (`.gorvita-spring`, vstrip, dark gspb rows). |
+| `--gor-font-mono` *(v6.2)* | `'JetBrains Mono', monospace` | Numeric / data label face — ingredient ratios, dosage, geo coords. |
 
 ### Bridge tokens (do not remove)
 
@@ -148,6 +167,36 @@ Captured for reference. Editing should preserve these patterns unless a `$impecc
 - Focus-visible: 3px sage outline at 4px offset.
 - Outlined variant: transparent + 1.5px `--gor-border-hover`, fills to `--gor-green-light` on hover (no transform — outlined buttons stay still).
 
+### Add-to-cart hierarchy *(v6.2)*
+
+Three tiers of loudness, designed so the page never has more than one filled-green pill at a time:
+
+1. **Hero CTA** ("Odkryj produkty") and **single-product `.single_add_to_cart_button`** — filled green pill with gradient + shadow. Loud.
+2. **Loop add-to-cart** (Bestsellers/Nowości grid `.button.add_to_cart_button`) — outlined green-dark pill, fills green-dark on hover. Quiet.
+3. **Wishlist / Compare / Quick-view** — cream-tinted, fills `--gor-green-light` on hover. Quietest.
+
+States:
+
+- **Success** (`.button.added`, `.added_to_cart`) — filled green pill with `✓ ` prefix on the success link. Reads as confirmation, not a second CTA.
+- **Disabled** (`:disabled`, `[aria-disabled="true"]`, `.disabled`) — opacity 0.4, `cursor: not-allowed`, no transform / shadow.
+- **Loading** (`.loading`) — replaces Woo's GIF spinner with an 8px sage-on-dark dot pulsing at 1.1s. No GIF, no spinner, just a quiet pulse.
+- **Ghost on dark** (`.gorvita-spring .wp-block-button__link`, `.gorvita-btn--on-dark`) — transparent + 1.5px `rgba(255,255,255,0.35)`, fills white at 10% on hover. Use inside `.gorvita-spring` and other dark sections.
+
+### Quantity input *(v6.2)*
+
+- Pill-shaped (`--gor-r-pill`) to match button system.
+- 1.5px `--gor-border`, white bg, 80px wide, centered text, weight 500.
+- Focus: border deepens to `--gor-green` + 3px `--gor-focus` ring.
+
+### Woo notifications *(v6.2)*
+
+`.woocommerce-message`, `.woocommerce-info`, `.woocommerce-error` rendered as branded banners:
+
+- Radius `--gor-r-md`, 3px left border, 14px 18px padding, `--gor-shadow-sm`.
+- Default (success/info): `--gor-green-light` bg, `--gor-green-dark` text, green left border.
+- Error: `rgba(220,38,38,0.06)` bg, dark red text, red left border.
+- Embedded buttons (e.g. "View cart") render as outlined small pills, never another filled green.
+
 ### Product cards (`.woocommerce ul.products li.product`)
 
 - Cream-card surface (`--gor-cream-card`), 1px tinted border, 18px radius, 18px padding, `--gor-shadow-sm`.
@@ -219,20 +268,36 @@ Captured for reference. Editing should preserve these patterns unless a `$impecc
 - 24px radius, full-width image background, soft white-to-transparent overlay 90deg.
 - Mobile (≤768px): swaps to a vertical-format `wspolpraca_b2b_mobile.webp` background, increases overlay opacity to 55% for legibility, centers content.
 
+## Editorial utilities *(v6.2)*
+
+Class-based, opt-in. Use sparingly — the point is to have one or two soul-marks per surface, not to dress up every paragraph.
+
+| Class | What it is | When to reach for it |
+|---|---|---|
+| `.gorvita-pull` | Cormorant italic pulled quote, 28ch max-width, 2px green left border, 24px left padding. | Inside long-form brand copy when one sentence should land harder than the rest. |
+| `.gorvita-dropcap` | Cormorant first-letter, 4em, floated left, green-dark. | Brand-story or "O marce" page intro paragraph only. Never on short product copy. |
+| `.gorvita-divider` | Centered hairline + middle text/glyph, 320px max-width. | Between major editorial sections that don't have their own background break. |
+| `.gorvita-link-view-all` | Inter uppercase 13.5px, 1.5px underline, animated arrow gap on hover. | "Zobacz wszystkie" links at the foot of product collections / category strips. |
+| `.gorvita-mono` / `.gorvita-data-label` | JetBrains Mono 12.5px, muted color. | Ingredient ratios, dosage, lot numbers, geo coordinates, certificate codes. |
+| `.gorvita-chip--limited` | Rose-faint background + `--gor-rose` text, pill, 11px. | "Ostatnie sztuki" / "Limitowana edycja" badges. Use *once* per product card row max. |
+| `.gorvita-btn--on-dark` | Ghost button: transparent + 1.5px white-35% border, fills white-10% on hover. | CTAs inside `.gorvita-spring` or other dark sections. |
+
 ## Anti-pattern checklist (run in `$impeccable critique`)
 
 - [ ] No pure black or pure white tokens introduced (`#000`, `#fff`). Use `--gor-text` and `--gor-cream`.
-- [ ] No side-stripe colored borders (left/right >1px) on cards or callouts.
+- [ ] No side-stripe colored borders (left/right >1px) on cards or callouts. *(Exception: `.gorvita-pull` and `.woocommerce-message` use a 2–3px branded left border by design.)*
 - [ ] No `background-clip: text` gradient text.
 - [ ] No new glassmorphism beyond the existing product-page tabs (which is itself flagged for review).
 - [ ] No "big-number small-label" hero-metric template imported from SaaS designs.
 - [ ] No identical icon-tile-stack feature card grids.
 - [ ] No em dashes in copy. Also no `--` substitution. Use commas, colons, semicolons, periods, parentheses.
-- [ ] All animations check `prefers-reduced-motion: reduce` (TODO — not yet implemented).
+- [x] All animations check `prefers-reduced-motion: reduce` (closed in v6.2 — global `@media (prefers-reduced-motion: reduce)` block in Customizer CSS zeroes animations + transitions, and explicitly stops the vstrip marquee, spring ripple, and hero Ken Burns image).
+- [ ] Maximum one filled-green primary pill visible per viewport. If two are competing, downgrade the secondary to outlined or text-link.
+- [ ] No more than one `.gorvita-chip--limited` chip in a single product-card row — the rose accent loses meaning if it repeats.
 
 ## Open design questions (to resolve in a future pass)
 
 1. **Glassmorphism on product tabs**: keep, expand, or drop? Currently a one-off — feels editorial but isolated. Decide during `$impeccable critique product-page`.
 2. **Header `#ffffff` background**: tint to `--gor-cream`, or keep pure white as a clean separator from the cream body? Current is pure white as a Blocksy-friction concession.
-3. **Reduced-motion fallback**: add to `assets/js/animations.js` (parallax, Ken Burns, scroll-reveal) and to all CSS transitions — single global media query.
-4. **Token migration**: the live system is in WP Customizer "Additional CSS". Future PR should move it to a tracked `wp-content/themes/gorvita-child/assets/css/premium.css` so it's version-controlled and code-reviewable.
+3. ~~**Reduced-motion fallback**~~ — *resolved in v6.2*. CSS-side covered globally; the JS animations in `assets/js/animations.js` (parallax, Ken Burns, scroll-reveal) still need a `matchMedia('(prefers-reduced-motion: reduce)')` guard for the JS-driven layer. Open as a separate small ticket.
+4. **Token migration**: the live system is in WP Customizer "Additional CSS". Future PR should move v6.2 to a tracked `wp-content/themes/gorvita-child/assets/css/premium.css` so it's version-controlled and code-reviewable.
