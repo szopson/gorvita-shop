@@ -1,0 +1,731 @@
+/* ============================================================================
+   GORVITA PREMIUM CSS — v6.3
+   ----------------------------------------------------------------------------
+   Where this lives at runtime:
+     WP Admin → Wygląd → Dostosuj → Dodatkowy CSS
+     (Appearance → Customize → Additional CSS)
+     Staging admin: https://gorvita.srv1594477.hstgr.cloud/wp-admin/
+   This file is the *source-of-truth copy* of that paste. Update both together:
+     1. edit this file in the repo,
+     2. copy its contents into the WP Customizer Additional CSS box,
+     3. Save & Publish.
+   The DESIGN.md doc reflects this version.
+
+   v6.3 deltas vs v6.2 (search "v6.3:"):
+     1. Add-to-cart pills shrunk to 11.5px font + 7px 14px padding, with optional
+        glassy backdrop on hover (still outlined by default; just smaller and softer).
+     2. Wishlist/compare/quick-view shrunk further to match the lighter touch.
+     3. WooCommerce Blocks (Cart + Checkout) — fully restyled:
+        - .wc-blocks-components-select (custom chevron, no native arrow,
+          branded border + focus ring, pill on small variants)
+        - .wc-blocks-components-text-input (floating-label friendly border,
+          smooth focus state)
+        - .wc-block-components-checkout-step (card-like sections with shadow
+          + radius + cream surface)
+        - Order summary panel pinned card
+        - Payment method tiles (radio cards)
+        - Shipping method tiles
+     4. Cart and checkout page backgrounds upgraded to a subtle two-tone cream
+        (page bg cream-light, content card cream-white).
+     5. Removed the "Cart" English heading override on /cart/ page (force "Koszyk").
+     6. Modernized "Wróć do sklepu" empty-cart CTA: outlined + arrow.
+   ============================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap');
+
+:root {
+  --gor-green: #2D5016; --gor-green-dark: #1E3A0F; --gor-green-deeper: #17310a;
+  --gor-green-light: #EEF4E8; --gor-cream: #F9F9F9; --gor-cream-card: #F9F9F9;
+  --gor-cream-light: #FBF8F2; --gor-text: #1A1A18; --gor-text-body: #3A3A38;
+  --gor-text-muted: #6A6A66; --gor-text-faint: #9A9A96;
+  --gor-border: rgba(45,80,22,0.08); --gor-border-hover: rgba(45,80,22,0.16);
+  --gor-shadow-sm: 0 2px 12px rgba(10,18,8,0.06); --gor-shadow-md: 0 8px 28px rgba(10,18,8,0.08);
+  --gor-shadow-lg: 0 20px 52px rgba(10,18,8,0.10); --gor-shadow-btn: 0 8px 24px rgba(45,80,22,0.22);
+  --gor-shadow-btn-hov: 0 16px 40px rgba(45,80,22,0.28); --gor-focus: rgba(107,142,80,0.20);
+  --gor-r-sm: 6px; --gor-r-md: 12px; --gor-r-lg: 18px; --gor-r-xl: 24px; --gor-r-pill: 999px;
+  --gorvita-green: #2D5016; --gorvita-green-dark: #1F3A0F;
+  --gor-sage: #6B8E5F; --gor-sage-on-dark: #8DC87A;
+  --gor-rose-faint: rgba(201,123,99,0.10); --gor-rose: #C97B63;
+  --gor-focus-dark: rgba(141,200,122,0.30);
+  --gor-font-mono: 'JetBrains Mono', monospace;
+}
+
+body { background-color: var(--gor-cream) !important; color: var(--gor-text-body); overflow-x: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+h1,h2,h3,h4 { color: var(--gor-text) !important; letter-spacing: -0.015em; }
+h1 { font-weight: 300 !important; } h2 { font-weight: 400 !important; } h3 { font-weight: 400 !important; }
+html { scroll-behavior: smooth; }
+::selection { background: var(--gor-green-light); color: var(--gor-text); }
+::-moz-selection { background: var(--gor-green-light); color: var(--gor-text); }
+
+/* HEADER */
+.site-header, .ct-header { background: #ffffff !important; border-bottom: 0.5px solid var(--gor-border) !important; box-shadow: 0 1px 16px rgba(10,18,8,0.04) !important; }
+.ct-header-row--secondary, .header-row-secondary, [data-id="header-row-2"] { display: none !important; }
+.ct-menu a, .main-navigation a { color: var(--gor-text) !important; font-size: 14.5px !important; letter-spacing: 0.01em !important; transition: color 0.18s ease !important; }
+.ct-menu a:hover, .main-navigation a:hover { color: var(--gor-green) !important; }
+
+/* SEARCH FORM */
+.ct-search-box { border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-pill) !important; background: #ffffff !important; display: flex !important; align-items: center !important; overflow: visible !important; transition: border-color 0.18s ease, box-shadow 0.18s ease !important; max-width: 100% !important; }
+.ct-search-box:focus-within { border-color: var(--gor-green) !important; box-shadow: 0 0 0 3px var(--gor-focus) !important; }
+.ct-search-form { border-radius: var(--gor-r-pill) !important; display: flex !important; align-items: center !important; width: 100% !important; }
+.ct-search-form-controls { width: auto !important; flex: 1 1 auto !important; border-radius: inherit !important; display: flex !important; align-items: center !important; }
+.ct-search-form input[type="search"], .ct-search-form input[type="text"], .ct-search-form input { border-radius: inherit !important; padding: 8px 16px !important; font-size: 14px !important; border: none !important; outline: none !important; background: transparent !important; flex: 1 1 auto !important; min-width: 0 !important; color: var(--gor-text) !important; box-shadow: none !important; }
+.ct-search-form input::placeholder { color: var(--gor-text-faint) !important; opacity: 1 !important; }
+.ct-search-form button[type="submit"], .ct-search-form .wp-element-button, button[aria-label="Search button"], .ct-search-form-controls > button { background: transparent !important; background-color: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; padding: 0 12px !important; width: auto !important; height: auto !important; min-width: 0 !important; flex-shrink: 0 !important; color: var(--gor-text-muted) !important; display: flex !important; align-items: center !important; justify-content: center !important; transform: none !important; cursor: pointer !important; }
+.ct-search-form button[type="submit"]:hover, button[aria-label="Search button"]:hover { background: transparent !important; color: var(--gor-green) !important; transform: none !important; box-shadow: none !important; }
+.ct-search-form button svg, .ct-search-form button .ct-icon { width: 16px !important; height: 16px !important; display: block !important; }
+
+/* ADMIN BAR */
+#wpadminbar button, #wpadminbar input[type="submit"], #wpadminbar .wp-element-button, #wpadminbar .adminbar-button { background: revert !important; background-color: revert !important; border-radius: revert !important; box-shadow: revert !important; padding: revert !important; font-size: revert !important; letter-spacing: revert !important; color: revert !important; border: revert !important; transform: none !important; }
+
+/* TICKER */
+.gorvita-vstrip { max-width: 100% !important; width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; border-radius: 0 !important; background: var(--gor-text) !important; color: rgba(255,252,249,0.85) !important; }
+.gorvita-vstrip strong { color: #ffffff !important; font-weight: 500 !important; }
+.gorvita-vstrip svg { color: var(--gor-sage-on-dark) !important; }
+.gorvita-vstrip .dot { background: var(--gor-sage-on-dark) !important; opacity: 0.45 !important; }
+.ct-ticker, .ct-marquee, [class*="ticker-wrap"], [class*="marquee-bar"] { padding: 13px 0 !important; font-size: 12.5px !important; letter-spacing: 0.07em !important; font-weight: 400 !important; }
+
+/* HERO */
+.gorvita-hero { width: 100vw !important; max-width: 100vw !important; margin-left: calc(50% - 50vw) !important; margin-right: calc(50% - 50vw) !important; border-radius: 0 !important; position: relative !important; min-height: 88vh !important; display: flex !important; align-items: center !important; }
+.gorvita-hero .gorvita-wrap { max-width: 1280px !important; margin-left: auto !important; margin-right: auto !important; }
+.gorvita-hero__bg, .gorvita-hero__bg-img { width: 100% !important; left: 0 !important; right: 0 !important; }
+
+/* BUTTONS — primary filled */
+.wp-block-button__link, .wp-block-button .wp-block-button__link, .wp-block-greenshift-blocks-buttonbox a, .gspb-buttonbox, .wp-element-button:not(.ct-search-form .wp-element-button):not(#wpadminbar .wp-element-button), a.wp-element-button, button.wp-element-button:not([aria-label="Search button"]):not(#wpadminbar button), .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .ct-button, a.button, button.button:not([aria-label="Search button"]), .single_add_to_cart_button, #place_order { background: linear-gradient(175deg, var(--gor-green) 0%, var(--gor-green-dark) 100%) !important; background-color: var(--gor-green) !important; color: #ffffff !important; border: none !important; border-radius: var(--gor-r-pill) !important; padding: 12px 22px !important; font-size: 14px !important; font-weight: 500 !important; letter-spacing: 0.04em !important; box-shadow: var(--gor-shadow-btn) !important; transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease !important; cursor: pointer !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important; text-decoration: none !important; white-space: nowrap !important; }
+.wp-block-button__link:hover, .wp-block-greenshift-blocks-buttonbox a:hover, .gspb-buttonbox:hover, .wp-element-button:not(.ct-search-form .wp-element-button):hover, a.wp-element-button:hover, button.wp-element-button:not([aria-label="Search button"]):hover, .woocommerce a.button:hover, .woocommerce button.button:hover, .ct-button:hover, a.button:hover, button.button:not([aria-label="Search button"]):hover, .single_add_to_cart_button:hover, #place_order:hover { transform: translateY(-2px) !important; box-shadow: var(--gor-shadow-btn-hov) !important; background: linear-gradient(175deg, var(--gor-green-dark) 0%, var(--gor-green-deeper) 100%) !important; background-color: var(--gor-green-dark) !important; color: #ffffff !important; text-decoration: none !important; }
+.wp-block-button__link:focus-visible, .woocommerce a.button:focus-visible, .ct-button:focus-visible { outline: 3px solid var(--gor-focus) !important; outline-offset: 4px !important; }
+.wp-block-button.is-style-outline .wp-block-button__link, .ct-button.button-outlined, a.button.button-outlined { background: transparent !important; background-color: transparent !important; color: var(--gor-green-dark) !important; border: 1.5px solid var(--gor-border-hover) !important; box-shadow: none !important; }
+.wp-block-button.is-style-outline .wp-block-button__link:hover, .ct-button.button-outlined:hover { background: var(--gor-green-light) !important; background-color: var(--gor-green-light) !important; color: var(--gor-green-dark) !important; box-shadow: none !important; transform: none !important; }
+body .wp-block-greenshift-blocks-buttonbox a.wp-element-button, body a.gspb-buttonbox, body .gspb-buttonbox.wp-element-button { background: linear-gradient(175deg, var(--gor-green) 0%, var(--gor-green-dark) 100%) !important; background-color: var(--gor-green) !important; color: #fff !important; border-radius: var(--gor-r-pill) !important; }
+body .wp-block-greenshift-blocks-buttonbox a.wp-element-button:hover, body a.gspb-buttonbox:hover { background: linear-gradient(175deg, var(--gor-green-dark) 0%, var(--gor-green-deeper) 100%) !important; background-color: var(--gor-green-dark) !important; }
+.gorvita-b2b-card__btn-primary { background: #ffffff !important; background-color: #ffffff !important; color: var(--gor-green-dark) !important; box-shadow: 0 8px 24px rgba(0,0,0,0.15) !important; }
+.gorvita-b2b-card__btn-primary:hover { background: #ffffff !important; color: var(--gor-green-dark) !important; transform: translateY(-2px) !important; box-shadow: 0 14px 36px rgba(0,0,0,0.2) !important; }
+.gorvita-b2b-card__btn-ghost { background: transparent !important; color: rgba(255,255,255,0.75) !important; border: 1px solid rgba(255,255,255,0.2) !important; box-shadow: none !important; }
+.gorvita-b2b-card__btn-ghost:hover { background: rgba(255,255,255,0.1) !important; color: #ffffff !important; border-color: rgba(255,255,255,0.35) !important; transform: none !important; }
+
+/* v6.3: ADD-TO-CART HIERARCHY — smaller, glassier loop pill
+   Outlined by default; on hover gains a subtle backdrop-filter blur over the
+   product card's gradient pedestal so it reads as glassy-modern rather than
+   solid-loud. The single-product page button stays full-size and filled green. */
+.woocommerce ul.products li.product .button.add_to_cart_button,
+.woocommerce ul.products li.product a.button.product_type_simple,
+.woocommerce ul.products li.product a.button.product_type_variable,
+.wc-block-grid__product .wc-block-components-product-button .wp-block-button__link {
+  background: rgba(255,255,255,0.55) !important;
+  background-color: rgba(255,255,255,0.55) !important;
+  color: var(--gor-green-dark) !important;
+  border: 1px solid var(--gor-green-dark) !important;
+  box-shadow: none !important;
+  padding: 7px 16px !important;
+  font-size: 11.5px !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+.woocommerce ul.products li.product .button.add_to_cart_button:hover,
+.woocommerce ul.products li.product a.button.product_type_simple:hover,
+.woocommerce ul.products li.product a.button.product_type_variable:hover,
+.wc-block-grid__product .wc-block-components-product-button .wp-block-button__link:hover {
+  background: var(--gor-green-dark) !important;
+  background-color: var(--gor-green-dark) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 18px rgba(45,80,22,0.18) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ADD-TO-CART SUCCESS */
+.woocommerce ul.products li.product .button.added, .woocommerce ul.products li.product .added_to_cart { background: var(--gor-green) !important; background-color: var(--gor-green) !important; color: #ffffff !important; border-color: var(--gor-green) !important; pointer-events: auto !important; }
+.woocommerce ul.products li.product .added_to_cart { font-size: 12.5px !important; padding: 7px 14px !important; margin-top: 6px !important; text-decoration: none !important; }
+.woocommerce ul.products li.product .added_to_cart::before { content: "✓ "; font-weight: 600; margin-right: 4px; }
+
+/* DISABLED state */
+.wp-block-button__link:disabled, .wp-element-button:disabled, .woocommerce .button:disabled, .woocommerce .button[disabled], button[aria-disabled="true"]:not([aria-label="Search button"]), .button.disabled { opacity: 0.4 !important; cursor: not-allowed !important; transform: none !important; box-shadow: none !important; pointer-events: none !important; }
+
+/* LOADING state */
+.woocommerce a.button.loading::after, .woocommerce button.button.loading::after, .woocommerce .loading::after { background-image: none !important; content: "" !important; display: inline-block !important; width: 8px !important; height: 8px !important; border-radius: 50% !important; background: var(--gor-sage-on-dark) !important; animation: gorvita-pulse 1.1s ease-in-out infinite !important; margin-left: 8px !important; vertical-align: middle !important; }
+@keyframes gorvita-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
+
+/* QUANTITY input */
+.woocommerce .quantity input.qty, .woocommerce-cart .quantity input.qty, .woocommerce-checkout .quantity input.qty { border: 1.5px solid var(--gor-border) !important; border-radius: var(--gor-r-pill) !important; padding: 10px 14px !important; font-size: 14px !important; font-weight: 500 !important; width: 80px !important; text-align: center !important; background: #ffffff !important; color: var(--gor-text) !important; transition: border-color 0.18s ease, box-shadow 0.18s ease !important; }
+.woocommerce .quantity input.qty:focus { border-color: var(--gor-green) !important; outline: none !important; box-shadow: 0 0 0 3px var(--gor-focus) !important; }
+
+/* v6.3: WISHLIST / COMPARE / QUICKVIEW — even smaller, matched to glassy add-to-cart */
+button.ct-wishlist-button-archive.ct-button, button.ct-compare-button-archive.ct-button, button.ct-open-quick-view.ct-button {
+  background: rgba(255,255,255,0.55) !important;
+  border: 1px solid var(--gor-border) !important;
+  color: var(--gor-text-muted) !important;
+  box-shadow: none !important;
+  padding: 6px 12px !important;
+  font-size: 11px !important;
+  letter-spacing: 0.05em !important;
+  border-radius: 999px !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+button.ct-wishlist-button-archive.ct-button:hover, button.ct-compare-button-archive.ct-button:hover, button.ct-open-quick-view.ct-button:hover {
+  background: var(--gor-green-light) !important;
+  color: var(--gor-green-dark) !important;
+  border-color: var(--gor-green) !important;
+  transform: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+button.ct-wishlist-button-archive.ct-button::before, button.ct-compare-button-archive.ct-button::before, button.ct-open-quick-view.ct-button::before { display: none !important; }
+
+/* WOO NOTIFICATIONS */
+.woocommerce-message, .woocommerce-info, .woocommerce-error { border-radius: var(--gor-r-md) !important; border: none !important; border-left: 3px solid var(--gor-green) !important; padding: 14px 18px !important; font-size: 14px !important; letter-spacing: 0 !important; font-weight: 500 !important; box-shadow: var(--gor-shadow-sm) !important; background: var(--gor-green-light) !important; color: var(--gor-green-dark) !important; }
+.woocommerce-message::before, .woocommerce-info::before { color: var(--gor-green) !important; }
+.woocommerce-error { background: rgba(220,38,38,0.06) !important; border-left-color: #DC2626 !important; color: #7f1d1d !important; }
+.woocommerce-message a.button, .woocommerce-info a.button { background: transparent !important; background-color: transparent !important; color: var(--gor-green-dark) !important; border: 1.5px solid var(--gor-green-dark) !important; box-shadow: none !important; font-size: 12.5px !important; padding: 7px 14px !important; margin-left: 12px !important; }
+
+/* GHOST button for dark sections */
+.gorvita-spring .wp-block-button__link, .gorvita-spring a.button, .gorvita-btn--on-dark { background: transparent !important; background-color: transparent !important; color: #ffffff !important; border: 1.5px solid rgba(255,255,255,0.35) !important; box-shadow: none !important; }
+.gorvita-spring .wp-block-button__link:hover, .gorvita-spring a.button:hover, .gorvita-btn--on-dark:hover { background: rgba(255,255,255,0.10) !important; background-color: rgba(255,255,255,0.10) !important; border-color: rgba(255,255,255,0.6) !important; color: #ffffff !important; transform: translateY(-2px) !important; }
+
+/* DARK SECTIONS */
+.gorvita-spring h1,.gorvita-spring h2,.gorvita-spring h3,.gorvita-spring h4,.gorvita-spring h5,.gorvita-spring h6 { color: #ffffff !important; }
+.gorvita-spring p,.gorvita-spring span,.gorvita-spring li { color: rgba(255,255,255,0.88) !important; }
+.gorvita-spring em,.gorvita-spring i { color: var(--gor-sage-on-dark) !important; }
+.gorvita-spring a { color: var(--gor-sage-on-dark) !important; }
+.gorvita-usp { position: relative !important; z-index: 2 !important; }
+.gorvita-usp-grid--photo h4 { color: #ffffff !important; }
+.gorvita-usp-grid--photo p { color: rgba(255,252,249,0.85) !important; }
+.gspb_row-id-gsbp-e4ccf23 h1,.gspb_row-id-gsbp-e4ccf23 h2,.gspb_row-id-gsbp-e4ccf23 h3,.gspb_row-id-gsbp-e4ccf23 h4,.gspb_row-id-gsbp-e4ccf23 h5,.gspb_row-id-gsbp-e4ccf23 h6 { color: #ffffff !important; }
+.gspb_row-id-gsbp-e4ccf23 p,.gspb_row-id-gsbp-e4ccf23 span { color: rgba(255,255,255,0.85) !important; }
+.gspb_row-id-gsbp-e4ccf23 a { color: var(--gor-sage-on-dark) !important; }
+[class*="gspb_row-id-gsbp-3f4"] h1,[class*="gspb_row-id-gsbp-3f4"] h2,[class*="gspb_row-id-gsbp-3f4"] h3,[class*="gspb_row-id-gsbp-3f4"] h4,[class*="gspb_row-id-gsbp-3f4"] h5,[class*="gspb_row-id-gsbp-3f4"] h6 { color: #ffffff !important; }
+[class*="gspb_row-id-gsbp-3f4"] p,[class*="gspb_row-id-gsbp-3f4"] span,[class*="gspb_row-id-gsbp-3f4"] label { color: rgba(255,255,255,0.85) !important; }
+[class*="gspb_row-id-gsbp-3f4"] input[type="email"],[class*="gspb_row-id-gsbp-3f4"] input[type="text"] { color: #1A1A18 !important; background: #ffffff !important; }
+[class*="gspb_row-id-gsbp-3f4"] input::placeholder { color: #6A6A66 !important; }
+
+/* PRODUCT COLLECTION */
+.wp-block-woocommerce-product-collection,.wc-block-product-collection,[data-block-name="woocommerce/product-collection"] { display: revert !important; }
+.ct-sidebar .wp-block-woocommerce-product-collection, aside .wp-block-woocommerce-product-collection, .widget_block .wp-block-woocommerce-product-collection { display: block !important; }
+.wc-block-product-collection__no-results,.wp-block-query__no-results,.wp-block-post-template:empty,.wp-block-query .wp-block-post-template:empty { display: none !important; }
+.gorvita-b2b-broken .wp-block-woocommerce-product-collection { display: none !important; }
+.ct-sidebar .wp-block-heading.widget-title { font-size: 13px !important; font-weight: 600 !important; letter-spacing: 0.06em !important; text-transform: uppercase !important; color: var(--gor-text-muted) !important; margin-bottom: 12px !important; }
+.ct-sidebar .wc-block-product-template { display: flex !important; flex-direction: column !important; gap: 8px !important; }
+.ct-sidebar .wc-block-product { display: flex !important; flex-direction: row !important; align-items: center !important; gap: 10px !important; background: #ffffff !important; border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-md) !important; padding: 8px !important; transition: box-shadow 0.18s ease !important; }
+.ct-sidebar .wc-block-product:hover { box-shadow: var(--gor-shadow-sm) !important; border-color: var(--gor-border-hover) !important; }
+.ct-sidebar .wc-block-product .wc-block-components-product-image, .ct-sidebar .wc-block-product img { width: 48px !important; height: 48px !important; min-width: 48px !important; object-fit: contain !important; border-radius: 6px !important; flex-shrink: 0 !important; }
+.ct-sidebar .wc-block-product .wc-block-components-product-name, .ct-sidebar .wc-block-product h2, .ct-sidebar .wc-block-product h3 { font-size: 12px !important; font-weight: 500 !important; color: var(--gor-text) !important; line-height: 1.3 !important; margin: 0 0 3px !important; }
+.ct-sidebar .wc-block-product .wc-block-components-product-price, .ct-sidebar .wc-block-product .price { font-size: 12px !important; font-weight: 600 !important; color: var(--gor-green-dark) !important; }
+.ct-sidebar .wc-block-product .wp-block-button, .ct-sidebar .wc-block-product .add_to_cart_button, .ct-sidebar .wc-block-product .wc-block-components-product-button { display: none !important; }
+
+/* PRODUCT CARDS */
+.woocommerce ul.products li.product { background: var(--gor-cream-card) !important; border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-lg) !important; overflow: visible !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; padding: 18px !important; box-shadow: var(--gor-shadow-sm) !important; transition: transform 0.22s cubic-bezier(0.2,0.9,0.3,1), box-shadow 0.22s ease, border-color 0.22s ease !important; }
+.woocommerce ul.products li.product:hover { transform: translateY(-5px) !important; box-shadow: var(--gor-shadow-lg) !important; border-color: var(--gor-border-hover) !important; }
+.woocommerce ul.products li.product .ct-media-container, .woocommerce ul.products li.product .product-image { aspect-ratio: 1/1 !important; display: flex !important; align-items: center !important; justify-content: center !important; padding: 7% !important; background: linear-gradient(180deg,#ffffff 0%,#f6f2ec 100%) !important; border-radius: var(--gor-r-md) !important; position: relative !important; overflow: hidden !important; }
+.woocommerce ul.products li.product img { width: auto !important; height: 100% !important; max-height: 82% !important; max-width: 82% !important; object-fit: contain !important; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.07)) !important; transition: transform 0.28s ease, opacity 0.28s ease !important; z-index: 2 !important; position: relative !important; }
+.woocommerce ul.products li.product:hover .ct-media-container img:first-child { transform: scale(1.04) !important; opacity: 0 !important; }
+.gorvita-hover-img { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; max-width: 100% !important; max-height: 100% !important; object-fit: contain !important; opacity: 0 !important; transition: opacity 0.3s ease !important; z-index: 3 !important; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.07)) !important; transform: none !important; padding: 7% !important; box-sizing: border-box !important; }
+.woocommerce ul.products li.product:hover .gorvita-hover-img { opacity: 1 !important; }
+.woocommerce ul.products li.product .woocommerce-loop-product__title { font-size: 15px !important; font-weight: 500 !important; color: var(--gor-text) !important; text-align: center !important; min-height: 3em !important; margin: 6px 0 0 !important; line-height: 1.4 !important; }
+.woocommerce ul.products li.product .price, .woocommerce .price { font-size: 15px !important; font-weight: 600 !important; color: var(--gor-green-dark) !important; }
+.woocommerce ul.products li.product .button, .woocommerce-page ul.products li.product .button, a.add_to_cart_button.button { padding: 10px 16px !important; font-size: 13.5px !important; margin-top: auto !important; }
+.woocommerce ul.products li.product-category { background: var(--gor-cream-card) !important; border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-lg) !important; box-shadow: var(--gor-shadow-sm) !important; transition: transform 0.2s ease, box-shadow 0.2s ease !important; overflow: hidden !important; }
+.woocommerce ul.products li.product-category:hover { transform: translateY(-4px) !important; box-shadow: var(--gor-shadow-md) !important; }
+
+/* CHECKOUT */
+.woocommerce-checkout input[type="text"],.woocommerce-checkout input[type="email"],.woocommerce-checkout input[type="tel"],.woocommerce-checkout select,.woocommerce-checkout textarea { border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-sm) !important; padding: 10px 14px !important; font-size: 14px !important; background: #fff !important; transition: border-color 0.18s ease, box-shadow 0.18s ease !important; }
+.woocommerce-checkout input:focus,.woocommerce-checkout select:focus,.woocommerce-checkout textarea:focus { border-color: var(--gor-green) !important; box-shadow: 0 0 0 3px var(--gor-focus) !important; outline: none !important; }
+
+/* SORTING */
+.woocommerce-ordering .orderby, .ct-woo-ordering select, select.orderby { border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-sm) !important; padding: 8px 14px !important; font-size: 13px !important; color: var(--gor-text-body) !important; background: #fff !important; cursor: pointer !important; transition: border-color 0.18s ease !important; appearance: auto !important; }
+.woocommerce-ordering .orderby:focus, select.orderby:focus { border-color: var(--gor-green) !important; outline: none !important; box-shadow: 0 0 0 3px var(--gor-focus) !important; }
+
+/* MISC */
+.woocommerce .star-rating span::before,.woocommerce .star-rating::before { color: var(--gor-green) !important; }
+.woocommerce span.onsale,.woocommerce ul.products li.product .onsale { background: var(--gor-green-dark) !important; color: #fff !important; border-radius: var(--gor-r-pill) !important; font-size: 11px !important; font-weight: 500 !important; padding: 4px 10px !important; box-shadow: none !important; }
+.woocommerce nav.woocommerce-pagination ul li span.current,.woocommerce nav.woocommerce-pagination ul li a:hover { background: var(--gor-green-dark) !important; color: #fff !important; border-color: var(--gor-green-dark) !important; }
+.site-footer,.ct-footer { border-top: 0.5px solid var(--gor-border) !important; }
+.ct-footer a,.site-footer a { color: var(--gor-text-muted) !important; transition: color 0.15s ease !important; }
+.ct-footer a:hover,.site-footer a:hover { color: var(--gor-green) !important; }
+
+/* MENU ICONS */
+.header-menu-2 .ct-icon-container.ct-left { width: 18px !important; height: 18px !important; min-width: 18px !important; }
+.header-menu-2 .ct-icon-container.ct-left svg { width: 18px !important; height: 18px !important; opacity: 0.6 !important; transition: opacity 0.18s ease !important; display: block !important; }
+.header-menu-2 .menu-item:hover .ct-icon-container.ct-left svg, .header-menu-2 .menu-item.current-menu-item .ct-icon-container.ct-left svg { opacity: 1 !important; }
+
+/* FOOTER */
+footer .wp-block-heading { font-weight: 600; }
+
+/* B2B HERO */
+.gorvita-b2b-hero { position: relative; width: 100%; min-height: 480px; background-size: cover; background-position: center; border-radius: 24px; overflow: hidden; margin: 40px 0; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+.gorvita-b2b-hero__overlay { background: linear-gradient(90deg, rgba(249,246,241,0.15) 0%, rgba(249,246,241,0) 50%); width: 100%; min-height: 480px; display: flex; align-items: flex-end; padding-bottom: 48px; }
+.gorvita-b2b-hero__container { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 5%; }
+.gorvita-b2b-hero__content { max-width: 50%; }
+.gorvita-b2b-hero__actions { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.gorvita-btn--large { padding: 16px 32px !important; font-size: 1.05rem !important; letter-spacing: 0.5px !important; }
+.gorvita-b2b-hero__subtext { font-size: 0.88rem; color: #4a5a4a; font-weight: 500; margin: 0 0 0 4px; opacity: 0.85; }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .gorvita-b2b-hero { background-image: url('https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/wspolpraca_b2b_mobile.webp') !important; background-position: center top !important; min-height: 580px !important; }
+  .gorvita-b2b-hero__overlay { min-height: 420px !important; align-items: center !important; padding-bottom: 0 !important; justify-content: center !important; background: rgba(249,246,241,0.55) !important; }
+  .gorvita-b2b-hero__container { padding: 32px 5% !important; }
+  .gorvita-b2b-hero__content { max-width: 100% !important; text-align: center !important; }
+  .gorvita-b2b-hero__actions { align-items: center !important; }
+  .woocommerce ul.products li.product { border-radius: 20px !important; }
+  .woocommerce ul.products li.product .ct-media-container { padding: 8% !important; }
+  .woocommerce ul.products li.product .woocommerce-loop-product__title { font-size: .98rem !important; min-height: 3.4em !important; padding: 14px 14px 0 !important; }
+  .woocommerce ul.products li.product .price, .woocommerce ul.products li.product .product-actions-row { padding: 14px !important; }
+  .woocommerce ul.products li.product .button { padding: 10px 14px !important; font-size: .92rem !important; }
+}
+
+/* TABS DESKTOP */
+.gorvita-tabs-nav { display: flex; gap: 0; border-bottom: 2px solid var(--gor-border); margin: 24px 0 0 0; flex-wrap: wrap; background: rgba(255,255,255,0.7) !important; backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important; border: 1px solid rgba(45,80,22,0.08) !important; border-bottom: none !important; border-radius: 12px 12px 0 0 !important; padding: 4px 8px 0 !important; box-shadow: 0 4px 20px rgba(10,18,8,0.05) !important; }
+.gorvita-tab-btn { background: transparent !important; border: none !important; border-bottom: 2px solid transparent !important; border-radius: 8px 8px 0 0 !important; padding: 11px 22px !important; font-size: 11px !important; font-weight: 600 !important; letter-spacing: 0.1em !important; text-transform: uppercase !important; color: var(--gor-text-muted) !important; cursor: pointer !important; margin-bottom: -2px !important; box-shadow: none !important; transform: none !important; transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease !important; white-space: nowrap !important; }
+.gorvita-tab-btn::before { display: none !important; }
+.gorvita-tab-btn:hover { color: var(--gor-green) !important; background: rgba(45,80,22,0.04) !important; transform: none !important; box-shadow: none !important; }
+.gorvita-tab-btn.active, .gorvita-tab-btn[aria-selected="true"] { color: var(--gor-green) !important; border-bottom-color: var(--gor-green) !important; font-weight: 700 !important; background: rgba(45,80,22,0.06) !important; }
+.gorvita-tab-btn:focus-visible { outline: 2px solid var(--gor-focus) !important; outline-offset: 2px !important; }
+.gorvita-tabs-panels { background: rgba(255,255,255,0.5) !important; backdrop-filter: blur(8px) !important; -webkit-backdrop-filter: blur(8px) !important; border: 1px solid rgba(45,80,22,0.08) !important; border-top: none !important; border-radius: 0 0 12px 12px !important; padding: 28px 32px !important; box-shadow: 0 8px 32px rgba(10,18,8,0.06) !important; }
+.gorvita-tab-panel { animation: gorvitaFadeIn 0.2s ease; }
+@keyframes gorvitaFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ACCORDION MOBILE */
+@media (max-width: 767px) {
+  .gorvita-accordion-trigger { display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 16px 0 !important; border-bottom: 1px solid var(--gor-border) !important; margin: 0 !important; cursor: pointer !important; user-select: none !important; font-size: 17px !important; font-weight: 500 !important; color: var(--gor-text) !important; transition: color 0.18s ease !important; }
+  .gorvita-accordion-trigger::after { content: "+"; font-size: 22px; font-weight: 300; color: var(--gor-green); flex-shrink: 0; margin-left: 16px; line-height: 1; }
+  .gorvita-accordion-trigger.gorvita-accordion-open::after { content: "−"; }
+  .gorvita-accordion-trigger:hover, .gorvita-accordion-trigger:focus-visible { color: var(--gor-green) !important; }
+  .gorvita-accordion-trigger:focus-visible { outline: 2px solid var(--gor-focus) !important; outline-offset: 2px !important; }
+  .gorvita-accordion-content { padding: 16px 0 8px !important; border-bottom: 1px solid var(--gor-border) !important; }
+}
+
+/* FAQ */
+.gorvita-faq-item { border-bottom: 1px solid var(--gor-border); }
+.gorvita-faq-item:last-child { border-bottom: none; }
+.gorvita-faq-question { display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 14px 0 !important; font-weight: 500 !important; font-size: 14px !important; color: var(--gor-text) !important; cursor: pointer !important; user-select: none !important; transition: color 0.18s ease !important; }
+.gorvita-faq-question::after { content: "+"; font-size: 18px; font-weight: 300; color: var(--gor-green); flex-shrink: 0; margin-left: 12px; line-height: 1; }
+.gorvita-faq-question.gorvita-faq-open::after { content: "−"; }
+.gorvita-faq-question:hover { color: var(--gor-green) !important; }
+.gorvita-faq-question:focus-visible { outline: 2px solid var(--gor-focus) !important; outline-offset: 2px !important; border-radius: 2px !important; }
+.gorvita-faq-answer { padding: 0 0 14px 0; color: var(--gor-text-body); font-size: 14px; line-height: 1.65; }
+
+/* TABLES */
+.gorvita-tab-panel table, .gorvita-accordion-content table { width: 100% !important; border-collapse: collapse !important; font-size: 13.5px !important; margin: 8px 0 16px !important; }
+.gorvita-tab-panel table th, .gorvita-tab-panel table td, .gorvita-accordion-content table th, .gorvita-accordion-content table td { padding: 10px 12px !important; border: 1px solid var(--gor-border) !important; text-align: left !important; vertical-align: top !important; }
+.gorvita-tab-panel table th, .gorvita-accordion-content table th { background: var(--gor-cream) !important; font-weight: 500 !important; font-size: 11px !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; }
+
+/* OPIS PRODUKTU */
+.woocommerce-Tabs-panel--description > p:first-child { max-width: 72ch !important; line-height: 1.75 !important; margin-bottom: 20px !important; color: var(--gor-text-body) !important; }
+.woocommerce-Tabs-panel--description p, .woocommerce-Tabs-panel--description table { margin-left: 0 !important; padding-left: 0 !important; }
+.woocommerce-product-details__short-description, .woocommerce div.product .woocommerce-tabs .woocommerce-Tabs-panel--description > p:first-child { padding-left: 0 !important; max-width: 72ch !important; margin-left: auto !important; margin-right: auto !important; }
+
+/* EDITORIAL EXTRAS */
+.gorvita-pull { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: clamp(1.5rem, 2.5vw, 2.25rem); line-height: 1.3; color: var(--gor-green-dark); letter-spacing: -0.01em; max-width: 28ch; margin: 32px 0; border-left: 2px solid var(--gor-green); padding-left: 24px; }
+.gorvita-dropcap::first-letter { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 4em; line-height: 0.85; float: left; margin: 0.05em 0.1em -0.05em 0; color: var(--gor-green-dark); }
+.gorvita-divider { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 48px auto; color: var(--gor-text-faint); font-size: 14px; max-width: 320px; }
+.gorvita-divider::before, .gorvita-divider::after { content: ""; flex: 1; height: 0.5px; background: var(--gor-border); }
+.gorvita-link-view-all { display: inline-flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gor-green-dark); text-decoration: none; border-bottom: 1.5px solid var(--gor-green-dark); padding-bottom: 4px; transition: gap 0.18s ease, border-color 0.18s ease, color 0.18s ease; }
+.gorvita-link-view-all:hover { gap: 14px; border-color: var(--gor-green); color: var(--gor-green); }
+.gorvita-mono, .gorvita-data-label { font-family: var(--gor-font-mono); font-size: 12.5px; letter-spacing: 0.02em; color: var(--gor-text-muted); }
+.gorvita-chip--limited { display: inline-block; background: var(--gor-rose-faint); color: var(--gor-rose); border-radius: var(--gor-r-pill); font-size: 11px; font-weight: 600; letter-spacing: 0.04em; padding: 3px 10px; }
+
+/* FOCUS ON DARK */
+.gorvita-spring *:focus-visible, [class*="gspb_row-id-gsbp-3f4"] *:focus-visible, .gorvita-vstrip *:focus-visible { outline-color: var(--gor-focus-dark) !important; }
+
+/* REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  .gorvita-vstrip__track, .gorvita-spring__ripple, .gorvita-hero__visual-img { animation: none !important; transform: none !important; }
+}
+
+/* ============================================================================
+   v6.3: CART + CHECKOUT (WooCommerce Blocks + Classic)
+   ============================================================================ */
+
+/* Page-level — soft two-tone background so content cards lift from the page */
+body.woocommerce-cart, body.woocommerce-checkout, body.page-id-7, body.page-id-8 {
+  background: var(--gor-cream-light) !important;
+}
+.woocommerce-cart .entry-content, .woocommerce-checkout .entry-content,
+body.woocommerce-cart .ct-container, body.woocommerce-checkout .ct-container { padding-top: 28px !important; padding-bottom: 56px !important; }
+
+/* Page heading — force Polish "Koszyk" / "Zamówienie" to render with brand voice */
+.woocommerce-cart h1.entry-title, .woocommerce-checkout h1.entry-title {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 300 !important;
+  font-size: clamp(2.25rem, 4vw, 3rem) !important;
+  letter-spacing: -0.015em !important;
+  margin-bottom: 32px !important;
+}
+
+/* === WC BLOCKS — SELECT (the user-flagged Kraj/region select) === */
+.wc-blocks-components-select,
+.wc-blocks-components-select__container {
+  position: relative !important;
+  background: #ffffff !important;
+  border: 1px solid var(--gor-border) !important;
+  border-radius: var(--gor-r-sm) !important;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
+  display: block !important;
+  width: 100% !important;
+  overflow: visible !important;
+}
+.wc-blocks-components-select:focus-within,
+.wc-blocks-components-select__container:focus-within {
+  border-color: var(--gor-green) !important;
+  box-shadow: 0 0 0 3px var(--gor-focus) !important;
+}
+.wc-blocks-components-select__select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  width: 100% !important;
+  padding: 18px 44px 8px 14px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  color: var(--gor-text) !important;
+  cursor: pointer !important;
+  line-height: 1.4 !important;
+  border-radius: inherit !important;
+  box-shadow: none !important;
+}
+.wc-blocks-components-select__label {
+  position: absolute !important;
+  top: 6px !important;
+  left: 14px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  color: var(--gor-text-muted) !important;
+  text-transform: uppercase !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 2 !important;
+}
+.wc-blocks-components-select__expand,
+.wc-blocks-components-select svg[class*="select__expand"] {
+  position: absolute !important;
+  right: 14px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 16px !important;
+  height: 16px !important;
+  pointer-events: none !important;
+  color: var(--gor-text-muted) !important;
+  fill: currentColor !important;
+}
+.wc-blocks-components-select__select option {
+  background: #ffffff !important;
+  color: var(--gor-text) !important;
+  padding: 8px !important;
+}
+
+/* === WC BLOCKS — TEXT INPUT === */
+.wc-block-components-text-input,
+.wc-blocks-components-text-input,
+.wc-block-components-text-input input.input-text,
+.wc-blocks-components-text-input input.input-text {
+  position: relative !important;
+}
+.wc-block-components-text-input input,
+.wc-blocks-components-text-input input,
+.wc-block-components-text-input input.input-text,
+.wc-blocks-components-text-input input.input-text {
+  background: #ffffff !important;
+  border: 1px solid var(--gor-border) !important;
+  border-radius: var(--gor-r-sm) !important;
+  padding: 22px 14px 8px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  color: var(--gor-text) !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  outline: none !important;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
+  line-height: 1.4 !important;
+}
+.wc-block-components-text-input input:focus,
+.wc-blocks-components-text-input input:focus {
+  border-color: var(--gor-green) !important;
+  box-shadow: 0 0 0 3px var(--gor-focus) !important;
+}
+.wc-block-components-text-input label,
+.wc-blocks-components-text-input label,
+.wc-block-components-text-input .wc-block-components-text-input__label {
+  position: absolute !important;
+  top: 7px !important;
+  left: 14px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  color: var(--gor-text-muted) !important;
+  text-transform: uppercase !important;
+  pointer-events: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  transform: none !important;
+  transition: color 0.18s ease !important;
+}
+.wc-block-components-text-input.is-active label,
+.wc-blocks-components-text-input.is-active label,
+.wc-block-components-text-input input:focus + label,
+.wc-blocks-components-text-input input:focus + label { color: var(--gor-green) !important; }
+
+/* === WC BLOCKS — CHECKOUT STEPS (cards) === */
+.wc-block-components-checkout-step,
+.wc-blocks-components-checkout-step {
+  background: #ffffff !important;
+  border: 1px solid var(--gor-border) !important;
+  border-radius: var(--gor-r-lg) !important;
+  padding: 28px 32px !important;
+  margin-bottom: 20px !important;
+  box-shadow: var(--gor-shadow-sm) !important;
+  position: relative !important;
+}
+.wc-block-components-checkout-step__heading,
+.wc-block-components-title.wc-block-components-checkout-step__title {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 400 !important;
+  font-size: 1.5rem !important;
+  letter-spacing: -0.01em !important;
+  color: var(--gor-text) !important;
+  margin: 0 0 6px !important;
+  padding: 0 !important;
+}
+.wc-block-components-checkout-step__description {
+  font-size: 13.5px !important;
+  color: var(--gor-text-muted) !important;
+  margin: 0 0 20px !important;
+  letter-spacing: 0 !important;
+}
+.wc-block-components-checkout-step__container {
+  border-left: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+.wc-block-components-checkout-step__content { padding-top: 4px !important; }
+.wc-block-components-checkout-step__heading-content { display: none !important; }
+
+/* Step number indicator (the little "1, 2, 3" on left) — restyle to a quiet badge */
+.wc-block-components-checkout-step::before {
+  content: counter(step-number) !important;
+  counter-increment: step-number !important;
+  position: absolute !important;
+  top: 28px !important;
+  right: 32px !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  background: var(--gor-green-light) !important;
+  color: var(--gor-green-dark) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  font-family: 'Inter', sans-serif !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  letter-spacing: 0 !important;
+}
+.wc-block-checkout, form.wc-block-checkout, .wc-block-components-checkout-place-order-button { counter-reset: step-number !important; }
+
+/* === WC BLOCKS — ORDER SUMMARY (right column, sticky) === */
+.wc-block-components-totals-wrapper,
+.wc-block-components-sidebar,
+.wc-block-checkout__sidebar {
+  background: #ffffff !important;
+  border: 1px solid var(--gor-border) !important;
+  border-radius: var(--gor-r-lg) !important;
+  padding: 28px 32px !important;
+  box-shadow: var(--gor-shadow-sm) !important;
+  position: sticky !important;
+  top: 100px !important;
+}
+.wc-block-components-totals-item {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 10px 0 !important;
+  border-bottom: 1px solid var(--gor-border) !important;
+  font-size: 14px !important;
+  color: var(--gor-text-body) !important;
+}
+.wc-block-components-totals-item:last-child { border-bottom: none !important; }
+.wc-block-components-totals-footer-item {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 400 !important;
+  font-size: 1.5rem !important;
+  color: var(--gor-text) !important;
+  padding-top: 16px !important;
+  margin-top: 8px !important;
+  border-top: 1.5px solid var(--gor-text) !important;
+}
+
+/* Order summary line items */
+.wc-block-components-order-summary__content { padding: 0 !important; }
+.wc-block-components-order-summary-item {
+  display: flex !important;
+  gap: 14px !important;
+  padding: 14px 0 !important;
+  border-bottom: 1px solid var(--gor-border) !important;
+  align-items: flex-start !important;
+}
+.wc-block-components-order-summary-item:last-child { border-bottom: none !important; }
+.wc-block-components-order-summary-item__image {
+  width: 56px !important;
+  height: 56px !important;
+  flex-shrink: 0 !important;
+  border-radius: var(--gor-r-sm) !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f6f2ec 100%) !important;
+  border: 1px solid var(--gor-border) !important;
+  overflow: hidden !important;
+}
+.wc-block-components-order-summary-item__image img { width: 100% !important; height: 100% !important; object-fit: contain !important; padding: 4px !important; }
+
+/* === WC BLOCKS — PAYMENT METHOD TILES (radio cards) === */
+.wc-block-components-radio-control__option,
+.wc-block-components-payment-method-options .wc-block-components-radio-control__option {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 16px !important;
+  background: #ffffff !important;
+  border: 1.5px solid var(--gor-border) !important;
+  border-radius: var(--gor-r-md) !important;
+  margin-bottom: 8px !important;
+  cursor: pointer !important;
+  transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease !important;
+}
+.wc-block-components-radio-control__option:hover { border-color: var(--gor-border-hover) !important; background: var(--gor-cream-light) !important; }
+.wc-block-components-radio-control__option--checked,
+.wc-block-components-radio-control__option:has(input:checked) {
+  border-color: var(--gor-green) !important;
+  background: var(--gor-green-light) !important;
+  box-shadow: 0 0 0 1px var(--gor-green) !important;
+}
+.wc-block-components-radio-control__input,
+.wc-block-components-radio-control input[type="radio"] {
+  width: 18px !important;
+  height: 18px !important;
+  accent-color: var(--gor-green) !important;
+  flex-shrink: 0 !important;
+  cursor: pointer !important;
+}
+.wc-block-components-radio-control__label {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: var(--gor-text) !important;
+  flex: 1 !important;
+}
+.wc-block-components-radio-control__description {
+  font-size: 13px !important;
+  color: var(--gor-text-muted) !important;
+  margin-top: 4px !important;
+}
+
+/* Shipping option rates */
+.wc-block-components-shipping-rates-control__package { background: transparent !important; }
+
+/* Place-order button — full-width, prominent */
+.wc-block-components-checkout-place-order-button,
+button.wc-block-components-checkout-place-order-button {
+  width: 100% !important;
+  padding: 16px 28px !important;
+  font-size: 15px !important;
+  letter-spacing: 0.05em !important;
+  margin-top: 16px !important;
+}
+
+/* Coupon / discount input row */
+.wc-block-components-totals-coupon__form { display: flex !important; gap: 8px !important; align-items: stretch !important; }
+.wc-block-components-totals-coupon__input { flex: 1 !important; }
+.wc-block-components-totals-coupon__button { padding: 10px 18px !important; font-size: 13px !important; white-space: nowrap !important; }
+
+/* === EMPTY CART — modernize "Wróć do sklepu" CTA === */
+.wc-empty-cart-message, .cart-empty.woocommerce-info {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-style: italic !important;
+  font-size: 1.25rem !important;
+  font-weight: 400 !important;
+  color: var(--gor-text) !important;
+  background: transparent !important;
+  border: none !important;
+  border-left: 2px solid var(--gor-green) !important;
+  padding: 16px 0 16px 24px !important;
+  box-shadow: none !important;
+  letter-spacing: -0.01em !important;
+  margin: 24px 0 32px !important;
+}
+.wc-empty-cart-message::before, .cart-empty.woocommerce-info::before { display: none !important; }
+.return-to-shop a.button.wc-backward, a.wc-backward {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: var(--gor-green-dark) !important;
+  border: 1.5px solid var(--gor-green-dark) !important;
+  box-shadow: none !important;
+  padding: 12px 24px !important;
+}
+.return-to-shop a.button.wc-backward:hover, a.wc-backward:hover {
+  background: var(--gor-green-dark) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+}
+.return-to-shop a.button.wc-backward::after { content: " →"; opacity: 0.8; }
+
+/* === CLASSIC CHECKOUT FALLBACK === */
+.woocommerce-checkout form.checkout {
+  display: grid !important;
+  grid-template-columns: 1fr 380px !important;
+  gap: 32px !important;
+  align-items: start !important;
+}
+.woocommerce-checkout #customer_details, .woocommerce-checkout #order_review {
+  background: #ffffff !important;
+  border: 1px solid var(--gor-border) !important;
+  border-radius: var(--gor-r-lg) !important;
+  padding: 28px 32px !important;
+  box-shadow: var(--gor-shadow-sm) !important;
+}
+.woocommerce-checkout #order_review { position: sticky !important; top: 100px !important; }
+.woocommerce-checkout h3 {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 400 !important;
+  font-size: 1.5rem !important;
+  letter-spacing: -0.01em !important;
+  margin: 0 0 16px !important;
+}
+.woocommerce-checkout label { font-size: 11px !important; font-weight: 500 !important; letter-spacing: 0.04em !important; text-transform: uppercase !important; color: var(--gor-text-muted) !important; margin-bottom: 4px !important; display: block !important; }
+
+@media (max-width: 900px) {
+  .woocommerce-checkout form.checkout { grid-template-columns: 1fr !important; }
+  .woocommerce-checkout #order_review { position: relative !important; top: 0 !important; }
+  .wc-block-components-totals-wrapper, .wc-block-components-sidebar, .wc-block-checkout__sidebar { position: relative !important; top: 0 !important; }
+}
+
+/* Cart shipping totals select inside cart page (estimate) */
+.shipping_calculator .button { font-size: 13px !important; padding: 9px 16px !important; }
+
+/* Order received / thank-you page */
+.woocommerce-order-received .woocommerce-order h1, .woocommerce-thankyou-order-received {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 300 !important;
+  font-style: italic !important;
+  color: var(--gor-green-dark) !important;
+}
+.woocommerce-order-overview {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+  gap: 16px !important;
+  background: #ffffff !important;
+  border: 1px solid var(--gor-border) !important;
+  border-radius: var(--gor-r-lg) !important;
+  padding: 24px !important;
+  margin: 24px 0 !important;
+  list-style: none !important;
+}
+.woocommerce-order-overview li { font-size: 12px !important; letter-spacing: 0.04em !important; text-transform: uppercase !important; color: var(--gor-text-muted) !important; border: none !important; padding: 0 !important; }
+.woocommerce-order-overview li strong { display: block !important; font-family: 'Cormorant Garamond', serif !important; font-size: 1.25rem !important; font-weight: 400 !important; color: var(--gor-text) !important; text-transform: none !important; letter-spacing: -0.01em !important; margin-top: 4px !important; }

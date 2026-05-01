@@ -220,6 +220,69 @@ function gorvita_hero_shortcode() {
 }
 add_shortcode( 'gorvita-hero', 'gorvita_hero_shortcode' );
 
+/**
+ * [gorvita_sale_products] — list products currently on sale.
+ * Wraps Woo's core sale-products query in the same product-card grid the homepage uses.
+ * Also used by the /promocje/ page; tolerates Gutenberg curly-quote attributes.
+ */
+function gorvita_sale_products_shortcode( $atts ) {
+    $atts = shortcode_atts(
+        [
+            'limit'    => 24,
+            'columns'  => 4,
+            'orderby'  => 'date',
+            'order'    => 'desc',
+        ],
+        is_array( $atts ) ? $atts : [],
+        'gorvita_sale_products'
+    );
+
+    if ( ! function_exists( 'wc_get_product_ids_on_sale' ) ) {
+        return '<p class="gorvita-empty">Brak produktów w promocji w tej chwili.</p>';
+    }
+
+    $sale_ids = wc_get_product_ids_on_sale();
+    if ( empty( $sale_ids ) ) {
+        return '<p class="gorvita-empty" style="text-align:center;color:var(--gor-text-muted,#6A6A66);padding:48px 0;">Aktualnie żaden produkt nie jest w promocji. Zajrzyj wkrótce — promocje zmieniają się regularnie.</p>';
+    }
+
+    $core = do_shortcode( sprintf(
+        '[products limit="%d" columns="%d" orderby="%s" order="%s" on_sale="true" visibility="visible"]',
+        intval( $atts['limit'] ),
+        intval( $atts['columns'] ),
+        esc_attr( $atts['orderby'] ),
+        esc_attr( $atts['order'] )
+    ) );
+
+    return $core;
+}
+add_shortcode( 'gorvita_sale_products', 'gorvita_sale_products_shortcode' );
+
+/**
+ * Normalize Gutenberg curly quotes inside our custom shortcodes' attributes
+ * so [gorvita_sale_products limit="24"] (smart-quoted) still parses.
+ */
+function gorvita_normalize_curly_quotes_in_shortcodes( $content ) {
+    if ( strpos( $content, '[gorvita_sale_products' ) === false ) {
+        return $content;
+    }
+    return preg_replace_callback(
+        '/\[gorvita_sale_products([^\]]*)\]/u',
+        function ( $m ) {
+            $attrs = strtr( $m[1], [
+                '“' => '"',
+                '”' => '"',
+                '„' => '"',
+                '‘' => "'",
+                '’' => "'",
+            ] );
+            return '[gorvita_sale_products' . $attrs . ']';
+        },
+        $content
+    );
+}
+add_filter( 'the_content', 'gorvita_normalize_curly_quotes_in_shortcodes', 5 );
+
 function gorvita_hover_image_css() {
     echo '<style>
     .gorvita-hover-img {
