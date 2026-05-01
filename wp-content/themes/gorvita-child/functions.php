@@ -15,8 +15,13 @@ function gorvita_theme_setup() {
 add_action( 'after_setup_theme', 'gorvita_theme_setup' );
 
 function gorvita_enqueue_styles() {
-    wp_enqueue_style( 'gorvita-child-style', get_stylesheet_uri() );
-    wp_enqueue_script( 'gorvita-animations', get_stylesheet_directory_uri() . '/assets/js/animations.js', [], '1.0', true );
+    $css_path = get_stylesheet_directory() . '/style.css';
+    $css_ver  = file_exists( $css_path ) ? filemtime( $css_path ) : null;
+    wp_enqueue_style( 'gorvita-child-style', get_stylesheet_uri(), [], $css_ver );
+
+    $js_path = get_stylesheet_directory() . '/assets/js/animations.js';
+    $js_ver  = file_exists( $js_path ) ? filemtime( $js_path ) : null;
+    wp_enqueue_script( 'gorvita-animations', get_stylesheet_directory_uri() . '/assets/js/animations.js', [], $js_ver, true );
 }
 add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_styles' );
 
