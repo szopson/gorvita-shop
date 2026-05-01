@@ -118,24 +118,24 @@ function gorvita_spring_shortcode() {
                     </div>
                 </div>
                 <div class="gorvita-spring__copy">
-                    <div class="gorvita-eyebrow">ŹRÓDŁO</div>
-                    <h2>Woda, która<br><em>leczy od wieków.</em></h2>
-                    <p>W sercu Gorców, w uzdrowiskowej wsi Szczawa, wypływa woda mineralna bogata w wapń, magnez i żelazo. Ta sama, która przez wieki leczyła górali — dziś stanowi bazę naszych maści, żeli i sprayów.</p>
+                    <div class="gorvita-eyebrow">RODZINNA MANUFAKTURA · OD 1989</div>
+                    <h2>Trzy pokolenia, jedno źródło,<br><em>jedna receptura.</em></h2>
+                    <p>Pierwszą partię maści zważono w Szczawie w 1989 roku. Tę samą recepturę warzymy dzisiaj — w tej samej manufakturze, na tej samej wodzie z Rabki-Zdrój. Ręcznie, partiami, bez kompromisów.</p>
                     <a class="gorvita-link-arrow" style="color:var(--gorvita-sage)" href="/o-marce/">
-                        Poznaj historię źródła <?php gorvita_icon( 'arrow-right', 16 ); ?>
+                        Poznaj rodzinę Gorvita <?php gorvita_icon( 'arrow-right', 16 ); ?>
                     </a>
-                    <div class="gorvita-spring__stats">
+                    <div class="gorvita-spring__stats gorvita-spring__stats--anchors">
                         <div>
-                            <div class="gorvita-spring__stat-num">8.4<sup>°C</sup></div>
-                            <div class="gorvita-spring__stat-label">Temp. źródła</div>
+                            <div class="gorvita-spring__stat-text">3 pokolenia</div>
+                            <div class="gorvita-spring__stat-label">w jednej manufakturze</div>
                         </div>
                         <div>
-                            <div class="gorvita-spring__stat-num">1420<sup>mg/l</sup></div>
-                            <div class="gorvita-spring__stat-label">Mineralizacja</div>
+                            <div class="gorvita-spring__stat-text">od 1989</div>
+                            <div class="gorvita-spring__stat-label">nieprzerwanie ręcznie</div>
                         </div>
                         <div>
-                            <div class="gorvita-spring__stat-num">14<sup>min.</sup></div>
-                            <div class="gorvita-spring__stat-label">Składników</div>
+                            <div class="gorvita-spring__stat-text">GMP · ISO</div>
+                            <div class="gorvita-spring__stat-label">każda partia badana</div>
                         </div>
                     </div>
                 </div>
