@@ -125,7 +125,7 @@ function gorvita_spring_shortcode() {
                 <div class="gorvita-spring__copy">
                     <div class="gorvita-eyebrow">RODZINNA MANUFAKTURA · OD 1989</div>
                     <h2>Trzy pokolenia, jedno źródło,<br><em>jedna receptura.</em></h2>
-                    <p>Pierwszą partię maści zważono w Szczawie w 1989 roku. Tę samą recepturę warzymy dzisiaj — w tej samej manufakturze, na tej samej wodzie z Rabki-Zdrój. Ręcznie, partiami, bez kompromisów.</p>
+                    <p>Pierwszą partię maści zważono w Szczawie w 1989 roku. Tę samą recepturę warzymy dzisiaj, w tej samej manufakturze, na tej samej wodzie z Rabki-Zdrój. Ręcznie, partiami, bez kompromisów.</p>
                     <a class="gorvita-link-arrow" style="color:var(--gorvita-sage)" href="/o-marce/">
                         Poznaj rodzinę Gorvita <?php gorvita_icon( 'arrow-right', 16 ); ?>
                     </a>
