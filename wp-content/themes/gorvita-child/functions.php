@@ -168,12 +168,12 @@ function gorvita_hero_shortcode() {
             <div class="gorvita-hero__copy">
                 <span class="gorvita-hero__eyebrow">EST. 1989 · SZCZAWA, GORCE</span>
                 <h1 class="gorvita-hero__title">
-                    Czysta natura,<br>
-                    <em>zmierzona</em><br>
-                    laboratoryjnie.
+                    Z Gorców,<br>
+                    <em>od rodziny</em><br>
+                    Gorvita.
                 </h1>
                 <p class="gorvita-hero__sub">
-                    Suplementy i kosmetyki ziołowe tworzone w polskich górach — na bazie wody uzdrowiskowej z Rabki-Zdrój. Farmaceutyczny standard GMP, polska tradycja ziołolecznictwa.
+                    Suplementy i kosmetyki ziołowe ręcznie wytwarzane w Szczawie nieprzerwanie od 1989 roku. Woda z Rabki-Zdrój, polskie zioła, farmaceutyczny standard GMP.
                 </p>
                 <div class="gorvita-hero__cta">
                     <a class="gorvita-hero__btn gorvita-hero__btn--primary" href="<?php echo esc_url( $shop_url ); ?>">
@@ -181,18 +181,18 @@ function gorvita_hero_shortcode() {
                     </a>
                     <a class="gorvita-hero__btn gorvita-hero__btn--ghost" href="/o-marce/">Nasza historia</a>
                 </div>
-                <div class="gorvita-hero__stats">
-                    <div>
-                        <div class="gorvita-hero__stat-num">37</div>
-                        <div class="gorvita-hero__stat-label">Lat tradycji</div>
+                <div class="gorvita-hero__stats gorvita-hero__stats--anchors">
+                    <div class="gorvita-hero__stat">
+                        <div class="gorvita-hero__stat-text">od 1989</div>
+                        <div class="gorvita-hero__stat-label">rodzinna manufaktura w Gorcach</div>
                     </div>
-                    <div>
-                        <div class="gorvita-hero__stat-num">100<sup>+</sup></div>
-                        <div class="gorvita-hero__stat-label">Produktów</div>
+                    <div class="gorvita-hero__stat">
+                        <div class="gorvita-hero__stat-text">Rabka-Zdrój</div>
+                        <div class="gorvita-hero__stat-label">źródło wody uzdrowiskowej</div>
                     </div>
-                    <div>
-                        <div class="gorvita-hero__stat-num">14<sup>+</sup></div>
-                        <div class="gorvita-hero__stat-label">Minerałów</div>
+                    <div class="gorvita-hero__stat">
+                        <div class="gorvita-hero__stat-text">GMP · ISO</div>
+                        <div class="gorvita-hero__stat-label">farmaceutyczny standard</div>
                     </div>
                 </div>
             </div>
