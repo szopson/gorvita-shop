@@ -449,14 +449,14 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.005em;
   color: var(--gorvita-white);
 }
-.gorvita-spring__stats--anchors .gorvita-spring__stat-label {
-  text-transform: none;
-  letter-spacing: 0.005em;
-  font-size: 0.8125rem;
-  line-height: 1.4;
-  margin-top: 0.5rem;
+.gorvita-spring__stats.gorvita-spring__stats--anchors .gorvita-spring__stat-label {
+  text-transform: none !important;
+  letter-spacing: 0.005em !important;
+  font-size: 0.8125rem !important;
+  line-height: 1.4 !important;
+  margin-top: 0.5rem !important;
   max-width: 18ch;
-  color: rgba(245,243,240,.7);
+  color: rgba(245,243,240,.7) !important;
 }
 @media (max-width: 860px) {
   .gorvita-spring__inner { grid-template-columns: 1fr; }
