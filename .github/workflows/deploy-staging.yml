@@ -44,10 +44,15 @@ jobs:
             --exclude='.git/' \
             --exclude='.github/' \
             --exclude='.env' \
+            --exclude='.agents/' \
+            --exclude='.claude/' \
             --exclude='data/images/' \
+            --exclude='data/webflow-cache/' \
+            --exclude='data/update-preview/' \
             --exclude='docs/' \
             --exclude='node_modules/' \
             --exclude='vendor/' \
+            --exclude='backups/' \
             --exclude='wp-content/uploads/' \
             --exclude='wp-content/plugins/' \
             ./ deploy@${{ secrets.VPS_HOST }}:/opt/gorvita-shop/

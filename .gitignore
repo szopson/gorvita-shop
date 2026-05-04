@@ -37,6 +37,5 @@ data/scraped/
 # Claude Code local settings
 .claude/
 
-# Impeccable skill — local state files (skill itself is committed)
-.agents/skills/impeccable/scheduled_tasks.lock
-.agents/skills/impeccable/**/*.local.json
+# Local agent skills (Claude Code installations) — never deploy to staging/production
+.agents/
