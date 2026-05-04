@@ -1,6 +1,18 @@
 <?php
 require_once get_stylesheet_directory() . '/inc/translations.php';
 
+// Block staging from search-engine indexation. Belt-and-suspenders alongside
+// the Traefik X-Robots-Tag header. Active for any host that is NOT the
+// production sklep.gorvita.pl. Remove or invert this check at go-live.
+function gorvita_staging_noindex() {
+    $host = isset( $_SERVER['HTTP_HOST'] ) ? strtolower( $_SERVER['HTTP_HOST'] ) : '';
+    $is_production = ( $host === 'sklep.gorvita.pl' || $host === 'www.gorvita.pl' );
+    if ( ! $is_production ) {
+        echo '<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">' . "\n";
+    }
+}
+add_action( 'wp_head', 'gorvita_staging_noindex', 0 );
+
 function gorvita_preload_hero() {
     echo '<link rel="preload" as="image" href="' . esc_url( get_stylesheet_directory_uri() . '/assets/images/gorce2.webp' ) . '" fetchpriority="high">' . "\n";
 }

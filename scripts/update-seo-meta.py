@@ -30,10 +30,30 @@ from pathlib import Path
 WP_CONTAINER = "gorvita-wordpress"
 ROOT = Path(__file__).resolve().parent.parent
 
-# Brand line is the same for every product — covers GEO ("Rabka") and trust signal
-BRAND_TAGLINE = "naturalna pielęgnacja z Rabki"
-BRAND_SHORT = "Gorvita Rabka"
+# Brand line per product. GEO default = Gorce (where ingredients come from).
+# Rabka used ONLY for products that actually contain Rabka mineral water as
+# an active ingredient (detected via water_keywords in post_content). Reason:
+# the factory is in Szczawa, source ingredients from Gorce mountains; water
+# from Rabka is just one component used in some formulas.
+BRAND_TAGLINE_DEFAULT = "naturalna pielęgnacja z Gorców"
+BRAND_TAGLINE_WATER = "naturalna pielęgnacja z Rabki"
+BRAND_SUFFIX_DEFAULT = "Gorvita z Gorców."
+BRAND_SUFFIX_WATER = "Gorvita z Rabki."
 BRAND_LONG = "Gorvita"
+
+# If post_content contains any of these phrases, the product genuinely uses
+# Rabka mineral water — meta may legitimately reference Rabka.
+WATER_KEYWORDS = (
+    "woda lecznicza", "wody leczniczej", "wodzie leczniczej",
+    "woda mineralna", "wody mineralnej", "mineralna z",
+    "fizjologiczny roztwór", "hydrochlorowo", "wodorowęglanowo",
+    "z Rabki", "z rabki",
+)
+
+
+def uses_rabka_water(post_content: str) -> bool:
+    text = post_content.lower()
+    return any(k.lower() in text for k in WATER_KEYWORDS)
 
 
 def wp(*args):
@@ -95,12 +115,14 @@ def normalize_keyword(title: str) -> str:
     return s
 
 
-def make_title(product_name: str, max_chars: int = 60) -> str:
-    """Build the SEO title with brand + GEO."""
+def make_title(product_name: str, post_content: str, max_chars: int = 60) -> str:
+    """Build the SEO title. GEO suffix depends on whether product uses Rabka water."""
+    geo = "z Rabki" if uses_rabka_water(post_content) else "z Gorców"
+    tagline = BRAND_TAGLINE_WATER if geo == "z Rabki" else BRAND_TAGLINE_DEFAULT
     candidates = [
-        f"{product_name} — {BRAND_TAGLINE} | {BRAND_LONG}",
-        f"{product_name} — z Rabki | {BRAND_LONG}",
-        f"{product_name} | {BRAND_SHORT}",
+        f"{product_name} — {tagline} | {BRAND_LONG}",
+        f"{product_name} — {geo} | {BRAND_LONG}",
+        f"{product_name} | {BRAND_LONG} {geo}",
         f"{product_name} | {BRAND_LONG}",
         product_name,
     ]
@@ -112,6 +134,7 @@ def make_title(product_name: str, max_chars: int = 60) -> str:
 
 def make_description(post_content: str, product_name: str, max_chars: int = 160) -> str:
     """Build the SEO description from rich post_content."""
+    is_water_product = uses_rabka_water(post_content)
     # wp-cli TSV output escapes real newlines as literal "\n" — convert to spaces
     post_content = post_content.replace("\\n", " ").replace("\\t", " ").replace("\\r", " ")
     # Strip everything after first <h2> — we want the lead paragraph only.
@@ -136,7 +159,9 @@ def make_description(post_content: str, product_name: str, max_chars: int = 160)
     text = re.sub(r"(?<=[.!?])\s+\d+\s+(?=[A-ZŻŹĆŚŁĘĄÓŃ])", " ", text)
     text = re.sub(r"\s+", " ", text).strip()
 
-    suffix = f" {BRAND_LONG} z Rabki."
+    suffix_core = BRAND_SUFFIX_WATER if is_water_product else BRAND_SUFFIX_DEFAULT
+    suffix = " " + suffix_core
+    tagline = BRAND_TAGLINE_WATER if is_water_product else BRAND_TAGLINE_DEFAULT
 
     # Pick whichever option is most informative without exceeding the budget.
     body_full = first_sentences(text, max_chars)
@@ -151,7 +176,7 @@ def make_description(post_content: str, product_name: str, max_chars: int = 160)
     if candidates:
         return max(candidates, key=len)
     # Fall back: name + tagline
-    return f"{product_name} — {BRAND_TAGLINE}.{suffix}"[:max_chars]
+    return f"{product_name} — {tagline}.{suffix}"[:max_chars]
 
 
 def load_products() -> list[dict]:
@@ -239,7 +264,7 @@ def main():
     for p in products:
         title = p["post_title"]
         kw = normalize_keyword(title)
-        seo_title = make_title(title)
+        seo_title = make_title(title, p["post_content"])
         seo_desc = make_description(p["post_content"], title)
 
         print(f"[#{p['id']:>4}] {title}")
