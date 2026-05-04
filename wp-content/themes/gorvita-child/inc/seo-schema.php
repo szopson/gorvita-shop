@@ -206,6 +206,43 @@ function gorvita_add_offer_policies( $entity ) {
 }
 
 /**
+ * H. Append GEO-rich FAQ to /o-marce/ via the_content filter.
+ *
+ * Renders a visible FAQ section + FAQPage JSON-LD via the existing
+ * [gorvita_faq] shortcode. Targets the brand-story page where the FAQ
+ * answers AI citation questions ("Is Gorvita a Polish brand?", "Where do
+ * the herbs come from?", "Can I visit the producer?", etc.).
+ *
+ * Self-disabled when the page already contains [gorvita_faq] in content
+ * (lets a copywriter override the canned set by adding their own shortcode
+ * call directly in Gutenberg).
+ */
+add_filter( 'the_content', 'gorvita_append_faq_to_o_marce', 99 );
+function gorvita_append_faq_to_o_marce( $content ) {
+    if ( ! is_singular( 'page' ) || ! is_main_query() || ! in_the_loop() ) {
+        return $content;
+    }
+    $post = get_post();
+    if ( ! $post || 'o-marce' !== $post->post_name ) {
+        return $content;
+    }
+    if ( false !== strpos( $content, 'gorvita-faq' ) || false !== strpos( $post->post_content, '[gorvita_faq' ) ) {
+        return $content; // copywriter already added their own
+    }
+
+    $faq_json = <<<'JSON'
+{ "q": "Czy Gorvita to polska marka?", "a": "Tak. Gorvita to w 100% polska marka, założona w 1989 roku. Właścicielem jest PPUH Gorvita Sp. z o.o. z siedzibą w Szczawie 106 (gmina Kamienica, województwo małopolskie). Cała produkcja odbywa się w Polsce." },
+{ "q": "Skąd pochodzą surowce Gorvita?", "a": "Zioła pochodzą z Gorców i Beskidu Wyspowego (kontrolowany zbiór ze stanu naturalnego) oraz z certyfikowanych upraw ekologicznych w Małopolsce i na Podkarpaciu. Woda lecznicza w wybranych formułach pochodzi z uzdrowiska Rabka-Zdrój." },
+{ "q": "Czy produkty Gorvita są certyfikowane?", "a": "Tak. Produkujemy zgodnie z normą ISO 9001 oraz standardem GMP (Dobre Praktyki Wytwarzania). Suplementy diety są zgłoszone do GIS, kosmetyki posiadają wymagane oceny bezpieczeństwa i są zgłoszone do CPNP." },
+{ "q": "Czy mogę odwiedzić producenta?", "a": "Siedziba i zakład produkcyjny znajdują się w Szczawie 106, gmina Kamienica. Wizyty odbiorców biznesowych (apteki, hurtownie, dystrybutorzy) są możliwe po wcześniejszym umówieniu. Skontaktuj się z nami przez formularz kontaktowy lub telefonicznie pod +48 18 332 41 81." },
+{ "q": "Czym Gorvita różni się od innych marek ziołowych?", "a": "Po pierwsze — lokalizacja: produkujemy bezpośrednio u źródła surowca, w Gorcach. Po drugie — woda lecznicza z Rabki-Zdroju jako składnik wybranych formuł. Po trzecie — 37 lat ciągłości jednego producenta bez zmian właścicielskich. Po czwarte — pełna identyfikowalność: od działki zbioru ziół do numeru serii produktu." }
+JSON;
+
+    $shortcode = '[gorvita_faq]' . $faq_json . '[/gorvita_faq]';
+    return $content . "\n\n" . do_shortcode( $shortcode );
+}
+
+/**
  * G. Auto-emit FAQPage JSON-LD on products that use the legacy stub FAQ pattern.
  *
  * Stub products (Spirulina, Zielony Jęczmień, Magnez B6 VEGAN etc. — products
