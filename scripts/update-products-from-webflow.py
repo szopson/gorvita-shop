@@ -318,23 +318,18 @@ def build_post_content(existing_content: str, wf: dict) -> tuple[str, list[str]]
     parts = []
 
     # ── Description ──
-    wf_desc = wf["description"]["text"]
-    wf_desc_clean = re.sub(r"^Opis produktu:\s*", "", wf_desc).strip()
-
-    # If existing post_content already contains the same description in HTML, keep existing top portion;
-    # otherwise replace with the cleaner Webflow text.
-    if len(existing_content) > len(wf_desc_clean) * 1.3 and "<p>" in existing_content:
-        # Keep existing intro: take everything up to the first "##" or first <h2>
-        m = re.search(r"(<h[1-6]|^##\s)", existing_content, re.MULTILINE)
-        if m and m.start() > 0:
-            parts.append(existing_content[: m.start()].strip())
-            sections.append("description (kept from existing)")
-        else:
-            parts.append(html_paragraph(wf_desc_clean))
-            sections.append("description (webflow)")
+    # Always use Webflow description — the existing post_content's intro paragraph
+    # is a generic stub from import-products.py ("...to produkt przeznaczony do
+    # wsparcia zdrowia i regeneracji organizmu") that has no SEO value.
+    # The Webflow text is the actual marketing copy from the manufacturer.
+    wf_desc = wf["description"]["html"] or wf["description"]["text"]
+    wf_desc_clean = re.sub(r"<h2[^>]*>\s*Opis produktu:?\s*</h2>", "", wf_desc, flags=re.IGNORECASE)
+    wf_desc_clean = re.sub(r"^\s*Opis produktu:?\s*", "", wf_desc_clean).strip()
+    if wf_desc_clean.startswith("<"):
+        parts.append(wf_desc_clean)
     else:
         parts.append(html_paragraph(wf_desc_clean))
-        sections.append("description (webflow)")
+    sections.append("description (webflow)")
 
     # ── Sposób użycia ──
     usage = wf["specs"]["usage"].strip()
