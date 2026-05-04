@@ -206,6 +206,39 @@ function gorvita_add_offer_policies( $entity ) {
 }
 
 /**
+ * J. Force default 1200×630 OG image on pages that don't have a per-page override.
+ *
+ * RankMath's default behaviour: pick the first image found in post_content,
+ * fall back to default only if none. This produces low-quality OG previews
+ * because content images are usually 1024×320 hero crops or product shots
+ * (1200×1365 portrait) — neither is the 1.91:1 ratio Facebook/Twitter want.
+ *
+ * This filter forces the global default (uploaded 1200×630 brand image) on:
+ *  - homepage / front page
+ *  - pages WITHOUT an explicit rank_math_facebook_image meta
+ *  - product category archives
+ * Single posts and products keep their per-content image (relevant per-item).
+ */
+add_filter( 'rank_math/opengraph/facebook/image', 'gorvita_force_default_og_image', 11, 1 );
+add_filter( 'rank_math/opengraph/twitter/image', 'gorvita_force_default_og_image', 11, 1 );
+function gorvita_force_default_og_image( $image ) {
+    if ( is_singular( 'product' ) || is_singular( 'post' ) ) {
+        return $image;
+    }
+    if ( is_singular( 'page' ) ) {
+        $post_id = get_the_ID();
+        if ( $post_id && get_post_meta( $post_id, 'rank_math_facebook_image', true ) ) {
+            return $image;
+        }
+    }
+    $opts = get_option( 'rank_math_options_titles', array() );
+    if ( ! empty( $opts['open_graph_image'] ) ) {
+        return $opts['open_graph_image'];
+    }
+    return $image;
+}
+
+/**
  * I. Append auto-generated FAQ to products that lack one.
  *
  * 94 products have rich Webflow descriptions but no FAQ section. This
