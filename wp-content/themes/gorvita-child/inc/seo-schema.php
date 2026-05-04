@@ -206,6 +206,72 @@ function gorvita_add_offer_policies( $entity ) {
 }
 
 /**
+ * G. Auto-emit FAQPage JSON-LD on products that use the legacy stub FAQ pattern.
+ *
+ * Stub products (Spirulina, Zielony Jęczmień, Magnez B6 VEGAN etc. — products
+ * that didn't get Webflow content) carry a section in this exact shape:
+ *   <h2>FAQ</h2>
+ *   <p><strong>Pytanie?</strong><br>Odpowiedź.</p>
+ *   <p><strong>Pytanie?</strong><br>Odpowiedź.</p>
+ *   ...
+ *   <p><em>disclaimer</em></p>   ← ignore italic-only paragraphs
+ *
+ * The theme's tabs JS turns the H2 into a "FAQ" tab on desktop. This filter
+ * adds the structured-data layer Google needs for rich-results FAQ snippets.
+ */
+add_action( 'wp_head', 'gorvita_emit_faqpage_from_h2_pattern', 51 );
+function gorvita_emit_faqpage_from_h2_pattern() {
+    if ( ! is_singular( 'product' ) ) {
+        return;
+    }
+    $post = get_post();
+    if ( ! $post || empty( $post->post_content ) ) {
+        return;
+    }
+    if ( false === stripos( $post->post_content, '<h2>FAQ' ) && false === stripos( $post->post_content, '>FAQ</h2' ) ) {
+        return;
+    }
+
+    // Extract everything between <h2>FAQ...</h2> and the next <h2> (or end)
+    if ( ! preg_match( '#<h2[^>]*>\s*FAQ.*?</h2>(.*?)(?=<h2|\z)#is', $post->post_content, $m ) ) {
+        return;
+    }
+    $faq_block = $m[1];
+
+    $questions = array();
+    // Match <p><strong>Q?</strong><br>A</p> pattern (allow whitespace + closing-tag variations)
+    if ( preg_match_all( '#<p[^>]*>\s*<strong[^>]*>(.*?)</strong>\s*<br\s*/?>(.*?)</p>#is', $faq_block, $matches, PREG_SET_ORDER ) ) {
+        foreach ( $matches as $pair ) {
+            $q = trim( wp_strip_all_tags( $pair[1] ) );
+            $a = trim( wp_strip_all_tags( $pair[2] ) );
+            if ( $q && $a ) {
+                $questions[] = array(
+                    '@type'          => 'Question',
+                    'name'           => $q,
+                    'acceptedAnswer' => array(
+                        '@type' => 'Answer',
+                        'text'  => $a,
+                    ),
+                );
+            }
+        }
+    }
+
+    if ( empty( $questions ) ) {
+        return;
+    }
+
+    $schema = array(
+        '@context'   => 'https://schema.org',
+        '@type'      => 'FAQPage',
+        'mainEntity' => $questions,
+    );
+    echo "\n<script type=\"application/ld+json\">"
+        . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES )
+        . "</script>\n";
+}
+
+/**
  * E. Auto-emit FAQPage JSON-LD on pages that use Greenshift accordion as FAQ.
  *
  * /kontakt/ (and any future page with greenshift-blocks/accordion) renders
