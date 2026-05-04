@@ -55,7 +55,7 @@ function gorvita_localbusiness_schema() {
         'contactPoint' => array(
             '@type'             => 'ContactPoint',
             'telephone'         => '+48-18-332-41-81',
-            'email'             => 'sklep@gorvita.pl',
+            'email'             => 'sklep@gorvita.com.pl',
             'contactType'       => 'customer service',
             'availableLanguage' => array( 'Polish' ),
             'areaServed'        => 'PL',
@@ -203,6 +203,104 @@ function gorvita_add_offer_policies( $entity ) {
     }
 
     return $entity;
+}
+
+/**
+ * E. Auto-emit FAQPage JSON-LD on pages that use Greenshift accordion as FAQ.
+ *
+ * /kontakt/ (and any future page with greenshift-blocks/accordion) renders
+ * Q&A via the Greenshift accordion block, which doesn't emit FAQPage schema
+ * by itself. This walks the post's blocks, picks accordion items, and outputs
+ * the structured-data block in <head>.
+ *
+ * Active on: page templates that contain greenshift-blocks/accordion.
+ */
+add_action( 'wp_head', 'gorvita_emit_faqpage_from_accordion', 50 );
+function gorvita_emit_faqpage_from_accordion() {
+    if ( ! is_singular( 'page' ) ) {
+        return;
+    }
+    $post = get_post();
+    if ( ! $post || empty( $post->post_content ) ) {
+        return;
+    }
+    if ( false === strpos( $post->post_content, 'greenshift-blocks/accordion' ) ) {
+        return;
+    }
+
+    $blocks = parse_blocks( $post->post_content );
+    $questions = array();
+
+    $walk = function( $blocks ) use ( &$walk, &$questions ) {
+        foreach ( $blocks as $block ) {
+            if ( 'greenshift-blocks/accordionitem' === ( $block['blockName'] ?? '' ) ) {
+                $title = trim( $block['attrs']['title'] ?? '' );
+                // Answer comes from inner blocks (paragraph etc.), NOT innerHTML
+                // — innerHTML includes the question title heading on top.
+                $answer = '';
+                if ( ! empty( $block['innerBlocks'] ) ) {
+                    foreach ( $block['innerBlocks'] as $sub ) {
+                        $sub_html = $sub['innerHTML'] ?? '';
+                        if ( ! empty( $sub['innerBlocks'] ) ) {
+                            foreach ( $sub['innerBlocks'] as $sub2 ) {
+                                $sub_html .= ' ' . ( $sub2['innerHTML'] ?? '' );
+                            }
+                        }
+                        $answer .= ' ' . wp_strip_all_tags( $sub_html );
+                    }
+                }
+                $answer = trim( preg_replace( '/\s+/u', ' ', $answer ) );
+                if ( $title && $answer ) {
+                    $questions[] = array(
+                        '@type'          => 'Question',
+                        'name'           => $title,
+                        'acceptedAnswer' => array(
+                            '@type' => 'Answer',
+                            'text'  => $answer,
+                        ),
+                    );
+                }
+            }
+            if ( ! empty( $block['innerBlocks'] ) ) {
+                $walk( $block['innerBlocks'] );
+            }
+        }
+    };
+    $walk( $blocks );
+
+    if ( empty( $questions ) ) {
+        return;
+    }
+
+    $schema = array(
+        '@context'   => 'https://schema.org',
+        '@type'      => 'FAQPage',
+        'mainEntity' => $questions,
+    );
+    echo "\n<script type=\"application/ld+json\">"
+        . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES )
+        . "</script>\n";
+}
+
+/**
+ * F2. Force the title in Blocksy dynamic-data to render as <h1> on /kontakt/
+ * and other pages where the original markup uses h2. Light DOM-output filter.
+ */
+add_filter( 'render_block_blocksy/dynamic-data', 'gorvita_dynamic_data_h1_on_pages', 10, 2 );
+function gorvita_dynamic_data_h1_on_pages( $block_content, $block ) {
+    if ( ! is_singular( 'page' ) ) {
+        return $block_content;
+    }
+    $tag = $block['attrs']['tagName'] ?? '';
+    if ( 'h2' === $tag ) {
+        // Page hero — promote h2 to h1 for SEO (only one H1 allowed per page).
+        // We assume the block in the hero is the page title; if a page already
+        // has h1, this will create a duplicate, but Blocksy dynamic-data is
+        // usually only used once per template.
+        $block_content = preg_replace( '/<h2(\s|>)/', '<h1$1', $block_content, 1 );
+        $block_content = preg_replace( '/<\/h2>/', '</h1>', $block_content, 1 );
+    }
+    return $block_content;
 }
 
 /**
