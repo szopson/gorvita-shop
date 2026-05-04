@@ -13,6 +13,87 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * A. LocalBusiness JSON-LD on every page.
+ *
+ * GEO/local-search foundation for Gorvita. Type is HealthAndBeautyBusiness
+ * + Store (broad enough for both supplements + cosmetics, narrow enough for
+ * AI Overviews / Map Pack). Pharmacy was rejected — Gorvita is a producer,
+ * not a licensed apteka.
+ *
+ * Data confirmed by client 2026-05-04 (Paweł Domek). Email TBD — placeholder
+ * uses sklep@gorvita.pl pending confirmation. Social profiles also TBD.
+ */
+add_action( 'wp_head', 'gorvita_localbusiness_schema', 5 );
+function gorvita_localbusiness_schema() {
+    $schema = array(
+        '@context'      => 'https://schema.org',
+        '@type'         => array( 'HealthAndBeautyBusiness', 'Store' ),
+        '@id'           => home_url( '/#localbusiness' ),
+        'name'          => 'Gorvita',
+        'legalName'     => 'PPUH Gorvita Sp. z o.o.',
+        'alternateName' => 'Gorvita — manufaktura z Gorców',
+        'url'           => home_url( '/' ),
+        'description'   => 'Polska manufaktura naturalnych suplementów i kosmetyków ziołowych. Surowce z Gorców, woda lecznicza z Rabki w wybranych formułach. Tradycja od 1989, ISO 9001 + GMP.',
+        'foundingDate'  => '1989',
+        'founder'       => array(
+            '@type' => 'Person',
+            'name'  => 'mgr Paweł Domek',
+        ),
+        'address'       => array(
+            '@type'           => 'PostalAddress',
+            'streetAddress'   => 'Szczawa 106',
+            'postalCode'      => '34-607',
+            'addressLocality' => 'Szczawa',
+            'addressRegion'   => 'małopolskie',
+            'addressCountry'  => 'PL',
+        ),
+        'geo' => array(
+            '@type'     => 'GeoCoordinates',
+            'latitude'  => 49.6072597,
+            'longitude' => 20.2944911,
+        ),
+        'contactPoint' => array(
+            '@type'             => 'ContactPoint',
+            'telephone'         => '+48-18-332-41-81',
+            'email'             => 'sklep@gorvita.pl',
+            'contactType'       => 'customer service',
+            'availableLanguage' => array( 'Polish' ),
+            'areaServed'        => 'PL',
+        ),
+        'openingHoursSpecification' => array(
+            array(
+                '@type'     => 'OpeningHoursSpecification',
+                'dayOfWeek' => array( 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ),
+                'opens'     => '08:00',
+                'closes'    => '16:00',
+            ),
+        ),
+        'paymentAccepted' => 'PayU, Przelewy24, BLIK, karta płatnicza, przelew bankowy',
+        'currenciesAccepted' => 'PLN',
+        'award'  => array( 'ISO 9001', 'GMP — Good Manufacturing Practice' ),
+        'taxID'  => 'PL7370006441',
+        'vatID'  => 'PL7370006441',
+        'iso6523Code' => '0009:7370006441',
+        'identifier' => array(
+            array( '@type' => 'PropertyValue', 'name' => 'NIP',    'value' => '7370006441' ),
+            array( '@type' => 'PropertyValue', 'name' => 'REGON',  'value' => '490772290' ),
+        ),
+        'areaServed' => array( '@type' => 'Country', 'name' => 'Poland' ),
+        'knowsAbout' => array(
+            'ziołolecznictwo',
+            'suplementy diety',
+            'kosmetyki naturalne',
+            'Gorce',
+            'Beskidy Wyspowe',
+            'woda lecznicza z Rabki',
+        ),
+    );
+    echo "\n<script type=\"application/ld+json\">"
+        . wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE )
+        . "</script>\n";
+}
+
+/**
  * F. Block Article schema on pages and home.
  *
  * RankMath emits an Article node by default for every singular content type,
