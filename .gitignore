@@ -14,6 +14,11 @@ __pycache__/
 data/images/
 data/products.json
 data/categories.json
+data/webflow-cache/
+data/update-preview/
+data/webflow-mapping.json
+data/webflow-mapping-overrides.stub.json
+data/webflow-mapping-overrides.proposed.json
 backups/
 *.sql
 *.sql.gz
