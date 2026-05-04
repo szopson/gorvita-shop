@@ -206,6 +206,129 @@ function gorvita_add_offer_policies( $entity ) {
 }
 
 /**
+ * I. Append auto-generated FAQ to products that lack one.
+ *
+ * 94 products have rich Webflow descriptions but no FAQ section. This
+ * filter detects product type (supplement vs topical cosmetic vs Rabka-water
+ * formula) from post_content + title, generates 5 SEO+GEO-aware Q&A pairs,
+ * and injects them via [gorvita_faq] at end of content.
+ *
+ * Skipped when:
+ *  - Post already contains a <h2>FAQ section (legacy stub on 12 products)
+ *  - Post already contains [gorvita_faq] shortcode (manual override)
+ *
+ * The 5 questions are stable across products (consistent UX) but answers
+ * are tailored:
+ *   Q1: how does it work — pulls first sentence of description
+ *   Q2: ingredient origin — uses Gorce / Rabka split based on uses_rabka_water()
+ *   Q3: pregnancy safety — supplement vs topical wording
+ *   Q4: how long to use — supplement vs topical wording
+ *   Q5: brand differentiation — fixed GEO answer
+ */
+add_filter( 'the_content', 'gorvita_append_faq_to_products', 99 );
+function gorvita_append_faq_to_products( $content ) {
+    if ( ! is_singular( 'product' ) || ! is_main_query() || ! in_the_loop() ) {
+        return $content;
+    }
+    $post = get_post();
+    if ( ! $post ) {
+        return $content;
+    }
+    // Don't double-inject — skip if FAQ already exists
+    if ( false !== stripos( $post->post_content, '<h2>FAQ' )
+         || false !== stripos( $post->post_content, 'FAQ</h2>' )
+         || false !== strpos( $post->post_content, '[gorvita_faq' ) ) {
+        return $content;
+    }
+
+    $title = $post->post_title;
+    $body  = $post->post_content;
+
+    // Mirror the Python WATER_KEYWORDS list from update-seo-meta.py so the FAQ
+    // GEO answer stays in sync with the product's RankMath title/description.
+    $water_keywords = array(
+        'woda lecznicza', 'wody leczniczej', 'wodzie leczniczej',
+        'woda mineralna', 'wody mineralnej', 'mineralna z',
+        'fizjologiczny roztwór', 'hydrochlorowo', 'wodorowęglanowo',
+        'z Rabki', 'z rabki', 'kwaśna woda',
+    );
+    $is_water = false;
+    foreach ( $water_keywords as $kw ) {
+        if ( false !== mb_stripos( $body, $kw ) ) {
+            $is_water = true;
+            break;
+        }
+    }
+
+    // Detect form: supplement (kapsułki/tabletki) vs topical (żel/maść/balsam/krem/pianka/spray)
+    $title_lc = mb_strtolower( $title, 'UTF-8' );
+    $is_topical = (bool) preg_match( '/(żel|maść|balsam|krem|pianka|spray|olejek|syrop|krople)/u', $title_lc );
+    $is_supplement = (bool) preg_match( '/(kapsuł|tabletek|tab\.|gram|w proszku)/u', $title_lc );
+    if ( ! $is_topical && ! $is_supplement ) {
+        // Default: treat suplement-like generic
+        $is_supplement = true;
+    }
+
+    // Q1 base: pull the LEAD paragraph (before any <h2>) — that's the
+    // marketing-tier "what is this product" copy. Anything after first <h2>
+    // is "Sposób użycia" / "Skład" etc. which would mislead Q1.
+    $intro = '';
+    $intro_block = preg_split( '/<h[1-6][^>]*>/i', $body, 2 )[0];
+    $intro_text = trim( strip_tags( $intro_block ) );
+    $intro_text = preg_replace( '/^Opis produktu:?\s*/i', '', $intro_text );
+    $intro_text = preg_replace( '/\s+/u', ' ', $intro_text );
+    if ( preg_match( '/^[^.!?]{20,250}[.!?]/u', $intro_text, $m ) ) {
+        $intro = trim( $m[0] );
+    } elseif ( $intro_text ) {
+        $intro = mb_substr( $intro_text, 0, 220 );
+    }
+
+    $geo_origin = $is_water
+        ? 'Zioła pochodzą z Gorców (Beskid Wyspowy), a baza formuły zawiera leczniczą wodę mineralną z Rabki-Zdroju.'
+        : 'Surowce roślinne pochodzą z Gorców i z certyfikowanych upraw ekologicznych w Małopolsce i na Podkarpaciu.';
+
+    if ( $is_topical ) {
+        $q3 = "Czy {$title} mogę stosować w ciąży lub w okresie karmienia?";
+        $a3 = "Produkt do stosowania zewnętrznego — wchłanianie składników przez skórę jest minimalne. W przypadku wątpliwości lub stosowania na duże powierzchnie skóry skonsultuj się z lekarzem prowadzącym.";
+        $q4 = "Jak długo można stosować {$title}?";
+        $a4 = "Produkt można stosować codziennie tak długo, jak utrzymują się objawy lub potrzeba pielęgnacji. PAO (okres po otwarciu) jest oznaczony na opakowaniu — przechowuj w temperaturze 5–25 °C.";
+    } else {
+        $q3 = "Czy {$title} mogę stosować w ciąży lub w okresie karmienia?";
+        $a3 = "Suplementy diety w ciąży i okresie karmienia warto skonsultować z lekarzem prowadzącym lub farmaceutą. Skład i dawkowanie znajdziesz na opakowaniu.";
+        $q4 = "Jak długo stosować {$title}?";
+        $a4 = "Produkt można stosować codziennie zgodnie z zalecaną porcją na opakowaniu. Suplement diety nie zastępuje zróżnicowanej diety i zdrowego trybu życia.";
+    }
+
+    $q1 = "Jak działa {$title}?";
+    $a1 = $intro ? $intro : "Produkt {$title} marki Gorvita opracowany na bazie polskich ziół i naturalnych składników.";
+
+    $q2 = "Skąd pochodzą składniki w {$title}?";
+    $a2 = $geo_origin . " Produkujemy w Szczawie (woj. małopolskie), zgodnie z normą ISO 9001 i standardem GMP. Każda partia jest badana, a numer serii jest drukowany na opakowaniu.";
+
+    $q5 = "Czym Gorvita różni się od innych marek ziołowych?";
+    $a5 = "Gorvita to polska, rodzinna manufaktura założona w 1989 roku. Produkujemy bezpośrednio u źródła surowca — w Gorcach, w Szczawie 106. 37 lat ciągłości jednego producenta, certyfikaty ISO 9001 i GMP, pełna identyfikowalność od działki zbioru ziół do numeru serii.";
+
+    $items = array(
+        array( 'q' => $q1, 'a' => $a1 ),
+        array( 'q' => $q2, 'a' => $a2 ),
+        array( 'q' => $q3, 'a' => $a3 ),
+        array( 'q' => $q4, 'a' => $a4 ),
+        array( 'q' => $q5, 'a' => $a5 ),
+    );
+
+    // Build the shortcode body — escape quotes inside answers
+    $rows = array();
+    foreach ( $items as $it ) {
+        $q = str_replace( '"', "'", $it['q'] );
+        $a = str_replace( '"', "'", $it['a'] );
+        $rows[] = '{ "q": "' . $q . '", "a": "' . $a . '" }';
+    }
+    $shortcode = '[gorvita_faq]' . "\n" . implode( ",\n", $rows ) . "\n[/gorvita_faq]";
+
+    return $content . "\n\n" . do_shortcode( $shortcode );
+}
+
+/**
  * H. Append GEO-rich FAQ to /o-marce/ via the_content filter.
  *
  * Renders a visible FAQ section + FAQPage JSON-LD via the existing
