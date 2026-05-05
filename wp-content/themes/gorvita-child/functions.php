@@ -155,6 +155,104 @@ window.dataLayer.push(<?php echo wp_json_encode( $payload ); ?>);
 }
 add_action( 'woocommerce_thankyou', 'gorvita_dl_purchase', 10, 1 );
 
+/**
+ * Polish NIP validation for B2BKing registration.
+ * The VAT field is a B2BKing custom field (post_type=b2bking_custom_field);
+ * its ID lives in option `b2bking_vat_initial_field_id_setting` and B2BKing
+ * reads it from $_POST as `field_<id>` (see plugin class-b2bking-public.php).
+ * We only validate when a 10-digit value is entered, so non-PL VAT formats
+ * (DE/IT/etc.) submitted into the same field still pass through B2BKing's
+ * native VIES check.
+ */
+function gorvita_format_nip( $value ) {
+    $digits = preg_replace( '/[^0-9]/', '', (string) $value );
+    if ( strlen( $digits ) !== 10 ) {
+        return (string) $value;
+    }
+    return substr( $digits, 0, 3 ) . '-' . substr( $digits, 3, 3 ) . '-' . substr( $digits, 6, 2 ) . '-' . substr( $digits, 8, 2 );
+}
+
+function gorvita_is_valid_polish_nip( $value ) {
+    $nip = preg_replace( '/[^0-9]/', '', (string) $value );
+    if ( strlen( $nip ) !== 10 ) {
+        return false;
+    }
+    $weights = [ 6, 5, 7, 2, 3, 4, 5, 6, 7 ];
+    $sum     = 0;
+    for ( $i = 0; $i < 9; $i++ ) {
+        $sum += (int) $nip[ $i ] * $weights[ $i ];
+    }
+    $check = $sum % 11;
+    return ( $check !== 10 && $check === (int) $nip[9] );
+}
+
+function gorvita_validate_polish_nip( $errors, $username = '', $email = '' ) {
+    $vat_field_id = (int) get_option( 'b2bking_vat_initial_field_id_setting' );
+    if ( ! $vat_field_id ) {
+        return $errors;
+    }
+    $post_key = 'field_' . $vat_field_id;
+    if ( empty( $_POST[ $post_key ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        return $errors;
+    }
+    $raw    = sanitize_text_field( wp_unslash( $_POST[ $post_key ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+    $digits = preg_replace( '/[^0-9]/', '', $raw );
+
+    // Only enforce mod-11 for exactly 10 digits (Polish NIP shape).
+    // Other-country VAT numbers (different lengths) skip this check.
+    if ( strlen( $digits ) !== 10 ) {
+        return $errors;
+    }
+    if ( ! gorvita_is_valid_polish_nip( $digits ) ) {
+        if ( is_wp_error( $errors ) ) {
+            $errors->add(
+                'gorvita_invalid_nip',
+                '<strong>Błąd:</strong> Podany numer NIP jest nieprawidłowy. Sprawdź czy wpisałeś poprawny 10-cyfrowy NIP.'
+            );
+        }
+    }
+    return $errors;
+}
+add_filter( 'woocommerce_process_registration_errors', 'gorvita_validate_polish_nip', 20, 3 );
+add_filter( 'woocommerce_registration_errors', 'gorvita_validate_polish_nip', 20, 3 );
+
+/**
+ * Show formatted NIP (XXX-XXX-XX-XX) on the admin user-edit screen.
+ * Display only — the raw value in user_meta stays untouched.
+ */
+function gorvita_admin_show_formatted_nip( $user ) {
+    if ( ! current_user_can( 'edit_users' ) ) {
+        return;
+    }
+    $vat_field_id = (int) get_option( 'b2bking_vat_initial_field_id_setting' );
+    if ( ! $vat_field_id ) {
+        return;
+    }
+    $meta_key = apply_filters( 'b2bking_custom_field_meta', 'b2bking_custom_field_' . $vat_field_id );
+    $raw      = get_user_meta( $user->ID, $meta_key, true );
+    if ( empty( $raw ) ) {
+        return;
+    }
+    $formatted = gorvita_format_nip( $raw );
+    if ( $formatted === (string) $raw ) {
+        return;
+    }
+    ?>
+    <h3>NIP (formatted preview)</h3>
+    <table class="form-table">
+        <tr>
+            <th><label>Sformatowany NIP</label></th>
+            <td>
+                <code style="font-size:14px;"><?php echo esc_html( $formatted ); ?></code>
+                <p class="description">Tylko podgląd. Wartość w bazie: <code><?php echo esc_html( $raw ); ?></code></p>
+            </td>
+        </tr>
+    </table>
+    <?php
+}
+add_action( 'show_user_profile', 'gorvita_admin_show_formatted_nip' );
+add_action( 'edit_user_profile', 'gorvita_admin_show_formatted_nip' );
+
 function gorvita_theme_setup() {
     add_theme_support( 'woocommerce' );
     add_theme_support( 'wc-product-gallery-zoom' );
