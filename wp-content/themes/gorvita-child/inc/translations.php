@@ -13,7 +13,7 @@ add_filter('ngettext', 'gorvita_polish_strings_plural', 20, 5);
 
 function gorvita_polish_strings(string $translated, string $original, string $domain): string {
     // Only override WooCommerce + default WP domains
-    if (!in_array($domain, ['woocommerce', 'default', 'blocksy'], true)) {
+    if (!in_array($domain, ['woocommerce', 'default', 'blocksy', 'b2bking'], true)) {
         return $translated;
     }
 

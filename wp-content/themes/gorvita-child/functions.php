@@ -186,29 +186,61 @@ function gorvita_is_valid_polish_nip( $value ) {
     return ( $check !== 10 && $check === (int) $nip[9] );
 }
 
-function gorvita_validate_polish_nip( $errors, $username = '', $email = '' ) {
-    $vat_field_id = (int) get_option( 'b2bking_vat_initial_field_id_setting' );
-    if ( ! $vat_field_id ) {
-        return $errors;
+function gorvita_get_nip_field_ids() {
+    static $ids = null;
+    if ( $ids !== null ) {
+        return $ids;
     }
-    $post_key = 'field_' . $vat_field_id;
-    if ( empty( $_POST[ $post_key ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-        return $errors;
+    $ids = [];
+    // Primary: B2BKing's "VAT" field (settings-mapped) is most reliable when
+    // a Polish NIP is entered into a single multi-country VAT field.
+    $vat_id = (int) get_option( 'b2bking_vat_initial_field_id_setting' );
+    if ( $vat_id ) {
+        $ids[] = $vat_id;
     }
-    $raw    = sanitize_text_field( wp_unslash( $_POST[ $post_key ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
-    $digits = preg_replace( '/[^0-9]/', '', $raw );
+    // Also include any B2BKing custom fields explicitly named/slugged "nip"
+    // or mapped to "NIP" (covers extra B2B-only registration fields).
+    $extras = get_posts( [
+        'post_type'      => 'b2bking_custom_field',
+        'post_status'    => 'publish',
+        'posts_per_page' => 50,
+        'fields'         => 'ids',
+        'name'           => 'nip',
+    ] );
+    foreach ( $extras as $eid ) {
+        if ( ! in_array( $eid, $ids, true ) ) {
+            $ids[] = (int) $eid;
+        }
+    }
+    return $ids;
+}
 
-    // Only enforce mod-11 for exactly 10 digits (Polish NIP shape).
-    // Other-country VAT numbers (different lengths) skip this check.
-    if ( strlen( $digits ) !== 10 ) {
+function gorvita_validate_polish_nip( $errors, $username = '', $email = '' ) {
+    $field_ids = gorvita_get_nip_field_ids();
+    if ( empty( $field_ids ) ) {
         return $errors;
     }
-    if ( ! gorvita_is_valid_polish_nip( $digits ) ) {
-        if ( is_wp_error( $errors ) ) {
+    foreach ( $field_ids as $fid ) {
+        // B2BKing reads custom fields from POST as `field_<id>` during registration
+        // (see plugin class-b2bking-public.php:12193).
+        $post_key = 'field_' . $fid;
+        if ( empty( $_POST[ $post_key ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+            continue;
+        }
+        $raw    = sanitize_text_field( wp_unslash( $_POST[ $post_key ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        $digits = preg_replace( '/[^0-9]/', '', $raw );
+
+        // Only enforce mod-11 for exactly 10 digits (Polish NIP shape).
+        // Other-country VAT numbers (different lengths) skip this check.
+        if ( strlen( $digits ) !== 10 ) {
+            continue;
+        }
+        if ( ! gorvita_is_valid_polish_nip( $digits ) && is_wp_error( $errors ) ) {
             $errors->add(
                 'gorvita_invalid_nip',
                 '<strong>Błąd:</strong> Podany numer NIP jest nieprawidłowy. Sprawdź czy wpisałeś poprawny 10-cyfrowy NIP.'
             );
+            return $errors; // fail fast — one error per submission is enough
         }
     }
     return $errors;
@@ -224,29 +256,34 @@ function gorvita_admin_show_formatted_nip( $user ) {
     if ( ! current_user_can( 'edit_users' ) ) {
         return;
     }
-    $vat_field_id = (int) get_option( 'b2bking_vat_initial_field_id_setting' );
-    if ( ! $vat_field_id ) {
-        return;
+    $rows = [];
+    foreach ( gorvita_get_nip_field_ids() as $fid ) {
+        $meta_key = apply_filters( 'b2bking_custom_field_meta', 'b2bking_custom_field_' . $fid );
+        $raw      = get_user_meta( $user->ID, $meta_key, true );
+        if ( empty( $raw ) ) {
+            continue;
+        }
+        $formatted = gorvita_format_nip( $raw );
+        if ( $formatted === (string) $raw ) {
+            continue;
+        }
+        $rows[] = [ 'fid' => $fid, 'raw' => $raw, 'fmt' => $formatted ];
     }
-    $meta_key = apply_filters( 'b2bking_custom_field_meta', 'b2bking_custom_field_' . $vat_field_id );
-    $raw      = get_user_meta( $user->ID, $meta_key, true );
-    if ( empty( $raw ) ) {
-        return;
-    }
-    $formatted = gorvita_format_nip( $raw );
-    if ( $formatted === (string) $raw ) {
+    if ( empty( $rows ) ) {
         return;
     }
     ?>
-    <h3>NIP (formatted preview)</h3>
+    <h3>NIP (sformatowany podgląd)</h3>
     <table class="form-table">
+        <?php foreach ( $rows as $r ) : ?>
         <tr>
-            <th><label>Sformatowany NIP</label></th>
+            <th><label>Sformatowany NIP (pole #<?php echo (int) $r['fid']; ?>)</label></th>
             <td>
-                <code style="font-size:14px;"><?php echo esc_html( $formatted ); ?></code>
-                <p class="description">Tylko podgląd. Wartość w bazie: <code><?php echo esc_html( $raw ); ?></code></p>
+                <code style="font-size:14px;"><?php echo esc_html( $r['fmt'] ); ?></code>
+                <p class="description">Tylko podgląd. Wartość w bazie: <code><?php echo esc_html( $r['raw'] ); ?></code></p>
             </td>
         </tr>
+        <?php endforeach; ?>
     </table>
     <?php
 }
