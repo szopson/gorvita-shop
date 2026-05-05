@@ -19,6 +19,142 @@ function gorvita_preload_hero() {
 }
 add_action( 'wp_head', 'gorvita_preload_hero', 1 );
 
+/**
+ * Google Tag Manager — container GTM-W9L2RVMZ.
+ * GA4 measurement ID G-929B3GEFXW is configured inside the container.
+ */
+define( 'GORVITA_GTM_ID', 'GTM-W9L2RVMZ' );
+
+function gorvita_gtm_head() {
+    ?>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','<?php echo esc_js( GORVITA_GTM_ID ); ?>');</script>
+<!-- End Google Tag Manager -->
+    <?php
+}
+add_action( 'wp_head', 'gorvita_gtm_head', 2 );
+
+function gorvita_gtm_body() {
+    ?>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo esc_attr( GORVITA_GTM_ID ); ?>"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <?php
+}
+add_action( 'wp_body_open', 'gorvita_gtm_body' );
+
+function gorvita_dl_view_item() {
+    if ( ! function_exists( 'is_product' ) || ! is_product() ) {
+        return;
+    }
+    global $product;
+    if ( ! $product instanceof WC_Product ) {
+        $product = wc_get_product( get_the_ID() );
+    }
+    if ( ! $product ) {
+        return;
+    }
+    $cats     = wp_get_post_terms( $product->get_id(), 'product_cat', [ 'fields' => 'names' ] );
+    $category = ( is_array( $cats ) && ! empty( $cats ) ) ? $cats[0] : '';
+    ?>
+<script>
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({ ecommerce: null });
+window.dataLayer.push({
+  event: 'view_item',
+  ecommerce: {
+    currency: '<?php echo esc_js( get_woocommerce_currency() ); ?>',
+    value: <?php echo (float) $product->get_price(); ?>,
+    items: [{
+      item_id: '<?php echo esc_js( $product->get_sku() ?: $product->get_id() ); ?>',
+      item_name: <?php echo wp_json_encode( $product->get_name() ); ?>,
+      price: <?php echo (float) $product->get_price(); ?>,
+      item_category: <?php echo wp_json_encode( $category ); ?>,
+      quantity: 1
+    }]
+  }
+});
+</script>
+    <?php
+}
+add_action( 'wp_footer', 'gorvita_dl_view_item' );
+
+function gorvita_dl_add_to_cart_listener() {
+    if ( ! function_exists( 'is_woocommerce' ) ) {
+        return;
+    }
+    ?>
+<script>
+(function(){
+  if (typeof jQuery === 'undefined') return;
+  jQuery(document.body).on('added_to_cart', function(e, fragments, cart_hash, $button){
+    if (!$button || !$button.length) return;
+    var productId = $button.data('product_id');
+    var qty = parseInt($button.data('quantity'), 10) || 1;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ ecommerce: null });
+    window.dataLayer.push({
+      event: 'add_to_cart',
+      ecommerce: {
+        items: [{ item_id: String(productId), quantity: qty }]
+      }
+    });
+  });
+})();
+</script>
+    <?php
+}
+add_action( 'wp_footer', 'gorvita_dl_add_to_cart_listener' );
+
+function gorvita_dl_purchase( $order_id ) {
+    if ( ! $order_id ) {
+        return;
+    }
+    $order = wc_get_order( $order_id );
+    if ( ! $order ) {
+        return;
+    }
+
+    $items = [];
+    foreach ( $order->get_items() as $item ) {
+        $product = $item->get_product();
+        if ( ! $product ) {
+            continue;
+        }
+        $items[] = [
+            'item_id'   => $product->get_sku() ?: $product->get_id(),
+            'item_name' => $item->get_name(),
+            'price'     => (float) $order->get_item_total( $item, false, false ),
+            'quantity'  => (int) $item->get_quantity(),
+        ];
+    }
+
+    $payload = [
+        'event'     => 'purchase',
+        'ecommerce' => [
+            'transaction_id' => (string) $order->get_id(),
+            'value'          => (float) $order->get_total(),
+            'tax'            => (float) $order->get_total_tax(),
+            'shipping'       => (float) $order->get_shipping_total(),
+            'currency'       => $order->get_currency(),
+            'items'          => $items,
+        ],
+    ];
+    ?>
+<script>
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({ ecommerce: null });
+window.dataLayer.push(<?php echo wp_json_encode( $payload ); ?>);
+</script>
+    <?php
+}
+add_action( 'woocommerce_thankyou', 'gorvita_dl_purchase', 10, 1 );
+
 function gorvita_theme_setup() {
     add_theme_support( 'woocommerce' );
     add_theme_support( 'wc-product-gallery-zoom' );
