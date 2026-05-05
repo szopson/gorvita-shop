@@ -172,6 +172,9 @@ function gorvita_polish_strings(string $translated, string $original, string $do
             'Current password (leave blank to leave unchanged)' => 'Aktualne hasło (pozostaw puste, by nie zmieniać)',
             'New password (leave blank to leave unchanged)'     => 'Nowe hasło',
             'Confirm new password'                   => 'Potwierdź nowe hasło',
+            'A link to set a new password will be sent to your email address.' => 'Link do ustawienia nowego hasła zostanie wysłany na Twój adres e-mail.',
+            'Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our %s.' => 'Twoje dane osobowe będą wykorzystane do obsługi konta, realizacji zamówień oraz w celach opisanych w %s.',
+            'privacy policy'                         => 'polityce prywatności',
 
             // ── Search ─────────────────────────────────────────────────────
             'Search'                                 => 'Szukaj',
