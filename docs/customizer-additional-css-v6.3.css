@@ -1,21 +1,22 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.5
+   GORVITA PREMIUM CSS — v6.6
    ----------------------------------------------------------------------------
-   v6.5 deltas vs v6.4:
-     - Page 8 (Zamówienie) reverted from wp:woocommerce/checkout block back to
-       [woocommerce_checkout] shortcode (Przelewy24/PayU compatibility). Cart
-       page 7 stays as wp:woocommerce/cart block.
-     - Restored .woocommerce-checkout {input[type=…],label,form.checkout,
-       #customer_details,#order_review,h3} rules that classic checkout needs.
-       Safe because page 8 is now classic exclusively (body.woocommerce-checkout
-       no longer co-occurs with .wc-block-checkout markup).
-   v6.4 deltas vs v6.3 (kept):
-     - Sidebar card chrome scoped to outer .wc-block-checkout__sidebar /
-       .wc-block-cart__sidebar only — applies to the cart page sidebar.
-     - InPost shipping icon styling (inert on classic checkout markup, kept
-       for future cart-block shipping calculator).
-     - Block input padding-top 22→26px + label line-height 1.1 — applies to
-       any remaining wc-block-components-text-input (cart page coupon, etc.).
+   v6.6 deltas vs v6.5:
+     - Removed CLASSIC CHECKOUT FALLBACK section that bb43b6e (2026-05-01)
+       added and 2f7d59e (today) restored. Specifically dropped:
+         .woocommerce-checkout form.checkout { display: grid; cols 1fr 380px }
+         .woocommerce-checkout #customer_details, #order_review { card chrome }
+         .woocommerce-checkout #order_review { sticky 100px }
+         .woocommerce-checkout h3 { Cormorant serif }
+         .woocommerce-checkout label { 11px UPPERCASE tracking }
+       User reported this made /zamowienie/ look "fatalnie" vs the lighter
+       Blocksy default on the 2026-04-29 presentation (v6.2 baseline).
+       The minimal `.woocommerce-checkout input[type=…]` border/padding rule
+       is kept — that was already in v6.2.
+   v6.5 deltas (kept): page 8 → [woocommerce_checkout] shortcode.
+   v6.4 deltas (kept):
+     - Sidebar card chrome scoped to outer .wc-block-cart__sidebar (cart page).
+     - InPost icon, block-input padding 26 + label line-height 1.1 (cart page).
    ----------------------------------------------------------------------------
    Where this lives at runtime:
      WP Admin → Wygląd → Dostosuj → Dodatkowy CSS
@@ -730,36 +731,16 @@ button.wc-block-components-checkout-place-order-button {
 }
 .return-to-shop a.button.wc-backward::after { content: " →"; opacity: 0.8; }
 
-/* === CLASSIC CHECKOUT (page 8 uses [woocommerce_checkout] shortcode) ===
-   Restored in v6.5 after page 8 was switched back from wc-block-checkout to classic
-   shortcode (Przelewy24/PayU compatibility). Cart page 7 stays as wp:woocommerce/cart
-   block — these `.woocommerce-checkout` selectors don't match cart's `body.woocommerce-cart`. */
-.woocommerce-checkout form.checkout {
-  display: grid !important;
-  grid-template-columns: 1fr 380px !important;
-  gap: 32px !important;
-  align-items: start !important;
-}
-.woocommerce-checkout #customer_details, .woocommerce-checkout #order_review {
-  background: #ffffff !important;
-  border: 1px solid var(--gor-border) !important;
-  border-radius: var(--gor-r-lg) !important;
-  padding: 28px 32px !important;
-  box-shadow: var(--gor-shadow-sm) !important;
-}
-.woocommerce-checkout #order_review { position: sticky !important; top: 100px !important; }
-.woocommerce-checkout h3 {
-  font-family: 'Cormorant Garamond', serif !important;
-  font-weight: 400 !important;
-  font-size: 1.5rem !important;
-  letter-spacing: -0.01em !important;
-  margin: 0 0 16px !important;
-}
-.woocommerce-checkout label { font-size: 11px !important; font-weight: 500 !important; letter-spacing: 0.04em !important; text-transform: uppercase !important; color: var(--gor-text-muted) !important; margin-bottom: 4px !important; display: block !important; }
+/* Classic checkout fallback section removed in v6.6 — let Blocksy default
+   render page 8 ([woocommerce_checkout] shortcode). The grid layout, card
+   chrome on #customer_details/#order_review, sticky right column, serif h3,
+   uppercase tracked labels (added in bb43b6e on 2026-05-01) made checkout
+   look heavier than the cleaner Blocksy default that user remembered from
+   the 2026-04-29 presentation. Minimal input border/padding rule on
+   `.woocommerce-checkout input[type=...]` (above) is kept — that part was
+   already in v6.2 and looks fine. */
 
 @media (max-width: 900px) {
-  .woocommerce-checkout form.checkout { grid-template-columns: 1fr !important; }
-  .woocommerce-checkout #order_review { position: relative !important; top: 0 !important; }
   .wc-block-components-sidebar, .wc-block-checkout__sidebar, .wc-block-cart__sidebar { position: relative !important; top: 0 !important; }
 }
 
