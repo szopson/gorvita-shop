@@ -101,6 +101,13 @@ docker compose exec wordpress wp cache flush --allow-root
   - Slug `woo-wish-list` → `lista-zyczen` (filter `blocksy:pro:woocommerce-extra:wish-list:slug`)
   - Wszystkie warianty URL → 301 do canonical `/moje-konto/lista-zyczen/`
   - Hotfix DB: `woocommerce_myaccount_page_id` 10 → 9 (page 10 nie istniała, generowała relatywne URL-e wishlist linkujące do bieżącej strony)
+- **Hotfix DB: `woocommerce_cart_page_id` 980 → 7** (page 980 nie istniała, `wc_get_cart_url()` spadało do `home_url('/')`, więc mini-cart „Zobacz koszyk" prowadził na stronę główną zamiast `/koszyk/`)
+- **Block Checkout CSS v6.4** (Customizer post 260, źródło `docs/customizer-additional-css-v6.3.css`):
+  - usunięte legacy classic-checkout reguły (`.woocommerce-checkout input[…]`, `.woocommerce-checkout label`, `.woocommerce-checkout form.checkout/h3/#order_review`) które przez wyższą specyficzność (0,1,1) biły reguły block-component (0,1,0) — `body.woocommerce-checkout` jest klasą wspólną dla classic i block, więc legacy rules niespodziewanie obejmowały też Block Checkout
+  - sidebar card chrome zawężony tylko do `.wc-block-checkout__sidebar` / `.wc-block-cart__sidebar`; wewnętrzne `.wc-block-components-totals-wrapper` (subtotal/discount/fee/shipping rows) odzyskały zwykłe wiersze flex zamiast każdy-jako-kafelek
+  - InPost icon (białe logo) wyrównane inline w radio `__label-group`, na ciemnym pillu 22px
+  - block-input padding-top podbity 22→26px + label `line-height: 1.1` → ~7px clearance dla floating label
+  - **Backupy block-content stron 7+8** w `.claude/backups/page-{7,8}-koszyk/zamowienie-2026-05-06.html` (use case: rollback po reimporcie starter site)
 
 ### 🔧 Do zrobienia — priorytety
 1. **[POST-DEPLOY]** Wkleić aktualną zawartość `docs/customizer-additional-css-v6.3.css` do WP Admin → Wygląd → Dostosuj → Dodatkowy CSS — bez tego CSS fixy z Customizer nie zadziałają.

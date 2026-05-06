@@ -1,5 +1,15 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.3
+   GORVITA PREMIUM CSS — v6.4
+   ----------------------------------------------------------------------------
+   v6.4 deltas vs v6.3:
+     - Block Checkout fixes: removed legacy classic-checkout rules
+       (.woocommerce-checkout input/label/form/h3) that beat block-component
+       rules on specificity and broke padding, label flow, and radio-option
+       flex layout on the modern wp:woocommerce/checkout block.
+     - Sidebar card chrome scoped to outer .wc-block-checkout__sidebar /
+       .wc-block-cart__sidebar only — inner .wc-block-components-totals-wrapper
+       rows no longer render as boxed cards.
+     - InPost shipping logo aligned inline within the radio label.
    ----------------------------------------------------------------------------
    Where this lives at runtime:
      WP Admin → Wygląd → Dostosuj → Dodatkowy CSS
@@ -232,10 +242,6 @@ button.ct-wishlist-button-archive.ct-button::before, button.ct-compare-button-ar
 .woocommerce ul.products li.product-category { background: var(--gor-cream-card) !important; border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-lg) !important; box-shadow: var(--gor-shadow-sm) !important; transition: transform 0.2s ease, box-shadow 0.2s ease !important; overflow: hidden !important; }
 .woocommerce ul.products li.product-category:hover { transform: translateY(-4px) !important; box-shadow: var(--gor-shadow-md) !important; }
 
-/* CHECKOUT */
-.woocommerce-checkout input[type="text"],.woocommerce-checkout input[type="email"],.woocommerce-checkout input[type="tel"],.woocommerce-checkout select,.woocommerce-checkout textarea { border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-sm) !important; padding: 10px 14px !important; font-size: 14px !important; background: #fff !important; transition: border-color 0.18s ease, box-shadow 0.18s ease !important; }
-.woocommerce-checkout input:focus,.woocommerce-checkout select:focus,.woocommerce-checkout textarea:focus { border-color: var(--gor-green) !important; box-shadow: 0 0 0 3px var(--gor-focus) !important; outline: none !important; }
-
 /* SORTING */
 .woocommerce-ordering .orderby, .ct-woo-ordering select, select.orderby { border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-sm) !important; padding: 8px 14px !important; font-size: 13px !important; color: var(--gor-text-body) !important; background: #fff !important; cursor: pointer !important; transition: border-color 0.18s ease !important; appearance: auto !important; }
 .woocommerce-ordering .orderby:focus, select.orderby:focus { border-color: var(--gor-green) !important; outline: none !important; box-shadow: 0 0 0 3px var(--gor-focus) !important; }
@@ -440,7 +446,7 @@ body.woocommerce-cart .ct-container, body.woocommerce-checkout .ct-container { p
   background: #ffffff !important;
   border: 1px solid var(--gor-border) !important;
   border-radius: var(--gor-r-sm) !important;
-  padding: 22px 14px 8px !important;
+  padding: 26px 14px 8px !important;
   font-family: 'Inter', sans-serif !important;
   font-size: 14px !important;
   color: var(--gor-text) !important;
@@ -462,6 +468,7 @@ body.woocommerce-cart .ct-container, body.woocommerce-checkout .ct-container { p
   top: 7px !important;
   left: 14px !important;
   font-size: 11px !important;
+  line-height: 1.1 !important;
   font-weight: 500 !important;
   letter-spacing: 0.04em !important;
   color: var(--gor-text-muted) !important;
@@ -535,10 +542,13 @@ body.woocommerce-cart .ct-container, body.woocommerce-checkout .ct-container { p
 }
 .wc-block-checkout, form.wc-block-checkout, .wc-block-components-checkout-place-order-button { counter-reset: step-number !important; }
 
-/* === WC BLOCKS — ORDER SUMMARY (right column, sticky) === */
-.wc-block-components-totals-wrapper,
-.wc-block-components-sidebar,
-.wc-block-checkout__sidebar {
+/* === WC BLOCKS — ORDER SUMMARY (right column, sticky) ===
+   Card chrome lives ONLY on the outer sidebar element. In modern WC,
+   .wc-block-components-totals-wrapper is also applied to every inner row
+   (subtotal/discount/fee/shipping), so styling that class as a card causes
+   each row to render as its own boxed card. */
+.wc-block-checkout__sidebar,
+.wc-block-cart__sidebar {
   background: #ffffff !important;
   border: 1px solid var(--gor-border) !important;
   border-radius: var(--gor-r-lg) !important;
@@ -546,6 +556,16 @@ body.woocommerce-cart .ct-container, body.woocommerce-checkout .ct-container { p
   box-shadow: var(--gor-shadow-sm) !important;
   position: sticky !important;
   top: 100px !important;
+}
+/* Inner totals-wrappers (rows) — strip any card chrome that leaked from earlier rules. */
+.wc-block-checkout__sidebar .wc-block-components-totals-wrapper,
+.wc-block-cart__sidebar .wc-block-components-totals-wrapper {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  position: static !important;
 }
 .wc-block-components-totals-item {
   display: flex !important;
@@ -630,6 +650,27 @@ body.woocommerce-cart .ct-container, body.woocommerce-checkout .ct-container { p
   margin-top: 4px !important;
 }
 
+/* InPost shipping logo (plugin injects an inline-styled <img> inside the radio label) */
+.wc-block-components-radio-control__option .inpost_pl-block-shipping-method-meta-wrap {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin-left: 10px !important;
+  vertical-align: middle !important;
+}
+.wc-block-components-radio-control__option .inpost_pl_method_logo {
+  display: inline-flex !important;
+  align-items: center !important;
+}
+.wc-block-components-radio-control__option .inpost_pl_method_logo img.inpost_icon {
+  display: inline-block !important;
+  height: 22px !important;
+  width: auto !important;
+  vertical-align: middle !important;
+  background: var(--gor-text) !important;
+  padding: 3px 6px !important;
+  border-radius: 3px !important;
+}
+
 /* Shipping option rates */
 .wc-block-components-shipping-rates-control__package { background: transparent !important; }
 
@@ -679,34 +720,12 @@ button.wc-block-components-checkout-place-order-button {
 }
 .return-to-shop a.button.wc-backward::after { content: " →"; opacity: 0.8; }
 
-/* === CLASSIC CHECKOUT FALLBACK === */
-.woocommerce-checkout form.checkout {
-  display: grid !important;
-  grid-template-columns: 1fr 380px !important;
-  gap: 32px !important;
-  align-items: start !important;
-}
-.woocommerce-checkout #customer_details, .woocommerce-checkout #order_review {
-  background: #ffffff !important;
-  border: 1px solid var(--gor-border) !important;
-  border-radius: var(--gor-r-lg) !important;
-  padding: 28px 32px !important;
-  box-shadow: var(--gor-shadow-sm) !important;
-}
-.woocommerce-checkout #order_review { position: sticky !important; top: 100px !important; }
-.woocommerce-checkout h3 {
-  font-family: 'Cormorant Garamond', serif !important;
-  font-weight: 400 !important;
-  font-size: 1.5rem !important;
-  letter-spacing: -0.01em !important;
-  margin: 0 0 16px !important;
-}
-.woocommerce-checkout label { font-size: 11px !important; font-weight: 500 !important; letter-spacing: 0.04em !important; text-transform: uppercase !important; color: var(--gor-text-muted) !important; margin-bottom: 4px !important; display: block !important; }
+/* Classic-checkout fallback rules removed in v6.4 — site uses Blocks Checkout exclusively
+   (page 8 / wp:woocommerce/checkout). Generic .woocommerce-checkout selectors leaked onto
+   block markup because the body class is shared, breaking input padding and radio flex. */
 
 @media (max-width: 900px) {
-  .woocommerce-checkout form.checkout { grid-template-columns: 1fr !important; }
-  .woocommerce-checkout #order_review { position: relative !important; top: 0 !important; }
-  .wc-block-components-totals-wrapper, .wc-block-components-sidebar, .wc-block-checkout__sidebar { position: relative !important; top: 0 !important; }
+  .wc-block-components-sidebar, .wc-block-checkout__sidebar { position: relative !important; top: 0 !important; }
 }
 
 /* Cart shipping totals select inside cart page (estimate) */
