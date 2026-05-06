@@ -1,6 +1,20 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.7
+   GORVITA PREMIUM CSS — v6.8
    ----------------------------------------------------------------------------
+   v6.8 deltas vs v6.7:
+     - Radio input on /zamowienie/ shipping options stopped overlapping
+       the label text. WC ships `.wc-block-components-radio-control__input`
+       with `position: absolute` which placed the 18×18 circle on top of
+       the label start. Forced `position: relative; margin: 0` (with `body`
+       prefix to beat Blocksy WC-blocks bundle specificity), so the radio
+       sits in the flex flow with the option's gap: 12px between it and
+       the label.
+     - Label is now a flex container (`display: flex; gap: 8px`) so the
+       InPost shipping logo (plugin-injected meta-wrap with .inpost_icon)
+       sits inline with the method name instead of breaking to a new line.
+     - Cart/checkout body background: var(--gor-cream-light) → var(--gor-cream)
+       — homepage already uses --gor-cream (#F9F9F9), so cart/checkout no
+       longer read as a slightly warmer surface.
    v6.7 deltas vs v6.6 (after returning page 8 to wp:woocommerce/checkout
    block, per 2026-04-29 Vimeo "Gorvita v1" reference screenshots):
      - .wc-block-components-text-input input
@@ -370,9 +384,11 @@ footer .wp-block-heading { font-weight: 600; }
    v6.3: CART + CHECKOUT (WooCommerce Blocks + Classic)
    ============================================================================ */
 
-/* Page-level — soft two-tone background so content cards lift from the page */
+/* Page-level — match the homepage cream background so cart/checkout don't
+   read as a different page surface. Was --gor-cream-light (#FBF8F2) before
+   v6.8 which made these pages slightly warmer than the homepage. */
 body.woocommerce-cart, body.woocommerce-checkout, body.page-id-7, body.page-id-8 {
-  background: var(--gor-cream-light) !important;
+  background: var(--gor-cream) !important;
 }
 .woocommerce-cart .entry-content, .woocommerce-checkout .entry-content,
 body.woocommerce-cart .ct-container, body.woocommerce-checkout .ct-container { padding-top: 28px !important; padding-bottom: 56px !important; }
@@ -627,12 +643,17 @@ body .wc-blocks-components-text-input input[type]:focus {
   background: var(--gor-green-light) !important;
   box-shadow: 0 0 0 1px var(--gor-green) !important;
 }
-.wc-block-components-radio-control__input,
-.wc-block-components-radio-control input[type="radio"] {
+/* Input radio: WC default uses position:absolute which makes it sit on top
+   of the label text. Force it back into the flex flow with margin/position
+   reset so __option's `gap: 12px` separates it from the label cleanly. */
+body .wc-block-components-radio-control__option .wc-block-components-radio-control__input,
+body .wc-block-components-radio-control__option input[type="radio"] {
   width: 18px !important;
   height: 18px !important;
   accent-color: var(--gor-green) !important;
   flex-shrink: 0 !important;
+  position: relative !important;
+  margin: 0 !important;
   cursor: pointer !important;
 }
 .wc-block-components-radio-control__label {
@@ -641,6 +662,9 @@ body .wc-blocks-components-text-input input[type]:focus {
   font-weight: 500 !important;
   color: var(--gor-text) !important;
   flex: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
 }
 .wc-block-components-radio-control__description {
   font-size: 13px !important;
