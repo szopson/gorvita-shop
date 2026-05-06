@@ -309,6 +309,25 @@ function gorvita_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_styles' );
 
+function gorvita_enqueue_b2b_registration_toggle() {
+    if ( ! ( is_account_page() || is_page( 'rejestracja-b2b' ) ) ) {
+        return;
+    }
+    $rel  = '/assets/js/b2b-registration-toggle.js';
+    $path = get_stylesheet_directory() . $rel;
+    if ( ! file_exists( $path ) ) {
+        return;
+    }
+    wp_enqueue_script(
+        'gorvita-b2b-registration-toggle',
+        get_stylesheet_directory_uri() . $rel,
+        [],
+        filemtime( $path ),
+        true
+    );
+}
+add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_b2b_registration_toggle' );
+
 function gorvita_icon( $name, $size = 20 ) {
     $s = sprintf( 'width="%d" height="%d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"', $size, $size );
     $paths = [
