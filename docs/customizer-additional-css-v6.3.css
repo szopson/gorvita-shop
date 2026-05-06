@@ -1,7 +1,31 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.8
+   GORVITA PREMIUM CSS — v6.9
    ----------------------------------------------------------------------------
-   v6.8 deltas vs v6.7:
+   v6.9 deltas vs v6.8 — strip-and-rebuild for Block Cart/Checkout:
+     User flagged that /koszyk/ and /zamowienie/ looked "raw" / unlike the
+     Blocksy Furniture starter (https://startersites.io/blocksy/furniture/).
+     Diagnosis: ~310 lines of overrides on .wc-block-components-* added by
+     bb43b6e (and patched repeatedly v6.4-v6.8) created a hybrid look —
+     half ours, half native — instead of letting Blocksy + WC blocks render
+     their well-polished defaults. Removed the entire override block:
+       - .wc-blocks-components-select  (custom chevron, pillowy container)
+       - .wc-block-components-text-input  (forced pill border-radius, padding)
+       - .wc-block-components-checkout-step  (heading typography only kept
+         in v6.7; the rest already gone)
+       - .wc-block-checkout__sidebar / .wc-block-cart__sidebar card chrome
+       - .wc-block-components-totals-item flex layout (WC native is fine)
+       - .wc-block-components-radio-control__option payment-card chrome
+       - .wc-block-components-checkout-place-order-button full-width override
+       - .wc-block-components-totals-coupon__form/__input/__button
+     Kept only the bug-fix-grade rules:
+       - radio __input position:relative (WC default position:absolute
+         placed it on top of the label text — a real overlap bug)
+       - InPost shipping icon dark pill (the plugin's white-on-transparent
+         logo would be invisible without contrasting background)
+       - inner .wc-block-components-totals-wrapper strip (defense against
+         any future plugin leaking card chrome onto inner rows)
+   v6.8 deltas (kept): cart/checkout body bg = --gor-cream (homepage match).
+   v6.7 deltas (kept): boxed checkout-step + ::before counter dropped.
      - Radio input on /zamowienie/ shipping options stopped overlapping
        the label text. WC ships `.wc-block-components-radio-control__input`
        with `position: absolute` which placed the 18×18 circle on top of
@@ -402,176 +426,44 @@ body.woocommerce-cart .ct-container, body.woocommerce-checkout .ct-container { p
   margin-bottom: 32px !important;
 }
 
-/* === WC BLOCKS — SELECT (the user-flagged Kraj/region select) ===
-   Same specificity bump as text-input — Blocksy ships
-   `.wc-blocks-components-select .wc-blocks-components-select__container`
-   at (0,2,0); our chained body+select+__container = (0,2,1) wins. */
-body .wc-blocks-components-select,
-body .wc-blocks-components-select .wc-blocks-components-select__container,
-body .wc-blocks-components-select__container {
+/* === WC BLOCKS — minimal essential fixes (v6.9 strip-and-rebuild) ===
+   Removed ~310 lines of overrides for .wc-block-components-{select,
+   text-input,checkout-step,sidebar,totals-wrapper,radio-control,
+   coupon,place-order} that bb43b6e introduced and which fought with
+   Blocksy + WC blocks native styling. The Blocksy starter (Furniture
+   demo) renders these natively well; our overrides created a hybrid
+   look. Below: only the bug-fix-grade rules that solve real visual
+   defects on the staging plugin stack. */
+
+/* Radio overlap: WC ships .wc-block-components-radio-control__input with
+   `position: absolute` which placed the 18×18 circle on top of the
+   label start. Force it back into the option's flex flow. */
+body .wc-block-components-radio-control__option .wc-block-components-radio-control__input,
+body .wc-block-components-radio-control__option input[type="radio"] {
+  flex-shrink: 0 !important;
   position: relative !important;
-  background: #ffffff !important;
-  border: 1px solid var(--gor-border) !important;
-  border-radius: var(--gor-r-pill) !important;
-  transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
-  display: block !important;
-  width: 100% !important;
-  overflow: visible !important;
-}
-.wc-blocks-components-select:focus-within,
-.wc-blocks-components-select__container:focus-within {
-  border-color: var(--gor-green) !important;
-  box-shadow: 0 0 0 3px var(--gor-focus) !important;
-}
-.wc-blocks-components-select__select {
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  -moz-appearance: none !important;
-  background: transparent !important;
-  border: none !important;
-  outline: none !important;
-  width: 100% !important;
-  padding: 18px 44px 8px 14px !important;
-  font-family: 'Inter', sans-serif !important;
-  font-size: 14px !important;
-  color: var(--gor-text) !important;
-  cursor: pointer !important;
-  line-height: 1.4 !important;
-  border-radius: inherit !important;
-  box-shadow: none !important;
-}
-.wc-blocks-components-select__label {
-  position: absolute !important;
-  top: 6px !important;
-  left: 14px !important;
-  font-size: 11px !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.04em !important;
-  color: var(--gor-text-muted) !important;
-  text-transform: uppercase !important;
-  pointer-events: none !important;
-  background: transparent !important;
   margin: 0 !important;
-  padding: 0 !important;
-  z-index: 2 !important;
-}
-.wc-blocks-components-select__expand,
-.wc-blocks-components-select svg[class*="select__expand"] {
-  position: absolute !important;
-  right: 14px !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  width: 16px !important;
-  height: 16px !important;
-  pointer-events: none !important;
-  color: var(--gor-text-muted) !important;
-  fill: currentColor !important;
-}
-.wc-blocks-components-select__select option {
-  background: #ffffff !important;
-  color: var(--gor-text) !important;
-  padding: 8px !important;
 }
 
-/* === WC BLOCKS — TEXT INPUT === */
-.wc-block-components-text-input,
-.wc-blocks-components-text-input,
-.wc-block-components-text-input input.input-text,
-.wc-blocks-components-text-input input.input-text {
-  position: relative !important;
+/* InPost shipping icon: plugin injects a white-on-transparent <img>
+   inside the radio label. Without a contrasting background it is
+   invisible on cream/white surface; give it a small dark pill. */
+.wc-block-components-radio-control__option .inpost_pl-block-shipping-method-meta-wrap {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin-left: 10px !important;
 }
-/* `body` prefix + `input[type]` attribute selector needed to beat Blocksy's
-   WC-blocks bundle rule `.wc-block-components-text-input input:is([type="email"], ...)`
-   which has specificity (0,2,1). Ours becomes (0,2,2) with body+[type], wins. */
-body .wc-block-components-text-input input[type],
-body .wc-blocks-components-text-input input[type],
-body .wc-block-components-text-input input.input-text,
-body .wc-blocks-components-text-input input.input-text {
-  background: #ffffff !important;
-  border: 1px solid var(--gor-border) !important;
-  border-radius: var(--gor-r-pill) !important;
-  padding-inline: 22px !important;
-  padding-block: 18px !important;
-  font-family: 'Inter', sans-serif !important;
-  font-size: 14px !important;
-  color: var(--gor-text) !important;
-  width: 100% !important;
-  box-shadow: none !important;
-  outline: none !important;
-  transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
-  line-height: 1.4 !important;
-}
-body .wc-block-components-text-input input[type]:focus,
-body .wc-blocks-components-text-input input[type]:focus {
-  border-color: var(--gor-green) !important;
-  box-shadow: 0 0 0 3px var(--gor-focus) !important;
-}
-/* Default state: kolory + typografia tylko, pozwól WC native umieścić label centrowo */
-.wc-block-components-text-input label,
-.wc-blocks-components-text-input label,
-.wc-block-components-text-input .wc-block-components-text-input__label {
-  font-family: 'Inter', sans-serif !important;
-  font-weight: 400 !important;
-  color: var(--gor-text-muted) !important;
-  pointer-events: none !important;
-  transition: color 0.18s ease, font-size 0.18s ease, transform 0.18s ease !important;
-}
-/* Active state: małe uppercase u góry, brand green */
-.wc-block-components-text-input.is-active label,
-.wc-blocks-components-text-input.is-active label,
-.wc-block-components-text-input input:focus + label,
-.wc-blocks-components-text-input input:focus + label {
-  font-size: 11px !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.04em !important;
-  text-transform: uppercase !important;
-  color: var(--gor-green) !important;
+.wc-block-components-radio-control__option .inpost_pl_method_logo img.inpost_icon {
+  height: 22px !important;
+  width: auto !important;
+  background: var(--gor-text) !important;
+  padding: 3px 6px !important;
+  border-radius: 3px !important;
 }
 
-/* === WC BLOCKS — CHECKOUT STEPS (lightweight headings, no boxes) ===
-   Boxed step chrome (border/shadow/padding/margin) and the ::before
-   counter "1, 2, 3" badge added by bb43b6e were dropped in v6.7 — the
-   29.04 reference shows light serif headings without cards or numbers. */
-.wc-block-components-checkout-step__heading,
-.wc-block-components-title.wc-block-components-checkout-step__title {
-  font-family: 'Cormorant Garamond', serif !important;
-  font-weight: 400 !important;
-  font-size: 1.5rem !important;
-  letter-spacing: -0.01em !important;
-  color: var(--gor-text) !important;
-  margin: 0 0 6px !important;
-  padding: 0 !important;
-}
-.wc-block-components-checkout-step__description {
-  font-size: 13.5px !important;
-  color: var(--gor-text-muted) !important;
-  margin: 0 0 20px !important;
-  letter-spacing: 0 !important;
-}
-.wc-block-components-checkout-step__container {
-  border-left: none !important;
-  padding-left: 0 !important;
-  margin-left: 0 !important;
-}
-.wc-block-components-checkout-step__content { padding-top: 4px !important; }
-.wc-block-components-checkout-step__heading-content { display: none !important; }
-
-/* === WC BLOCKS — ORDER SUMMARY (right column, sticky) ===
-   Card chrome lives ONLY on the outer sidebar element. In modern WC,
-   .wc-block-components-totals-wrapper is also applied to every inner row
-   (subtotal/discount/fee/shipping), so styling that class as a card causes
-   each row to render as its own boxed card. */
-.wc-block-checkout__sidebar,
-.wc-block-cart__sidebar {
-  background: #ffffff !important;
-  border: 1px solid var(--gor-border) !important;
-  border-radius: var(--gor-r-lg) !important;
-  padding: 28px 32px !important;
-  box-shadow: var(--gor-shadow-sm) !important;
-  position: sticky !important;
-  top: 100px !important;
-}
-/* Inner totals-wrappers (rows) — strip any card chrome that leaked from earlier rules. */
+/* Inner totals-wrappers (Suma/Przesyłka/Razem rows) — strip any card
+   chrome that any plugin/theme might leak onto them, since modern WC
+   reuses .wc-block-components-totals-wrapper for inner rows. */
 .wc-block-checkout__sidebar .wc-block-components-totals-wrapper,
 .wc-block-cart__sidebar .wc-block-components-totals-wrapper {
   background: transparent !important;
@@ -579,137 +471,7 @@ body .wc-blocks-components-text-input input[type]:focus {
   border-radius: 0 !important;
   box-shadow: none !important;
   padding: 0 !important;
-  position: static !important;
 }
-.wc-block-components-totals-item {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  padding: 10px 0 !important;
-  border-bottom: 1px solid var(--gor-border) !important;
-  font-size: 14px !important;
-  color: var(--gor-text-body) !important;
-}
-.wc-block-components-totals-item:last-child { border-bottom: none !important; }
-.wc-block-components-totals-footer-item {
-  font-family: 'Cormorant Garamond', serif !important;
-  font-weight: 400 !important;
-  font-size: 1.5rem !important;
-  color: var(--gor-text) !important;
-  padding-top: 16px !important;
-  margin-top: 8px !important;
-  border-top: 1.5px solid var(--gor-text) !important;
-}
-
-/* Order summary line items */
-.wc-block-components-order-summary__content { padding: 0 !important; }
-.wc-block-components-order-summary-item {
-  display: flex !important;
-  gap: 14px !important;
-  padding: 14px 0 !important;
-  border-bottom: 1px solid var(--gor-border) !important;
-  align-items: flex-start !important;
-}
-.wc-block-components-order-summary-item:last-child { border-bottom: none !important; }
-.wc-block-components-order-summary-item__image {
-  width: 56px !important;
-  height: 56px !important;
-  flex-shrink: 0 !important;
-  border-radius: var(--gor-r-sm) !important;
-  background: linear-gradient(180deg, #ffffff 0%, #f6f2ec 100%) !important;
-  border: 1px solid var(--gor-border) !important;
-  overflow: hidden !important;
-}
-.wc-block-components-order-summary-item__image img { width: 100% !important; height: 100% !important; object-fit: contain !important; padding: 4px !important; }
-
-/* === WC BLOCKS — PAYMENT METHOD TILES (radio cards) === */
-.wc-block-components-radio-control__option,
-.wc-block-components-payment-method-options .wc-block-components-radio-control__option {
-  display: flex !important;
-  align-items: center !important;
-  gap: 12px !important;
-  padding: 16px !important;
-  background: #ffffff !important;
-  border: 1.5px solid var(--gor-border) !important;
-  border-radius: var(--gor-r-md) !important;
-  margin-bottom: 8px !important;
-  cursor: pointer !important;
-  transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease !important;
-}
-.wc-block-components-radio-control__option:hover { border-color: var(--gor-border-hover) !important; background: var(--gor-cream-light) !important; }
-.wc-block-components-radio-control__option--checked,
-.wc-block-components-radio-control__option:has(input:checked) {
-  border-color: var(--gor-green) !important;
-  background: var(--gor-green-light) !important;
-  box-shadow: 0 0 0 1px var(--gor-green) !important;
-}
-/* Input radio: WC default uses position:absolute which makes it sit on top
-   of the label text. Force it back into the flex flow with margin/position
-   reset so __option's `gap: 12px` separates it from the label cleanly. */
-body .wc-block-components-radio-control__option .wc-block-components-radio-control__input,
-body .wc-block-components-radio-control__option input[type="radio"] {
-  width: 18px !important;
-  height: 18px !important;
-  accent-color: var(--gor-green) !important;
-  flex-shrink: 0 !important;
-  position: relative !important;
-  margin: 0 !important;
-  cursor: pointer !important;
-}
-.wc-block-components-radio-control__label {
-  font-family: 'Inter', sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  color: var(--gor-text) !important;
-  flex: 1 !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-}
-.wc-block-components-radio-control__description {
-  font-size: 13px !important;
-  color: var(--gor-text-muted) !important;
-  margin-top: 4px !important;
-}
-
-/* InPost shipping logo (plugin injects an inline-styled <img> inside the radio label) */
-.wc-block-components-radio-control__option .inpost_pl-block-shipping-method-meta-wrap {
-  display: inline-flex !important;
-  align-items: center !important;
-  margin-left: 10px !important;
-  vertical-align: middle !important;
-}
-.wc-block-components-radio-control__option .inpost_pl_method_logo {
-  display: inline-flex !important;
-  align-items: center !important;
-}
-.wc-block-components-radio-control__option .inpost_pl_method_logo img.inpost_icon {
-  display: inline-block !important;
-  height: 22px !important;
-  width: auto !important;
-  vertical-align: middle !important;
-  background: var(--gor-text) !important;
-  padding: 3px 6px !important;
-  border-radius: 3px !important;
-}
-
-/* Shipping option rates */
-.wc-block-components-shipping-rates-control__package { background: transparent !important; }
-
-/* Place-order button — full-width, prominent */
-.wc-block-components-checkout-place-order-button,
-button.wc-block-components-checkout-place-order-button {
-  width: 100% !important;
-  padding: 16px 28px !important;
-  font-size: 15px !important;
-  letter-spacing: 0.05em !important;
-  margin-top: 16px !important;
-}
-
-/* Coupon / discount input row */
-.wc-block-components-totals-coupon__form { display: flex !important; gap: 8px !important; align-items: stretch !important; }
-.wc-block-components-totals-coupon__input { flex: 1 !important; }
-.wc-block-components-totals-coupon__button { padding: 10px 18px !important; font-size: 13px !important; white-space: nowrap !important; }
 
 /* === EMPTY CART — modernize "Wróć do sklepu" CTA === */
 .wc-empty-cart-message, .cart-empty.woocommerce-info {
