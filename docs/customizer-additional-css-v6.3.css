@@ -1,22 +1,31 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.6
+   GORVITA PREMIUM CSS — v6.7
    ----------------------------------------------------------------------------
-   v6.6 deltas vs v6.5:
-     - Removed CLASSIC CHECKOUT FALLBACK section that bb43b6e (2026-05-01)
-       added and 2f7d59e (today) restored. Specifically dropped:
-         .woocommerce-checkout form.checkout { display: grid; cols 1fr 380px }
-         .woocommerce-checkout #customer_details, #order_review { card chrome }
-         .woocommerce-checkout #order_review { sticky 100px }
-         .woocommerce-checkout h3 { Cormorant serif }
-         .woocommerce-checkout label { 11px UPPERCASE tracking }
-       User reported this made /zamowienie/ look "fatalnie" vs the lighter
-       Blocksy default on the 2026-04-29 presentation (v6.2 baseline).
-       The minimal `.woocommerce-checkout input[type=…]` border/padding rule
-       is kept — that was already in v6.2.
-   v6.5 deltas (kept): page 8 → [woocommerce_checkout] shortcode.
-   v6.4 deltas (kept):
-     - Sidebar card chrome scoped to outer .wc-block-cart__sidebar (cart page).
-     - InPost icon, block-input padding 26 + label line-height 1.1 (cart page).
+   v6.7 deltas vs v6.6 (after returning page 8 to wp:woocommerce/checkout
+   block, per 2026-04-29 Vimeo "Gorvita v1" reference screenshots):
+     - .wc-block-components-text-input input
+         border-radius: r-sm (6px) → r-pill (999px)  — pillowy rounded rect
+         padding: 26px 14px 8px → 18px 22px           — WC native floating
+                                                        will lift the label
+                                                        when is-active
+     - Label override: dropped hard `position/top/left/transform: none`
+       so WC's native floating motion runs (centered when empty, lifted
+       when filled). Kept color + uppercase styling for is-active state.
+     - .wc-blocks-components-select container border-radius bumped to
+       r-pill (matching country/region select on screen).
+     - DROPPED boxed `.wc-block-components-checkout-step` chrome
+       (background, border, r-lg, padding 28×32, margin-bottom, shadow)
+       and the `::before { counter(step-number) }` 28px circle in the top
+       right corner — these were added by bb43b6e and made checkout steps
+       look like heavy 1/2/3 cards, very different from the 29.04 reference
+       which has only light serif headings.
+     - Kept heading typography (Cormorant Garamond), description, container
+       cleanup, and heading-content { display: none }.
+   v6.6: dropped CLASSIC CHECKOUT FALLBACK rules (now irrelevant — page 8
+         is back to block).
+   v6.5: page 8 was [woocommerce_checkout] (now reverted in v6.7).
+   v6.4 (kept): sidebar card chrome scoped to outer wc-block-{checkout,cart}__sidebar,
+                InPost icon styling, totals-wrapper inner-row strip.
    ----------------------------------------------------------------------------
    Where this lives at runtime:
      WP Admin → Wygląd → Dostosuj → Dodatkowy CSS
@@ -249,9 +258,10 @@ button.ct-wishlist-button-archive.ct-button::before, button.ct-compare-button-ar
 .woocommerce ul.products li.product-category { background: var(--gor-cream-card) !important; border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-lg) !important; box-shadow: var(--gor-shadow-sm) !important; transition: transform 0.2s ease, box-shadow 0.2s ease !important; overflow: hidden !important; }
 .woocommerce ul.products li.product-category:hover { transform: translateY(-4px) !important; box-shadow: var(--gor-shadow-md) !important; }
 
-/* CHECKOUT (classic shortcode markup — page 8 uses [woocommerce_checkout]) */
-.woocommerce-checkout input[type="text"],.woocommerce-checkout input[type="email"],.woocommerce-checkout input[type="tel"],.woocommerce-checkout select,.woocommerce-checkout textarea { border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-sm) !important; padding: 10px 14px !important; font-size: 14px !important; background: #fff !important; transition: border-color 0.18s ease, box-shadow 0.18s ease !important; }
-.woocommerce-checkout input:focus,.woocommerce-checkout select:focus,.woocommerce-checkout textarea:focus { border-color: var(--gor-green) !important; box-shadow: 0 0 0 3px var(--gor-focus) !important; outline: none !important; }
+/* Removed in v6.7: legacy .woocommerce-checkout input[type=…] rule. It had
+   higher specificity (0,2,1) than our .wc-block-components-text-input input
+   (0,2,0), so it overrode the block-input pill radius + padding. Page 8 is
+   now Block Checkout, so this rule was dead code that only caused regressions. */
 
 /* SORTING */
 .woocommerce-ordering .orderby, .ct-woo-ordering select, select.orderby { border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-sm) !important; padding: 8px 14px !important; font-size: 13px !important; color: var(--gor-text-body) !important; background: #fff !important; cursor: pointer !important; transition: border-color 0.18s ease !important; appearance: auto !important; }
@@ -376,13 +386,17 @@ body.woocommerce-cart .ct-container, body.woocommerce-checkout .ct-container { p
   margin-bottom: 32px !important;
 }
 
-/* === WC BLOCKS — SELECT (the user-flagged Kraj/region select) === */
-.wc-blocks-components-select,
-.wc-blocks-components-select__container {
+/* === WC BLOCKS — SELECT (the user-flagged Kraj/region select) ===
+   Same specificity bump as text-input — Blocksy ships
+   `.wc-blocks-components-select .wc-blocks-components-select__container`
+   at (0,2,0); our chained body+select+__container = (0,2,1) wins. */
+body .wc-blocks-components-select,
+body .wc-blocks-components-select .wc-blocks-components-select__container,
+body .wc-blocks-components-select__container {
   position: relative !important;
   background: #ffffff !important;
   border: 1px solid var(--gor-border) !important;
-  border-radius: var(--gor-r-sm) !important;
+  border-radius: var(--gor-r-pill) !important;
   transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
   display: block !important;
   width: 100% !important;
@@ -450,14 +464,18 @@ body.woocommerce-cart .ct-container, body.woocommerce-checkout .ct-container { p
 .wc-blocks-components-text-input input.input-text {
   position: relative !important;
 }
-.wc-block-components-text-input input,
-.wc-blocks-components-text-input input,
-.wc-block-components-text-input input.input-text,
-.wc-blocks-components-text-input input.input-text {
+/* `body` prefix + `input[type]` attribute selector needed to beat Blocksy's
+   WC-blocks bundle rule `.wc-block-components-text-input input:is([type="email"], ...)`
+   which has specificity (0,2,1). Ours becomes (0,2,2) with body+[type], wins. */
+body .wc-block-components-text-input input[type],
+body .wc-blocks-components-text-input input[type],
+body .wc-block-components-text-input input.input-text,
+body .wc-blocks-components-text-input input.input-text {
   background: #ffffff !important;
   border: 1px solid var(--gor-border) !important;
-  border-radius: var(--gor-r-sm) !important;
-  padding: 26px 14px 8px !important;
+  border-radius: var(--gor-r-pill) !important;
+  padding-inline: 22px !important;
+  padding-block: 18px !important;
   font-family: 'Inter', sans-serif !important;
   font-size: 14px !important;
   color: var(--gor-text) !important;
@@ -467,46 +485,37 @@ body.woocommerce-cart .ct-container, body.woocommerce-checkout .ct-container { p
   transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
   line-height: 1.4 !important;
 }
-.wc-block-components-text-input input:focus,
-.wc-blocks-components-text-input input:focus {
+body .wc-block-components-text-input input[type]:focus,
+body .wc-blocks-components-text-input input[type]:focus {
   border-color: var(--gor-green) !important;
   box-shadow: 0 0 0 3px var(--gor-focus) !important;
 }
+/* Default state: kolory + typografia tylko, pozwól WC native umieścić label centrowo */
 .wc-block-components-text-input label,
 .wc-blocks-components-text-input label,
 .wc-block-components-text-input .wc-block-components-text-input__label {
-  position: absolute !important;
-  top: 7px !important;
-  left: 14px !important;
-  font-size: 11px !important;
-  line-height: 1.1 !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.04em !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 400 !important;
   color: var(--gor-text-muted) !important;
-  text-transform: uppercase !important;
   pointer-events: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  background: transparent !important;
-  transform: none !important;
-  transition: color 0.18s ease !important;
+  transition: color 0.18s ease, font-size 0.18s ease, transform 0.18s ease !important;
 }
+/* Active state: małe uppercase u góry, brand green */
 .wc-block-components-text-input.is-active label,
 .wc-blocks-components-text-input.is-active label,
 .wc-block-components-text-input input:focus + label,
-.wc-blocks-components-text-input input:focus + label { color: var(--gor-green) !important; }
-
-/* === WC BLOCKS — CHECKOUT STEPS (cards) === */
-.wc-block-components-checkout-step,
-.wc-blocks-components-checkout-step {
-  background: #ffffff !important;
-  border: 1px solid var(--gor-border) !important;
-  border-radius: var(--gor-r-lg) !important;
-  padding: 28px 32px !important;
-  margin-bottom: 20px !important;
-  box-shadow: var(--gor-shadow-sm) !important;
-  position: relative !important;
+.wc-blocks-components-text-input input:focus + label {
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  color: var(--gor-green) !important;
 }
+
+/* === WC BLOCKS — CHECKOUT STEPS (lightweight headings, no boxes) ===
+   Boxed step chrome (border/shadow/padding/margin) and the ::before
+   counter "1, 2, 3" badge added by bb43b6e were dropped in v6.7 — the
+   29.04 reference shows light serif headings without cards or numbers. */
 .wc-block-components-checkout-step__heading,
 .wc-block-components-title.wc-block-components-checkout-step__title {
   font-family: 'Cormorant Garamond', serif !important;
@@ -530,28 +539,6 @@ body.woocommerce-cart .ct-container, body.woocommerce-checkout .ct-container { p
 }
 .wc-block-components-checkout-step__content { padding-top: 4px !important; }
 .wc-block-components-checkout-step__heading-content { display: none !important; }
-
-/* Step number indicator (the little "1, 2, 3" on left) — restyle to a quiet badge */
-.wc-block-components-checkout-step::before {
-  content: counter(step-number) !important;
-  counter-increment: step-number !important;
-  position: absolute !important;
-  top: 28px !important;
-  right: 32px !important;
-  width: 28px !important;
-  height: 28px !important;
-  border-radius: 50% !important;
-  background: var(--gor-green-light) !important;
-  color: var(--gor-green-dark) !important;
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  font-family: 'Inter', sans-serif !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  letter-spacing: 0 !important;
-}
-.wc-block-checkout, form.wc-block-checkout, .wc-block-components-checkout-place-order-button { counter-reset: step-number !important; }
 
 /* === WC BLOCKS — ORDER SUMMARY (right column, sticky) ===
    Card chrome lives ONLY on the outer sidebar element. In modern WC,
