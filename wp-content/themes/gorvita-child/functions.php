@@ -945,3 +945,25 @@ function gorvita_redirect_old_wishlist_slug() {
     exit;
 }
 add_action( 'template_redirect', 'gorvita_redirect_old_wishlist_slug', 1 );
+
+/**
+ * Polish labels for the Blocksy Companion account dropdown header item.
+ * No PL .mo file ships for blocksy-companion text-domain, and Loco Translate
+ * is not installed, so we override via gettext filter — survives plugin updates.
+ */
+add_filter( 'gettext', function ( $translation, $text, $domain ) {
+    if ( $domain !== 'blocksy-companion' ) {
+        return $translation;
+    }
+    static $map = null;
+    if ( $map === null ) {
+        $map = [
+            'Dashboard'    => 'Kokpit',
+            'My Account'   => 'Moje konto',
+            'Wishlist'     => 'Lista życzeń',
+            'Edit Profile' => 'Edytuj profil',
+            'Log Out'      => 'Wyloguj się',
+        ];
+    }
+    return $map[ $text ] ?? $translation;
+}, 10, 3 );

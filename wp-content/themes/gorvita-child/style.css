@@ -891,3 +891,20 @@ h1, h2, h3, h4, h5, h6 {
   .gorvita-footer__links { padding-bottom: var(--space-4); gap: var(--space-4); }
   .gorvita-footer__bottom { flex-direction: column; text-align: center; gap: var(--space-2); }
 }
+
+/* WC info notifications: keep the icon, give it space, vertically center it.
+   !important beats Customizer Additional CSS overrides which previously set
+   padding: 14px 18px (no left padding for the icon). The empty-cart context
+   still hides the icon via its own override in customizer-additional-css-v6.3.css. */
+.woocommerce-info,
+.woocommerce-message {
+  padding-left: 3em !important;
+  position: relative !important;
+}
+.woocommerce-info::before,
+.woocommerce-message::before {
+  position: absolute !important;
+  left: 1em !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
