@@ -902,3 +902,32 @@ function gorvita_product_accordion_js() {
     </script>';
 }
 add_action("wp_footer", "gorvita_product_accordion_js");
+
+/**
+ * Polonize the Blocksy Pro wish-list endpoint slug: woo-wish-list → lista-zyczen.
+ * Blocksy registers the endpoint on `init` via add_rewrite_endpoint(), so this
+ * filter has to be in place before then — top-level in functions.php is fine.
+ * After deploy, run once on the VPS:
+ *   wp rewrite flush --hard --allow-root
+ */
+add_filter( 'blocksy:pro:woocommerce-extra:wish-list:slug', function () {
+    return 'lista-zyczen';
+} );
+
+/**
+ * 301 the old wish-list URL to the new one. Catches both the standalone
+ * endpoint and the page-nested form (/rejestracja-b2b/woo-wish-list/ etc.)
+ * preserving any trailing path segments.
+ */
+function gorvita_redirect_old_wishlist_slug() {
+    if ( empty( $_SERVER['REQUEST_URI'] ) ) {
+        return;
+    }
+    $uri = (string) $_SERVER['REQUEST_URI'];
+    if ( preg_match( '#(^|/)woo-wish-list(/|$|\?)#', $uri ) ) {
+        $new = preg_replace( '#woo-wish-list#', 'lista-zyczen', $uri, 1 );
+        wp_safe_redirect( home_url( $new ), 301 );
+        exit;
+    }
+}
+add_action( 'template_redirect', 'gorvita_redirect_old_wishlist_slug', 1 );
