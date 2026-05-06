@@ -915,19 +915,33 @@ add_filter( 'blocksy:pro:woocommerce-extra:wish-list:slug', function () {
 } );
 
 /**
- * 301 the old wish-list URL to the new one. Catches both the standalone
- * endpoint and the page-nested form (/rejestracja-b2b/woo-wish-list/ etc.)
- * preserving any trailing path segments.
+ * 301 any wish-list URL to the canonical My Account endpoint.
+ * The Blocksy Pro endpoint only renders content under WC My Account
+ * (woocommerce_account_<slug>_endpoint), so standalone or page-nested
+ * URLs (/woo-wish-list/, /promocje/woo-wish-list/, /lista-zyczen/) all
+ * fall through to the blog/parent page. Fold them into the one URL
+ * that actually shows the wishlist.
  */
 function gorvita_redirect_old_wishlist_slug() {
     if ( empty( $_SERVER['REQUEST_URI'] ) ) {
         return;
     }
-    $uri = (string) $_SERVER['REQUEST_URI'];
-    if ( preg_match( '#(^|/)woo-wish-list(/|$|\?)#', $uri ) ) {
-        $new = preg_replace( '#woo-wish-list#', 'lista-zyczen', $uri, 1 );
-        wp_safe_redirect( home_url( $new ), 301 );
-        exit;
+    $uri  = (string) $_SERVER['REQUEST_URI'];
+    $path = (string) parse_url( $uri, PHP_URL_PATH );
+
+    // Standalone /lista-zyczen/ (not nested under /moje-konto/) → canonicalize.
+    $is_standalone_new = preg_match( '#^/lista-zyczen/?$#', $path );
+    $is_old_slug       = (bool) preg_match( '#(^|/)woo-wish-list(/|$)#', $path );
+
+    if ( ! $is_old_slug && ! $is_standalone_new ) {
+        return;
     }
+
+    $target = function_exists( 'wc_get_account_endpoint_url' )
+        ? wc_get_account_endpoint_url( 'lista-zyczen' )
+        : home_url( '/moje-konto/lista-zyczen/' );
+
+    wp_safe_redirect( $target, 301 );
+    exit;
 }
 add_action( 'template_redirect', 'gorvita_redirect_old_wishlist_slug', 1 );
