@@ -1,66 +1,40 @@
 (function () {
 	'use strict';
 
-	// B2BKing emits option values as `role_<ID>`. Keep numeric forms as fallback
-	// in case other deployments use bare IDs.
-	var ROLE_B2B_VALUES = ['role_1062', '1062'];
-	var WRAPPER_SELECTOR = 'p.form-row, .form-row, [class*="form-row"], [class*="b2bking"][class*="field"]:not(input):not(select):not(textarea)';
+	// B2BKing tags every registration field wrapper with one of:
+	//   .b2bking_custom_registration_allroles        → always visible
+	//   .b2bking_custom_registration_role_<roleId>   → visible only for that role
+	// The role <select> emits values formatted "role_<roleId>" (e.g. "role_1062").
+	var SELECT_SELECTOR = 'select[name="b2bking_registration_roles_dropdown"], ' +
+		'select[name="b2bking_role"], ' +
+		'select[name="registration_role_id"]';
+	var WRAPPER_SELECTOR = '.b2bking_custom_registration_container';
+	var ALLROLES_CLASS = 'b2bking_custom_registration_allroles';
+	var ROLE_CLASS_PREFIX = 'b2bking_custom_registration_role_';
 
-	function findRoleSelect() {
-		return document.querySelector(
-			'select[name="b2bking_registration_roles_dropdown"], ' +
-			'select[name="b2bking_role"], ' +
-			'select[name="registration_role_id"]'
-		);
-	}
-
-	function wrapperFor(input) {
-		if (!input) {
-			return null;
-		}
-		return input.closest(WRAPPER_SELECTOR) || input.parentElement;
-	}
-
-	function isB2BLabelText(text) {
-		text = (text || '').trim().toLowerCase();
-		// Strip trailing required-marker " *".
-		text = text.replace(/\s*\*\s*$/, '');
-		return text.indexOf('nazwa firmy') === 0 ||
-			text === 'nip' ||
-			text.indexOf('nip ') === 0;
-	}
-
-	function findB2BFields(form) {
-		var matches = [];
-
-		form.querySelectorAll('label').forEach(function (lbl) {
-			if (!isB2BLabelText(lbl.textContent)) {
-				return;
-			}
-			var input = lbl.htmlFor ? document.getElementById(lbl.htmlFor) : null;
-			if (!input) {
-				input = lbl.parentElement && lbl.parentElement.querySelector('input, select, textarea');
-			}
-			var wrapper = wrapperFor(input) || lbl.closest(WRAPPER_SELECTOR) || lbl.parentElement;
-			if (wrapper && matches.indexOf(wrapper) === -1) {
-				matches.push(wrapper);
-			}
-		});
-
-		return matches;
+	function currentRoleId(select) {
+		var match = String(select.value || '').match(/role_(\d+)/);
+		return match ? match[1] : '';
 	}
 
 	function setHidden(wrapper, hidden) {
 		wrapper.style.display = hidden ? 'none' : '';
-		var inputs = wrapper.querySelectorAll('input, select, textarea');
-		inputs.forEach(function (el) {
+		wrapper.querySelectorAll('input, select, textarea').forEach(function (el) {
 			if (hidden) {
 				if (el.required) {
 					el.dataset.gorvitaWasRequired = '1';
 					el.required = false;
 				}
+				// Leave hidden helper inputs (B2BKing internal markers) untouched.
+				if (el.type === 'hidden') {
+					return;
+				}
 				if (el.type === 'checkbox' || el.type === 'radio') {
 					el.checked = false;
+				} else if (el.tagName === 'SELECT') {
+					if (el.options.length) {
+						el.selectedIndex = 0;
+					}
 				} else {
 					el.value = '';
 				}
@@ -71,29 +45,45 @@
 		});
 	}
 
-	function applyState(form, select) {
-		var isB2B = ROLE_B2B_VALUES.indexOf(String(select.value)) !== -1;
-		findB2BFields(form).forEach(function (wrapper) {
-			setHidden(wrapper, !isB2B);
+	function isVisibleForRole(wrapper, roleId) {
+		if (wrapper.classList.contains(ALLROLES_CLASS)) {
+			return true;
+		}
+		if (!roleId) {
+			return false;
+		}
+		return wrapper.classList.contains(ROLE_CLASS_PREFIX + roleId);
+	}
+
+	function applyState() {
+		var selects = document.querySelectorAll(SELECT_SELECTOR);
+		if (!selects.length) {
+			return;
+		}
+		selects.forEach(function (select) {
+			var roleId = currentRoleId(select);
+			var scope = select.form || select.closest('form') || document;
+			scope.querySelectorAll(WRAPPER_SELECTOR).forEach(function (wrapper) {
+				setHidden(wrapper, !isVisibleForRole(wrapper, roleId));
+			});
 		});
 	}
 
 	function init() {
-		var select = findRoleSelect();
-		if (!select) {
-			return;
-		}
-		var form = select.form || select.closest('form');
-		if (!form) {
-			return;
-		}
+		// Delegated change handler — works whether the form exists at load time
+		// (Blocksy modal pre-rendered) or is injected later.
+		document.addEventListener('change', function (e) {
+			var t = e.target;
+			if (t && t.matches && t.matches(SELECT_SELECTOR)) {
+				applyState();
+			}
+		}, false);
 
-		applyState(form, select);
-		select.addEventListener('change', function () {
-			applyState(form, select);
-		});
+		applyState();
 
-		// B2BKing may re-render fields on role change; re-apply state on DOM mutations.
+		// Re-apply when Blocksy injects/swaps the modal contents or B2BKing
+		// re-renders fields. Debounced via rAF; we only mutate inline
+		// style/value/required which do not trigger childList mutations.
 		if ('MutationObserver' in window) {
 			var pending = false;
 			var mo = new MutationObserver(function () {
@@ -103,10 +93,10 @@
 				pending = true;
 				window.requestAnimationFrame(function () {
 					pending = false;
-					applyState(form, select);
+					applyState();
 				});
 			});
-			mo.observe(form, { childList: true, subtree: true });
+			mo.observe(document.body, { childList: true, subtree: true });
 		}
 	}
 

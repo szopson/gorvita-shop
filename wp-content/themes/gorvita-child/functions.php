@@ -310,7 +310,10 @@ function gorvita_enqueue_styles() {
 add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_styles' );
 
 function gorvita_enqueue_b2b_registration_toggle() {
-    if ( ! ( is_account_page() || is_page( 'rejestracja-b2b' ) ) ) {
+    // The Blocksy account modal exposes the B2BKing register form from any
+    // page header, so we cannot scope this to is_account_page() alone.
+    // Skip only for logged-in users — they never see the register form.
+    if ( is_user_logged_in() ) {
         return;
     }
     $rel  = '/assets/js/b2b-registration-toggle.js';
