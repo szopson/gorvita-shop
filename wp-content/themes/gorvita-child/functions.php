@@ -963,6 +963,11 @@ add_filter( 'gettext', function ( $translation, $text, $domain ) {
             'Wishlist'     => 'Lista życzeń',
             'Edit Profile' => 'Edytuj profil',
             'Log Out'      => 'Wyloguj się',
+            'Welcome'      => 'Witaj',
+            'Hello'        => 'Cześć',
+            'Login'        => 'Logowanie',
+            'Register'     => 'Zarejestruj się',
+            'Logout'       => 'Wyloguj się',
         ];
     }
     return $map[ $text ] ?? $translation;
