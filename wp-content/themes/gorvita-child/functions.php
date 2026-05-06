@@ -663,6 +663,81 @@ function gorvita_hover_image_js() {
 }
 add_action( 'wp_footer', 'gorvita_hover_image_js' );
 
+/**
+ * Hover image for WooCommerce Blocks Product Collection cards (block cart cross-sells,
+ * shop block grids). The classic `woocommerce_before_shop_loop_item_title` hook above
+ * does not fire for React-rendered .wc-block-product cards, so this fetches each
+ * product's gallery via Store API and injects the second image as a hover overlay.
+ */
+function gorvita_block_product_hover_image_assets() {
+    echo '<style>
+    .wc-block-components-product-image { position: relative !important; overflow: hidden !important; }
+    .wc-block-components-product-image img { transition: opacity 0.3s ease !important; }
+    .gorvita-hover-img-block {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: opacity 0.3s ease !important;
+    }
+    .wc-block-product:hover .wc-block-components-product-image img:not(.gorvita-hover-img-block) { opacity: 0 !important; }
+    .wc-block-product:hover .gorvita-hover-img-block { opacity: 1 !important; }
+    </style>
+    <script>
+    (function() {
+        var seen = new WeakSet();
+        var cache = {};
+
+        async function fetchSecondImage(id) {
+            if (cache[id] !== undefined) return cache[id];
+            try {
+                var r = await fetch("/wp-json/wc/store/v1/products/" + id, { credentials: "same-origin" });
+                if (!r.ok) { cache[id] = null; return null; }
+                var p = await r.json();
+                var imgs = p.images || [];
+                cache[id] = imgs.length >= 2 ? imgs[1] : null;
+                return cache[id];
+            } catch (e) { cache[id] = null; return null; }
+        }
+
+        async function processCard(card) {
+            if (seen.has(card)) return;
+            seen.add(card);
+            var m = card.className.match(/post-(\d+)/);
+            if (!m) return;
+            var imgWrap = card.querySelector(".wc-block-components-product-image");
+            var primaryImg = imgWrap ? imgWrap.querySelector("img") : null;
+            if (!imgWrap || !primaryImg) return;
+            var second = await fetchSecondImage(m[1]);
+            if (!second || !second.src) return;
+            // Avoid duplicate inserts in case of race
+            if (imgWrap.querySelector(".gorvita-hover-img-block")) return;
+            var hover = document.createElement("img");
+            hover.className = "gorvita-hover-img-block";
+            hover.src = second.src;
+            hover.alt = second.alt || "";
+            hover.loading = "lazy";
+            imgWrap.appendChild(hover);
+        }
+
+        function scan() {
+            document.querySelectorAll(".wc-block-product").forEach(processCard);
+        }
+
+        document.addEventListener("DOMContentLoaded", scan);
+        window.addEventListener("load", scan);
+        setTimeout(scan, 800);
+        setTimeout(scan, 2000);
+        var mo = new MutationObserver(function() { scan(); });
+        mo.observe(document.body, { childList: true, subtree: true });
+    })();
+    </script>';
+}
+add_action( 'wp_footer', 'gorvita_block_product_hover_image_assets' );
+
 function gorvita_nowosc_badge_css() {
     echo '<style>
     .gorvita-badge-nowosc {
