@@ -1,15 +1,21 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.4
+   GORVITA PREMIUM CSS — v6.5
    ----------------------------------------------------------------------------
-   v6.4 deltas vs v6.3:
-     - Block Checkout fixes: removed legacy classic-checkout rules
-       (.woocommerce-checkout input/label/form/h3) that beat block-component
-       rules on specificity and broke padding, label flow, and radio-option
-       flex layout on the modern wp:woocommerce/checkout block.
+   v6.5 deltas vs v6.4:
+     - Page 8 (Zamówienie) reverted from wp:woocommerce/checkout block back to
+       [woocommerce_checkout] shortcode (Przelewy24/PayU compatibility). Cart
+       page 7 stays as wp:woocommerce/cart block.
+     - Restored .woocommerce-checkout {input[type=…],label,form.checkout,
+       #customer_details,#order_review,h3} rules that classic checkout needs.
+       Safe because page 8 is now classic exclusively (body.woocommerce-checkout
+       no longer co-occurs with .wc-block-checkout markup).
+   v6.4 deltas vs v6.3 (kept):
      - Sidebar card chrome scoped to outer .wc-block-checkout__sidebar /
-       .wc-block-cart__sidebar only — inner .wc-block-components-totals-wrapper
-       rows no longer render as boxed cards.
-     - InPost shipping logo aligned inline within the radio label.
+       .wc-block-cart__sidebar only — applies to the cart page sidebar.
+     - InPost shipping icon styling (inert on classic checkout markup, kept
+       for future cart-block shipping calculator).
+     - Block input padding-top 22→26px + label line-height 1.1 — applies to
+       any remaining wc-block-components-text-input (cart page coupon, etc.).
    ----------------------------------------------------------------------------
    Where this lives at runtime:
      WP Admin → Wygląd → Dostosuj → Dodatkowy CSS
@@ -241,6 +247,10 @@ button.ct-wishlist-button-archive.ct-button::before, button.ct-compare-button-ar
 .woocommerce ul.products li.product .button, .woocommerce-page ul.products li.product .button, a.add_to_cart_button.button { padding: 10px 16px !important; font-size: 13.5px !important; margin-top: auto !important; }
 .woocommerce ul.products li.product-category { background: var(--gor-cream-card) !important; border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-lg) !important; box-shadow: var(--gor-shadow-sm) !important; transition: transform 0.2s ease, box-shadow 0.2s ease !important; overflow: hidden !important; }
 .woocommerce ul.products li.product-category:hover { transform: translateY(-4px) !important; box-shadow: var(--gor-shadow-md) !important; }
+
+/* CHECKOUT (classic shortcode markup — page 8 uses [woocommerce_checkout]) */
+.woocommerce-checkout input[type="text"],.woocommerce-checkout input[type="email"],.woocommerce-checkout input[type="tel"],.woocommerce-checkout select,.woocommerce-checkout textarea { border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-sm) !important; padding: 10px 14px !important; font-size: 14px !important; background: #fff !important; transition: border-color 0.18s ease, box-shadow 0.18s ease !important; }
+.woocommerce-checkout input:focus,.woocommerce-checkout select:focus,.woocommerce-checkout textarea:focus { border-color: var(--gor-green) !important; box-shadow: 0 0 0 3px var(--gor-focus) !important; outline: none !important; }
 
 /* SORTING */
 .woocommerce-ordering .orderby, .ct-woo-ordering select, select.orderby { border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-sm) !important; padding: 8px 14px !important; font-size: 13px !important; color: var(--gor-text-body) !important; background: #fff !important; cursor: pointer !important; transition: border-color 0.18s ease !important; appearance: auto !important; }
@@ -720,12 +730,37 @@ button.wc-block-components-checkout-place-order-button {
 }
 .return-to-shop a.button.wc-backward::after { content: " →"; opacity: 0.8; }
 
-/* Classic-checkout fallback rules removed in v6.4 — site uses Blocks Checkout exclusively
-   (page 8 / wp:woocommerce/checkout). Generic .woocommerce-checkout selectors leaked onto
-   block markup because the body class is shared, breaking input padding and radio flex. */
+/* === CLASSIC CHECKOUT (page 8 uses [woocommerce_checkout] shortcode) ===
+   Restored in v6.5 after page 8 was switched back from wc-block-checkout to classic
+   shortcode (Przelewy24/PayU compatibility). Cart page 7 stays as wp:woocommerce/cart
+   block — these `.woocommerce-checkout` selectors don't match cart's `body.woocommerce-cart`. */
+.woocommerce-checkout form.checkout {
+  display: grid !important;
+  grid-template-columns: 1fr 380px !important;
+  gap: 32px !important;
+  align-items: start !important;
+}
+.woocommerce-checkout #customer_details, .woocommerce-checkout #order_review {
+  background: #ffffff !important;
+  border: 1px solid var(--gor-border) !important;
+  border-radius: var(--gor-r-lg) !important;
+  padding: 28px 32px !important;
+  box-shadow: var(--gor-shadow-sm) !important;
+}
+.woocommerce-checkout #order_review { position: sticky !important; top: 100px !important; }
+.woocommerce-checkout h3 {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 400 !important;
+  font-size: 1.5rem !important;
+  letter-spacing: -0.01em !important;
+  margin: 0 0 16px !important;
+}
+.woocommerce-checkout label { font-size: 11px !important; font-weight: 500 !important; letter-spacing: 0.04em !important; text-transform: uppercase !important; color: var(--gor-text-muted) !important; margin-bottom: 4px !important; display: block !important; }
 
 @media (max-width: 900px) {
-  .wc-block-components-sidebar, .wc-block-checkout__sidebar { position: relative !important; top: 0 !important; }
+  .woocommerce-checkout form.checkout { grid-template-columns: 1fr !important; }
+  .woocommerce-checkout #order_review { position: relative !important; top: 0 !important; }
+  .wc-block-components-sidebar, .wc-block-checkout__sidebar, .wc-block-cart__sidebar { position: relative !important; top: 0 !important; }
 }
 
 /* Cart shipping totals select inside cart page (estimate) */
