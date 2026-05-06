@@ -175,11 +175,13 @@ button.ct-wishlist-button-archive.ct-button:hover, button.ct-compare-button-arch
 }
 button.ct-wishlist-button-archive.ct-button::before, button.ct-compare-button-archive.ct-button::before, button.ct-open-quick-view.ct-button::before { display: none !important; }
 
-/* WOO NOTIFICATIONS */
-.woocommerce-message, .woocommerce-info, .woocommerce-error { border-radius: var(--gor-r-md) !important; border: none !important; border-left: 3px solid var(--gor-green) !important; padding: 14px 18px !important; font-size: 14px !important; letter-spacing: 0 !important; font-weight: 500 !important; box-shadow: var(--gor-shadow-sm) !important; background: var(--gor-green-light) !important; color: var(--gor-green-dark) !important; }
-.woocommerce-message::before, .woocommerce-info::before { color: var(--gor-green) !important; }
+/* WOO NOTIFICATIONS — flex layout: hides WC font icon (left-border is enough),
+   keeps text left-aligned and pushes inline button (e.g. "Przeglądaj produkty"
+   in empty wishlist) to the right with proper gap. */
+.woocommerce-message, .woocommerce-info, .woocommerce-error { border-radius: var(--gor-r-md) !important; border: none !important; border-left: 3px solid var(--gor-green) !important; padding: 14px 18px !important; font-size: 14px !important; letter-spacing: 0 !important; font-weight: 500 !important; box-shadow: var(--gor-shadow-sm) !important; background: var(--gor-green-light) !important; color: var(--gor-green-dark) !important; display: flex !important; align-items: center !important; flex-wrap: wrap !important; gap: 12px !important; }
+.woocommerce-message::before, .woocommerce-info::before, .woocommerce-error::before { display: none !important; }
 .woocommerce-error { background: rgba(220,38,38,0.06) !important; border-left-color: #DC2626 !important; color: #7f1d1d !important; }
-.woocommerce-message a.button, .woocommerce-info a.button { background: transparent !important; background-color: transparent !important; color: var(--gor-green-dark) !important; border: 1.5px solid var(--gor-green-dark) !important; box-shadow: none !important; font-size: 12.5px !important; padding: 7px 14px !important; margin-left: 12px !important; }
+.woocommerce-message a.button, .woocommerce-info a.button { background: transparent !important; background-color: transparent !important; color: var(--gor-green-dark) !important; border: 1.5px solid var(--gor-green-dark) !important; box-shadow: none !important; font-size: 12.5px !important; padding: 7px 14px !important; margin-left: auto !important; order: 2 !important; }
 
 /* GHOST button for dark sections */
 .gorvita-spring .wp-block-button__link, .gorvita-spring a.button, .gorvita-btn--on-dark { background: transparent !important; background-color: transparent !important; color: #ffffff !important; border: 1.5px solid rgba(255,255,255,0.35) !important; box-shadow: none !important; }
