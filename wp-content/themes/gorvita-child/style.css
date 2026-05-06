@@ -897,12 +897,19 @@ h1, h2, h3, h4, h5, h6 {
    (which use plain `.woocommerce-info` and load later in <head>). Empty-cart
    context still hides the icon via its own override in customizer-additional-css-v6.3.css. */
 body .woocommerce-info,
-body .woocommerce-message {
+body .woocommerce-message,
+body .woocommerce-error,
+body .woocommerce-notice,
+body ul.woocommerce-error li,
+body ul.woocommerce-info li,
+body ul.woocommerce-message li {
   padding-left: 3em !important;
   position: relative !important;
 }
 body .woocommerce-info::before,
-body .woocommerce-message::before {
+body .woocommerce-message::before,
+body .woocommerce-error::before,
+body .woocommerce-notice::before {
   position: absolute !important;
   left: 1em !important;
   top: 50% !important;
