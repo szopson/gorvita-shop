@@ -1,27 +1,52 @@
 (function () {
 	'use strict';
 
-	var ROLE_B2B = '1062';
-	var WRAPPER_SELECTOR = '.form-row, .b2bking-form-field, [class*="b2bking"][class*="field"]';
+	// B2BKing emits option values as `role_<ID>`. Keep numeric forms as fallback
+	// in case other deployments use bare IDs.
+	var ROLE_B2B_VALUES = ['role_1062', '1062'];
+	var WRAPPER_SELECTOR = 'p.form-row, .form-row, [class*="form-row"], [class*="b2bking"][class*="field"]:not(input):not(select):not(textarea)';
 
 	function findRoleSelect() {
 		return document.querySelector(
-			'select[name="b2bking_role"], select[name="registration_role_id"]'
+			'select[name="b2bking_registration_roles_dropdown"], ' +
+			'select[name="b2bking_role"], ' +
+			'select[name="registration_role_id"]'
 		);
+	}
+
+	function wrapperFor(input) {
+		if (!input) {
+			return null;
+		}
+		return input.closest(WRAPPER_SELECTOR) || input.parentElement;
+	}
+
+	function isB2BLabelText(text) {
+		text = (text || '').trim().toLowerCase();
+		// Strip trailing required-marker " *".
+		text = text.replace(/\s*\*\s*$/, '');
+		return text.indexOf('nazwa firmy') === 0 ||
+			text === 'nip' ||
+			text.indexOf('nip ') === 0;
 	}
 
 	function findB2BFields(form) {
 		var matches = [];
-		var labels = form.querySelectorAll('label');
-		labels.forEach(function (lbl) {
-			var text = (lbl.textContent || '').trim().toLowerCase();
-			if (text.indexOf('nazwa firmy') === 0 || text === 'nip' || text.indexOf('nip ') === 0) {
-				var wrapper = lbl.closest(WRAPPER_SELECTOR) || lbl.parentElement;
-				if (wrapper && matches.indexOf(wrapper) === -1) {
-					matches.push(wrapper);
-				}
+
+		form.querySelectorAll('label').forEach(function (lbl) {
+			if (!isB2BLabelText(lbl.textContent)) {
+				return;
+			}
+			var input = lbl.htmlFor ? document.getElementById(lbl.htmlFor) : null;
+			if (!input) {
+				input = lbl.parentElement && lbl.parentElement.querySelector('input, select, textarea');
+			}
+			var wrapper = wrapperFor(input) || lbl.closest(WRAPPER_SELECTOR) || lbl.parentElement;
+			if (wrapper && matches.indexOf(wrapper) === -1) {
+				matches.push(wrapper);
 			}
 		});
+
 		return matches;
 	}
 
@@ -47,7 +72,7 @@
 	}
 
 	function applyState(form, select) {
-		var isB2B = String(select.value) === ROLE_B2B;
+		var isB2B = ROLE_B2B_VALUES.indexOf(String(select.value)) !== -1;
 		findB2BFields(form).forEach(function (wrapper) {
 			setHidden(wrapper, !isB2B);
 		});
