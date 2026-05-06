@@ -116,6 +116,9 @@ function gorvita_polish_strings(string $translated, string $original, string $do
             'Related products'                       => 'Powiązane produkty',
             'You may also like&hellip;'              => 'Może Cię zainteresować…',
             'You may also like...'                   => 'Może Cię zainteresować…',
+            'You may be interested in&hellip;'       => 'Może Cię zainteresować…',
+            'You may be interested in...'            => 'Może Cię zainteresować…',
+            'You may be interested in…'              => 'Może Cię zainteresować…',
 
             // ── Reviews ────────────────────────────────────────────────────
             'Be the first to review &ldquo;%s&rdquo;'      => 'Napisz pierwszą opinię o &ldquo;%s&rdquo;',
