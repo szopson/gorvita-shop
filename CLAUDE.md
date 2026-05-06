@@ -84,35 +84,34 @@ docker compose exec wordpress wp cache flush --allow-root
 - Obecny sklep klienta: `sklep.gorvita.com.pl`
 - Strona korporacyjna: `gorvita.pl` (design reference)
 
-## Stan projektu (2026-04-23)
+## Stan projektu (2026-05-06)
 ### ✅ Zrobione
 - VPS + Docker + Traefik SSL — działa
 - Design system (style.css + functions.php)
 - Produkty zaimportowane (108 szt.)
 - Zdjęcia załadowane do WP Media
 - SMTP: FluentSMTP + Resend (test OK, From: contact@nexoperandi.cloud)
-- **[NEW]** Blocksy cleanup: 3 template overrides (front-page.php, footer.php, woocommerce/) → disabled-overrides/
-  - Branch: `feat/blocksy-clean-render`
-  - PR #9 open, ready to merge
-  - All inc/ modules + CSS untouched
-  - Git history preserved
+- Blocksy cleanup zmergowany; CSS source-of-truth → `docs/customizer-additional-css-v6.3.css` (paste do WP Customizer → Additional CSS)
+- **B2BKing Pro v5.5.40** zainstalowany i skonfigurowany:
+  - PL labels formularza rejestracji (gettext filter dla `blocksy-companion`)
+  - Polonizacja menu konta (Dashboard → Kokpit, My Account → Moje konto, Wishlist → Lista życzeń, Edit Profile → Edytuj profil, Log Out → Wyloguj się)
+  - Polish NIP mod-11 validation (`gorvita_validate_polish_nip`, fields 1759 NIP + 1072 VAT)
+  - Dynamic toggle pól rejestracji per rola (`assets/js/b2b-registration-toggle.js`) — ukrywa pola B2B-only gdy rola ≠ 1062
+- **Wishlist (Blocksy Pro)**:
+  - Slug `woo-wish-list` → `lista-zyczen` (filter `blocksy:pro:woocommerce-extra:wish-list:slug`)
+  - Wszystkie warianty URL → 301 do canonical `/moje-konto/lista-zyczen/`
+  - Hotfix DB: `woocommerce_myaccount_page_id` 10 → 9 (page 10 nie istniała, generowała relatywne URL-e wishlist linkujące do bieżącej strony)
 
 ### 🔧 Do zrobienia — priorytety
-1. **[TERAZ]** Blocksy cleanup:
-   - ✅ Files moved, PR #9 open
-   - 👉 **Merge PR #9** → GitHub Actions auto-deploys to staging
-   - 👉 Verify on staging: https://gorvita.srv1594477.hstgr.cloud
-   - 👉 Configure Blocksy in admin panel (Customizer + Content Blocks)
-   - 👉 Zbierz CSS tweaks, commit to `assets/css/overrides.css`
-   - See: `.claude/tasks/blocksy-cleanup.md`
+1. **[POST-DEPLOY]** Wkleić aktualną zawartość `docs/customizer-additional-css-v6.3.css` do WP Admin → Wygląd → Dostosuj → Dodatkowy CSS — bez tego CSS fixy z Customizer nie zadziałają.
 
-2. **[PO BLOCKSY]** PayU — konfiguracja (czeka credentials od Pawła)
+2. **[CLEANUP]** Stopka strony głównej: leftover demo-link „Wishlist" → `https://startersites.io/blocksy/furniture/...` z importu starter site. Do wyczyszczenia w Footer Builder / widget.
 
-3. **[PRZED LAUNCHEM]** InPost — plugin aktywny, brak API key
+3. **[PO BLOCKSY]** PayU — konfiguracja (czeka credentials od Pawła)
 
-4. **[PRZED LAUNCHEM]** B2BKing — do zakupu i konfiguracji
+4. **[PRZED LAUNCHEM]** InPost — plugin aktywny, brak API key
 
-5. **[PRZED LAUNCHEM]** WP Desk Pole NIP — do zakupu
+5. **[PRZED LAUNCHEM]** WP Desk Pole NIP — do zakupu (autofill GUS, wymagane do KSeF)
 
 6. **[PRZED LAUNCHEM]** SMTP From → sklep@gorvita.pl + weryfikacja w Resend
 
