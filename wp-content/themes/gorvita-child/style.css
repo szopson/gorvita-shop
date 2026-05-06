@@ -893,16 +893,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* WC info notifications: keep the icon, give it space, vertically center it.
-   !important beats Customizer Additional CSS overrides which previously set
-   padding: 14px 18px (no left padding for the icon). The empty-cart context
-   still hides the icon via its own override in customizer-additional-css-v6.3.css. */
-.woocommerce-info,
-.woocommerce-message {
+   `body` prefix raises specificity above the Customizer Additional CSS overrides
+   (which use plain `.woocommerce-info` and load later in <head>). Empty-cart
+   context still hides the icon via its own override in customizer-additional-css-v6.3.css. */
+body .woocommerce-info,
+body .woocommerce-message {
   padding-left: 3em !important;
   position: relative !important;
 }
-.woocommerce-info::before,
-.woocommerce-message::before {
+body .woocommerce-info::before,
+body .woocommerce-message::before {
   position: absolute !important;
   left: 1em !important;
   top: 50% !important;
