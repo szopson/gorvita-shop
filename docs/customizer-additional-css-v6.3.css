@@ -1,6 +1,16 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.15
+   GORVITA PREMIUM CSS — v6.16
    ----------------------------------------------------------------------------
+   v6.16 deltas vs v6.15 — three small UX fixes:
+     1. Compare bar at bottom got clipped on cart/checkout — products
+        and the "Porównaj" button were cut off. Forced safe layout
+        defaults: container max-width, items shrink-to-fit, no overflow.
+     2. PDP "Zapisz jako listę zakupów" CTA — new full-width pill
+        button rendered between description tabs and the Nowości row
+        (inc/pdp-save-list-cta.php). Clicks bridge to Blocksy Pro's
+        existing wishlist heart so state syncs with the offcanvas panel.
+     3. Tabs nav (.gorvita-tabs-nav) on PDP is now centered horizontally
+        instead of left-aligned, matching modern shop conventions.
    v6.15 deltas vs v6.14 — uniform "Może Cię zainteresować…" across shop:
      User asked: "moze po prostu damy tam sekcje nowosci albo bestsellers?
      i takie same karty produktow itd?". Both PDP and cart were showing
@@ -682,6 +692,111 @@ body .wc-block-components-radio-control__option input[type="radio"] {
   transform: translateY(-2px) !important;
 }
 .return-to-shop a.button.wc-backward::after { content: " →"; opacity: 0.8; }
+
+/* === v6.16: COMPARE BAR LAYOUT — keep items + button visible ===
+   Plugin defaults set --compare-bar-height: 70px and --compare-bar-padding: 15px,
+   then `ul { overflow: clip }` clips the items list. On /koszyk/ + /zamowienie/
+   something narrowed the container so products and the "Porównaj" CTA were
+   cut off. Force the same layout as on home: container max-width 1280px,
+   horizontal flex with gap, the items list flexes to fill, the action
+   anchor never shrinks. */
+.ct-compare-bar {
+  --compare-bar-height: 70px !important;
+  --compare-bar-padding: 15px !important;
+  width: 100% !important;
+}
+.ct-compare-bar .ct-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 20px !important;
+  max-width: 1280px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.ct-compare-bar ul {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+.ct-compare-bar > a,
+.ct-compare-bar > button,
+.ct-compare-bar .ct-button,
+.ct-compare-bar [class*="ct-compare-action"] {
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* === v6.16: PDP "Zapisz jako listę zakupów" CTA ===
+   Rendered by inc/pdp-save-list-cta.php between description tabs and
+   the Nowości row, mirrors the "Przejdź do płatności" pill (full width,
+   rounded, sage→green gradient). Clicks bridge to Blocksy Pro wishlist. */
+.gorvita-save-list-wrap {
+  max-width: 72ch;
+  margin: 32px auto 24px !important;
+  padding: 0 !important;
+}
+.gorvita-save-list-cta {
+  width: 100% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  color: var(--gor-green-dark) !important;
+  border: 1.5px solid var(--gor-border-hover) !important;
+  border-radius: var(--gor-r-pill) !important;
+  padding: 14px 24px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease, border-color 0.18s ease !important;
+}
+.gorvita-save-list-cta svg {
+  flex-shrink: 0 !important;
+  width: 18px !important;
+  height: 18px !important;
+  fill: currentColor !important;
+}
+.gorvita-save-list-cta:hover {
+  background: var(--gor-green-light) !important;
+  background-color: var(--gor-green-light) !important;
+  color: var(--gor-green-dark) !important;
+  border-color: var(--gor-green) !important;
+  transform: translateY(-1px) !important;
+}
+.gorvita-save-list-cta:focus-visible {
+  outline: 3px solid var(--gor-focus) !important;
+  outline-offset: 3px !important;
+}
+.gorvita-save-list-cta--liked {
+  background: var(--gor-green) !important;
+  background-color: var(--gor-green) !important;
+  color: #ffffff !important;
+  border-color: var(--gor-green) !important;
+}
+.gorvita-save-list-cta--liked:hover {
+  background: var(--gor-green-dark) !important;
+  background-color: var(--gor-green-dark) !important;
+  color: #ffffff !important;
+}
+
+/* === v6.16: PDP TABS NAV CENTERED ===
+   .gorvita-tabs-nav previously left-aligned. Centered now to match
+   modern shop conventions and feel more balanced under the description. */
+.gorvita-tabs-nav {
+  justify-content: center !important;
+}
 
 /* === v6.15: PDP NOWOŚCI SECTION ===
    `.gorvita-pdp-nowosci` is rendered by inc/pdp-related-products.php
