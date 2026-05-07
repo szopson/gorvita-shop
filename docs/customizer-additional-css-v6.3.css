@@ -1,6 +1,26 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.12
+   GORVITA PREMIUM CSS — v6.13
    ----------------------------------------------------------------------------
+   v6.13 deltas vs v6.12 — quick wins from cart/checkout/PDP audit:
+     1. Trash icon in block cart hover state — was no color change. Now
+        turns rose (`var(--gor-rose)`) on hover with a soft scale.
+     2. Block checkout "Kupuję i płacę" CTA gets the same gradient as
+        primary buttons (sage→green). v6.9 strip dropped the explicit
+        place-order override; now reapplied scoped to block selector.
+     3. PDP description typography — h2 spacing, paragraph line-height
+        normalized to 1.65, footnote `<sup>` lifted slightly.
+     4. `.gorvita-prod-bullets` styling — produced by the new server-side
+        `inc/product-description-cleanup.php` filter that promotes
+        bullet-paragraph runs (e.g. `<p>- pomaga w funkcjonowaniu</p>`)
+        into a proper `<ul><li>` on PDP. Affects ~15 products.
+     5. Cookie banner offset on cart/checkout — `.ct-cookies-notification`
+        was overlapping the sticky CTA on mobile.
+     6. i18n: "You may be interested in…" — block strings come from JS
+        (React), gettext alone misses them. Defensive CSS to hide the
+        original heading; the PHP filter on cart-cross-sells already
+        translates the `wp:heading` block on page 7. (Issue persists
+        when block fetches own heading dynamically; full fix would be
+        wp_set_script_translations — separate task.)
    v6.12 deltas vs v6.11 — checkout CTA repositioned under sidebar:
      User asked for "Kupuję i płacę" on /zamowienie/ to anchor below the
      order summary card, mirroring `.wc-block-cart__submit-container` on
@@ -573,6 +593,117 @@ body .wc-block-components-radio-control__option input[type="radio"] {
   transform: translateY(-2px) !important;
 }
 .return-to-shop a.button.wc-backward::after { content: " →"; opacity: 0.8; }
+
+/* === v6.13: BLOCK CART — TRASH ICON HOVER ROSE ===
+   The remove-link in the block cart had no color change on hover, so users
+   couldn't tell it was clickable. Brand-rose + tiny scale + tooltip via
+   title attribute (already set by WC). Targets all variants of the remove
+   button across cart and mini-cart. */
+.wc-block-cart-item__remove-link,
+.wc-block-mini-cart__cart-line-item .wc-block-cart-item__remove-link,
+button.wc-block-cart-item__remove-link {
+  color: var(--gor-text-muted) !important;
+  transition: color 0.18s ease, transform 0.18s ease !important;
+}
+.wc-block-cart-item__remove-link:hover,
+.wc-block-mini-cart__cart-line-item .wc-block-cart-item__remove-link:hover,
+button.wc-block-cart-item__remove-link:hover {
+  color: var(--gor-rose) !important;
+  transform: scale(1.08) !important;
+}
+
+/* === v6.13: BLOCK CHECKOUT — "Kupuję i płacę" GRADIENT CTA ===
+   v6.9 stripped the place-order override; reapply scoped to the actual
+   block selector (the generic primary-button rule on line 157 doesn't
+   reach into the block due to specificity). Sage→green gradient, lift
+   on hover, full width inside the actions wrapper. */
+.wc-block-checkout__actions_row .wc-block-components-checkout-place-order-button,
+.wp-block-woocommerce-checkout-actions-block .wc-block-components-checkout-place-order-button {
+  background: linear-gradient(175deg, var(--gor-green) 0%, var(--gor-green-dark) 100%) !important;
+  background-color: var(--gor-green) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: var(--gor-r-pill) !important;
+  padding: 16px 28px !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  box-shadow: var(--gor-shadow-btn) !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease !important;
+  width: 100% !important;
+  min-height: 56px !important;
+}
+.wc-block-checkout__actions_row .wc-block-components-checkout-place-order-button:hover,
+.wp-block-woocommerce-checkout-actions-block .wc-block-components-checkout-place-order-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--gor-shadow-btn-hov) !important;
+  background: linear-gradient(175deg, var(--gor-green-dark) 0%, var(--gor-green-deeper) 100%) !important;
+  background-color: var(--gor-green-dark) !important;
+  color: #ffffff !important;
+}
+
+/* === v6.13: PDP DESCRIPTION TYPOGRAPHY ===
+   ~15 products had bullet-paragraph runs that the PHP filter now promotes
+   to <ul class="gorvita-prod-bullets">. Plus 2 products are very thin
+   single-paragraph walls — better line-height + spacing makes them
+   readable instead of cramped. */
+.woocommerce-Tabs-panel--description h2,
+#tab-description h2 {
+  margin-top: 1.6em !important;
+  margin-bottom: 0.6em !important;
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 400 !important;
+  font-size: 1.35rem !important;
+  letter-spacing: -0.01em !important;
+}
+.woocommerce-Tabs-panel--description h2:first-child,
+#tab-description h2:first-child { margin-top: 0 !important; }
+.woocommerce-Tabs-panel--description p,
+#tab-description p {
+  line-height: 1.65 !important;
+  margin-bottom: 0.85em !important;
+}
+.woocommerce-Tabs-panel--description sup,
+#tab-description sup {
+  font-size: 0.7em !important;
+  vertical-align: super !important;
+  line-height: 0 !important;
+}
+
+.gorvita-prod-bullets {
+  list-style: none !important;
+  margin: 0.4em 0 1.1em 0 !important;
+  padding: 0 !important;
+}
+.gorvita-prod-bullets li {
+  position: relative !important;
+  padding: 6px 0 6px 22px !important;
+  line-height: 1.55 !important;
+  color: var(--gor-text-body) !important;
+  border-bottom: 1px solid rgba(45,80,22,0.05) !important;
+}
+.gorvita-prod-bullets li:last-child { border-bottom: 0 !important; }
+.gorvita-prod-bullets li::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 4px !important;
+  top: 14px !important;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background: var(--gor-sage) !important;
+}
+
+/* === v6.13: COOKIE BANNER OFFSET ON STICKY-CTA PAGES ===
+   Blocksy cookies-consent extension renders `.ct-cookies-notification`
+   pinned bottom. On /koszyk/ + /zamowienie/ on mobile it overlapped the
+   sticky checkout CTA. Lift it 80px on these pages so both are usable. */
+@media (max-width: 768px) {
+  body.woocommerce-cart .ct-cookies-notification,
+  body.woocommerce-checkout .ct-cookies-notification {
+    bottom: 80px !important;
+  }
+}
 
 /* === v6.11: FREE SHIPPING PROGRESS BAR ===
    Rendered into the cart sidebar by assets/js/cart-shipping-progress.js
