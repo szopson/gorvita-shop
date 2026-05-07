@@ -1,6 +1,21 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.17
+   GORVITA PREMIUM CSS — v6.18
    ----------------------------------------------------------------------------
+   v6.18 deltas vs v6.17 — Save-list now actually saves the list:
+     User feedback: my CTA bridged to .ct-header-wishlist (opens offcanvas)
+     while B2BKing renders its own .b2bking_add_cart_to_purchase_list_button
+     after the cart block, which is the one that actually creates a saved
+     purchase list (window.prompt for name → AJAX
+     `b2bking_save_cart_to_purchase_list` → fires `b2bking_saved_purchase_list`).
+     Two visible buttons doing different things → confusing.
+     - JS bridge in the cart wp:html block now targets the B2BKing button
+       instead of the wishlist heart, so the prompt + AJAX + state event
+       all run as if you clicked the native B2BKing button.
+     - Original B2BKing button is hidden (display:none) — the JS click
+       still fires because B2BKing uses delegated handler on `body`.
+     - .gorvita-save-list-cta--saved style: filled green, disabled,
+       label flips to "Lista zapisana ✓" on the b2bking_saved_purchase_list
+       body event.
    v6.17 deltas vs v6.16 — Save-list CTA repositioned, PDP duplicate gone:
      User feedback: "save-list mialo byc tylko na stronie /koszyk" + PDP
      already has TWO native Blocksy sections (`<section class="up-sells">`
@@ -794,16 +809,36 @@ body .wc-block-components-radio-control__option input[type="radio"] {
   outline: 3px solid var(--gor-focus) !important;
   outline-offset: 3px !important;
 }
-.gorvita-save-list-cta--liked {
+.gorvita-save-list-cta--liked,
+.gorvita-save-list-cta--saved {
   background: var(--gor-green) !important;
   background-color: var(--gor-green) !important;
   color: #ffffff !important;
   border-color: var(--gor-green) !important;
 }
-.gorvita-save-list-cta--liked:hover {
+.gorvita-save-list-cta--liked:hover,
+.gorvita-save-list-cta--saved:hover {
   background: var(--gor-green-dark) !important;
   background-color: var(--gor-green-dark) !important;
   color: #ffffff !important;
+}
+.gorvita-save-list-cta--saved {
+  cursor: default !important;
+  pointer-events: none !important;
+}
+.gorvita-save-list-cta:disabled {
+  opacity: 1 !important;
+}
+
+/* === v6.18: HIDE B2BKING NATIVE PURCHASE-LIST BUTTON ON CART ===
+   B2BKing renders its own .b2bking_add_cart_to_purchase_list_button after
+   .wp-block-woocommerce-cart and force-styles it `float: right`. We now
+   bridge our styled CTA to it via JS, so hide the native one to avoid
+   showing two buttons that do the same thing. The B2BKing handler is
+   `$('body').on('click', ...)` — delegated, so the programmatic click
+   from our CTA still fires even though the button is display:none. */
+body.woocommerce-cart .b2bking_add_cart_to_purchase_list_button {
+  display: none !important;
 }
 
 /* === v6.16: PDP TABS NAV CENTERED ===
