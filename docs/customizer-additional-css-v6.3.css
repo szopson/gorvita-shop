@@ -1,6 +1,27 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.18
+   GORVITA PREMIUM CSS — v6.19
    ----------------------------------------------------------------------------
+   v6.19 deltas vs v6.18:
+     1. Compare bar STILL clipped on /koszyk/ + /zamowienie/ — v6.16 fix
+        wasn't enough. Root: line 482 rule
+        `body.woocommerce-cart .ct-container { padding-top: 28px;
+        padding-bottom: 56px }` cascades into `.ct-compare-bar .ct-container`
+        too, giving it 84px of vertical padding inside a 70px-tall bar
+        → overflow clips items + button. Reset paddings on the
+        compare-bar's container specifically.
+     2. Save-list AJAX: replicate B2BKing logic directly. The native
+        button doesn't render for non-B2B-logged users so b2b.click()
+        was a no-op. Direct $.post to b2bking_save_cart_to_purchase_list
+        works for any session that has b2bking_display_settings localized.
+        Added .gorvita-save-list-cta--loading state (spinner via CSS).
+     3. TODO #1 — Quantity stepper in block cart: pill buttons, not
+        text-only. .wc-block-components-quantity-selector__button.
+     4. TODO #6 — Sidebar contrast on cart/checkout: white surface +
+        soft shadow + border, so it reads as a decision panel.
+     5. TODO #12 — Border-radius unify: bump remaining r-sm (6px) zones
+        on cart/checkout up to r-md (12px) for a consistent rounding.
+     6. TODO #15 — Empty cart: keep modernized message + outline CTA
+        (already in v6.x, scoped tighter to block empty-cart fallback).
    v6.18 deltas vs v6.17 — Save-list now actually saves the list:
      User feedback: my CTA bridged to .ct-header-wishlist (opens offcanvas)
      while B2BKing renders its own .b2bking_add_cart_to_purchase_list_button
@@ -722,6 +743,150 @@ body .wc-block-components-radio-control__option input[type="radio"] {
   transform: translateY(-2px) !important;
 }
 .return-to-shop a.button.wc-backward::after { content: " →"; opacity: 0.8; }
+
+/* === v6.19: COMPARE BAR — kill cart/checkout vertical padding cascade ===
+   Cart/checkout has a universal `.ct-container { padding: 28px 0 56px 0 }`
+   override (line ~480 region), which cascades into the compare bar's
+   inner .ct-container — its parent .ct-compare-bar is only 70px tall,
+   so 84px of vertical padding pushes the items + button out of the
+   visible area. Reset vertical paddings here. Horizontal stays at 24px
+   from v6.16. */
+body.woocommerce-cart .ct-compare-bar .ct-container,
+body.woocommerce-checkout .ct-compare-bar .ct-container,
+.ct-compare-bar .ct-container {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* === v6.19: SAVE-LIST CTA LOADING STATE === */
+.gorvita-save-list-cta--loading {
+  cursor: progress !important;
+  opacity: 0.75 !important;
+}
+.gorvita-save-list-cta--loading svg {
+  animation: gorvita-spin 0.6s linear infinite !important;
+}
+@keyframes gorvita-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* === v6.19: TODO #1 — BLOCK CART QUANTITY STEPPER PILL BUTTONS ===
+   WC ships .wc-block-components-quantity-selector with bare text +/-.
+   Make them pillowy circles with sage hover, like the rest of the UI. */
+.wc-block-components-quantity-selector {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: #ffffff !important;
+  border: 1px solid var(--gor-border) !important;
+  border-radius: var(--gor-r-pill) !important;
+  padding: 4px !important;
+  width: auto !important;
+}
+.wc-block-components-quantity-selector__button {
+  width: 32px !important;
+  height: 32px !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  color: var(--gor-text-muted) !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+.wc-block-components-quantity-selector__button:hover {
+  background: var(--gor-green-light) !important;
+  color: var(--gor-green-dark) !important;
+}
+.wc-block-components-quantity-selector__button:active {
+  transform: scale(0.92) !important;
+}
+.wc-block-components-quantity-selector__button:disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
+}
+.wc-block-components-quantity-selector__input {
+  border: 0 !important;
+  background: transparent !important;
+  width: 36px !important;
+  text-align: center !important;
+  font-weight: 500 !important;
+  color: var(--gor-text) !important;
+  -moz-appearance: textfield !important;
+  appearance: textfield !important;
+}
+.wc-block-components-quantity-selector__input::-webkit-outer-spin-button,
+.wc-block-components-quantity-selector__input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+/* === v6.19: TODO #6 — SIDEBAR PANEL CONTRAST ===
+   Cart/checkout sidebars (Podsumowanie zamówienia / koszyka) blended
+   into the cream page bg. White surface + soft border + shadow so they
+   read as a decision panel anchored to the right. */
+body.woocommerce-cart .wp-block-woocommerce-cart-totals-block,
+body.woocommerce-checkout .wp-block-woocommerce-checkout-order-summary-block,
+body.woocommerce-cart .wc-block-cart__sidebar,
+body.woocommerce-checkout .wc-block-checkout__sidebar {
+  background: #ffffff !important;
+  border: 1px solid var(--gor-border) !important;
+  border-radius: var(--gor-r-md) !important;
+  padding: 24px !important;
+  box-shadow: var(--gor-shadow-sm) !important;
+}
+
+/* === v6.19: TODO #12 — BORDER-RADIUS UNIFICATION ON CART/CHECKOUT ===
+   Several block components shipped with r-sm (6px). Bump cart/checkout
+   block surfaces to r-md (12px) for consistency with sidebars + buttons.
+   Inputs stay pillowy (already r-pill from v6.7). */
+body.woocommerce-cart .wc-block-components-panel,
+body.woocommerce-checkout .wc-block-components-panel,
+body.woocommerce-cart .wc-block-cart-items,
+body.woocommerce-checkout .wc-block-cart-items,
+body.woocommerce-cart .wc-block-components-product-image img,
+body.woocommerce-checkout .wc-block-components-product-image img {
+  border-radius: var(--gor-r-md) !important;
+}
+
+/* === v6.19: TODO #15 — EMPTY CART POLISH ===
+   Block-cart empty state renders inside .wp-block-woocommerce-empty-cart-block.
+   Keep the existing .wc-empty-cart-message rule (line ~485) but also
+   target the block fallback heading + outline CTA. */
+.wp-block-woocommerce-empty-cart-block h2.wp-block-heading {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 300 !important;
+  font-size: clamp(1.75rem, 3vw, 2.25rem) !important;
+  letter-spacing: -0.015em !important;
+  text-align: center !important;
+  color: var(--gor-text) !important;
+  margin: 32px 0 24px !important;
+}
+.wp-block-woocommerce-empty-cart-block .wp-block-buttons {
+  justify-content: center !important;
+}
+.wp-block-woocommerce-empty-cart-block .wp-block-button .wp-block-button__link {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: var(--gor-green-dark) !important;
+  border: 1.5px solid var(--gor-green-dark) !important;
+  box-shadow: none !important;
+  border-radius: var(--gor-r-pill) !important;
+  padding: 12px 28px !important;
+}
+.wp-block-woocommerce-empty-cart-block .wp-block-button .wp-block-button__link:hover {
+  background: var(--gor-green-dark) !important;
+  background-color: var(--gor-green-dark) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+}
 
 /* === v6.16: COMPARE BAR LAYOUT — keep items + button visible ===
    Plugin defaults set --compare-bar-height: 70px and --compare-bar-padding: 15px,
