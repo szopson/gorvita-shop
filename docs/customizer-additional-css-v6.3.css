@@ -1,6 +1,19 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.10
+   GORVITA PREMIUM CSS — v6.11
    ----------------------------------------------------------------------------
+   v6.11 deltas vs v6.10 — restore free-shipping progress bar + chatbot fix:
+     1. Free shipping progress bar: brought back the Critical-#1 component
+        from `disabled-overrides/inc/mobile-ux.php::gorvita_render_shipping_hint`,
+        rewritten for the block cart (the original was hooked to
+        `woocommerce_before_cart_table` and never fired once page 7 became
+        a `wp:woocommerce/cart` block). New PHP+JS module reads the
+        threshold from `woocommerce_free_shipping_*_settings.min_amount`
+        (currently 249 zł) and subscribes to `wc/store/cart` to update
+        live. Visual: cream-light card with progress fill (sage→green
+        gradient) inserted before the "Przejdź do kasy" button.
+     2. Chatbot offset: `#gorvita-chatbot-root` was at `bottom: 20px` and
+        overlapped the 70px `.ct-floating-bar` sticky cart bar on PDP.
+        Lift to `bottom: 90px` (100px on mobile for extra clearance).
    v6.10 deltas vs v6.9 — fix three /koszyk/ + /zamowienie/ regressions:
      1. Hero gone: Blocksy renders an empty `<div class="hero-section
         is-width-constrained" data-type="type-1">` on every single_page,
@@ -522,6 +535,60 @@ body .wc-block-components-radio-control__option input[type="radio"] {
   transform: translateY(-2px) !important;
 }
 .return-to-shop a.button.wc-backward::after { content: " →"; opacity: 0.8; }
+
+/* === v6.11: FREE SHIPPING PROGRESS BAR ===
+   Rendered into the cart sidebar by assets/js/cart-shipping-progress.js
+   (subscribed to wc/store/cart). Threshold is read server-side from
+   woocommerce_free_shipping_*_settings, passed via wp_localize_script. */
+.gorvita-shipping-hint {
+  background: var(--gor-cream-light) !important;
+  border: 1px solid var(--gor-border) !important;
+  border-radius: var(--gor-r-md) !important;
+  padding: 14px 16px !important;
+  margin: 16px 0 !important;
+  font-size: 13.5px !important;
+  line-height: 1.4 !important;
+  color: var(--gor-text-body) !important;
+  letter-spacing: 0 !important;
+}
+.gorvita-shipping-hint__msg {
+  margin-bottom: 10px !important;
+}
+.gorvita-shipping-hint__msg strong {
+  color: var(--gor-green-dark) !important;
+  font-weight: 600 !important;
+}
+.gorvita-shipping-hint__bar {
+  height: 6px !important;
+  background: rgba(45,80,22,0.08) !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+}
+.gorvita-shipping-hint__fill {
+  height: 100% !important;
+  width: 0;
+  background: linear-gradient(90deg, var(--gor-sage) 0%, var(--gor-green) 100%) !important;
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  border-radius: 999px !important;
+}
+.gorvita-shipping-hint--achieved {
+  border-color: var(--gor-green) !important;
+  background: var(--gor-green-light) !important;
+  color: var(--gor-green-dark) !important;
+  font-weight: 500 !important;
+}
+.gorvita-shipping-hint--achieved .gorvita-shipping-hint__msg {
+  margin-bottom: 0 !important;
+}
+.gorvita-shipping-hint--achieved .gorvita-shipping-hint__bar { display: none !important; }
+
+/* === v6.11: CHATBOT WIDGET ABOVE STICKY FLOATING BAR ===
+   #gorvita-chatbot-root was at bottom: 20px and overlapped the 70px
+   .ct-floating-bar.ct-ajax-add-to-cart on PDPs. Lift to clear it. */
+#gorvita-chatbot-root { bottom: 90px !important; }
+@media (max-width: 768px) {
+  #gorvita-chatbot-root { bottom: 100px !important; }
+}
 
 /* === v6.10: KILL EMPTY PAGE HERO ON WC PAGES ===
    Blocksy outputs `<div class="hero-section is-width-constrained" data-type="type-1">`
