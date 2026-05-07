@@ -1,6 +1,25 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.9
+   GORVITA PREMIUM CSS — v6.10
    ----------------------------------------------------------------------------
+   v6.10 deltas vs v6.9 — fix three /koszyk/ + /zamowienie/ regressions:
+     1. Hero gone: Blocksy renders an empty `<div class="hero-section
+        is-width-constrained" data-type="type-1">` on every single_page,
+        including cart and checkout. The h1 inside is fine but the container
+        leaves a huge cream gap above the cart UI. Hide it on those pages
+        only — `.entry-title` rule (lines ~421-427) already gives the page
+        a serif heading, so the hero is redundant.
+     2. Categories defensive: `<nav data-id="menu-secondary">` (the eight
+        category bar in the bottom header row) is in DOM on cart/checkout
+        identically to home, but the user reported it "missing". Forensic
+        inspection showed the line ~126 dead rule (`[data-id="header-row-2"]`)
+        does NOT match anything in current Blocksy DOM. Add a defensive
+        `display:flex` for the menu-secondary + bottom row on WC pages so
+        future regressions can't accidentally hide it.
+     3. Cross-sells card chrome: "Możesz być też zainteresowany" cards
+        (wp:woocommerce/product-collection on /koszyk/) ship flat by default;
+        v6.9 strip removed earlier overrides that gave them a card. Add
+        minimal scoped chrome (white surface, border, outline button) so
+        they read like the homepage Bestsellers row instead of bare HTML.
    v6.9 deltas vs v6.8 — strip-and-rebuild for Block Cart/Checkout:
      User flagged that /koszyk/ and /zamowienie/ looked "raw" / unlike the
      Blocksy Furniture starter (https://startersites.io/blocksy/furniture/).
@@ -503,6 +522,57 @@ body .wc-block-components-radio-control__option input[type="radio"] {
   transform: translateY(-2px) !important;
 }
 .return-to-shop a.button.wc-backward::after { content: " →"; opacity: 0.8; }
+
+/* === v6.10: KILL EMPTY PAGE HERO ON WC PAGES ===
+   Blocksy outputs `<div class="hero-section is-width-constrained" data-type="type-1">`
+   on every single_page. Cart/checkout already render their `.entry-title`
+   (rule above), so the hero is dead vertical space. */
+body.woocommerce-cart .hero-section,
+body.woocommerce-checkout .hero-section { display: none !important; }
+
+/* === v6.10: PIN CATEGORY NAV VISIBLE ON WC PAGES ===
+   The eight-category nav (Stawy/Skóra/Odporność/Wątroba/CBD/Energia/Krążenie/Nos)
+   lives in `[data-id="menu-secondary"]` inside `[data-row="bottom:boxed"]`.
+   Defensive force-show — the line ~126 hide rule is a dead selector but if
+   anything ever scopes a hide to WC pages this neutralizes it. */
+body.woocommerce-cart [data-id="menu-secondary"],
+body.woocommerce-checkout [data-id="menu-secondary"],
+body.woocommerce-cart [data-row="bottom:boxed"],
+body.woocommerce-checkout [data-row="bottom:boxed"] { display: flex !important; }
+
+/* === v6.10: CROSS-SELLS CARD CHROME ===
+   "Możesz być też zainteresowany" — `wp:woocommerce/product-collection` cards
+   on /koszyk/ ship flat. Match the homepage Bestsellers vibe: white surface,
+   1px border, outline button, soft hover lift. Scoped to product-collection
+   only so we don't repaint the rest of WC blocks. */
+.wp-block-woocommerce-product-collection .wc-block-product {
+  background: #ffffff !important;
+  border: 1px solid var(--gor-border) !important;
+  border-radius: var(--gor-r-md) !important;
+  padding: 16px !important;
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease !important;
+}
+.wp-block-woocommerce-product-collection .wc-block-product:hover {
+  border-color: var(--gor-border-hover) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: var(--gor-shadow-sm) !important;
+}
+.wp-block-woocommerce-product-collection .wc-block-product .wc-block-components-product-price {
+  font-weight: 600 !important;
+  color: var(--gor-text) !important;
+}
+.wp-block-woocommerce-product-collection .wc-block-product .wp-block-button__link,
+.wp-block-woocommerce-product-collection .wc-block-product .wc-block-components-product-button .wp-block-button__link {
+  background: transparent !important;
+  color: var(--gor-green-dark) !important;
+  border: 1.5px solid var(--gor-border-hover) !important;
+  box-shadow: none !important;
+}
+.wp-block-woocommerce-product-collection .wc-block-product .wp-block-button__link:hover,
+.wp-block-woocommerce-product-collection .wc-block-product .wc-block-components-product-button .wp-block-button__link:hover {
+  background: var(--gor-green-light) !important;
+  color: var(--gor-green-dark) !important;
+}
 
 /* Classic checkout fallback section removed in v6.6 — let Blocksy default
    render page 8 ([woocommerce_checkout] shortcode). The grid layout, card
