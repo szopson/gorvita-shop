@@ -1,6 +1,21 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.16
+   GORVITA PREMIUM CSS — v6.17
    ----------------------------------------------------------------------------
+   v6.17 deltas vs v6.16 — Save-list CTA repositioned, PDP duplicate gone:
+     User feedback: "save-list mialo byc tylko na stronie /koszyk" + PDP
+     already has TWO native Blocksy sections (`<section class="up-sells">`
+     "Może Cię zainteresować…" + `<section class="related products">`
+     "Powiązane produkty"). My v6.15 .gorvita-pdp-nowosci was a third,
+     duplicating section. Reverted:
+       - inc/pdp-related-products.php — DELETED (default
+         woocommerce_output_related_products + woocommerce_upsell_display
+         restored, those native sections come back).
+       - inc/pdp-save-list-cta.php — DELETED (CTA was on PDP, wrong place).
+       - .gorvita-pdp-nowosci CSS — REMOVED (no element to style anymore).
+       - Save-list CTA HTML block inserted into page 7 (cart) post_content
+         BEFORE the "Może Cię zainteresować…" separator, so it sits at
+         the bottom of the cart items column. Click bridges to the header
+         wishlist icon (opens Blocksy offcanvas wish-list panel).
    v6.16 deltas vs v6.15 — three small UX fixes:
      1. Compare bar at bottom got clipped on cart/checkout — products
         and the "Porównaj" button were cut off. Forced safe layout
@@ -796,52 +811,6 @@ body .wc-block-components-radio-control__option input[type="radio"] {
    modern shop conventions and feel more balanced under the description. */
 .gorvita-tabs-nav {
   justify-content: center !important;
-}
-
-/* === v6.15: PDP NOWOŚCI SECTION ===
-   `.gorvita-pdp-nowosci` is rendered by inc/pdp-related-products.php
-   replacing WC default related/upsell display. Wraps a separator +
-   serif heading + the canonical [products tag=nowosc limit=4 columns=4]
-   shortcode (same as homepage Nowości row), so PDP "Może Cię zainteresować"
-   matches the homepage card style instead of the WC Block product-
-   collection look. */
-.gorvita-pdp-nowosci {
-  max-width: 100% !important;
-  margin: 48px auto 32px !important;
-}
-.gorvita-pdp-nowosci > hr.wp-block-separator {
-  margin-bottom: 24px !important;
-  border: 0 !important;
-  border-top: 1px solid var(--gor-border) !important;
-}
-.gorvita-pdp-nowosci__heading {
-  font-family: 'Cormorant Garamond', serif !important;
-  font-weight: 400 !important;
-  font-size: clamp(1.5rem, 2.6vw, 2rem) !important;
-  letter-spacing: -0.01em !important;
-  margin: 0 0 24px !important;
-  color: var(--gor-text) !important;
-}
-.gorvita-pdp-nowosci .woocommerce.columns-4 ul.products,
-.gorvita-pdp-nowosci ul.products.columns-4 {
-  display: grid !important;
-  grid-template-columns: repeat(4, 1fr) !important;
-  gap: 24px !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  list-style: none !important;
-}
-@media (max-width: 900px) {
-  .gorvita-pdp-nowosci .woocommerce.columns-4 ul.products,
-  .gorvita-pdp-nowosci ul.products.columns-4 {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-}
-@media (max-width: 480px) {
-  .gorvita-pdp-nowosci .woocommerce.columns-4 ul.products,
-  .gorvita-pdp-nowosci ul.products.columns-4 {
-    grid-template-columns: 1fr !important;
-  }
 }
 
 /* === v6.13: BLOCK CART — TRASH ICON HOVER ROSE ===
