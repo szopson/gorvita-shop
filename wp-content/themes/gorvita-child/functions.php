@@ -787,19 +787,34 @@ function gorvita_product_accordion_js() {
         var headings = Array.prototype.slice.call(descPanel.querySelectorAll("h2"));
         if (!headings.length) return;
 
-        function collectSections() {
+        // Cache sections ONCE at load — so when initTabs() detaches h2/content
+        // from descPanel and a later resize swaps to initAccordion(), we still
+        // have references and can re-attach them. Without this, h2.parentNode
+        // is null and insertBefore() crashes.
+        var SECTIONS = (function () {
           var secs = [];
-          headings.forEach(function(h2){
+          headings.forEach(function (h2) {
             var content = [];
             var next = h2.nextElementSibling;
-            while(next && next.tagName !== "H2") {
+            while (next && next.tagName !== "H2") {
               content.push(next);
               next = next.nextElementSibling;
             }
-            secs.push({ title: (h2.textContent||"").trim(), header: h2, content: content });
+            secs.push({ title: (h2.textContent || "").trim(), header: h2, content: content });
           });
           return secs;
+        })();
+
+        function ensureAttached() {
+          SECTIONS.forEach(function (section) {
+            if (!section.header.parentNode) descPanel.appendChild(section.header);
+            section.content.forEach(function (n) {
+              if (!n.parentNode) descPanel.appendChild(n);
+            });
+          });
         }
+
+        function collectSections() { return SECTIONS; }
 
         function isMobile() { return window.innerWidth < BREAKPOINT; }
 
@@ -864,6 +879,7 @@ function gorvita_product_accordion_js() {
 
         function initAccordion() {
           clearGenerated();
+          ensureAttached();
           var sections = collectSections();
           sections.forEach(function(section, index){
             var h2 = section.header;
@@ -893,6 +909,7 @@ function gorvita_product_accordion_js() {
 
         function initTabs() {
           clearGenerated();
+          ensureAttached();
           var sections = collectSections();
           if (!sections.length) return;
           var tabNav = document.createElement("div");
