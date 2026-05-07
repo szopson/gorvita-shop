@@ -1,6 +1,17 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.19
+   GORVITA PREMIUM CSS — v6.20
    ----------------------------------------------------------------------------
+   v6.20 deltas vs v6.19 — checkout VAT button + B2B reg page polish:
+     1. `#b2bking_checkout_registration_validate_vat_button` was leaking
+        onto `/zamowienie/` for non-B2B users showing the disabled state
+        "Nieprawidłowy VAT. Spróbuj ponownie." even though no VAT field
+        is in play. B2BKing renders it unconditionally inside the
+        registration block; we hide it on the regular block-checkout
+        body, keep visible on the dedicated registration page (1761).
+     2. /rejestracja-b2b/ (page-id-1761) heading + `.entry-content` were
+        left-aligned and edge-hugging. Centered the H1 in the hero,
+        centered the content column, capped at 72ch — matches the
+        editorial feel of the rest of the shop.
    v6.19 deltas vs v6.18:
      1. Compare bar STILL clipped on /koszyk/ + /zamowienie/ — v6.16 fix
         wasn't enough. Root: line 482 rule
@@ -743,6 +754,68 @@ body .wc-block-components-radio-control__option input[type="radio"] {
   transform: translateY(-2px) !important;
 }
 .return-to-shop a.button.wc-backward::after { content: " →"; opacity: 0.8; }
+
+/* === v6.20: HIDE B2BKING VAT VALIDATE BUTTON ON CHECKOUT ===
+   B2BKing renders #b2bking_checkout_registration_validate_vat_button
+   inside its registration block unconditionally. On the regular
+   block-checkout (page 8) it shows the disabled-state label
+   "Nieprawidłowy VAT. Spróbuj ponownie." which makes no sense for
+   normal customers — they're not registering a B2B account here.
+   Hide on woocommerce-checkout body. Stays visible on the dedicated
+   /rejestracja-b2b/ page (page-id-1761) where it actually validates. */
+body.woocommerce-checkout #b2bking_checkout_registration_validate_vat_button {
+  display: none !important;
+}
+
+/* === v6.20: B2B REGISTRATION PAGE — centered editorial layout ===
+   /rejestracja-b2b/ (page-id-1761) — page title + already-logged-in
+   message + the registration form. Center the heading in the hero,
+   center the content column (72ch readable width). */
+body.page-id-1761 .hero-section .entry-header,
+body.page-id-1761 .hero-section .page-title {
+  text-align: center !important;
+}
+body.page-id-1761 .entry-content {
+  max-width: 72ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+  padding: 0 24px !important;
+}
+body.page-id-1761 .entry-content > * {
+  max-width: 72ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+body.page-id-1761 .b2bking_already_logged_in_message {
+  display: block !important;
+  margin: 24px auto !important;
+  padding: 20px 24px !important;
+  background: var(--gor-cream-light) !important;
+  border: 1px solid var(--gor-border) !important;
+  border-radius: var(--gor-r-md) !important;
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  color: var(--gor-text-body) !important;
+}
+body.page-id-1761 .b2bking_already_logged_in_message a {
+  color: var(--gor-green-dark) !important;
+  font-weight: 500 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+}
+body.page-id-1761 .b2bking_already_logged_in_message a:hover {
+  color: var(--gor-green) !important;
+}
+/* Center the registration form too if user is logged out — B2BKing
+   renders form fields below the message. Keep them aligned consistent. */
+body.page-id-1761 form,
+body.page-id-1761 .b2bking_b2b_registration_form_wrapper {
+  text-align: left !important;
+  max-width: 72ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
 
 /* === v6.19: COMPARE BAR — kill cart/checkout vertical padding cascade ===
    Cart/checkout has a universal `.ct-container { padding: 28px 0 56px 0 }`
