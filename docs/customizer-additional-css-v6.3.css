@@ -1,6 +1,17 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.13
+   GORVITA PREMIUM CSS — v6.14
    ----------------------------------------------------------------------------
+   v6.14 deltas vs v6.13 — PDP description container centered:
+     User flagged: "opis wychodzi maksymalnie do lewej w niektórych
+     przypadkach, nie trzyma żadnych ram". Root cause: a v6.3-era rule
+     `<p> { margin-left: 0 !important }` forced every paragraph in
+     `.woocommerce-Tabs-panel--description` against the left edge,
+     overriding the centering rule (which only targeted first-child).
+     Replaced with a unified block: ALL direct-child block elements
+     (p, h2, h3, h4, ul, ol, blockquote) inside the description container
+     and the gorvita-tab/accordion panels now get max-width 72ch +
+     margin auto, so descriptions render as a centered readable column.
+     Tables stay full-width (tabular data).
    v6.13 deltas vs v6.12 — quick wins from cart/checkout/PDP audit:
      1. Trash icon in block cart hover state — was no color change. Now
         turns rose (`var(--gor-rose)`) on hover with a soft scale.
@@ -445,10 +456,71 @@ footer .wp-block-heading { font-weight: 600; }
 .gorvita-tab-panel table th, .gorvita-tab-panel table td, .gorvita-accordion-content table th, .gorvita-accordion-content table td { padding: 10px 12px !important; border: 1px solid var(--gor-border) !important; text-align: left !important; vertical-align: top !important; }
 .gorvita-tab-panel table th, .gorvita-accordion-content table th { background: var(--gor-cream) !important; font-weight: 500 !important; font-size: 11px !important; letter-spacing: 0.08em !important; text-transform: uppercase !important; }
 
-/* OPIS PRODUKTU */
-.woocommerce-Tabs-panel--description > p:first-child { max-width: 72ch !important; line-height: 1.75 !important; margin-bottom: 20px !important; color: var(--gor-text-body) !important; }
-.woocommerce-Tabs-panel--description p, .woocommerce-Tabs-panel--description table { margin-left: 0 !important; padding-left: 0 !important; }
-.woocommerce-product-details__short-description, .woocommerce div.product .woocommerce-tabs .woocommerce-Tabs-panel--description > p:first-child { padding-left: 0 !important; max-width: 72ch !important; margin-left: auto !important; margin-right: auto !important; }
+/* OPIS PRODUKTU — centered readable column (v6.14) */
+/* v6.14 deltas: previous rules forced `margin-left: 0` on every <p> in
+   description, blocking the centering rule (which only targeted
+   first-child anyway). Consolidated: ALL block-level descendants get
+   max-width 72ch + margin auto so the description sits in a
+   centered readable column instead of hugging the container edge. */
+.woocommerce-Tabs-panel--description,
+#tab-description,
+.gorvita-tab-panel,
+.gorvita-accordion-content {
+  text-align: left !important;
+}
+.woocommerce-Tabs-panel--description > p,
+.woocommerce-Tabs-panel--description > h2,
+.woocommerce-Tabs-panel--description > h3,
+.woocommerce-Tabs-panel--description > h4,
+.woocommerce-Tabs-panel--description > ul,
+.woocommerce-Tabs-panel--description > ol,
+.woocommerce-Tabs-panel--description > blockquote,
+#tab-description > p,
+#tab-description > h2,
+#tab-description > h3,
+#tab-description > h4,
+#tab-description > ul,
+#tab-description > ol,
+#tab-description > blockquote,
+.gorvita-tab-panel > p,
+.gorvita-tab-panel > h2,
+.gorvita-tab-panel > h3,
+.gorvita-tab-panel > ul,
+.gorvita-tab-panel > ol,
+.gorvita-accordion-content > p,
+.gorvita-accordion-content > h2,
+.gorvita-accordion-content > h3,
+.gorvita-accordion-content > ul,
+.gorvita-accordion-content > ol {
+  max-width: 72ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.woocommerce-Tabs-panel--description > p:first-child,
+#tab-description > p:first-child,
+.gorvita-tab-panel > p:first-child,
+.gorvita-accordion-content > p:first-child {
+  line-height: 1.75 !important;
+  margin-bottom: 20px !important;
+  color: var(--gor-text-body) !important;
+}
+/* Tables: wider — tabular data, not prose. Still centered. */
+.woocommerce-Tabs-panel--description > table,
+#tab-description > table,
+.gorvita-tab-panel > table,
+.gorvita-accordion-content > table {
+  max-width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.woocommerce-product-details__short-description {
+  max-width: 72ch !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+}
 
 /* EDITORIAL EXTRAS */
 .gorvita-pull { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: clamp(1.5rem, 2.5vw, 2.25rem); line-height: 1.3; color: var(--gor-green-dark); letter-spacing: -0.01em; max-width: 28ch; margin: 32px 0; border-left: 2px solid var(--gor-green); padding-left: 24px; }
