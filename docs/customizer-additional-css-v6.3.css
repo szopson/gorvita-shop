@@ -1,6 +1,19 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.11
+   GORVITA PREMIUM CSS — v6.12
    ----------------------------------------------------------------------------
+   v6.12 deltas vs v6.11 — checkout CTA repositioned under sidebar:
+     User asked for "Kupuję i płacę" on /zamowienie/ to anchor below the
+     order summary card, mirroring `.wc-block-cart__submit-container` on
+     /koszyk/. Block Checkout natively renders the place-order button
+     inside `.wc-block-checkout__main > form > .wc-block-checkout__actions`
+     (left column), and CSS alone cannot reposition it across the two-
+     column flex layout. Solution: new `inc/checkout-cta-mover.php`
+     enqueues `assets/js/checkout-cta-mover.js` which appends
+     `.wc-block-checkout__actions_row` into a wrapper after
+     `.wc-block-checkout__sidebar` on viewports ≥ 900px (mobile keeps
+     native flow). MutationObserver re-runs on React rerenders so the
+     CTA stays anchored. CSS gives the wrapper the same full-width pill
+     styling as the cart submit-container.
    v6.11 deltas vs v6.10 — restore free-shipping progress bar + chatbot fix:
      1. Free shipping progress bar: brought back the Critical-#1 component
         from `disabled-overrides/inc/mobile-ux.php::gorvita_render_shipping_hint`,
@@ -503,6 +516,31 @@ body .wc-block-components-radio-control__option input[type="radio"] {
   border-radius: 0 !important;
   box-shadow: none !important;
   padding: 0 !important;
+}
+
+/* === CHECKOUT CTA "Kupuję i płacę" relocated under sidebar (v6.12) ===
+   `inc/checkout-cta-mover.php` enqueues a JS that moves
+   `.wc-block-checkout__actions_row` out of the left form column and into
+   `#gorvita-checkout-cta-mount` sitting directly under
+   `.wc-block-checkout__sidebar` on viewports ≥ 900px (mirroring the
+   `.wc-block-cart__submit-container` pattern on /koszyk/). The mount
+   wrapper styling matches the cart submit container so the visual
+   anchoring is identical. */
+.gorvita-checkout-cta-mount {
+  margin-top: 16px !important;
+  padding: 0 !important;
+}
+.gorvita-checkout-cta-mount .wc-block-checkout__actions_row {
+  display: block !important;
+  width: 100% !important;
+}
+.gorvita-checkout-cta-mount .wc-block-components-checkout-place-order-button {
+  width: 100% !important;
+}
+@media (max-width: 899px) {
+  /* Mount wrapper unused on mobile (JS leaves the actions in their native
+     spot), so collapse it visually if it ever exists. */
+  .gorvita-checkout-cta-mount:empty { display: none !important; }
 }
 
 /* === EMPTY CART — modernize "Wróć do sklepu" CTA === */

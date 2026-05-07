@@ -2,6 +2,7 @@
 require_once get_stylesheet_directory() . '/inc/translations.php';
 require_once get_stylesheet_directory() . '/inc/seo-schema.php';
 require_once get_stylesheet_directory() . '/inc/cart-shipping-progress.php';
+require_once get_stylesheet_directory() . '/inc/checkout-cta-mover.php';
 
 // Block staging from search-engine indexation. Belt-and-suspenders alongside
 // the Traefik X-Robots-Tag header. Active for any host that is NOT the
