@@ -1,6 +1,23 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.14
+   GORVITA PREMIUM CSS — v6.15
    ----------------------------------------------------------------------------
+   v6.15 deltas vs v6.14 — uniform "Może Cię zainteresować…" across shop:
+     User asked: "moze po prostu damy tam sekcje nowosci albo bestsellers?
+     i takie same karty produktow itd?". Both PDP and cart were showing
+     the WC Block Product Collection (cross-sells) which renders with
+     totally different markup/styling than the homepage Nowości +
+     Bestsellers rows. Switched both to the canonical
+     `[products tag="nowosc" limit="4" columns="4"]` shortcode (same
+     as homepage Nowości row → identical card styling).
+       - Cart (page 7): post_content patched, product-collection block
+         replaced with a heading + the shortcode.
+       - PDP: new `inc/pdp-related-products.php` removes
+         `woocommerce_output_related_products` + `woocommerce_upsell_display`
+         and renders the same heading + shortcode at priority 18 on
+         `woocommerce_after_single_product_summary`.
+     CSS adds `.gorvita-pdp-nowosci` wrapper styling — separator +
+     serif heading + 4-col responsive grid (4 → 2 → 1 at 900/480px).
+     Also: 1058 (Offer) + 1059 (Credit) demo entries trashed.
    v6.14 deltas vs v6.13 — PDP description container centered:
      User flagged: "opis wychodzi maksymalnie do lewej w niektórych
      przypadkach, nie trzyma żadnych ram". Root cause: a v6.3-era rule
@@ -665,6 +682,52 @@ body .wc-block-components-radio-control__option input[type="radio"] {
   transform: translateY(-2px) !important;
 }
 .return-to-shop a.button.wc-backward::after { content: " →"; opacity: 0.8; }
+
+/* === v6.15: PDP NOWOŚCI SECTION ===
+   `.gorvita-pdp-nowosci` is rendered by inc/pdp-related-products.php
+   replacing WC default related/upsell display. Wraps a separator +
+   serif heading + the canonical [products tag=nowosc limit=4 columns=4]
+   shortcode (same as homepage Nowości row), so PDP "Może Cię zainteresować"
+   matches the homepage card style instead of the WC Block product-
+   collection look. */
+.gorvita-pdp-nowosci {
+  max-width: 100% !important;
+  margin: 48px auto 32px !important;
+}
+.gorvita-pdp-nowosci > hr.wp-block-separator {
+  margin-bottom: 24px !important;
+  border: 0 !important;
+  border-top: 1px solid var(--gor-border) !important;
+}
+.gorvita-pdp-nowosci__heading {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 400 !important;
+  font-size: clamp(1.5rem, 2.6vw, 2rem) !important;
+  letter-spacing: -0.01em !important;
+  margin: 0 0 24px !important;
+  color: var(--gor-text) !important;
+}
+.gorvita-pdp-nowosci .woocommerce.columns-4 ul.products,
+.gorvita-pdp-nowosci ul.products.columns-4 {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 24px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+@media (max-width: 900px) {
+  .gorvita-pdp-nowosci .woocommerce.columns-4 ul.products,
+  .gorvita-pdp-nowosci ul.products.columns-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (max-width: 480px) {
+  .gorvita-pdp-nowosci .woocommerce.columns-4 ul.products,
+  .gorvita-pdp-nowosci ul.products.columns-4 {
+    grid-template-columns: 1fr !important;
+  }
+}
 
 /* === v6.13: BLOCK CART — TRASH ICON HOVER ROSE ===
    The remove-link in the block cart had no color change on hover, so users
