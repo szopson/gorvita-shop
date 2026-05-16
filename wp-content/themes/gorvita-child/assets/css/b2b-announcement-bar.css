@@ -1,0 +1,97 @@
+/**
+ * B2B announcement bar (v6.22).
+ *
+ * Tokens (--gor-*) live in the Customizer Additional CSS :root block; on
+ * deploys where Customizer hasn't been synced yet, the hardcoded fallbacks
+ * keep the bar legible. Once the Customizer paste happens, tokens win.
+ */
+
+.gorvita-b2b-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  background: var(--gor-green, #2D5016);
+  color: var(--gor-cream-light, #FBF8F2);
+  padding: 10px 48px 10px 20px;
+  font-size: 13px;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  text-align: center;
+  position: relative;
+  z-index: 999;
+}
+.gorvita-b2b-bar__text {
+  font-weight: 400;
+  max-width: 60ch;
+}
+.gorvita-b2b-bar__btn {
+  display: inline-block;
+  background: var(--gor-sage, #6B8E5F);
+  color: #ffffff !important;
+  text-decoration: none;
+  padding: 6px 16px;
+  border-radius: var(--gor-r-md, 12px);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+.gorvita-b2b-bar__btn:hover,
+.gorvita-b2b-bar__btn:focus-visible {
+  background: var(--gor-sage-on-dark, #8DC87A);
+  color: var(--gor-green-dark, #1E3A0F) !important;
+  text-decoration: none;
+}
+.gorvita-b2b-bar__btn:focus-visible {
+  outline: 2px solid var(--gor-cream-light, #FBF8F2);
+  outline-offset: 2px;
+}
+.gorvita-b2b-bar__close {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 0;
+  color: var(--gor-cream-light, #FBF8F2);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.18s ease;
+}
+.gorvita-b2b-bar__close:hover,
+.gorvita-b2b-bar__close:focus-visible {
+  opacity: 1;
+}
+.gorvita-b2b-bar__close:focus-visible {
+  outline: 2px solid var(--gor-cream-light, #FBF8F2);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+@media (max-width: 768px) {
+  .gorvita-b2b-bar {
+    font-size: 12px;
+    padding: 10px 44px 10px 16px;
+    gap: 10px;
+    text-align: center;
+  }
+  .gorvita-b2b-bar__text {
+    flex: 1 1 100%;
+  }
+  .gorvita-b2b-bar__btn {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .gorvita-b2b-bar__close {
+    top: 6px;
+    right: 6px;
+    transform: none;
+  }
+}

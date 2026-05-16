@@ -32,11 +32,38 @@
 
 defined( 'ABSPATH' ) || exit;
 
-function gorvita_b2b_announcement_bar() {
+function gorvita_b2b_announcement_bar_should_render() {
     if ( is_user_logged_in() ) {
-        return;
+        return false;
     }
     if ( is_page( 1761 ) ) {
+        return false;
+    }
+    return true;
+}
+
+function gorvita_b2b_announcement_bar_assets() {
+    if ( ! gorvita_b2b_announcement_bar_should_render() ) {
+        return;
+    }
+
+    $rel = '/assets/css/b2b-announcement-bar.css';
+    $abs = get_stylesheet_directory() . $rel;
+    if ( ! file_exists( $abs ) ) {
+        return;
+    }
+
+    wp_enqueue_style(
+        'gorvita-b2b-announcement-bar',
+        get_stylesheet_directory_uri() . $rel,
+        array(),
+        filemtime( $abs )
+    );
+}
+add_action( 'wp_enqueue_scripts', 'gorvita_b2b_announcement_bar_assets', 30 );
+
+function gorvita_b2b_announcement_bar() {
+    if ( ! gorvita_b2b_announcement_bar_should_render() ) {
         return;
     }
     ?>
