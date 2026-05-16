@@ -1,6 +1,20 @@
 /* ============================================================================
-   GORVITA PREMIUM CSS — v6.20
+   GORVITA PREMIUM CSS — v6.21
    ----------------------------------------------------------------------------
+   v6.21 deltas vs v6.20 — B2B announcement bar for guest discovery:
+     1. `.gorvita-b2b-bar` renders at `wp_body_open` (priority 20, after the
+        GTM noscript) for guests on every page except `/rejestracja-b2b/`
+        itself. Forest-green (--gor-green) backdrop, sage (--gor-sage) pill
+        CTA "Sprawdź ofertę B2B →" linking to the existing B2B registration
+        funnel (page 1761). Dismissable via an X button that flips a
+        `gorvita_b2b_bar_dismissed=1` flag in localStorage so B2C visitors
+        aren't re-spammed across the session. Inline boot script keeps the
+        bar `display:none` until the flag check passes — no FOUC, no flash
+        for users who already dismissed. Pre-v6.21 the B2B funnel had no
+        entry point: a guest could only land on /rejestracja-b2b/ via the
+        direct URL or the one mention in the /o-marce/ FAQ schema. The bar
+        is the first proactive discovery surface; menu item "Dla firm" is
+        a separate manual change in WP Admin.
    v6.20 deltas vs v6.19 — checkout VAT button + B2B reg page polish:
      1. `#b2bking_checkout_registration_validate_vat_button` was leaking
         onto `/zamowienie/` for non-B2B users showing the disabled state
@@ -1338,3 +1352,96 @@ body.woocommerce-checkout [data-row="bottom:boxed"] { display: flex !important; 
 }
 .woocommerce-order-overview li { font-size: 12px !important; letter-spacing: 0.04em !important; text-transform: uppercase !important; color: var(--gor-text-muted) !important; border: none !important; padding: 0 !important; }
 .woocommerce-order-overview li strong { display: block !important; font-family: 'Cormorant Garamond', serif !important; font-size: 1.25rem !important; font-weight: 400 !important; color: var(--gor-text) !important; text-transform: none !important; letter-spacing: -0.01em !important; margin-top: 4px !important; }
+
+/* ============================================================================
+   v6.21 — B2B announcement bar
+   ========================================================================= */
+.gorvita-b2b-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  background: var(--gor-green);
+  color: var(--gor-cream-light);
+  padding: 10px 48px 10px 20px;
+  font-size: 13px;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  text-align: center;
+  position: relative;
+  z-index: 999;
+}
+.gorvita-b2b-bar__text {
+  font-weight: 400;
+  max-width: 60ch;
+}
+.gorvita-b2b-bar__btn {
+  display: inline-block;
+  background: var(--gor-sage);
+  color: #ffffff !important;
+  text-decoration: none;
+  padding: 6px 16px;
+  border-radius: var(--gor-r-md);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+.gorvita-b2b-bar__btn:hover,
+.gorvita-b2b-bar__btn:focus-visible {
+  background: var(--gor-sage-on-dark);
+  color: var(--gor-green-dark) !important;
+  text-decoration: none;
+}
+.gorvita-b2b-bar__btn:focus-visible {
+  outline: 2px solid var(--gor-cream-light);
+  outline-offset: 2px;
+}
+.gorvita-b2b-bar__close {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 0;
+  color: var(--gor-cream-light);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.18s ease;
+}
+.gorvita-b2b-bar__close:hover,
+.gorvita-b2b-bar__close:focus-visible {
+  opacity: 1;
+}
+.gorvita-b2b-bar__close:focus-visible {
+  outline: 2px solid var(--gor-cream-light);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+@media (max-width: 768px) {
+  .gorvita-b2b-bar {
+    font-size: 12px;
+    padding: 10px 44px 10px 16px;
+    gap: 10px;
+    text-align: center;
+  }
+  .gorvita-b2b-bar__text {
+    flex: 1 1 100%;
+  }
+  .gorvita-b2b-bar__btn {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  .gorvita-b2b-bar__close {
+    top: 6px;
+    right: 6px;
+    transform: none;
+  }
+}
