@@ -532,7 +532,14 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--gorvita-gray-700);
   line-height: 1.55;
   max-width: 30rem;
-  margin-bottom: 2.25rem;
+  margin-bottom: 0.65rem;
+}
+.gorvita-hero__lead {
+  font-size: 1rem;
+  color: var(--gorvita-gray-700);
+  line-height: 1.55;
+  max-width: 32rem;
+  margin: 0 0 2.25rem;
 }
 .gorvita-hero__cta {
   display: flex;
@@ -594,7 +601,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0.5rem;
 }
 .gorvita-hero__stats--anchors {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   align-items: start;
   column-gap: 2rem;
 }

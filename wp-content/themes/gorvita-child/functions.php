@@ -361,7 +361,7 @@ function gorvita_usp_shortcode() {
     $usps = [
         [ 'icon' => 'certificate', 'h' => 'Tradycja od 1989',   'p' => 'Trzy pokolenia ziołolecznictwa. Receptury sprawdzone przez tysiące polskich rodzin.' ],
         [ 'icon' => 'leaf',        'h' => 'Polskie zioła',       'p' => '100% naturalne ekstrakty z ziół zbieranych w Gorcach i certyfikowanych upraw ekologicznych.' ],
-        [ 'icon' => 'droplet',     'h' => 'Woda uzdrowiskowa',   'p' => 'Naturalna woda mineralna z Rabki-Zdrój — bogata w minerały, wykorzystywana w maściach i żelach.' ],
+        [ 'icon' => 'droplet',     'h' => 'Woda uzdrowiskowa',   'p' => 'Naturalna woda mineralna bogata w minerały, wykorzystywana w maściach i żelach.' ],
         [ 'icon' => 'shield',      'h' => 'GMP + ISO 9001',      'p' => 'Laboratorium certyfikowane farmaceutycznie. Każda partia badana — bez kompromisów.' ],
     ];
     ob_start();
@@ -488,7 +488,10 @@ function gorvita_hero_shortcode() {
                     Gorvita.
                 </h1>
                 <p class="gorvita-hero__sub">
-                    Suplementy i kosmetyki ziołowe ręcznie wytwarzane w Szczawie nieprzerwanie od 1989 roku. Woda z Rabki-Zdrój, polskie zioła, farmaceutyczny standard GMP.
+                    Z Serca Gorców i Beskidu Wyspowego od rodziny Gorvita.
+                </p>
+                <p class="gorvita-hero__lead">
+                    Kosmetyki, suplementy diety i wyroby medyczne wytwarzane w Szczawie od 1989 roku.
                 </p>
                 <div class="gorvita-hero__cta">
                     <a class="gorvita-hero__btn gorvita-hero__btn--primary" href="<?php echo esc_url( $shop_url ); ?>">
@@ -502,10 +505,6 @@ function gorvita_hero_shortcode() {
                         <div class="gorvita-hero__stat-label">rodzinna manufaktura w Gorcach</div>
                     </div>
                     <div class="gorvita-hero__stat">
-                        <div class="gorvita-hero__stat-text">Rabka-Zdrój</div>
-                        <div class="gorvita-hero__stat-label">źródło wody uzdrowiskowej</div>
-                    </div>
-                    <div class="gorvita-hero__stat">
                         <div class="gorvita-hero__stat-text">GMP · ISO</div>
                         <div class="gorvita-hero__stat-label">farmaceutyczny standard</div>
                     </div>
@@ -514,13 +513,6 @@ function gorvita_hero_shortcode() {
             <div class="gorvita-hero__visual">
                 <img class="gorvita-hero__visual-img" src="<?php echo esc_url( $gorce_url ); ?>" alt="Gorce — szczyty nad mgłą" loading="eager" fetchpriority="high" decoding="async">
                 <span class="gorvita-hero__visual-label">SZCZAWA · 49°34'N 20°16'E</span>
-                <div class="gorvita-hero__card">
-                    <div class="gorvita-hero__card-dot"></div>
-                    <div class="gorvita-hero__card-text">
-                        <b>Źródło aktywne</b>
-                        <span>Wypływ 14 m³/h · 8.4°C</span>
-                    </div>
-                </div>
                 <div class="gorvita-hero__droplet" aria-hidden="true"></div>
             </div>
         </div>
