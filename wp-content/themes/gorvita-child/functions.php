@@ -481,7 +481,7 @@ function gorvita_hero_shortcode() {
         </div>
         <div class="gorvita-wrap gorvita-hero__grid">
             <div class="gorvita-hero__copy">
-                <span class="gorvita-hero__eyebrow">EST. 1989 · SZCZAWA, GORCE</span>
+                <span class="gorvita-hero__eyebrow">EST. 1989 · SZCZAWA</span>
                 <h1 class="gorvita-hero__title">
                     Z Gorców,<br>
                     <em>od rodziny</em><br>
@@ -498,16 +498,6 @@ function gorvita_hero_shortcode() {
                         Odkryj produkty <?php gorvita_icon( 'arrow-right', 16 ); ?>
                     </a>
                     <a class="gorvita-hero__btn gorvita-hero__btn--ghost" href="/o-marce/">Nasza historia</a>
-                </div>
-                <div class="gorvita-hero__stats gorvita-hero__stats--anchors">
-                    <div class="gorvita-hero__stat">
-                        <div class="gorvita-hero__stat-text">od 1989</div>
-                        <div class="gorvita-hero__stat-label">rodzinna manufaktura w Gorcach</div>
-                    </div>
-                    <div class="gorvita-hero__stat">
-                        <div class="gorvita-hero__stat-text">GMP · ISO</div>
-                        <div class="gorvita-hero__stat-label">farmaceutyczny standard</div>
-                    </div>
                 </div>
             </div>
             <div class="gorvita-hero__visual">
