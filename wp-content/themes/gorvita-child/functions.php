@@ -307,6 +307,16 @@ function gorvita_enqueue_styles() {
     $css_ver  = file_exists( $css_path ) ? filemtime( $css_path ) : null;
     wp_enqueue_style( 'gorvita-child-style', get_stylesheet_uri(), [], $css_ver );
 
+    $b2b_path = get_stylesheet_directory() . '/css/b2b-banner.css';
+    if ( file_exists( $b2b_path ) ) {
+        wp_enqueue_style(
+            'gorvita-b2b-banner',
+            get_stylesheet_directory_uri() . '/css/b2b-banner.css',
+            [ 'gorvita-child-style' ],
+            filemtime( $b2b_path )
+        );
+    }
+
     $js_path = get_stylesheet_directory() . '/assets/js/animations.js';
     $js_ver  = file_exists( $js_path ) ? filemtime( $js_path ) : null;
     wp_enqueue_script( 'gorvita-animations', get_stylesheet_directory_uri() . '/assets/js/animations.js', [], $js_ver, true );
