@@ -1,0 +1,80 @@
+/* =============================================
+   Home — product-listing section headings polish (v6.29)
+   Scoped to body.page-id-991 + specific Greenshift heading
+   IDs to avoid bleeding into other pages or other blocks.
+   ============================================= */
+
+/* HEADINGS: Najpopularniejsze produkty + Nowości */
+body.page-id-991 #gspb_heading-id-gsbp-55f1c58,
+body.page-id-991 #gspb_heading-id-gsbp-a0eb918 {
+  font-family: "Cormorant Garamond", Georgia, serif !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.1 !important;
+  color: #1e3a2b !important;
+  font-size: clamp(2rem, 4vw, 2.8rem) !important;
+  margin-bottom: 12px !important;
+}
+
+/* Eyebrow labels via ::before — gold uppercase */
+body.page-id-991 #gspb_heading-id-gsbp-55f1c58::before {
+  content: "BESTSELLERY";
+}
+body.page-id-991 #gspb_heading-id-gsbp-a0eb918::before {
+  content: "NOWE W KATALOGU";
+}
+body.page-id-991 #gspb_heading-id-gsbp-55f1c58::before,
+body.page-id-991 #gspb_heading-id-gsbp-a0eb918::before {
+  display: block;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #c8a977;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* Divider via ::after — thin deep-green, low-opacity */
+body.page-id-991 #gspb_heading-id-gsbp-55f1c58::after,
+body.page-id-991 #gspb_heading-id-gsbp-a0eb918::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 1.5px;
+  background: #1e3a2b;
+  opacity: 0.2;
+  margin: 16px auto 0;
+}
+
+/* Subtitles — only the two we want, surgical IDs */
+body.page-id-991 #gspb_text-id-gsbp-4c722aa,
+body.page-id-991 #gspb_text-id-gsbp-461fbc6 {
+  opacity: 0.7;
+  font-size: 1.05rem !important;
+  line-height: 1.6 !important;
+  margin-top: 8px !important;
+}
+
+/* Product grid — subtle hover lift + premium typography */
+body.page-id-991 .products.columns-4 > li.product {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+body.page-id-991 .products.columns-4 > li.product:hover {
+  transform: translateY(-3px);
+}
+body.page-id-991 .products.columns-4 .woocommerce-loop-product__title {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 500;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #1e3a2b;
+}
+body.page-id-991 .products.columns-4 .meta-categories a {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #6b8e5f;
+  font-weight: 600;
+}

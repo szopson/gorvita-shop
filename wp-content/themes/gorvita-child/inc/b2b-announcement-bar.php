@@ -9,10 +9,13 @@
  * B2B discoverable from any front-of-site page.
  *
  * Visibility rules:
- *   - Hidden for any logged-in user (B2C customers don't need it post-login;
- *     B2BKing-approved B2B users live on their own dashboard). B2BKing does
- *     not assign a dedicated WP role — it gates B2B via user meta — so the
- *     "is logged in" heuristic is both safer and simpler than role sniffing.
+ *   - Shown to guests and logged-in B2C customers (they're the audience
+ *     that still needs to discover the hurt/B2B funnel).
+ *   - Hidden only for B2BKing-approved B2B users — detected via
+ *     user meta `b2bking_b2buser=yes`, which is the canonical flag
+ *     B2BKing uses internally (see class-b2bking-global-helper.php:817).
+ *     B2BKing does not assign a dedicated WP role for B2B users, so
+ *     role sniffing is not an option.
  *   - Hidden on the registration page itself (no-op CTA noise).
  *   - Dismissable: an X button writes `gorvita_b2b_bar_dismissed=1` to
  *     localStorage; the inline boot script then keeps the bar hidden on
@@ -33,11 +36,14 @@
 defined( 'ABSPATH' ) || exit;
 
 function gorvita_b2b_announcement_bar_should_render() {
-    if ( is_user_logged_in() ) {
-        return false;
-    }
     if ( is_page( 1761 ) ) {
         return false;
+    }
+    if ( is_user_logged_in() ) {
+        $is_b2b = get_user_meta( get_current_user_id(), 'b2bking_b2buser', true );
+        if ( 'yes' === $is_b2b ) {
+            return false;
+        }
     }
     return true;
 }
@@ -68,7 +74,7 @@ function gorvita_b2b_announcement_bar() {
     }
     ?>
 <div class="gorvita-b2b-bar" role="region" aria-label="Oferta hurtowa B2B" style="display:none">
-    <span class="gorvita-b2b-bar__text">Aptekom, hurtowniom i&nbsp;dystrybutorom &mdash; sprawdź warunki współpracy B2B</span>
+    <span class="gorvita-b2b-bar__text">Dla Aptek, Hurtowników i&nbsp;Dystrybutorów mamy specjalną ofertę B2B</span>
     <a class="gorvita-b2b-bar__btn" href="<?php echo esc_url( home_url( '/rejestracja-b2b/' ) ); ?>">Sprawdź ofertę B2B &rarr;</a>
     <button type="button" class="gorvita-b2b-bar__close" aria-label="Zamknij baner B2B">&times;</button>
 </div>

@@ -346,10 +346,11 @@ function gorvita_enqueue_b2b_registration_toggle() {
 add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_b2b_registration_toggle' );
 
 function gorvita_enqueue_o_marce_assets() {
-    if ( ! is_page( 119 ) ) {
+    if ( ! is_page( 119 ) && ! is_front_page() ) {
         return;
     }
 
+    // Cormorant Garamond — shared by /o-marce/ (v6.26) and home (v6.29).
     wp_enqueue_style(
         'gorvita-cormorant',
         'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap',
@@ -357,14 +358,28 @@ function gorvita_enqueue_o_marce_assets() {
         null
     );
 
-    $path = get_stylesheet_directory() . '/css/o-marce.css';
-    if ( file_exists( $path ) ) {
-        wp_enqueue_style(
-            'gorvita-omarce',
-            get_stylesheet_directory_uri() . '/css/o-marce.css',
-            [ 'gorvita-child-style' ],
-            filemtime( $path )
-        );
+    if ( is_page( 119 ) ) {
+        $path = get_stylesheet_directory() . '/css/o-marce.css';
+        if ( file_exists( $path ) ) {
+            wp_enqueue_style(
+                'gorvita-omarce',
+                get_stylesheet_directory_uri() . '/css/o-marce.css',
+                [ 'gorvita-child-style' ],
+                filemtime( $path )
+            );
+        }
+    }
+
+    if ( is_front_page() ) {
+        $path = get_stylesheet_directory() . '/css/home-headings.css';
+        if ( file_exists( $path ) ) {
+            wp_enqueue_style(
+                'gorvita-home-headings',
+                get_stylesheet_directory_uri() . '/css/home-headings.css',
+                [ 'gorvita-child-style' ],
+                filemtime( $path )
+            );
+        }
     }
 }
 add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_o_marce_assets' );
