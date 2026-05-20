@@ -382,8 +382,10 @@ function gorvita_append_faq_to_o_marce( $content ) {
     if ( ! $post || 'o-marce' !== $post->post_name ) {
         return $content;
     }
-    if ( false !== strpos( $content, 'gorvita-faq' ) || false !== strpos( $post->post_content, '[gorvita_faq' ) ) {
-        return $content; // copywriter already added their own
+    if ( false !== strpos( $content, 'gorvita-faq' )
+      || false !== strpos( $content, 'ga-faq__list' )
+      || false !== strpos( $post->post_content, '[gorvita_faq' ) ) {
+        return $content; // page already renders its own FAQ section
     }
 
     $faq_json = <<<'JSON'

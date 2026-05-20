@@ -345,6 +345,60 @@ function gorvita_enqueue_b2b_registration_toggle() {
 }
 add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_b2b_registration_toggle' );
 
+function gorvita_enqueue_o_marce_assets() {
+    if ( ! is_page( 119 ) ) {
+        return;
+    }
+
+    wp_enqueue_style(
+        'gorvita-cormorant',
+        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap',
+        [],
+        null
+    );
+
+    $path = get_stylesheet_directory() . '/css/o-marce.css';
+    if ( file_exists( $path ) ) {
+        wp_enqueue_style(
+            'gorvita-omarce',
+            get_stylesheet_directory_uri() . '/css/o-marce.css',
+            [ 'gorvita-child-style' ],
+            filemtime( $path )
+        );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_o_marce_assets' );
+
+function gorvita_o_marce_accordion_js() {
+    if ( ! is_page( 119 ) ) {
+        return;
+    }
+    ?>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var items = document.querySelectorAll('.gorvita-about .ga-faq__item');
+        items.forEach(function(item) {
+            var button = item.querySelector('.ga-faq__question');
+            if ( ! button ) return;
+            button.addEventListener('click', function () {
+                var isOpen = item.classList.contains('is-open');
+                items.forEach(function(other) {
+                    other.classList.remove('is-open');
+                    var otherBtn = other.querySelector('.ga-faq__question');
+                    if ( otherBtn ) otherBtn.setAttribute('aria-expanded', 'false');
+                });
+                if (!isOpen) {
+                    item.classList.add('is-open');
+                    button.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+    });
+    </script>
+    <?php
+}
+add_action( 'wp_footer', 'gorvita_o_marce_accordion_js' );
+
 function gorvita_icon( $name, $size = 20 ) {
     $s = sprintf( 'width="%d" height="%d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"', $size, $size );
     $paths = [

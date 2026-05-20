@@ -1,0 +1,463 @@
+/* =============================================
+   Gorvita — /o-marce/ page
+   Scoped: .gorvita-about
+   ============================================= */
+
+.gorvita-about {
+  --ga-bg: #f7f4ef;
+  --ga-surface: #ffffff;
+  --ga-surface-2: #f3eee6;
+  --ga-text: #1d1d1d;
+  --ga-muted: #5f5f5f;
+  --ga-border: #e7dfd3;
+  --ga-green: #1e3a2b;
+  --ga-green-2: #2d5240;
+  --ga-gold: #c8a977;
+  --ga-radius: 20px;
+  --ga-radius-sm: 14px;
+  --ga-shadow: 0 12px 40px rgba(16, 24, 40, 0.08);
+
+  color: var(--ga-text);
+  padding: clamp(24px, 4vw, 48px) 0 clamp(56px, 7vw, 96px);
+}
+
+.gorvita-about * {
+  box-sizing: border-box;
+}
+
+.gorvita-about .ga-hero,
+.gorvita-about .ga-story,
+.gorvita-about .ga-trust,
+.gorvita-about .ga-b2b,
+.gorvita-about .ga-faq {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: clamp(20px, 4vw, 32px);
+  padding-right: clamp(20px, 4vw, 32px);
+}
+
+/* HERO */
+.gorvita-about .ga-hero {
+  display: grid;
+  gap: 28px;
+  margin-bottom: clamp(40px, 7vw, 72px);
+}
+
+.gorvita-about .ga-badge,
+.gorvita-about .ga-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ga-green);
+}
+
+.gorvita-about .ga-badge::before,
+.gorvita-about .ga-section-label::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--ga-gold);
+  flex-shrink: 0;
+}
+
+.gorvita-about .ga-title,
+.gorvita-about .ga-b2b h2,
+.gorvita-about .ga-faq h2,
+.gorvita-about .ga-feature-card h3 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+.gorvita-about .ga-title {
+  font-size: clamp(2.5rem, 5vw, 4.6rem);
+  line-height: 0.98;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 12px 0 20px;
+  color: var(--ga-green);
+  max-width: 20ch;
+}
+
+.gorvita-about .ga-lead {
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  line-height: 1.8;
+  color: var(--ga-muted);
+  max-width: 70ch;
+  margin: 0;
+}
+
+.gorvita-about .ga-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.gorvita-about .ga-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.25s ease;
+  border: 1px solid transparent;
+}
+
+.gorvita-about .ga-btn--primary {
+  background: var(--ga-green);
+  color: #fff;
+}
+
+.gorvita-about .ga-btn--primary:hover {
+  background: var(--ga-green-2);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.gorvita-about .ga-btn--secondary {
+  background: transparent;
+  color: var(--ga-green);
+  border-color: var(--ga-border);
+}
+
+.gorvita-about .ga-btn--secondary:hover {
+  border-color: var(--ga-green);
+  color: var(--ga-green);
+  transform: translateY(-1px);
+}
+
+/* STAT CARDS */
+.gorvita-about .ga-hero__meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gorvita-about .ga-stat-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8f4ed 100%);
+  border: 1px solid var(--ga-border);
+  border-radius: var(--ga-radius);
+  padding: 22px;
+  box-shadow: var(--ga-shadow);
+}
+
+.gorvita-about .ga-stat-card strong {
+  display: block;
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  line-height: 1.1;
+  color: var(--ga-green);
+  margin-bottom: 6px;
+}
+
+.gorvita-about .ga-stat-card span {
+  display: block;
+  color: var(--ga-muted);
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+/* STORY */
+.gorvita-about .ga-story {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(28px, 5vw, 56px);
+  align-items: start;
+  margin-bottom: clamp(40px, 7vw, 72px);
+}
+
+.gorvita-about .ga-story__content p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--ga-muted);
+  margin: 0 0 20px;
+}
+
+.gorvita-about .ga-story__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gorvita-about .ga-feature-card {
+  background: var(--ga-surface);
+  border: 1px solid var(--ga-border);
+  border-radius: var(--ga-radius);
+  padding: 22px;
+  min-height: 160px;
+  box-shadow: var(--ga-shadow);
+}
+
+.gorvita-about .ga-feature-card h3 {
+  font-size: 1.5rem;
+  line-height: 1.1;
+  margin: 0 0 10px;
+  color: var(--ga-green);
+  font-weight: 500;
+}
+
+.gorvita-about .ga-feature-card p {
+  margin: 0;
+  line-height: 1.7;
+  color: var(--ga-muted);
+  font-size: 0.95rem;
+}
+
+/* TRUST BAR */
+.gorvita-about .ga-trust {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: clamp(40px, 7vw, 72px);
+}
+
+.gorvita-about .ga-trust__item {
+  background: var(--ga-green);
+  color: #fff;
+  border-radius: var(--ga-radius);
+  padding: 24px 20px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.gorvita-about .ga-trust__number {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  color: #f6ead6;
+}
+
+.gorvita-about .ga-trust__label {
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.9rem;
+}
+
+/* B2B */
+.gorvita-about .ga-b2b {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: stretch;
+  margin-bottom: clamp(40px, 7vw, 72px);
+  background: var(--ga-surface-2);
+  border: 1px solid var(--ga-border);
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+.gorvita-about .ga-b2b__media {
+  overflow: hidden;
+}
+
+.gorvita-about .ga-b2b__media img {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  object-fit: cover;
+  object-position: center 18%;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.gorvita-about .ga-b2b:hover .ga-b2b__media img {
+  transform: scale(1.03);
+}
+
+.gorvita-about .ga-b2b__content {
+  padding: clamp(28px, 4vw, 48px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.gorvita-about .ga-b2b h2,
+.gorvita-about .ga-faq h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.05;
+  margin: 12px 0 16px;
+  color: var(--ga-green);
+  font-weight: 500;
+}
+
+.gorvita-about .ga-b2b__lead {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--ga-muted);
+  margin: 0 0 20px;
+}
+
+.gorvita-about .ga-b2b__content p {
+  color: var(--ga-muted);
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+.gorvita-about .ga-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.gorvita-about .ga-tags span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(30, 58, 43, 0.08);
+  color: var(--ga-green);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+/* FAQ */
+.gorvita-about .ga-faq {
+  padding-top: 8px;
+}
+
+.gorvita-about .ga-faq__header {
+  margin-bottom: 24px;
+}
+
+.gorvita-about .ga-faq__list {
+  display: grid;
+  gap: 12px;
+}
+
+.gorvita-about .ga-faq__item {
+  border: 1px solid var(--ga-border);
+  border-radius: 18px;
+  background: var(--ga-surface);
+  overflow: hidden;
+}
+
+.gorvita-about .ga-faq__question {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  text-align: left;
+  padding: 20px 22px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ga-green);
+  font-family: inherit;
+}
+
+.gorvita-about .ga-faq__icon {
+  position: relative;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.gorvita-about .ga-faq__icon::before,
+.gorvita-about .ga-faq__icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: var(--ga-green);
+  transform: translate(-50%, -50%);
+  transition: 0.25s ease;
+}
+
+.gorvita-about .ga-faq__icon::before {
+  width: 18px;
+  height: 2px;
+}
+
+.gorvita-about .ga-faq__icon::after {
+  width: 2px;
+  height: 18px;
+}
+
+.gorvita-about .ga-faq__question[aria-expanded="true"] .ga-faq__icon::after {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.gorvita-about .ga-faq__answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s ease;
+}
+
+.gorvita-about .ga-faq__answer > p {
+  overflow: hidden;
+  margin: 0;
+  padding: 0 22px 0;
+  color: var(--ga-muted);
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+.gorvita-about .ga-faq__item.is-open .ga-faq__answer {
+  grid-template-rows: 1fr;
+}
+
+.gorvita-about .ga-faq__item.is-open .ga-faq__answer > p {
+  padding-bottom: 20px;
+}
+
+/* RESPONSIVE — tablet */
+@media (max-width: 980px) {
+  .gorvita-about .ga-story,
+  .gorvita-about .ga-b2b {
+    grid-template-columns: 1fr;
+  }
+
+  .gorvita-about .ga-hero__meta,
+  .gorvita-about .ga-trust {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gorvita-about .ga-b2b__media {
+    order: -1;
+  }
+
+  .gorvita-about .ga-b2b__media img {
+    min-height: 280px;
+  }
+}
+
+/* RESPONSIVE — mobile */
+@media (max-width: 640px) {
+  .gorvita-about .ga-hero__meta,
+  .gorvita-about .ga-story__grid,
+  .gorvita-about .ga-trust {
+    grid-template-columns: 1fr;
+  }
+
+  .gorvita-about .ga-actions {
+    flex-direction: column;
+  }
+
+  .gorvita-about .ga-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .gorvita-about .ga-title {
+    max-width: none;
+  }
+
+  .gorvita-about .ga-b2b__media img {
+    min-height: 220px;
+  }
+}
