@@ -384,6 +384,36 @@ function gorvita_enqueue_o_marce_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_o_marce_assets' );
 
+/**
+ * Premium product-card styling — shop, product archives (category/tag/attribute)
+ * and single product (related products). Kept separate from the o-marce/front
+ * enqueue above, which early-returns on every other page. Also loads Cormorant
+ * Garamond here (it isn't enqueued globally) for the serif price.
+ */
+function gorvita_enqueue_product_cards_assets() {
+    if ( ! function_exists( 'is_woocommerce' )
+        || ! ( is_shop() || is_product_taxonomy() || is_product()
+            || is_page( 114 ) || is_page( 116 ) ) ) { // /nowosci/ + /promocje/ render product loops via shortcodes
+        return;
+    }
+    wp_enqueue_style(
+        'gorvita-cormorant',
+        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap',
+        [],
+        null
+    );
+    $path = get_stylesheet_directory() . '/css/product-cards.css';
+    if ( file_exists( $path ) ) {
+        wp_enqueue_style(
+            'gorvita-product-cards',
+            get_stylesheet_directory_uri() . '/css/product-cards.css',
+            [ 'gorvita-child-style' ],
+            filemtime( $path )
+        );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_product_cards_assets', 20 );
+
 function gorvita_o_marce_accordion_js() {
     if ( ! is_page( 119 ) ) {
         return;
@@ -1252,3 +1282,111 @@ add_shortcode( 'gorvita-usp-bar', function() {
     </style>
     <?php return ob_get_clean();
 } );
+
+/* ============================================================
+   GORVITA — ARCHIVE HERO
+   Hero banner on: product_tag 'nowosc' archive ("Nowości")
+   and the /promocje/ page (ID 116). No WC template overrides.
+   ============================================================ */
+
+/** Contexts that should show the archive hero: /promocje/ (116) and /nowosci/ (114). */
+function gorvita_is_archive_hero_context() {
+    return is_page( 116 ) || is_page( 114 );
+}
+
+/** Enqueue hero CSS (+ Cormorant for the serif title) only where it shows. */
+function gorvita_enqueue_archive_hero() {
+    if ( ! gorvita_is_archive_hero_context() ) {
+        return;
+    }
+    wp_enqueue_style(
+        'gorvita-cormorant',
+        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap',
+        [],
+        null
+    );
+    $path = get_stylesheet_directory() . '/css/gorvita-archive-hero.css';
+    if ( file_exists( $path ) ) {
+        wp_enqueue_style(
+            'gorvita-archive-hero',
+            get_stylesheet_directory_uri() . '/css/gorvita-archive-hero.css',
+            [],
+            filemtime( $path )
+        );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_archive_hero' );
+
+/** Build the hero markup. $variant = 'new' | 'promo'. */
+function gorvita_archive_hero_html( $variant = 'new' ) {
+    $is_promo   = ( 'promo' === $variant );
+    $hero_class = $is_promo ? 'ga-archive-hero ga-archive-hero--promo' : 'ga-archive-hero';
+    $eyebrow    = $is_promo ? 'Aktualne promocje' : 'Nowości w ofercie';
+    $title      = $is_promo
+        ? 'Lato 2026 — kojąca skóra po ukąszeniach komarów'
+        : 'Nowości';
+    $desc       = $is_promo
+        ? 'Naturalne suplementy i kosmetyki na lato — zestaw Mosqitos (płyn + żel po ukąszeniach), aloes po opalaniu, maść rumiankowa z CBD i olejek pichtowy odstraszający komary. <strong>-10% na cały zestaw do 31 sierpnia 2026.</strong>'
+        : 'Najnowsze produkty dodane do oferty Gorvita — suplementy, maści, żele i kosmetyki naturalne na bazie <strong>polskich surowców naturalnych</strong>.';
+
+    ob_start();
+    ?>
+    <div class="<?php echo esc_attr( $hero_class ); ?>">
+        <div class="ga-archive-hero__inner">
+            <div class="ga-archive-hero__eyebrow"><?php echo esc_html( $eyebrow ); ?></div>
+            <h1 class="ga-archive-hero__title"><?php echo esc_html( $title ); ?></h1>
+            <p class="ga-archive-hero__desc"><?php echo wp_kses_post( $desc ); ?></p>
+            <?php if ( $is_promo ) : ?>
+                <div class="ga-promo-badge">
+                    <span class="ga-promo-badge__pill">-10%</span>
+                    Promocja ważna do 31 sierpnia 2026
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+
+/** /promocje/ (116) and /nowosci/ (114) render products via shortcodes
+ *  ([gorvita_sale_products] / [products]), which don't fire
+ *  woocommerce_before_shop_loop, so prepend the hero to the page content. */
+add_filter( 'the_content', 'gorvita_archive_hero_on_page', 8 );
+function gorvita_archive_hero_on_page( $content ) {
+    if ( ! in_the_loop() || ! is_main_query() ) {
+        return $content;
+    }
+    if ( is_page( 116 ) ) {
+        return gorvita_archive_hero_html( 'promo' ) . $content;
+    }
+    if ( is_page( 114 ) ) {
+        return gorvita_archive_hero_html( 'new' ) . $content;
+    }
+    return $content;
+}
+
+/* ============================================================
+   GORVITA — /b2b/ (Hurt/B2B) landing assets (page 120 only)
+   Scoped CSS (.gorvita-b2b) + Cormorant/Inter fonts.
+   ============================================================ */
+function gorvita_enqueue_b2b_landing_assets() {
+    if ( ! is_page( 120 ) ) {
+        return;
+    }
+    wp_enqueue_style(
+        'gorvita-b2b-fonts',
+        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap',
+        [],
+        null
+    );
+    $path = get_stylesheet_directory() . '/css/hurt-b2b.css';
+    if ( file_exists( $path ) ) {
+        wp_enqueue_style(
+            'gorvita-hurt-b2b',
+            get_stylesheet_directory_uri() . '/css/hurt-b2b.css',
+            [],
+            filemtime( $path )
+        );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_b2b_landing_assets' );

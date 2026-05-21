@@ -1,0 +1,169 @@
+/* ============================================================
+   GORVITA — /b2b/ (Hurt/B2B) landing
+   Scoped under .gorvita-b2b-landing — enqueued only on page 120.
+   No global reset / no theme overrides.
+   ============================================================ */
+
+/* Hide Blocksy's default page-title bar on this page — our hero replaces it. */
+.page-id-120 .hero-section { display: none !important; }
+
+.gorvita-b2b-landing {
+  --green: #1E3A2B;
+  --green-light: #2d5240;
+  --gold: #C8A977;
+  --bg: #F7F5F2;
+  --white: #ffffff;
+  --text: #2D2D2D;
+  --text-muted: #6b7280;
+  --border: #e8e4de;
+
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  line-height: 1.6;
+  display: block !important; /* Blocksy makes entry-content children flex; force block so sections stack */
+
+  /* full-bleed out of the constrained entry-content */
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+}
+/* scoped reset (only inside our landing) */
+.gorvita-b2b-landing *,
+.gorvita-b2b-landing *::before,
+.gorvita-b2b-landing *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Headings: beat Customizer's global "h1,h2,h3,h4 { color: var(--gor-text) !important }". */
+.gorvita-b2b-landing h1,
+.gorvita-b2b-landing h2,
+.gorvita-b2b-landing h3,
+.gorvita-b2b-landing h4 { color: var(--green) !important; }
+.gorvita-b2b-landing .cta-box h2 { color: #fff !important; }
+
+.gorvita-b2b-landing .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+/* ── HERO ── */
+.gorvita-b2b-landing .hero { background: var(--bg); padding: 100px 0 80px; overflow: hidden; }
+.gorvita-b2b-landing .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.gorvita-b2b-landing .hero-badge { display: inline-block; color: var(--gold); text-transform: uppercase; font-weight: 700; font-size: 12px; letter-spacing: 3px; margin-bottom: 20px; border: 1px solid var(--gold); padding: 6px 16px; border-radius: 50px; }
+.gorvita-b2b-landing .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 5vw, 68px); line-height: 1.05; color: var(--green); margin-bottom: 24px; font-weight: 600; }
+.gorvita-b2b-landing .hero p { font-size: 17px; color: var(--text-muted); max-width: 480px; margin-bottom: 40px; line-height: 1.8; }
+.gorvita-b2b-landing .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+.gorvita-b2b-landing .btn-primary { background: var(--green); color: #fff; padding: 16px 36px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 14px; letter-spacing: 0.5px; transition: all 0.3s ease; display: inline-block; }
+.gorvita-b2b-landing .btn-primary:hover { background: var(--green-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(30,58,43,0.2); color: #fff; }
+.gorvita-b2b-landing .btn-outline { border: 1.5px solid var(--green); color: var(--green); padding: 16px 36px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 14px; transition: all 0.3s ease; display: inline-block; }
+.gorvita-b2b-landing .btn-outline:hover { background: var(--green); color: #fff; }
+.gorvita-b2b-landing .hero-img-wrap { position: relative; }
+.gorvita-b2b-landing .hero-img-wrap img { width: 100%; border-radius: 24px; display: block; object-fit: cover; height: 520px; box-shadow: 30px 30px 80px rgba(0,0,0,0.08); }
+.gorvita-b2b-landing .hero-stat-badge { position: absolute; bottom: 30px; left: -20px; background: #fff; border-radius: 16px; padding: 18px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 14px; }
+.gorvita-b2b-landing .hero-stat-badge .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 700; color: var(--green); line-height: 1; }
+.gorvita-b2b-landing .hero-stat-badge .stat-label { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+
+/* ── TRUST BAR ── */
+.gorvita-b2b-landing .trust-bar { background: var(--green); padding: 28px 0; }
+.gorvita-b2b-landing .trust-bar-inner { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
+.gorvita-b2b-landing .trust-item { display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; }
+.gorvita-b2b-landing .trust-item svg { opacity: 0.7; }
+
+/* ── SECTION TITLES ── */
+.gorvita-b2b-landing .section-label { color: var(--gold); text-transform: uppercase; font-size: 12px; font-weight: 700; letter-spacing: 3px; display: block; margin-bottom: 14px; }
+.gorvita-b2b-landing .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(34px, 4vw, 50px); color: var(--green); line-height: 1.1; margin-bottom: 16px; }
+.gorvita-b2b-landing .section-desc { color: var(--text-muted); font-size: 16px; max-width: 560px; line-height: 1.8; }
+
+/* ── TARGETS ── */
+.gorvita-b2b-landing .targets { padding: 100px 0; background: var(--white); }
+.gorvita-b2b-landing .targets-header { text-align: center; margin-bottom: 60px; }
+.gorvita-b2b-landing .targets-header .section-desc { margin: 0 auto; }
+.gorvita-b2b-landing .target-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.gorvita-b2b-landing .target-card { padding: 40px 32px; border: 1px solid var(--border); border-radius: 20px; transition: all 0.3s ease; cursor: default; }
+.gorvita-b2b-landing .target-card:hover { border-color: var(--gold); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.06); }
+.gorvita-b2b-landing .target-icon { width: 52px; height: 52px; background: var(--bg); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px; font-size: 24px; }
+.gorvita-b2b-landing .target-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--green); margin-bottom: 10px; }
+.gorvita-b2b-landing .target-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+/* ── BENEFITS ── */
+.gorvita-b2b-landing .benefits { padding: 100px 0; background: var(--bg); }
+.gorvita-b2b-landing .benefits-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.gorvita-b2b-landing .benefits-img { position: relative; }
+.gorvita-b2b-landing .benefits-img img { width: 100%; border-radius: 24px; object-fit: cover; height: 560px; display: block; }
+.gorvita-b2b-landing .benefit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 44px; }
+.gorvita-b2b-landing .benefit-item { padding: 28px; background: #fff; border-radius: 16px; border: 1px solid var(--border); transition: 0.3s; }
+.gorvita-b2b-landing .benefit-item:hover { border-color: var(--gold); }
+.gorvita-b2b-landing .benefit-item .b-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+.gorvita-b2b-landing .benefit-item h4 { font-size: 15px; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+.gorvita-b2b-landing .benefit-item p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+/* ── STEPS ── */
+.gorvita-b2b-landing .steps { padding: 100px 0; background: var(--white); }
+.gorvita-b2b-landing .steps-header { text-align: center; margin-bottom: 70px; }
+.gorvita-b2b-landing .steps-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+.gorvita-b2b-landing .steps-row::before { content: ''; position: absolute; top: 36px; left: 12.5%; right: 12.5%; height: 1px; background: var(--border); z-index: 0; }
+.gorvita-b2b-landing .step { text-align: center; position: relative; z-index: 1; padding: 0 20px; }
+.gorvita-b2b-landing .step-circle { width: 72px; height: 72px; border-radius: 50%; background: var(--bg); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: var(--green); transition: 0.3s; }
+.gorvita-b2b-landing .step:hover .step-circle { background: var(--green); color: #fff; border-color: var(--green); }
+.gorvita-b2b-landing .step h4 { font-size: 15px; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+.gorvita-b2b-landing .step p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+/* ── TERMS ── */
+.gorvita-b2b-landing .terms { padding: 100px 0; background: var(--bg); }
+.gorvita-b2b-landing .terms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px; }
+.gorvita-b2b-landing .term-card { background: #fff; border-radius: 20px; padding: 36px 30px; border: 1px solid var(--border); transition: 0.3s; }
+.gorvita-b2b-landing .term-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+.gorvita-b2b-landing .term-card .t-icon { font-size: 32px; margin-bottom: 18px; display: block; }
+.gorvita-b2b-landing .term-card h4 { font-size: 16px; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+.gorvita-b2b-landing .term-card p { font-size: 14px; color: var(--text-muted); }
+
+/* ── FAQ ── */
+.gorvita-b2b-landing .faq { padding: 100px 0; background: var(--white); }
+.gorvita-b2b-landing .faq-header { text-align: center; margin-bottom: 60px; }
+.gorvita-b2b-landing .faq-list { max-width: 760px; margin: 0 auto; }
+.gorvita-b2b-landing .faq-item { border-bottom: 1px solid var(--border); }
+.gorvita-b2b-landing .faq-question { width: 100%; background: none; border: none; text-align: left; padding: 24px 0; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: var(--green); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.gorvita-b2b-landing .faq-question .faq-icon { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; color: var(--green); transition: 0.3s; }
+.gorvita-b2b-landing .faq-item.open .faq-icon { background: var(--green); color: #fff; border-color: var(--green); transform: rotate(45deg); }
+.gorvita-b2b-landing .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+.gorvita-b2b-landing .faq-answer-inner { padding-bottom: 24px; font-size: 15px; color: var(--text-muted); line-height: 1.8; }
+.gorvita-b2b-landing .faq-item.open .faq-answer { max-height: 320px; }
+
+/* ── CONTACT ── */
+.gorvita-b2b-landing .contact { padding: 80px 0; background: var(--bg); }
+.gorvita-b2b-landing .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.gorvita-b2b-landing .contact-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 36px; color: var(--green); margin-bottom: 20px; }
+.gorvita-b2b-landing .contact-info p { color: var(--text-muted); margin-bottom: 30px; }
+.gorvita-b2b-landing .contact-links { display: flex; flex-direction: column; gap: 14px; }
+.gorvita-b2b-landing .contact-link { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); font-weight: 500; font-size: 15px; }
+.gorvita-b2b-landing .contact-link .cl-icon { width: 40px; height: 40px; background: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; border: 1px solid var(--border); }
+.gorvita-b2b-landing .contact-form { background: #fff; border-radius: 24px; padding: 48px; border: 1px solid var(--border); }
+.gorvita-b2b-landing .contact-form h4 { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--green); margin-bottom: 24px; }
+.gorvita-b2b-landing .contact-form .fields { display: flex; flex-direction: column; gap: 14px; }
+.gorvita-b2b-landing .contact-form input,
+.gorvita-b2b-landing .contact-form textarea { padding: 14px 18px; border: 1px solid var(--border); border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 14px; outline: none; resize: none; width: 100%; }
+.gorvita-b2b-landing .contact-form button { border: none; cursor: pointer; text-align: center; }
+
+/* ── FINAL CTA ── */
+.gorvita-b2b-landing .final-cta { padding: 100px 0; background: var(--white); }
+.gorvita-b2b-landing .cta-box { background: var(--green); border-radius: 32px; padding: 90px 60px; text-align: center; position: relative; overflow: hidden; }
+.gorvita-b2b-landing .cta-box::before { content: ''; position: absolute; top: -80px; right: -80px; width: 300px; height: 300px; border-radius: 50%; background: rgba(200,169,119,0.1); }
+.gorvita-b2b-landing .cta-box::after { content: ''; position: absolute; bottom: -60px; left: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.04); }
+.gorvita-b2b-landing .cta-box h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 56px); color: #fff; margin-bottom: 18px; position: relative; z-index: 1; }
+.gorvita-b2b-landing .cta-box p { color: rgba(255,255,255,0.75); font-size: 17px; margin-bottom: 40px; position: relative; z-index: 1; }
+.gorvita-b2b-landing .btn-white { background: #fff; color: var(--green); padding: 18px 48px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 15px; display: inline-block; transition: 0.3s; position: relative; z-index: 1; }
+.gorvita-b2b-landing .btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 992px) {
+  .gorvita-b2b-landing .hero-grid, .gorvita-b2b-landing .benefits-split, .gorvita-b2b-landing .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+  .gorvita-b2b-landing .hero-img-wrap { order: -1; }
+  .gorvita-b2b-landing .hero-img-wrap img, .gorvita-b2b-landing .benefits-img img { height: 360px; }
+  .gorvita-b2b-landing .target-grid { grid-template-columns: 1fr 1fr; }
+  .gorvita-b2b-landing .steps-row { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .gorvita-b2b-landing .steps-row::before { display: none; }
+  .gorvita-b2b-landing .terms-grid { grid-template-columns: 1fr 1fr; }
+  .gorvita-b2b-landing .hero-stat-badge { left: 10px; }
+}
+@media (max-width: 600px) {
+  .gorvita-b2b-landing .container { padding: 0 20px; }
+  .gorvita-b2b-landing .hero { padding: 60px 0; }
+  .gorvita-b2b-landing .target-grid, .gorvita-b2b-landing .steps-row, .gorvita-b2b-landing .terms-grid, .gorvita-b2b-landing .benefit-grid { grid-template-columns: 1fr; }
+  .gorvita-b2b-landing .cta-box { padding: 60px 30px; }
+  .gorvita-b2b-landing .trust-bar-inner { gap: 24px; }
+}

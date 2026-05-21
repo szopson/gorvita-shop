@@ -1,0 +1,130 @@
+.ga-archive-hero {
+  position: relative;
+  background-image: url('https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/05/hero-gorce-final.webp');
+  background-size: cover;
+  background-position: center 40%;
+  min-height: 380px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+
+  /* Full-width — wyrwij z kontenera Blocksy/WP.
+     max-width:none ucieka spod reguły `.is-layout-constrained > *`, która
+     kapowała szerokość do content-size (~1290px). Ujemne marginesy = pełny
+     full-bleed bez poziomego scrolla (bez width:100vw). */
+  width: 100vw !important;
+  max-width: 100vw !important;                 /* beat .is-layout-constrained content-size cap */
+  margin-left: calc(50% - 50vw) !important;    /* shift left edge to viewport 0 */
+  margin-right: 0 !important;                  /* width is fixed at 100vw, so right margin is irrelevant */
+}
+
+.ga-archive-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 24, 16, 0.20) 0%,
+    rgba(10, 24, 16, 0.60) 55%,
+    rgba(10, 24, 16, 0.85) 100%
+  );
+  z-index: 1;
+}
+
+.ga-archive-hero--promo::before {
+  background: linear-gradient(
+    105deg,
+    rgba(10, 24, 16, 0.82) 0%,
+    rgba(20, 48, 32, 0.68) 55%,
+    rgba(10, 24, 16, 0.45) 100%
+  );
+}
+
+.ga-archive-hero__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 52px 40px 52px;
+}
+
+.ga-archive-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #c8a977;
+  margin-bottom: 14px;
+}
+.ga-archive-hero__eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: #c8a977;
+}
+
+.ga-archive-hero__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 500;
+  color: #fff !important; /* beat Customizer's global "h1{color:var(--gor-text)!important}" */
+  line-height: 1.12;
+  margin-bottom: 14px;
+  max-width: 580px;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.35);
+}
+
+.ga-archive-hero__desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.7;
+  max-width: 500px;
+}
+.ga-archive-hero__desc strong {
+  color: #f0ddb8;
+  font-weight: 600;
+}
+
+.ga-promo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(200,169,119,0.18);
+  border: 1px solid rgba(200,169,119,0.5);
+  border-radius: 999px;
+  padding: 8px 18px;
+  margin-top: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #f0ddb8;
+  backdrop-filter: blur(4px);
+}
+.ga-promo-badge__pill {
+  background: #c8a977;
+  color: #1e3a2b;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+@media (max-width: 768px) {
+  .ga-archive-hero {
+    min-height: 280px;
+  }
+  .ga-archive-hero__inner {
+    padding: 36px 20px 36px;
+  }
+}
+
+/* /promocje/ (116) + /nowosci/ (114): hide Blocksy's default page-title bar —
+   the hero replaces it. Scoped per page-id so there are no global side effects.
+   Without it the "Promocje"/"Nowości" title reappears above the hero (double banner). */
+.page-id-116 .hero-section,
+.page-id-114 .hero-section { display: none !important; }

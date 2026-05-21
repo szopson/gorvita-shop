@@ -364,9 +364,6 @@ body .wp-block-greenshift-blocks-buttonbox a.wp-element-button:hover, body a.gsp
    Outlined by default; on hover gains a subtle backdrop-filter blur over the
    product card's gradient pedestal so it reads as glassy-modern rather than
    solid-loud. The single-product page button stays full-size and filled green. */
-.woocommerce ul.products li.product .button.add_to_cart_button,
-.woocommerce ul.products li.product a.button.product_type_simple,
-.woocommerce ul.products li.product a.button.product_type_variable,
 .wc-block-grid__product .wc-block-components-product-button .wp-block-button__link {
   background: rgba(255,255,255,0.55) !important;
   background-color: rgba(255,255,255,0.55) !important;
@@ -381,9 +378,6 @@ body .wp-block-greenshift-blocks-buttonbox a.wp-element-button:hover, body a.gsp
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
 }
-.woocommerce ul.products li.product .button.add_to_cart_button:hover,
-.woocommerce ul.products li.product a.button.product_type_simple:hover,
-.woocommerce ul.products li.product a.button.product_type_variable:hover,
 .wc-block-grid__product .wc-block-components-product-button .wp-block-button__link:hover {
   background: var(--gor-green-dark) !important;
   background-color: var(--gor-green-dark) !important;
@@ -477,16 +471,9 @@ button.ct-wishlist-button-archive.ct-button::before, button.ct-compare-button-ar
 .ct-sidebar .wc-block-product .wp-block-button, .ct-sidebar .wc-block-product .add_to_cart_button, .ct-sidebar .wc-block-product .wc-block-components-product-button { display: none !important; }
 
 /* PRODUCT CARDS */
-.woocommerce ul.products li.product { background: var(--gor-cream-card) !important; border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-lg) !important; overflow: visible !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; padding: 18px !important; box-shadow: var(--gor-shadow-sm) !important; transition: transform 0.22s cubic-bezier(0.2,0.9,0.3,1), box-shadow 0.22s ease, border-color 0.22s ease !important; }
-.woocommerce ul.products li.product:hover { transform: translateY(-5px) !important; box-shadow: var(--gor-shadow-lg) !important; border-color: var(--gor-border-hover) !important; }
-.woocommerce ul.products li.product .ct-media-container, .woocommerce ul.products li.product .product-image { aspect-ratio: 1/1 !important; display: flex !important; align-items: center !important; justify-content: center !important; padding: 7% !important; background: linear-gradient(180deg,#ffffff 0%,#f6f2ec 100%) !important; border-radius: var(--gor-r-md) !important; position: relative !important; overflow: hidden !important; }
-.woocommerce ul.products li.product img { width: auto !important; height: 100% !important; max-height: 82% !important; max-width: 82% !important; object-fit: contain !important; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.07)) !important; transition: transform 0.28s ease, opacity 0.28s ease !important; z-index: 2 !important; position: relative !important; }
-.woocommerce ul.products li.product:hover .ct-media-container img:first-child { transform: scale(1.04) !important; opacity: 0 !important; }
 .gorvita-hover-img { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; max-width: 100% !important; max-height: 100% !important; object-fit: contain !important; opacity: 0 !important; transition: opacity 0.3s ease !important; z-index: 3 !important; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.07)) !important; transform: none !important; padding: 7% !important; box-sizing: border-box !important; }
 .woocommerce ul.products li.product:hover .gorvita-hover-img { opacity: 1 !important; }
-.woocommerce ul.products li.product .woocommerce-loop-product__title { font-size: 15px !important; font-weight: 500 !important; color: var(--gor-text) !important; text-align: center !important; min-height: 3em !important; margin: 6px 0 0 !important; line-height: 1.4 !important; }
-.woocommerce ul.products li.product .price, .woocommerce .price { font-size: 15px !important; font-weight: 600 !important; color: var(--gor-green-dark) !important; }
-.woocommerce ul.products li.product .button, .woocommerce-page ul.products li.product .button, a.add_to_cart_button.button { padding: 10px 16px !important; font-size: 13.5px !important; margin-top: auto !important; }
+.woocommerce .price { font-size: 15px !important; font-weight: 600 !important; color: var(--gor-green-dark) !important; }
 .woocommerce ul.products li.product-category { background: var(--gor-cream-card) !important; border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-lg) !important; box-shadow: var(--gor-shadow-sm) !important; transition: transform 0.2s ease, box-shadow 0.2s ease !important; overflow: hidden !important; }
 .woocommerce ul.products li.product-category:hover { transform: translateY(-4px) !important; box-shadow: var(--gor-shadow-md) !important; }
 
@@ -531,11 +518,6 @@ footer .wp-block-heading { font-weight: 600; }
   .gorvita-b2b-hero__container { padding: 32px 5% !important; }
   .gorvita-b2b-hero__content { max-width: 100% !important; text-align: center !important; }
   .gorvita-b2b-hero__actions { align-items: center !important; }
-  .woocommerce ul.products li.product { border-radius: 20px !important; }
-  .woocommerce ul.products li.product .ct-media-container { padding: 8% !important; }
-  .woocommerce ul.products li.product .woocommerce-loop-product__title { font-size: .98rem !important; min-height: 3.4em !important; padding: 14px 14px 0 !important; }
-  .woocommerce ul.products li.product .price, .woocommerce ul.products li.product .product-actions-row { padding: 14px !important; }
-  .woocommerce ul.products li.product .button { padding: 10px 14px !important; font-size: .92rem !important; }
 }
 
 /* TABS DESKTOP */
