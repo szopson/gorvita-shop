@@ -970,3 +970,209 @@ body .woocommerce-notice::before {
 #gspb_row-id-gsbp-3f48ec3 {
   margin-bottom: 0 !important;
 }
+
+/* =============================================
+   Hero — medium crop (~340px) z zachowaniem lead
+   ============================================= */
+
+.gorvita-hero {
+  min-height: 340px !important;
+}
+
+.gorvita-hero__bg,
+.gorvita-hero__bg-img {
+  height: 340px !important;
+  max-height: 340px !important;
+  object-fit: cover !important;
+  object-position: center 40% !important;
+}
+
+/* Mniej padding — więcej miejsca na treść */
+.gorvita-hero__grid {
+  padding-top: 32px !important;
+  padding-bottom: 32px !important;
+  align-items: center !important;
+}
+
+/* Kompaktowy tytuł */
+.gorvita-hero__title {
+  font-size: clamp(2rem, 4vw, 3rem) !important;
+  line-height: 1.0 !important;
+  margin-bottom: 12px !important;
+}
+
+/* Ukryj środkowy sub — zostaw tylko lead */
+.gorvita-hero__sub {
+  display: none !important;
+}
+
+/* Lead — czytelny, kompaktowy */
+.gorvita-hero__lead {
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+  margin-bottom: 20px !important;
+  opacity: 0.85 !important;
+}
+
+/* Eyebrow — mniej miejsca */
+.gorvita-hero__eyebrow {
+  margin-bottom: 8px !important;
+  font-size: 10px !important;
+}
+
+/* CTA bliżej tekstu */
+.gorvita-hero__cta {
+  margin-top: 0 !important;
+  gap: 10px !important;
+}
+
+/* Obraz po prawej — dopasuj do nowej wysokości */
+.gorvita-hero__visual {
+  max-height: 280px !important;
+  overflow: hidden !important;
+}
+
+.gorvita-hero__visual-img {
+  height: 280px !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+}
+
+@media (max-width: 768px) {
+  .gorvita-hero {
+    min-height: auto !important;
+  }
+
+  .gorvita-hero__bg,
+  .gorvita-hero__bg-img {
+    height: 260px !important;
+    max-height: 260px !important;
+  }
+
+  .gorvita-hero__visual {
+    display: none !important;
+  }
+
+  .gorvita-hero__lead {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Hero grid — nałóż na tło */
+.gorvita-hero {
+  position: relative !important;
+}
+
+.gorvita-hero__bg {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 0 !important;
+}
+
+.gorvita-hero__bg-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center 40% !important;
+}
+
+.gorvita-hero__grid {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Hero — zerwij outer padding ze starej hero CSS (linia 473) */
+.gorvita-hero {
+  padding: 0 !important;
+}
+
+/* Hero — fix display:flex blocking absolute bg overlay */
+.gorvita-hero {
+  display: block !important;
+  height: auto !important;
+  min-height: auto !important;
+}
+
+.gorvita-hero__bg,
+.gorvita-hero__bg-img {
+  height: 100% !important;
+  max-height: none !important;
+}
+
+/* Hero — override Customizer Additional CSS (88vh + display:flex)
+   via higher specificity. Customizer loads after style.css and wins
+   cascade at 0,1,0; body.page-id-991 .gorvita-hero is 0,2,1 + !important. */
+body.page-id-991 .gorvita-hero {
+  min-height: auto !important;
+  display: block !important;
+  align-items: initial !important;
+}
+
+body.page-id-991 .gorvita-hero__bg,
+body.page-id-991 .gorvita-hero__bg-img {
+  height: 100% !important;
+  max-height: none !important;
+}
+
+/* Hero — usuń prawą stronę z obrazkiem */
+body.page-id-991 .gorvita-hero__visual {
+  display: none !important;
+}
+
+/* Reviews mobile font fix */
+@media (max-width: 768px) {
+  .gv-reviews__text {
+    font-size: 0.85rem !important;
+    line-height: 1.6 !important;
+  }
+}
+
+/* Usuń białą przestrzeń po ukrytym Greenshift row */
+#gspb_row-id-gsbp-809e49d {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Hero — nowe zdjęcie produktowe, pełne proporcje */
+body.page-id-991 .gorvita-hero__bg {
+  position: absolute !important;
+  inset: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Hero — nowe zdjęcie 21:9, bez ucinania */
+body.page-id-991 .gorvita-hero {
+  min-height: 500px !important;
+}
+
+body.page-id-991 .gorvita-hero__bg-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  opacity: 0.9 !important;
+}
+
+body.page-id-991 .gorvita-hero__bg-fade {
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0.85) 0%,
+    rgba(255,255,255,0.5) 35%,
+    rgba(255,255,255,0.1) 60%,
+    rgba(255,255,255,0) 75%
+  ) !important;
+}
+
+@media (max-width: 768px) {
+  body.page-id-991 .gorvita-hero {
+    min-height: 320px !important;
+  }
+  body.page-id-991 .gorvita-hero__bg-img {
+    object-position: 65% center !important;
+  }
+}

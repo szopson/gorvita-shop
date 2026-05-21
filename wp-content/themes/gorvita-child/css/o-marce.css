@@ -461,3 +461,200 @@
     min-height: 220px;
   }
 }
+
+/* =============================================
+   /o-marce/ — rozbudowa opisu (v6.30)
+   Generic blocks, prose, mission checklist,
+   mineral-water highlight, 3-up cert cards
+   ============================================= */
+
+.gorvita-about .ga-block {
+  max-width: 1200px;
+  margin: 0 auto clamp(40px, 7vw, 72px);
+  padding-left: clamp(20px, 4vw, 32px);
+  padding-right: clamp(20px, 4vw, 32px);
+}
+
+.gorvita-about .ga-block__head {
+  margin-bottom: 22px;
+}
+
+.gorvita-about .ga-block h2 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.05;
+  margin: 12px 0 0;
+  color: var(--ga-green);
+  font-weight: 500;
+}
+
+.gorvita-about .ga-prose {
+  max-width: 78ch;
+}
+
+.gorvita-about .ga-prose p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--ga-muted);
+  margin: 0 0 18px;
+}
+
+.gorvita-about .ga-prose p:last-child {
+  margin-bottom: 0;
+}
+
+/* Mission checklist */
+.gorvita-about .ga-checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  max-width: 760px;
+}
+
+.gorvita-about .ga-checklist li {
+  position: relative;
+  padding-left: 38px;
+  line-height: 1.7;
+  color: var(--ga-text);
+  font-size: 1.02rem;
+}
+
+.gorvita-about .ga-checklist li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(30, 58, 43, 0.08);
+  color: var(--ga-green);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.gorvita-about .ga-checklist li strong {
+  color: var(--ga-green);
+  font-weight: 600;
+}
+
+/* 3-up cards (certyfikaty) */
+.gorvita-about .ga-cards3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 0 24px;
+}
+
+/* MINERAL-WATER HIGHLIGHT */
+.gorvita-about .ga-highlight {
+  max-width: 1200px;
+  margin: 0 auto clamp(40px, 7vw, 72px);
+  padding-left: clamp(20px, 4vw, 32px);
+  padding-right: clamp(20px, 4vw, 32px);
+}
+
+.gorvita-about .ga-highlight__panel {
+  background: linear-gradient(155deg, var(--ga-green) 0%, var(--ga-green-2) 100%);
+  color: #fff;
+  border-radius: 28px;
+  padding: clamp(28px, 4vw, 56px);
+  display: grid;
+  grid-template-columns: 1.5fr 0.9fr;
+  gap: clamp(28px, 4vw, 48px);
+  align-items: center;
+  box-shadow: var(--ga-shadow);
+}
+
+.gorvita-about .ga-section-label--light {
+  color: #f6ead6;
+}
+
+.gorvita-about .ga-highlight h2 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+  line-height: 1.08;
+  margin: 10px 0 16px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.gorvita-about .ga-highlight p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.85;
+  margin: 0 0 16px;
+  font-size: 1rem;
+}
+
+.gorvita-about .ga-minerals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.gorvita-about .ga-minerals span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #f6ead6;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.gorvita-about .ga-highlight__stat {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  padding: 30px 26px;
+  text-align: center;
+}
+
+.gorvita-about .ga-highlight__stat strong {
+  display: block;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2.8rem, 5vw, 3.8rem);
+  line-height: 1;
+  color: #f6ead6;
+  font-weight: 500;
+}
+
+.gorvita-about .ga-highlight__unit {
+  display: block;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 8px;
+}
+
+.gorvita-about .ga-highlight__stat p {
+  margin: 16px 0 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.6;
+}
+
+/* RESPONSIVE — new blocks */
+@media (max-width: 980px) {
+  .gorvita-about .ga-highlight__panel {
+    grid-template-columns: 1fr;
+  }
+  .gorvita-about .ga-cards3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .gorvita-about .ga-cards3 {
+    grid-template-columns: 1fr;
+  }
+}

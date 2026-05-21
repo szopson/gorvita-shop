@@ -26,6 +26,7 @@ body.page-id-991 #gspb_heading-id-gsbp-a0eb918::before {
 body.page-id-991 #gspb_heading-id-gsbp-55f1c58::before,
 body.page-id-991 #gspb_heading-id-gsbp-a0eb918::before {
   display: block;
+  text-align: center;
   font-family: "Inter", system-ui, sans-serif;
   font-size: 11px;
   letter-spacing: 0.2em;
@@ -77,4 +78,173 @@ body.page-id-991 .products.columns-4 .meta-categories a {
   text-transform: uppercase;
   color: #6b8e5f;
   font-weight: 600;
+}
+
+/* =============================================
+   USP / trust row (gsbp-ea306c0) on home — ported
+   from content-block 424 (Above Footer Section).
+   ID-scoped so it doesn't touch _gspb_post_css.
+   ============================================= */
+#gspb_row-id-gsbp-ea306c0 {
+  justify-content: space-between;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  background-color: #f7f4ef;
+  border-top: 1px solid #e2ded5;
+  border-bottom: 1px solid #e2ded5;
+}
+#gspb_row-id-gsbp-ea306c0 > .gspb_row__content {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 100%;
+  flex-wrap: wrap;
+}
+body.gspb-bodyfront #gspb_row-id-gsbp-ea306c0 > .gspb_row__content {
+  width: var(--theme-container-width, 1200px);
+  max-width: var(--theme-normal-container-max-width, 1200px);
+}
+@media (max-width: 991.98px) {
+  #gspb_row-id-gsbp-ea306c0 > .gspb_row__content { row-gap: 50px; }
+}
+
+/* columns: 25% desktop / 50% tablet / 100% mobile, no padding */
+#gspb_col-id-gsbp-cd09582.gspb_row__col--3,
+#gspb_col-id-gsbp-07cbe3e.gspb_row__col--3,
+#gspb_col-id-gsbp-6743669.gspb_row__col--3,
+#gspb_col-id-gsbp-6dc9c43.gspb_row__col--3 { width: calc(25% - 25px); }
+.gspb_row #gspb_col-id-gsbp-cd09582.gspb_row__col--3,
+.gspb_row #gspb_col-id-gsbp-07cbe3e.gspb_row__col--3,
+.gspb_row #gspb_col-id-gsbp-6743669.gspb_row__col--3,
+.gspb_row #gspb_col-id-gsbp-6dc9c43.gspb_row__col--3 { padding: 0; }
+@media (max-width: 991.98px) {
+  #gspb_col-id-gsbp-cd09582.gspb_row__col--3,
+  #gspb_col-id-gsbp-07cbe3e.gspb_row__col--3,
+  #gspb_col-id-gsbp-6743669.gspb_row__col--3,
+  #gspb_col-id-gsbp-6dc9c43.gspb_row__col--3 { width: calc(50% - 25px); }
+}
+@media (max-width: 575.98px) {
+  #gspb_col-id-gsbp-cd09582.gspb_row__col--3,
+  #gspb_col-id-gsbp-07cbe3e.gspb_row__col--3,
+  #gspb_col-id-gsbp-6743669.gspb_row__col--3,
+  #gspb_col-id-gsbp-6dc9c43.gspb_row__col--3 { width: 100%; }
+}
+
+/* iconboxes: centered, dark-green, 35px (30px tablet) */
+#gspb_iconBox-id-gsbp-9218261,
+#gspb_iconBox-id-gsbp-a385cc2,
+#gspb_iconBox-id-gsbp-ee90d32,
+#gspb_iconBox-id-gsbp-fc039d0 { justify-content: center; display: flex; }
+#gspb_iconBox-id-gsbp-9218261 svg,
+#gspb_iconBox-id-gsbp-a385cc2 svg,
+#gspb_iconBox-id-gsbp-ee90d32 svg,
+#gspb_iconBox-id-gsbp-fc039d0 svg {
+  height: 35px !important;
+  width: 35px !important;
+  min-width: 35px !important;
+  margin: 0 !important;
+}
+#gspb_iconBox-id-gsbp-9218261 svg, #gspb_iconBox-id-gsbp-9218261 svg path,
+#gspb_iconBox-id-gsbp-a385cc2 svg, #gspb_iconBox-id-gsbp-a385cc2 svg path,
+#gspb_iconBox-id-gsbp-ee90d32 svg, #gspb_iconBox-id-gsbp-ee90d32 svg path,
+#gspb_iconBox-id-gsbp-fc039d0 svg, #gspb_iconBox-id-gsbp-fc039d0 svg path {
+  fill: var(--wp--preset--color--palette-color-4, var(--theme-palette-color-4, #152420)) !important;
+}
+#gspb_iconBox-id-gsbp-9218261 .gspb_iconBox__wrapper,
+#gspb_iconBox-id-gsbp-a385cc2 .gspb_iconBox__wrapper,
+#gspb_iconBox-id-gsbp-ee90d32 .gspb_iconBox__wrapper,
+#gspb_iconBox-id-gsbp-fc039d0 .gspb_iconBox__wrapper {
+  margin-bottom: 16px;
+  background: #e8f0eb;
+  border-radius: 14px;
+  padding: 16px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 991.98px) {
+  #gspb_iconBox-id-gsbp-9218261 svg,
+  #gspb_iconBox-id-gsbp-a385cc2 svg,
+  #gspb_iconBox-id-gsbp-ee90d32 svg,
+  #gspb_iconBox-id-gsbp-fc039d0 svg {
+    height: 30px !important;
+    width: 30px !important;
+    min-width: 30px !important;
+  }
+}
+
+/* headings + texts: centered */
+#gspb_heading-id-gsbp-854d8b2,
+#gspb_heading-id-gsbp-0c9eddc,
+#gspb_heading-id-gsbp-109fecc,
+#gspb_heading-id-gsbp-715e5b9 {
+  font-family: "Cormorant Garamond", Georgia, serif !important;
+  color: #1e3a2b !important;
+  font-size: 19px;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+.gspb_text-id-gsbp-f45671b,
+.gspb_text-id-gsbp-93fcb2e,
+.gspb_text-id-gsbp-10185c6,
+.gspb_text-id-gsbp-5a1b7ac {
+  color: #7a7a6e !important;
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+  text-align: center !important;
+}
+
+/* =============================================
+   Newsletter row (gsbp-3f48ec3) on home — branded.
+   Dark-green bg already comes from the block; here we
+   add serif heading, translucent field + gold button.
+   Scoped to the row + home-only file = no side effects.
+   ============================================= */
+#gspb_heading-id-gsbp-eb18828 {
+  font-family: "Cormorant Garamond", Georgia, serif !important;
+}
+#gspb_row-id-gsbp-3f48ec3 .ct-newsletter-subscribe-form input[type="email"] {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: #fff !important;
+  border-radius: 999px !important;
+  padding: 11px 20px !important;
+  font-size: 14px !important;
+}
+#gspb_row-id-gsbp-3f48ec3 .ct-newsletter-subscribe-form input[type="email"]::placeholder {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+/* two real IDs (row + column) → specificity (2,2,1), beats the
+   global Blocksy button rule (--gor-green, (1,4,0) !important). */
+#gspb_row-id-gsbp-3f48ec3 #gspb_col-id-gsbp-2abc868 .ct-newsletter-subscribe-form button.wp-element-button {
+  background: #c8a977 !important;
+  color: #1e3a2b !important;
+  border: none !important;
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  padding: 11px 26px !important;
+  letter-spacing: 0.03em !important;
+  transition: background 0.2s ease !important;
+}
+#gspb_row-id-gsbp-3f48ec3 #gspb_col-id-gsbp-2abc868 .ct-newsletter-subscribe-form button.wp-element-button:hover {
+  background: #b8956a !important;
+}
+#gspb_row-id-gsbp-3f48ec3 .gdpr-confirm-policy,
+#gspb_row-id-gsbp-3f48ec3 .gdpr-confirm-policy label {
+  color: rgba(255, 255, 255, 0.55) !important;
+  font-size: 11px !important;
+}
+#gspb_row-id-gsbp-3f48ec3 .gdpr-confirm-policy a {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+#gspb_row-id-gsbp-3f48ec3 .gdpr-confirm-policy a:hover {
+  color: #c8a977 !important;
 }

@@ -549,13 +549,13 @@ function gorvita_hero_shortcode() {
     ?>
     <section class="gorvita-hero">
         <div class="gorvita-hero__bg">
-            <?php echo wp_get_attachment_image( 249, 'full', false, [
-                'class'         => 'gorvita-hero__bg-img',
-                'alt'           => '',
-                'fetchpriority' => 'high',
-                'loading'       => 'eager',
-                'decoding'      => 'sync',
-            ] ); // phpcs:ignore ?>
+            <img
+                class="gorvita-hero__bg-img"
+                src="https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/05/hero-gorce-final.webp"
+                alt=""
+                fetchpriority="high"
+                loading="eager"
+                decoding="async">
             <div class="gorvita-hero__bg-fade"></div>
         </div>
         <div class="gorvita-wrap gorvita-hero__grid">
@@ -570,7 +570,7 @@ function gorvita_hero_shortcode() {
                     Z Serca Gorców i Beskidu Wyspowego od rodziny Gorvita.
                 </p>
                 <p class="gorvita-hero__lead">
-                    Kosmetyki, suplementy diety i wyroby medyczne wytwarzane w Szczawie od 1989 roku.
+                    Kosmetyki, suplementy diety i wyroby medyczne<br>wytwarzane w Szczawie od 1989 roku.
                 </p>
                 <div class="gorvita-hero__cta">
                     <a class="gorvita-hero__btn gorvita-hero__btn--primary" href="<?php echo esc_url( $shop_url ); ?>">
@@ -1129,3 +1129,126 @@ add_filter( 'gettext', function ( $translation, $text, $domain ) {
     }
     return $map[ $text ] ?? $translation;
 }, 10, 3 );
+
+// [gorvita-usp-bar] — pasek 4 wartości (USP) z tłem górskim + overlay
+add_shortcode( 'gorvita-usp-bar', function() {
+    ob_start(); ?>
+    <div class="gv-usp-bar">
+        <div class="gv-usp-bar__bg"></div>
+        <div class="gv-usp-bar__overlay"></div>
+        <div class="gv-usp-bar__grid">
+            <div class="gv-usp-item">
+                <div class="gv-usp-item__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="8" r="6"/><path d="M12 14v7M9 17l3 4 3-4"/></svg>
+                </div>
+                <div class="gv-usp-item__text">
+                    <strong>Tradycja od 1989</strong>
+                    <span>Rodzinna manufaktura w Gorcach</span>
+                </div>
+            </div>
+            <div class="gv-usp-item">
+                <div class="gv-usp-item__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <div class="gv-usp-item__text">
+                    <strong>Polskie zioła</strong>
+                    <span>Z Gorców i upraw ekologicznych</span>
+                </div>
+            </div>
+            <div class="gv-usp-item">
+                <div class="gv-usp-item__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div class="gv-usp-item__text">
+                    <strong>GMP + ISO 9001</strong>
+                    <span>Każda partia badana</span>
+                </div>
+            </div>
+            <div class="gv-usp-item">
+                <div class="gv-usp-item__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8zM1 16h15M5.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM18.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>
+                </div>
+                <div class="gv-usp-item__text">
+                    <strong>Dostawa 24H</strong>
+                    <span>Gratis od 249 zł</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+    .gv-usp-bar {
+        position: relative;
+        overflow: hidden;
+    }
+    .gv-usp-bar__bg {
+        position: absolute;
+        inset: 0;
+        background-image: url('https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/korzysci-bg.png');
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.45);
+    }
+    .gv-usp-bar__overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(20, 45, 30, 0.55);
+    }
+    .gv-usp-bar__grid {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 32px;
+        gap: 0;
+    }
+    .gv-usp-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 0 24px;
+        border-right: 1px solid rgba(255,255,255,0.15);
+    }
+    .gv-usp-item:first-child { padding-left: 0; }
+    .gv-usp-item:last-child { border-right: none; padding-right: 0; }
+    .gv-usp-item__icon {
+        color: rgba(255,255,255,0.7);
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .gv-usp-item__text strong {
+        display: block;
+        color: #fff;
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+        white-space: nowrap;
+    }
+    .gv-usp-item__text span {
+        color: rgba(255,255,255,0.65);
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+    @media (max-width: 900px) {
+        .gv-usp-bar__grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        .gv-usp-item {
+            border-right: none;
+            padding: 0 !important;
+        }
+    }
+    @media (max-width: 560px) {
+        .gv-usp-bar__grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    </style>
+    <?php return ob_get_clean();
+} );
