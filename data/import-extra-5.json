@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Carbosal + z Czarną Jagodą x20 kaps.",
+    "ean": "5907636994411",
+    "b2b_netto": 9.80,
+    "retail_brutto": 11.00,
+    "webflow_slug": "carbosal-z-czarna-jagoda",
+    "category_id": 19,
+    "tax_class": "reduced-rate",
+    "attachment_id": 1933
+  },
+  {
+    "name": "Karczoch Ostropest x60 kaps.",
+    "ean": "5903317643333",
+    "b2b_netto": 22.50,
+    "retail_brutto": 24.00,
+    "webflow_slug": "karczoch-ostropest",
+    "category_id": 19,
+    "tax_class": "reduced-rate",
+    "attachment_id": 1955
+  },
+  {
+    "name": "Maść Witaminowa 50ml",
+    "ean": "5907636994879",
+    "b2b_netto": 11.80,
+    "retail_brutto": 15.00,
+    "webflow_slug": "masc-witaminowa",
+    "category_id": 17,
+    "tax_class": "",
+    "attachment_id": 1979
+  },
+  {
+    "name": "Maść Żywokostowa 130ml",
+    "ean": "5907636994510",
+    "b2b_netto": 19.00,
+    "retail_brutto": 23.00,
+    "webflow_slug": "masc-zywokostowa",
+    "category_id": 16,
+    "tax_class": "",
+    "attachment_id": 1983
+  },
+  {
+    "name": "Żyworódka w Płynie 115ml",
+    "ean": "5907636994923",
+    "b2b_netto": 15.80,
+    "retail_brutto": 19.00,
+    "webflow_slug": "zyworodka-w-plynie",
+    "category_id": 17,
+    "tax_class": "",
+    "attachment_id": 2034
+  }
+]

@@ -178,7 +178,7 @@ def update_product_meta(product_id: int, p: dict, attach_id: int | None = None):
         "_stock_status": "instock",
         "_visibility": "visible",
         "_tax_status": "taxable",
-        "_tax_class": "reduced-rate",
+        "_tax_class": p.get("tax_class", "reduced-rate"),
         f"b2bking_regular_product_price_group_{B2B_GROUP}": str(p["b2b_netto"]),
     }
     if attach_id:
@@ -236,17 +236,23 @@ def process_product(p: dict, webflow: dict, dry_run: bool, skip_images: bool) ->
                        f"--post_content={post_content}",
                        f"--post_excerpt={post_excerpt}"])
         # Add image if product has none
-        if not skip_images and img_url:
+        pre_attach = p.get("attachment_id")
+        if not skip_images:
             rc2, cur_thumb, _ = wp_silent(["post", "meta", "get",
                                             str(existing_id), "_thumbnail_id"])
             if rc2 != 0 or not cur_thumb.strip().isdigit():
-                local_img = download_image(img_url, ean)
-                if local_img:
-                    attach_id = import_image(existing_id, local_img, name)
-                    if attach_id:
-                        wp_silent(["post", "meta", "update", str(existing_id),
-                                   "_thumbnail_id", str(attach_id)])
-                        result["image_attached"] = attach_id
+                if pre_attach:
+                    wp_silent(["post", "meta", "update", str(existing_id),
+                               "_thumbnail_id", str(pre_attach)])
+                    result["image_attached"] = pre_attach
+                elif img_url:
+                    local_img = download_image(img_url, ean)
+                    if local_img:
+                        attach_id = import_image(existing_id, local_img, name)
+                        if attach_id:
+                            wp_silent(["post", "meta", "update", str(existing_id),
+                                       "_thumbnail_id", str(attach_id)])
+                            result["image_attached"] = attach_id
         result["status"] = "updated"
         result["wc_id"] = existing_id
         return result
@@ -277,9 +283,13 @@ def process_product(p: dict, webflow: dict, dry_run: bool, skip_images: bool) ->
     # Set simple product type
     wp_silent(["term", "add", str(product_id), "product_type", "simple"])
 
-    # Image
+    # Image — use pre-existing attachment if provided, else download
+    pre_attach = p.get("attachment_id")
     attach_id = None
-    if not skip_images and img_url:
+    if pre_attach:
+        attach_id = pre_attach
+        result["image_attached"] = attach_id
+    elif not skip_images and img_url:
         local_img = download_image(img_url, ean)
         if local_img:
             attach_id = import_image(product_id, local_img, name)
@@ -307,16 +317,21 @@ def process_product(p: dict, webflow: dict, dry_run: bool, skip_images: bool) ->
 # ── main ──────────────────────────────────────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser(description="Import 32 missing Gorvita products")
+    parser = argparse.ArgumentParser(description="Import missing Gorvita products")
     parser.add_argument("--dry-run", action="store_true",
                         help="Preview only — no writes to WooCommerce")
     parser.add_argument("--limit", type=int, default=None,
                         help="Process only first N products")
     parser.add_argument("--skip-images", action="store_true",
                         help="Skip image download and import")
+    parser.add_argument("--input", type=Path, default=CENNIK_JSON,
+                        help="Input JSON file (default: data/missing-products-cennik.json)")
     args = parser.parse_args()
 
-    with open(CENNIK_JSON, encoding="utf-8") as f:
+    cennik_path = args.input
+    report_path = cennik_path.parent / cennik_path.name.replace(".json", "-report.json")
+
+    with open(cennik_path, encoding="utf-8") as f:
         products = json.load(f)
     with open(WEBFLOW_JSON, encoding="utf-8") as f:
         webflow = json.load(f)
@@ -358,10 +373,10 @@ def main():
     for k, v in sorted(stats.items()):
         print(f"  {k}: {v}")
 
-    REPORT_JSON.parent.mkdir(parents=True, exist_ok=True)
-    with open(REPORT_JSON, "w", encoding="utf-8") as f:
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(report_path, "w", encoding="utf-8") as f:
         json.dump({"stats": stats, "results": results}, f, ensure_ascii=False, indent=2)
-    print(f"\n✓ Report → {REPORT_JSON}")
+    print(f"\n✓ Report → {report_path}")
 
     if not args.dry_run:
         print("\n→ Flushing caches…")
