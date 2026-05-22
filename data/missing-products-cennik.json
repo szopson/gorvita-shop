@@ -1,0 +1,304 @@
+[
+  {
+    "name": "AloeVera z Zieloną Herbatą x60 kaps.",
+    "ean": "5907636994756",
+    "b2b_netto": 19.50,
+    "retail_brutto": 21.00,
+    "webflow_slug": "aloe-vera-z-zielona-herbata",
+    "category_id": 18,
+    "forma": "kapsulki"
+  },
+  {
+    "name": "Apleplus C,E – Ocet Jabłkowy x30 kaps.",
+    "ean": "5907636994121",
+    "b2b_netto": 12.20,
+    "retail_brutto": 13.00,
+    "webflow_slug": "apleplus-c-e",
+    "category_id": 19,
+    "forma": "kapsulki"
+  },
+  {
+    "name": "Apleplus Forte z Zieloną Herbatą x30 kaps.",
+    "ean": "5907636994220",
+    "b2b_netto": 15.80,
+    "retail_brutto": 17.00,
+    "webflow_slug": "apleplus-forte-z-zielona-herbata",
+    "category_id": 19,
+    "forma": "kapsulki"
+  },
+  {
+    "name": "Ashwagandha x60 kaps.",
+    "ean": "5903317643043",
+    "b2b_netto": 23.50,
+    "retail_brutto": 25.00,
+    "webflow_slug": "ashwaganda",
+    "category_id": 21,
+    "forma": "kapsulki"
+  },
+  {
+    "name": "Ashwagandha + Gotu Kola x60 kaps.",
+    "ean": "5903317643050",
+    "b2b_netto": 23.00,
+    "retail_brutto": 25.00,
+    "webflow_slug": "ashwaganda-gotu-kola",
+    "category_id": 21,
+    "forma": "kapsulki"
+  },
+  {
+    "name": "Aurix krople do uszu 35ml",
+    "ean": "5907636994763",
+    "b2b_netto": 18.40,
+    "retail_brutto": 20.00,
+    "webflow_slug": "aurix-krople-do-uszu",
+    "category_id": 22,
+    "forma": "krople",
+    "wc_id": 228
+  },
+  {
+    "name": "Carbocaps x30 kaps.",
+    "ean": "5907636994060",
+    "b2b_netto": 10.70,
+    "retail_brutto": 12.00,
+    "webflow_slug": "carbocaps",
+    "category_id": 19,
+    "forma": "kapsulki"
+  },
+  {
+    "name": "Carbocaps x20 kaps.",
+    "ean": "5907636994725",
+    "b2b_netto": 8.30,
+    "retail_brutto": 9.00,
+    "webflow_slug": "carbocaps",
+    "category_id": 19,
+    "forma": "kapsulki"
+  },
+  {
+    "name": "Carbosal Syrop 100ml",
+    "ean": "5907636994107",
+    "b2b_netto": 15.00,
+    "retail_brutto": 16.00,
+    "webflow_slug": "carbosal-syrop",
+    "category_id": 19,
+    "forma": "syrop",
+    "wc_id": 25
+  },
+  {
+    "name": "Chrom Forte z Zieloną Herbatą x30 kaps.",
+    "ean": "5907636994572",
+    "b2b_netto": 15.90,
+    "retail_brutto": 17.00,
+    "webflow_slug": "chrom-forte-z-zielona-herbata",
+    "category_id": 21,
+    "forma": "kapsulki",
+    "wc_id": 29
+  },
+  {
+    "name": "Colafit Kolagen 99,9% x60 kostek",
+    "ean": "8594011210111",
+    "b2b_netto": 71.00,
+    "retail_brutto": 77.00,
+    "webflow_slug": "colafit",
+    "category_id": 17,
+    "forma": "kapsulki",
+    "wc_id": 39
+  },
+  {
+    "name": "Collagen Vegan Beauty x60 kaps.",
+    "ean": "5903317643289",
+    "b2b_netto": 52.00,
+    "retail_brutto": 56.00,
+    "webflow_slug": "collagen-vegan",
+    "category_id": 17,
+    "forma": "kapsulki",
+    "wc_id": 1551
+  },
+  {
+    "name": "Czystek x60 kaps.",
+    "ean": "5907636994992",
+    "b2b_netto": 19.60,
+    "retail_brutto": 21.00,
+    "webflow_slug": "czystek",
+    "category_id": 18,
+    "forma": "kapsulki"
+  },
+  {
+    "name": "Energia x30 kaps.",
+    "ean": "5907636994589",
+    "b2b_netto": 13.00,
+    "retail_brutto": 14.00,
+    "webflow_slug": "energia",
+    "category_id": 21,
+    "forma": "kapsulki",
+    "wc_id": 47
+  },
+  {
+    "name": "Gotu Kola x60 kaps.",
+    "ean": "5907636994404",
+    "b2b_netto": 17.90,
+    "retail_brutto": 19.00,
+    "webflow_slug": "gotu-kola",
+    "category_id": 20,
+    "forma": "kapsulki",
+    "wc_id": 55
+  },
+  {
+    "name": "Koenzym Q10 30mg z Magnezem x30 kaps.",
+    "ean": "5907636994114",
+    "b2b_netto": 21.40,
+    "retail_brutto": 23.00,
+    "webflow_slug": null,
+    "category_id": 21,
+    "forma": "kapsulki"
+  },
+  {
+    "name": "Koński Balsam 250ml",
+    "ean": "5907636994251",
+    "b2b_netto": 16.00,
+    "retail_brutto": 20.00,
+    "webflow_slug": "balsam-konski",
+    "category_id": 16,
+    "forma": "balsam",
+    "wc_id": 103
+  },
+  {
+    "name": "Kwas Hialuronowy x60 kaps.",
+    "ean": "5907636994985",
+    "b2b_netto": 35.00,
+    "retail_brutto": 38.00,
+    "webflow_slug": null,
+    "category_id": 17,
+    "forma": "kapsulki"
+  },
+  {
+    "name": "Magnez B6 + Ashwagandha x60 kaps.",
+    "ean": "5903317643210",
+    "b2b_netto": 21.80,
+    "retail_brutto": 24.00,
+    "webflow_slug": "magnez-b6-ashwagandha",
+    "category_id": 21,
+    "forma": "kapsulki"
+  },
+  {
+    "name": "Maść Końska Rozgrzewająca 250ml",
+    "ean": "5907636994503",
+    "b2b_netto": 16.70,
+    "retail_brutto": 21.00,
+    "webflow_slug": "konska-masc-rozgrzewajaca",
+    "category_id": 16,
+    "forma": "masc",
+    "wc_id": 111
+  },
+  {
+    "name": "Maść Końska Rozgrzewająca 130ml",
+    "ean": "5907636994558",
+    "b2b_netto": 11.90,
+    "retail_brutto": 15.00,
+    "webflow_slug": "konska-masc-rozgrzewajaca",
+    "category_id": 16,
+    "forma": "masc"
+  },
+  {
+    "name": "Maść Propolisowa 50ml",
+    "ean": "5907636994695",
+    "b2b_netto": 13.70,
+    "retail_brutto": 17.00,
+    "webflow_slug": "masc-propolisowa-10-z-witaminami-a-e-f",
+    "category_id": 17,
+    "forma": "masc",
+    "wc_id": 161
+  },
+  {
+    "name": "Mosqitos Płyn 100ml",
+    "ean": "5903317643234",
+    "b2b_netto": 9.50,
+    "retail_brutto": 12.00,
+    "webflow_slug": null,
+    "category_id": 17,
+    "forma": "spray",
+    "wc_id": 177
+  },
+  {
+    "name": "Mosqitos Płyn 20ml",
+    "ean": "5903317643258",
+    "b2b_netto": 5.90,
+    "retail_brutto": 7.00,
+    "webflow_slug": null,
+    "category_id": 17,
+    "forma": "spray"
+  },
+  {
+    "name": "Panthenol Żel z Aloesem 100ml",
+    "ean": "5907636994534",
+    "b2b_netto": 13.50,
+    "retail_brutto": 17.00,
+    "webflow_slug": "panthenol-zel",
+    "category_id": 17,
+    "forma": "zel",
+    "wc_id": 187
+  },
+  {
+    "name": "Pneumovit Pastylki x16",
+    "ean": "5907636994596",
+    "b2b_netto": 10.80,
+    "retail_brutto": 13.00,
+    "webflow_slug": null,
+    "category_id": 22,
+    "forma": "pastylki"
+  },
+  {
+    "name": "Pneumovit Pastylki x8",
+    "ean": "5907636994565",
+    "b2b_netto": 7.50,
+    "retail_brutto": 9.00,
+    "webflow_slug": null,
+    "category_id": 22,
+    "forma": "pastylki"
+  },
+  {
+    "name": "Pneumovit Sept Aerozol 35ml",
+    "ean": "5907636994282",
+    "b2b_netto": 15.40,
+    "retail_brutto": 17.00,
+    "webflow_slug": "pneumovit-sept",
+    "category_id": 22,
+    "forma": "spray"
+  },
+  {
+    "name": "Selen A,C,E Antyoksydanty x30 tab.",
+    "ean": "5907636994022",
+    "b2b_netto": 18.50,
+    "retail_brutto": 20.00,
+    "webflow_slug": "selen-a-c-e",
+    "category_id": 18,
+    "forma": "tabletki"
+  },
+  {
+    "name": "Venal Spray 115ml",
+    "ean": "5907636994381",
+    "b2b_netto": 15.30,
+    "retail_brutto": 19.00,
+    "webflow_slug": "venal-spray",
+    "category_id": 20,
+    "forma": "spray",
+    "wc_id": 199
+  },
+  {
+    "name": "Witamina C 500mg Vegan z Aceroli x60 kaps.",
+    "ean": "5903317643302",
+    "b2b_netto": 19.40,
+    "retail_brutto": 21.00,
+    "webflow_slug": "witamina-c-500g-vegan",
+    "category_id": 18,
+    "forma": "kapsulki",
+    "wc_id": 1441
+  },
+  {
+    "name": "Zdrowe Oczy x30 kaps.",
+    "ean": "5907636994190",
+    "b2b_netto": 15.20,
+    "retail_brutto": 16.00,
+    "webflow_slug": "zdrowe-oczy",
+    "category_id": 17,
+    "forma": "kapsulki"
+  }
+]
