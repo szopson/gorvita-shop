@@ -35,7 +35,7 @@
 .gorvita-b2b__title {
   font-size: clamp(1.4rem, 2.2vw, 2rem);
   font-weight: 700;
-  color: #1E3A2B;
+  color: var(--ga-green);
   line-height: 1.15;
   margin: 0 0 6px 0;
 }
@@ -51,7 +51,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #1E3A2B;
+  background: var(--ga-green);
   color: #fff;
   text-decoration: none;
   font-size: 0.88rem;

@@ -8,10 +8,11 @@
 .page-id-120 .hero-section { display: none !important; }
 
 .gorvita-b2b-landing {
-  --green: #1E3A2B;
-  --green-light: #2d5240;
-  --gold: #C8A977;
-  --bg: #F7F5F2;
+  /* Palette → style.css (paleta finalna); local names kept, sourced from --ga-* */
+  --green: var(--ga-green);
+  --green-light: var(--ga-green-mid);  /* button hover = mid green (was #2d5240) */
+  --gold: var(--ga-gold);
+  --bg: var(--ga-cream);
   --white: #ffffff;
   --text: #2D2D2D;
   --text-muted: #6b7280;

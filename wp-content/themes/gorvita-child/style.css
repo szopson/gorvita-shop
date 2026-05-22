@@ -8,6 +8,21 @@ Version: 2.0.0-naked
    Premium CSS in WP Customizer → Additional CSS. Importing here would duplicate
    the request. If you ever decouple from Customizer, restore the @import. */
 
+/* ============================================================
+   PALETA FINALNA (zatwierdzona) — single source of truth for --ga-* tokens.
+   style.css loads globally (gorvita-child-style) and is the dependency root,
+   so these resolve in product-cards.css, o-marce.css, hurt-b2b.css,
+   home-headings.css and b2b-banner.css. Do not redefine elsewhere.
+   ============================================================ */
+:root {
+  --ga-green:       #1E3A2B;  /* Primary CTA — dark forest green */
+  --ga-green-mid:   #2D5240;  /* Hover state (~10% lighter) */
+  --ga-green-light: #3D6B51;  /* Subtle / disabled accents */
+  --ga-gold:        #C8A977;  /* Accent — badges, eyebrows, labels (NIE buttons) */
+  --ga-red:         #C63D3D;  /* Sale / promo badges */
+  --ga-cream:       #F7F5F2;  /* Section background */
+}
+
 :root {
   /* Brand greens */
   --gorvita-green:       #2D5016;

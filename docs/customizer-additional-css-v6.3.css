@@ -471,8 +471,6 @@ button.ct-wishlist-button-archive.ct-button::before, button.ct-compare-button-ar
 .ct-sidebar .wc-block-product .wp-block-button, .ct-sidebar .wc-block-product .add_to_cart_button, .ct-sidebar .wc-block-product .wc-block-components-product-button { display: none !important; }
 
 /* PRODUCT CARDS */
-.gorvita-hover-img { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; max-width: 100% !important; max-height: 100% !important; object-fit: contain !important; opacity: 0 !important; transition: opacity 0.3s ease !important; z-index: 3 !important; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.07)) !important; transform: none !important; padding: 7% !important; box-sizing: border-box !important; }
-.woocommerce ul.products li.product:hover .gorvita-hover-img { opacity: 1 !important; }
 .woocommerce .price { font-size: 15px !important; font-weight: 600 !important; color: var(--gor-green-dark) !important; }
 .woocommerce ul.products li.product-category { background: var(--gor-cream-card) !important; border: 1px solid var(--gor-border) !important; border-radius: var(--gor-r-lg) !important; box-shadow: var(--gor-shadow-sm) !important; transition: transform 0.2s ease, box-shadow 0.2s ease !important; overflow: hidden !important; }
 .woocommerce ul.products li.product-category:hover { transform: translateY(-4px) !important; box-shadow: var(--gor-shadow-md) !important; }

@@ -393,7 +393,7 @@ add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_o_marce_assets' );
 function gorvita_enqueue_product_cards_assets() {
     if ( ! function_exists( 'is_woocommerce' )
         || ! ( is_shop() || is_product_taxonomy() || is_product()
-            || is_page( 114 ) || is_page( 116 ) ) ) { // /nowosci/ + /promocje/ render product loops via shortcodes
+            || is_page( 114 ) || is_page( 116 ) || is_front_page() ) ) { // /nowosci/, /promocje/, home render product loops via shortcodes
         return;
     }
     wp_enqueue_style(
@@ -691,26 +691,27 @@ function gorvita_hover_image_css() {
         opacity: 0;
         pointer-events: none;
     }
-    .woocommerce ul.products li.product .woocommerce-loop-product__link {
+    .woocommerce ul.products li.product .ct-media-container {
         position: relative;
-        display: block;
         overflow: hidden;
     }
-    .woocommerce ul.products li.product .woocommerce-loop-product__link img {
-        transition: opacity 0.3s ease;
-        display: block;
-        width: 100%;
+    .woocommerce ul.products li.product .ct-media-container img {
+        transition: opacity 0.35s ease;
     }
     .woocommerce ul.products li.product .gorvita-hover-img {
         position: absolute !important;
+        inset: 0 !important;
         top: 0 !important; left: 0 !important;
         width: 100% !important; height: 100% !important;
-        object-fit: contain;
+        object-fit: contain !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.35s ease;
     }
-    .woocommerce ul.products li.product:hover .woocommerce-loop-product__link img:first-child {
-        opacity: 0;
+    /* fade the PRIMARY image out on hover (Blocksy puts it in .ct-media-container, not .woocommerce-loop-product__link) */
+    .woocommerce ul.products li.product:hover .ct-media-container img.wp-post-image:not(.gorvita-hover-img) {
+        opacity: 0 !important;
     }
     .woocommerce ul.products li.product:hover .gorvita-hover-img {
         opacity: 1;

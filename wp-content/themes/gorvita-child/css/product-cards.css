@@ -1,85 +1,122 @@
 /* ============================================
-   GORVITA — premium product cards (Blocksy / WooCommerce)
-   Loaded on shop + product archives + single (related).
-   Targets the REAL Blocksy markup:
-     image link  = a.ct-media-container   (NOT a.woocommerce-loop-product__link)
-     badge       = span.gorvita-badge-nowosc (+ .onsale)
-     actions     = .ct-wishlist/.ct-compare/.ct-open-quick-view in .ct-woo-card-extra
+   GORVITA — product cards "Natural Premium" (Blocksy / WooCommerce)
+   Loaded on shop + product archives + single (related) + pages 114/116 + home (front page).
+   Restyles the REAL Blocksy markup (no loop/PHP changes, no WC template overrides):
+     image link  = a.ct-media-container  + img.wp-post-image (primary) / img.gorvita-hover-img (secondary)
+     badge       = span.gorvita-badge-nowosc (Nowość) / span.onsale (promocja)
+     actions     = .ct-woo-card-actions (price + add-to-cart); compare/quickview hidden
      category    = ul.entry-meta li.meta-categories a
-   v6.32
+   v6.35 — fix home overflow: Blocksy "type-2" cards bleed figure/actions to
+           width:calc(100% + 40px); we run padding:0 cards, so pin both to 100%
+           (else media is 40px too wide → image clipped right + wishlist heart dragged off-card).
+   v6.36 — object-fit:cover + object-position:center top (uniform fill, no beige gaps, keep packshot top);
+           title 24px, price 28px, category 11px/ls1px/500, badge 11px/6px14px. Button already uppercase.
    ============================================ */
 
-/* ── Card frame + hover lift ── */
+:root {
+  /* Palette (--ga-green/-mid/-gold/-red/-cream) lives in style.css → paleta finalna.
+     Component-local token only: */
+  --ga-radius: 14px;        /* card corner radius */
+}
+
+/* ── Card frame: white, soft shadow, hover lift ── */
 .woocommerce ul.products li.product,
 .woocommerce-page ul.products li.product {
   display: flex !important;
   flex-direction: column !important;
   align-items: stretch !important;
   position: relative !important;
-  border: 1px solid #e2ded5 !important;
-  border-radius: 16px !important;
+  padding: 0 !important;            /* full-bleed media; some grids (home) add card padding that clips the image/heart */
+  border: 1px solid transparent !important;
+  border-radius: var(--ga-radius) !important;
   overflow: hidden !important;
   background: #fff !important;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.2s !important;
+  box-shadow: 0 4px 24px rgba(30, 58, 43, 0.10) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
 }
 .woocommerce ul.products li.product:hover,
 .woocommerce-page ul.products li.product:hover {
   transform: translateY(-4px) !important;
-  box-shadow: 0 8px 32px rgba(30, 58, 43, 0.12) !important;
-  border-color: #c8a977 !important;
+  box-shadow: 0 12px 40px rgba(30, 58, 43, 0.18) !important;
 }
 
-/* ── Image area — cream tile, product contained, subtle zoom on hover ── */
+/* ── Media: 3/4, crossfade primary → secondary on hover ── */
+/* Blocksy "type-2" card bleeds figure to width:calc(100% + 40px) w/ margin:-20px (for padded cards).
+   Our card has padding:0, so pin to 100% — otherwise figure is 40px too wide → overflows right, clips image+heart. */
 .woocommerce ul.products li.product figure {
   order: 0;
   margin: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 .woocommerce ul.products li.product a.ct-media-container {
-  background: #f7f4ef !important;
-  aspect-ratio: 1 / 1 !important;
-  padding: 16px !important;
+  position: relative !important;
+  background: #fff !important;          /* under object-fit:cover the bg is hidden; white is safe for transparent PNGs */
+  aspect-ratio: 3 / 4 !important;
+  padding: 0 !important;
   overflow: hidden !important;
   display: block !important;
 }
 .woocommerce ul.products li.product a.ct-media-container img {
   width: 100% !important;
   height: 100% !important;
-  object-fit: contain !important;
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.07)) !important;
-  transition: transform 0.4s ease !important;
+  object-fit: cover !important;         /* fill the 3/4 frame — uniform, no beige gaps */
+  object-position: center top !important; /* anchor top: keep cap/label, crop the empty bottom */
+  transition: opacity 0.4s ease, transform 0.5s ease !important;
 }
-.woocommerce ul.products li.product:hover a.ct-media-container img {
-  transform: scale(1.04) !important;
+/* fade the primary image out on hover — and kill Blocksy ".has-hover-effect" scale(1.1)
+   so the OLD image just fades (no visible zoom of the outgoing image under the new one) */
+.woocommerce ul.products li.product:hover a.ct-media-container img.wp-post-image:not(.gorvita-hover-img) {
+  opacity: 0 !important;
+  transform: none !important;
 }
-/* keep the existing hover-swap image aligned with the padded primary */
+/* secondary (hover) image overlays, fades in with a subtle zoom */
 .woocommerce ul.products li.product .ct-media-container .gorvita-hover-img {
-  inset: 16px !important;
-  width: auto !important;
-  height: auto !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;            /* match primary — same crop, aligned crossfade */
+  object-position: center top !important;
+  padding: 0 !important;            /* kill stale Customizer ".gorvita-hover-img{padding:7%}" → same frame as primary, no shift */
+  box-sizing: border-box !important;
+  opacity: 0 !important;
+  transition: opacity 0.4s ease, transform 0.5s ease !important;
+}
+.woocommerce ul.products li.product:hover .ct-media-container .gorvita-hover-img {
+  opacity: 1 !important;
+  transform: scale(1.03) !important;
 }
 
-/* ── Badge (custom NOWOŚĆ + sale) — gold pill, top-left ── */
+/* ── Badge — top-left pill: Nowość (green) / promocja (red) ── */
 .woocommerce ul.products li.product .gorvita-badge-nowosc,
-.woocommerce ul.products li.product .onsale,
+.woocommerce ul.products li.product span.onsale,
 .woocommerce span.onsale {
   position: absolute !important;
   top: 12px !important;
   left: 12px !important;
   right: auto !important;
   z-index: 10 !important;
-  background: #fdf6ec !important;
-  color: #c8a977 !important;
-  border: 1px solid #f0ddb8 !important;
-  border-radius: 999px !important;
-  font-size: 9px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.1em !important;
+  border: none !important;
+  border-radius: 20px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
   text-transform: uppercase !important;
-  padding: 4px 11px !important;
+  padding: 6px 14px !important;
   min-width: 0 !important;
   min-height: 0 !important;
   line-height: 1.2 !important;
   margin: 0 !important;
+}
+.woocommerce ul.products li.product .gorvita-badge-nowosc {
+  background: var(--ga-green) !important;
+  color: #fff !important;
+}
+.woocommerce ul.products li.product span.onsale,
+.woocommerce span.onsale {
+  background: var(--ga-red) !important;
+  color: #fff !important;
 }
 
 /* ── Action icons (Blocksy): keep wishlist heart, hide compare + quickview ── */
@@ -87,8 +124,14 @@
 .woocommerce ul.products li.product .ct-open-quick-view {
   display: none !important;
 }
+/* Wishlist heart flush in the top-right corner (Blocksy default overflows ~4px → clipped by overflow:hidden) */
+.woocommerce ul.products li.product .ct-woo-card-extra {
+  top: 12px !important;
+  right: 12px !important;
+  left: auto !important;
+}
 
-/* ── Category — gold eyebrow, ABOVE the name ── */
+/* ── Category — gold eyebrow, above the name ── */
 .woocommerce ul.products li.product ul.entry-meta {
   order: 1;
   list-style: none !important;
@@ -97,102 +140,102 @@
   text-align: left !important;
 }
 .woocommerce ul.products li.product .entry-meta li,
-.woocommerce ul.products li.product .meta-categories {
-  margin: 0 !important;
-  display: inline !important;
-}
+.woocommerce ul.products li.product .meta-categories { margin: 0 !important; display: inline !important; }
 .woocommerce ul.products li.product .meta-categories a,
 .woocommerce ul.products li.product .entry-meta a {
-  font-size: 9px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.13em !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 1px !important;
   text-transform: uppercase !important;
-  color: #c8a977 !important;
+  color: var(--ga-gold) !important;
   text-decoration: none !important;
 }
 
-/* ── Title ── */
+/* ── Title — Cormorant, bold, green ── */
 .woocommerce ul.products li.product .woocommerce-loop-product__title {
   order: 2;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  color: #1a1a18 !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  color: var(--ga-green) !important;
   text-align: left !important;
   padding: 4px 16px 0 !important;
-  line-height: 1.4 !important;
+  line-height: 1.25 !important;
   margin: 0 !important;
 }
 
-/* ── Actions wrapper (Blocksy .ct-woo-card-actions holds price + button) ──
-   Stack them as a column, pin to the bottom of the card. */
+/* ── Footer wrapper (price + button), pinned to bottom ── */
 .woocommerce ul.products li.product .ct-woo-card-actions {
   order: 4;
-  margin-top: auto !important;
+  margin: auto 0 0 !important;        /* kill type-2 margin:-20px; pin to bottom */
+  width: 100% !important;             /* Blocksy type-2 sets calc(100% + 40px) → overflow; pin to card */
+  max-width: 100% !important;
+  box-sizing: border-box !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: stretch !important;
   gap: 10px !important;
   padding: 8px 16px 16px !important;
-  border-top: none !important; /* kill Blocksy footer divider line */
+  border-top: none !important;
 }
 
-/* ── Price — left-aligned (display:block beats Blocksy's flex-centering) ── */
-.woocommerce ul.products li.product .price {
-  display: block !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  text-align: left !important;
-}
+/* ── Price — Cormorant; regular green, sale red ── */
+.woocommerce ul.products li.product .price { display: block !important; padding: 0 !important; margin: 0 !important; text-align: left !important; }
 .woocommerce ul.products li.product .price,
-.woocommerce ul.products li.product .price ins,
-.woocommerce ul.products li.product .price ins .woocommerce-Price-amount,
 .woocommerce ul.products li.product .price > .woocommerce-Price-amount {
-  color: #1a1a18 !important;
-  font-size: 20px !important;
+  color: var(--ga-green) !important;
+  font-size: 28px !important;
   font-weight: 600 !important;
   font-family: 'Cormorant Garamond', Georgia, serif !important;
+}
+.woocommerce ul.products li.product .price ins,
+.woocommerce ul.products li.product .price ins .woocommerce-Price-amount {
+  color: var(--ga-red) !important;
+  font-size: 28px !important;
+  font-weight: 600 !important;
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  text-decoration: none !important;
 }
 .woocommerce ul.products li.product .price del,
 .woocommerce ul.products li.product .price del .woocommerce-Price-amount {
   color: #a8a89c !important;
-  font-size: 13px !important;
+  font-size: 1rem !important;
   font-weight: 500 !important;
 }
 
-/* ── Add to cart — filled green pill, full width, pinned to bottom ── */
+/* ── Add to cart — filled green, radius 8, full width ── */
 .woocommerce ul.products li.product a.button.add_to_cart_button,
 .woocommerce ul.products li.product a.button.product_type_simple,
 .woocommerce ul.products li.product a.button.product_type_variable {
-  background: #1e3a2b !important;
+  background: var(--ga-green) !important;
   color: #fff !important;
   border: none !important;
-  border-radius: 50px !important;
+  border-radius: 8px !important;
   font-size: 11px !important;
   font-weight: 700 !important;
-  letter-spacing: 0.1em !important;
+  letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
-  padding: 14px 20px !important;
+  padding: 13px 18px !important;
   margin: 0 !important;
   display: block !important;
   width: 100% !important;
   text-align: center !important;
   box-sizing: border-box !important;
-  transition: all 0.25s ease !important;
+  transition: all 0.2s ease !important;
 }
 .woocommerce ul.products li.product a.button.add_to_cart_button:hover,
 .woocommerce ul.products li.product a.button.product_type_simple:hover,
 .woocommerce ul.products li.product a.button.product_type_variable:hover {
-  background: #2d5240 !important;
+  background: var(--ga-green-mid) !important;
   color: #fff !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 4px 12px rgba(30, 58, 43, 0.2) !important;
 }
-/* "Zobacz koszyk" link that appears after AJAX add */
 .woocommerce ul.products li.product a.added_to_cart {
   order: 5;
   margin: 2px 0 0 !important;
   font-size: 11px !important;
-  color: #1e3a2b !important;
+  color: var(--ga-green) !important;
   text-align: center !important;
   display: block !important;
 }
@@ -200,7 +243,5 @@
 /* ── Responsive ── */
 @media (max-width: 600px) {
   .woocommerce ul.products li.product { border-radius: 12px !important; }
-  .woocommerce ul.products li.product a.ct-media-container { padding: 12px !important; }
-  .woocommerce ul.products li.product .ct-media-container .gorvita-hover-img { inset: 12px !important; }
-  .woocommerce ul.products li.product a.button.add_to_cart_button { font-size: 9px !important; padding: 9px 14px !important; }
+  .woocommerce ul.products li.product a.button.add_to_cart_button { font-size: 10px !important; padding: 11px 14px !important; }
 }
