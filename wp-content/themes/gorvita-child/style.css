@@ -1135,6 +1135,9 @@ body.page-id-991 .gorvita-hero__bg-img {
 body.page-id-991 .gorvita-hero__visual {
   display: none !important;
 }
+body.page-id-991 .gorvita-hero__copy {
+  grid-column: 2;
+}
 
 /* Reviews mobile font fix */
 @media (max-width: 768px) {
