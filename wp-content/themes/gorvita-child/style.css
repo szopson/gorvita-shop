@@ -1183,6 +1183,12 @@ body.page-id-991 .gorvita-hero__bg-fade {
   ) !important;
 }
 
+body.page-id-991 .gorvita-hero {
+  display: flex !important;
+  align-items: center !important;
+  padding: clamp(3rem, 8vh, 5rem) 0 !important;
+}
+
 @media (max-width: 768px) {
   body.page-id-991 .gorvita-hero {
     min-height: 320px !important;
