@@ -1136,9 +1136,11 @@ body.page-id-991 .gorvita-hero__visual {
   display: none !important;
 }
 body.page-id-991 .gorvita-hero__grid {
-  grid-template-columns: 1fr;   /* visual is display:none — drop phantom right track + gap */
-  margin-left: clamp(1rem, 3vw, 3rem);
-  margin-right: auto;
+  /* !important beats Customizer Additional CSS `.gorvita-hero .gorvita-wrap
+     { margin: auto !important }`, which otherwise re-centers the copy. */
+  grid-template-columns: 1fr !important;   /* visual is display:none — drop phantom right track + gap */
+  margin-left: clamp(1rem, 3vw, 3rem) !important;
+  margin-right: auto !important;           /* flex: absorbs free space → grid pinned left */
 }
 
 /* Reviews mobile font fix */
