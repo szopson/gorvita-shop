@@ -1203,4 +1203,16 @@ body.page-id-991 .gorvita-hero {
   body.page-id-991 .gorvita-hero__bg-img {
     object-position: 65% center !important;
   }
+  /* Mobile: left-align copy + CTAs. Base @media rule (line ~735) centers the
+     grid; drop the desktop left inset so everything sits on the .gorvita-wrap
+     1.25rem gutter (symmetric) instead of adding redundant copy padding. */
+  body.page-id-991 .gorvita-hero__grid {
+    margin-left: 0 !important;
+  }
+  body.page-id-991 .gorvita-hero__copy {
+    text-align: left !important;
+  }
+  body.page-id-991 .gorvita-hero__cta {
+    justify-content: flex-start !important;
+  }
 }
