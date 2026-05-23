@@ -1136,7 +1136,8 @@ body.page-id-991 .gorvita-hero__visual {
   display: none !important;
 }
 body.page-id-991 .gorvita-hero__grid {
-  margin-left: clamp(1.5rem, 5vw, 6rem);
+  grid-template-columns: 1fr;   /* visual is display:none — drop phantom right track + gap */
+  margin-left: clamp(1rem, 3vw, 3rem);
   margin-right: auto;
 }
 
