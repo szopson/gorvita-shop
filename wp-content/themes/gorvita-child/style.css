@@ -1213,6 +1213,23 @@ body.page-id-991 .gorvita-hero {
     text-align: left !important;
   }
   body.page-id-991 .gorvita-hero__cta {
-    justify-content: flex-start !important;
+    flex-direction: column !important;   /* stack CTAs vertically — row was cramped */
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+  body.page-id-991 .gorvita-hero__btn {
+    width: 100% !important;              /* full-width pills, equal width */
+    justify-content: center !important;
+  }
+  /* Readability: strengthen the white veil on mobile so the dark hero text
+     (ink title, gray-700 lead, green eyebrow) stays high-contrast across its
+     full width. A dark scrim would LOWER contrast under dark text. */
+  body.page-id-991 .gorvita-hero__bg-fade {
+    background: linear-gradient(
+      to right,
+      rgba(255,255,255,0.96) 0%,
+      rgba(255,255,255,0.88) 50%,
+      rgba(255,255,255,0.62) 100%
+    ) !important;
   }
 }
