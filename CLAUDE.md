@@ -85,8 +85,9 @@ docker compose exec wordpress wp cache flush --allow-root
 ## Struktura projektu
 - Strona o-marce: page ID 119, blok wp:html
 - Theme: /opt/gorvita-shop/wp-content/themes/gorvita-child/ (lokalnie: /root/gorvita-shop/wp-content/themes/gorvita-child/)
-- Feature bar: [tu dopiszemy po znalezieniu]
-- Newsletter bar: [tu dopiszemy po znalezieniu]
+- Hero (strona główna): shortcode `[gorvita-hero]` → `gorvita_hero_shortcode()` w functions.php (~l. 575); tło hero = hardcoded URL (l. 584), wizual w prawej kolumnie = `$gorce_url` assets/images/gorce2.webp (+ preload l. 22)
+- Feature bar (benefity: płatności / darmowa dostawa / promocje / pomoc): DB — post 991 (Home, blok `wp:html`, 4× iconbox) ORAZ post 424 (`ct_content_block` "Shop Archive & Single - Above Footer Section", Greenshift, renderowany nad stopką na podstronach sklepu). Treść zduplikowana → zmieniać w obu (np. `wp search-replace … wp_posts --include-columns=post_content`)
+- Newsletter bar: DB — post 991 (Greenshift `greenshift-blocks/text`: tekst występuje 2× — atrybut `textContent` w komentarzu bloku ORAZ widoczny `<div>`, muszą być identyczne, inaczej Gutenberg zgłasza błąd walidacji). Wariant na podstronach (callout "rabatu na pierwsze zakupy") w post 424
 
 ## B2B
 - Plan: B2BKing ($179 Startup) — do zakupu przed launchem

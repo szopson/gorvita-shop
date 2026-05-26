@@ -581,7 +581,7 @@ function gorvita_hero_shortcode() {
         <div class="gorvita-hero__bg">
             <img
                 class="gorvita-hero__bg-img"
-                src="https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/05/hero-gorce-final.webp"
+                src="https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/05/gorvita_hero_products.webp"
                 alt=""
                 fetchpriority="high"
                 loading="eager"
