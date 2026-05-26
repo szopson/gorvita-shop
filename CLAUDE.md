@@ -73,6 +73,21 @@ docker compose exec wordpress wp cache flush --allow-root
 - Komentarze: po angielsku (internal), UI strings po polsku
 - Commits: Conventional Commits (`feat:`, `fix:`, `chore:`, `refactor:`, `docs:`)
 
+## Zasady pracy
+
+- NIE odpalaj parallel ani autonomicznych agentów
+- Dozwolony 1 read-only search agent TYLKO gdy alternatywą jest wczytanie wielu plików do głównego kontekstu
+- NIE eksploruj codebase jeśli nie masz konkretnego zadania
+- Przed każdą zmianą podaj dokładny plik i linię
+- Używaj WP-CLI do operacji na bazie danych
+- Jedna zmiana = jeden krok, czekaj na potwierdzenie
+
+## Struktura projektu
+- Strona o-marce: page ID 119, blok wp:html
+- Theme: /opt/gorvita-shop/wp-content/themes/gorvita-child/ (lokalnie: /root/gorvita-shop/wp-content/themes/gorvita-child/)
+- Feature bar: [tu dopiszemy po znalezieniu]
+- Newsletter bar: [tu dopiszemy po znalezieniu]
+
 ## B2B
 - Plan: B2BKing ($179 Startup) — do zakupu przed launchem
 - Grupy: hurtownie farmaceutyczne, apteki, dystrybutorzy, sklepy zielarskie
