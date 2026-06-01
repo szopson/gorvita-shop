@@ -42,7 +42,14 @@
         if (isNaN(raw)) {
             return 0;
         }
-        return raw / Math.pow(10, minorUnit);
+        // Add item tax → gross subtotal. The threshold (min_amount) is a gross
+        // value (store runs prices_include_tax + tax_display_cart=incl), so the
+        // bar must compare gross-to-gross, not the net total_items alone.
+        var tax = parseInt(data.totals.total_items_tax, 10);
+        if (isNaN(tax)) {
+            tax = 0;
+        }
+        return (raw + tax) / Math.pow(10, minorUnit);
     }
 
     function findSidebar() {
