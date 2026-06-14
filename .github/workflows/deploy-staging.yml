@@ -3,7 +3,6 @@ name: Deploy to Staging
 on:
   push:
     branches:
-      - main
       - 'fix/**'
       - 'feat/**'
     paths-ignore:
@@ -44,6 +43,7 @@ jobs:
             --exclude='.git/' \
             --exclude='.github/' \
             --exclude='.env' \
+            --exclude='docker-compose.yml' \
             --exclude='.agents/' \
             --exclude='.claude/' \
             --exclude='data/images/' \
