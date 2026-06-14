@@ -581,7 +581,7 @@ function gorvita_hero_shortcode() {
         <div class="gorvita-hero__bg">
             <img
                 class="gorvita-hero__bg-img"
-                src="https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/05/gorvita_hero_4products_v2.webp"
+                src="https://sklep.gorvita.pl/wp-content/uploads/2026/05/gorvita_hero_4products_v2.webp"
                 alt=""
                 fetchpriority="high"
                 loading="eager"
@@ -1214,7 +1214,7 @@ add_shortcode( 'gorvita-usp-bar', function() {
     .gv-usp-bar__bg {
         position: absolute;
         inset: 0;
-        background-image: url('https://gorvita.srv1594477.hstgr.cloud/wp-content/uploads/2026/04/korzysci-bg.png');
+        background-image: url('https://sklep.gorvita.pl/wp-content/uploads/2026/04/korzysci-bg.png');
         background-size: cover;
         background-position: center;
         filter: brightness(0.45);
@@ -1391,3 +1391,80 @@ function gorvita_enqueue_b2b_landing_assets() {
     }
 }
 add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_b2b_landing_assets' );
+
+/* ============================================================
+   GORVITA — Polish pluralization for Blocksy term-count
+   The "Shop Archive - Taxonomies Section" content block (post 702)
+   renders a wp:term_count dynamic field with a static " products"
+   suffix on every product-category archive. Localize it to the
+   correct Polish plural form (the count is dynamic, so a single
+   static word can't be grammatical — we inflect at render time).
+   ============================================================ */
+
+/** Polish noun form for "produkt" given a count: 1 produkt / 2-4 produkty / produktów. */
+function gorvita_plural_produkt( $n ) {
+    $n = (int) $n;
+    if ( 1 === $n ) {
+        return 'produkt';
+    }
+    $mod10  = $n % 10;
+    $mod100 = $n % 100;
+    if ( $mod10 >= 2 && $mod10 <= 4 && ( $mod100 < 12 || $mod100 > 14 ) ) {
+        return 'produkty';
+    }
+    return 'produktów';
+}
+
+/** Replace the English " products" suffix on the Blocksy wp:term_count field
+ *  with the correctly inflected Polish noun, derived from the rendered count. */
+add_filter( 'render_block', 'gorvita_localize_term_count', 10, 2 );
+function gorvita_localize_term_count( $block_content, $block ) {
+    if ( empty( $block['blockName'] ) || 'blocksy/dynamic-data' !== $block['blockName'] ) {
+        return $block_content;
+    }
+    if ( empty( $block['attrs']['field'] ) || 'wp:term_count' !== $block['attrs']['field'] ) {
+        return $block_content;
+    }
+    if ( false === strpos( $block_content, 'products' ) ) {
+        return $block_content;
+    }
+    // Inner text is just the rendered number + suffix, e.g. "83  products".
+    $digits = preg_replace( '/\D/', '', wp_strip_all_tags( $block_content ) );
+    if ( '' === $digits ) {
+        return $block_content;
+    }
+    $word = gorvita_plural_produkt( (int) $digits );
+    return preg_replace( '/\bproducts\b/', $word, $block_content, 1 );
+}
+
+/* ============================================================
+   GORVITA — legacy /product-category/ → /kategorie/ 301 redirect
+   The WooCommerce product-category base was renamed to "kategorie".
+   Permanently redirect old-base URLs to the new base so lingering
+   links / prior indexing don't hit a 404.
+   ============================================================ */
+add_action( 'template_redirect', 'gorvita_redirect_legacy_product_category', 0 );
+function gorvita_redirect_legacy_product_category() {
+    if ( empty( $_SERVER['REQUEST_URI'] ) ) {
+        return;
+    }
+    $uri    = wp_unslash( $_SERVER['REQUEST_URI'] );
+    $prefix = '/product-category/';
+    if ( 0 !== strpos( $uri, $prefix ) ) {
+        return;
+    }
+    $target = home_url( '/kategorie/' . substr( $uri, strlen( $prefix ) ) );
+    wp_safe_redirect( esc_url_raw( $target ), 301 );
+    exit;
+}
+
+/* ============================================================
+   GORVITA — sharper grid thumbnails on 1x screens
+   WP 7.0 auto-sizes (sizes="auto, …") makes the browser pick the
+   ~300px candidate for the ~280px card slot on 1x displays. Opting
+   out of auto-sizes lets grid images fall back to WooCommerce's
+   computed sizes ("(max-width: 500px) 100vw, 500px"), so the 500px
+   candidate is chosen on 1x too (retina already used 768/800).
+   This reverts to the classic pre-6.7 responsive behavior site-wide.
+   ============================================================ */
+add_filter( 'wp_img_tag_add_auto_sizes', '__return_false' );
