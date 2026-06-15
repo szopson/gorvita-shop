@@ -125,6 +125,8 @@ docker compose exec wordpress wp cache flush --allow-root
   - dla cart-block: InPost icon inline-flex w `__label-group`, block-input `padding-top: 26px` + label `line-height: 1.1`
   - **Backupy block-content stron 7+8** w `.claude/backups/page-{7,8}-koszyk/zamowienie-2026-05-06.html` (rollback po reimporcie starter site / gdyby ktoś niechcący nadpisał DB content)
 
+- **Zdjęcia produktów — ostrość siatek (2026-05-27):** `woocommerce_thumbnail_image_width` 300→500 + regeneracja 243 miniatur produktowych (Imagify lossless+backup, źródła 800px); `single_image_width` zostaje 800. Przyczyna była upscale miniatury 300px na siatkach (nie over-kompresja). Pełny reference + pułapki: `.claude/product-images.md`
+
 ### 🔧 Do zrobienia — priorytety
 1. **[POST-DEPLOY]** Wkleić aktualną zawartość `docs/customizer-additional-css-v6.3.css` do WP Admin → Wygląd → Dostosuj → Dodatkowy CSS — bez tego CSS fixy z Customizer nie zadziałają.
 
@@ -154,3 +156,4 @@ docker compose exec wordpress wp cache flush --allow-root
 - `.claude/decisions.md` — dlaczego wybraliśmy dane rozwiązania (nie sugeruj alternatyw)
 - `.claude/project-map.md` — struktura katalogów na VPS i w repo
 - `.claude/wpcli-cheatsheet.md` — gotowe komendy WP-CLI
+- `.claude/product-images.md` — rozmiary/jakość zdjęć produktowych, regeneracja miniatur, pułapki (cache flush PRZED regenerate)
