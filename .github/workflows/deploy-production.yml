@@ -29,14 +29,23 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
-      - name: DB backup before deploy
+      - name: DB backup before deploy (gated — deploy aborts if backup fails)
         run: |
-          ssh deploy@${{ secrets.VPS_HOST }} << 'EOF'
+          ssh deploy@${{ secrets.VPS_HOST }} 'bash -s' << 'EOF'
+            set -eo pipefail
             cd /opt/gorvita-shop
             TIMESTAMP=$(date +%Y%m%d-%H%M%S)
             mkdir -p backups
-            docker compose exec -T wordpress wp db export /tmp/pre-deploy-$TIMESTAMP.sql --allow-root
-            docker compose cp wordpress:/tmp/pre-deploy-$TIMESTAMP.sql ./backups/ 2>/dev/null || true
+            BACKUP="backups/pre-deploy-$TIMESTAMP.sql.gz"
+            # mariadb-dump streamed straight to a host file (no flaky docker cp).
+            # pipefail makes a dump failure fail the whole step.
+            docker compose exec -T mariadb sh -c 'mariadb-dump -uroot -p"$MYSQL_ROOT_PASSWORD" --single-transaction --quick --routines --triggers gorvita' | gzip > "$BACKUP"
+            # gate: file must exist and be non-empty, else stop the deploy here
+            if [ ! -s "$BACKUP" ]; then
+              echo "FATAL: pre-deploy backup missing or empty ($BACKUP) — aborting deploy"
+              exit 1
+            fi
+            echo "Pre-deploy backup OK: $BACKUP ($(du -h "$BACKUP" | cut -f1))"
           EOF
 
       # CRITICAL excludes — see deploy-staging.yml for rationale.
