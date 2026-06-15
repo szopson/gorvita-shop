@@ -1,0 +1,35 @@
+# =============================================================================
+# 301 migracja: stary sklep  sklep.gorvita.com.pl  ->  sklep.gorvita.pl
+# =============================================================================
+# Referencja repo (NIE deployuje sie automatycznie). Pawel wkleja ten blok na
+# GORZE pliku .htaccess w docroot domeny sklep.gorvita.com.pl (panel netmark /
+# File Manager / FTP), PRZED istniejacym front-controllerem legacy sklepu.
+# Stary sklep: custom PHP 5.3, LiteSpeed, netmark.pl (77.55.252.99).
+#
+# Mapowanie (zrodlo: stary sitemap.xml, 132 URL; cele potwierdzone HTTP 200):
+#   /produkty/suplementy-diety/...               -> /kategorie/suplementy-diety/
+#   /produkty/do-zastosowania-zewnetrznego/...   -> /kategorie/skora-cialo/
+#   /produkty/pozostale-nos-gardlo-ucho/...       -> /kategorie/nos-gardlo-ucho/
+#   /produkty/dla-roznych-potrzeb-organizmu/...   -> /kategorie/suplementy-diety/  (brak 1:1, najblizszy parasol)
+#   /produkty/{bestsellery,nowosci,polecane,promocje,inne}  -> /  (homepage)
+#   reszta (w tym /info/, koszyk, pojedyncze produkty)       -> /  (homepage)
+#
+# Produkty w mapowanej kategorii leca na nowy LISTING kategorii (brak tabeli
+# slug<->slug; relewantna kategoria > homepage). Kolejnosc istotna:
+# najbardziej szczegolowe prefiksy z [L] pierwsze, catch-all ^ ostatni.
+# 301 cross-domain -> brak petli na starej domenie.
+#
+# PRZED wklejeniem: backup obecnego .htaccess.
+# =============================================================================
+
+RewriteEngine On
+
+# (opcjonalny guard hosta, jesli docroot wspoldzielony z inna domena)
+# RewriteCond %{HTTP_HOST} ^(www\.)?sklep\.gorvita\.com\.pl$ [NC]
+
+RewriteRule ^produkty/suplementy-diety              https://sklep.gorvita.pl/kategorie/suplementy-diety/ [R=301,L]
+RewriteRule ^produkty/do-zastosowania-zewnetrznego  https://sklep.gorvita.pl/kategorie/skora-cialo/      [R=301,L]
+RewriteRule ^produkty/pozostale-nos-gardlo-ucho     https://sklep.gorvita.pl/kategorie/nos-gardlo-ucho/  [R=301,L]
+RewriteRule ^produkty/dla-roznych-potrzeb-organizmu https://sklep.gorvita.pl/kategorie/suplementy-diety/ [R=301,L]
+RewriteRule ^produkty/(bestsellery|nowosci|polecane|promocje|inne) https://sklep.gorvita.pl/ [R=301,L]
+RewriteRule ^ https://sklep.gorvita.pl/ [R=301,L]
