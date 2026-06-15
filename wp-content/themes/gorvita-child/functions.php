@@ -5,6 +5,7 @@ require_once get_stylesheet_directory() . '/inc/cart-shipping-progress.php';
 require_once get_stylesheet_directory() . '/inc/checkout-cta-mover.php';
 require_once get_stylesheet_directory() . '/inc/product-description-cleanup.php';
 require_once get_stylesheet_directory() . '/inc/b2b-announcement-bar.php';
+require_once get_stylesheet_directory() . '/inc/free-shipping-equalize.php';
 
 // Block staging from search-engine indexation. Belt-and-suspenders alongside
 // the Traefik X-Robots-Tag header. Active for any host that is NOT the
@@ -497,7 +498,7 @@ function gorvita_vstrip_shortcode() {
         [ 'icon' => 'certificate', 'strong' => 'Rodzinna manufaktura',  'text' => '— Szczawa, od 1989' ],
         [ 'icon' => 'leaf',        'strong' => 'Polskie zioła',         'text' => '— z Gorców i upraw ekologicznych' ],
         [ 'icon' => 'shield',      'strong' => 'GMP + ISO 9001',        'text' => '— każda partia badana' ],
-        [ 'icon' => 'truck',       'strong' => 'Dostawa 24H',           'text' => '— gratis od 249 zł' ],
+        [ 'icon' => 'truck',       'strong' => 'Dostawa 24H',           'text' => '— gratis od 250 zł' ],
         [ 'icon' => 'return',      'strong' => '14 dni na zwrot',       'text' => '— bez pytań' ],
     ];
     $all = array_merge( $items, $items ); // duplikat dla seamless loop
@@ -1201,7 +1202,7 @@ add_shortcode( 'gorvita-usp-bar', function() {
                 </div>
                 <div class="gv-usp-item__text">
                     <strong>Dostawa 24H</strong>
-                    <span>Gratis od 249 zł</span>
+                    <span>Gratis od 250 zł</span>
                 </div>
             </div>
         </div>

@@ -917,7 +917,7 @@ h1, h2, h3, h4, h5, h6 {
 /* WC info notifications: keep the icon, give it space, vertically center it.
    `body` prefix raises specificity above the Customizer Additional CSS overrides
    (which use plain `.woocommerce-info` and load later in <head>). Empty-cart
-   context still hides the icon via its own override in customizer-additional-css-v6.3.css. */
+   context still hides the icon via its own override in customizer-additional-css-v6.20.css. */
 body .woocommerce-info,
 body .woocommerce-message,
 body .woocommerce-error,

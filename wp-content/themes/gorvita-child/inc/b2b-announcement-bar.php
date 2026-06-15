@@ -26,7 +26,7 @@
  * Hooked at `wp_body_open` priority 20 so the markup follows the GTM
  * `<noscript>` iframe (priority 10) for a cleaner HTML source order.
  *
- * Styling lives in docs/customizer-additional-css-v6.3.css under the v6.21
+ * Styling lives in docs/customizer-additional-css-v6.20.css under the v6.21
  * section; that file is the source-of-truth pasted into WP Admin → Wygląd →
  * Dostosuj → Dodatkowy CSS.
  *
