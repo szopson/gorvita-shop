@@ -1233,3 +1233,15 @@ body.page-id-991 .gorvita-hero {
     ) !important;
   }
 }
+
+/* === Newsletter (FluentForm id 2) — biały tekst na ciemnym tle stopki/sekcji === */
+.fluent_form_2 .ff-el-input--label label,
+.fluent_form_2 .ff-el-form-check-label,
+.fluent_form_2 .ff-el-form-check-label a,
+.fluent_form_2 .ff_t_c,
+#fluentform_2_success,
+.fluent_form_2 + .ff-message-success,
+.fluent_form_2 .ff-message-success { color: #ffffff !important; }
+.fluent_form_2 .ff-el-form-check-label a { text-decoration: underline; }
+.fluent_form_2 .ff-el-is-error .text-danger,
+.fluent_form_2 .error.text-danger { color: #ffd9d9 !important; }

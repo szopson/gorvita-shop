@@ -55,12 +55,12 @@ jobs:
             --exclude='backups/' \
             --exclude='wp-content/uploads/' \
             --exclude='wp-content/plugins/' \
-            ./ deploy@${{ secrets.VPS_HOST }}:/opt/gorvita-shop/
+            ./ deploy@${{ secrets.VPS_HOST }}:/opt/gorvita-staging/
 
       - name: Restart WordPress + flush caches
         run: |
           ssh deploy@${{ secrets.VPS_HOST }} << 'EOF'
-            cd /opt/gorvita-shop
+            cd /opt/gorvita-staging
             docker compose restart wordpress
             docker compose exec -T wordpress bash /var/scripts/fix-permissions.sh || true
             docker compose exec -T wordpress wp cache flush --allow-root || true
