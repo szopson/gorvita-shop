@@ -107,7 +107,7 @@ docker compose exec wordpress wp cache flush --allow-root
 - Produkty zaimportowane (108 szt.)
 - Zdjęcia załadowane do WP Media
 - SMTP: FluentSMTP + Resend (test OK, From: contact@nexoperandi.cloud)
-- Blocksy cleanup zmergowany; CSS source-of-truth → `docs/customizer-additional-css-v6.3.css` (paste do WP Customizer → Additional CSS)
+- Blocksy cleanup zmergowany; CSS source-of-truth → `docs/customizer-additional-css-v6.20.css` (mirror żywego post 260 / WP Customizer → Additional CSS)
 - **B2BKing Pro v5.5.40** zainstalowany i skonfigurowany:
   - PL labels formularza rejestracji (gettext filter dla `blocksy-companion`)
   - Polonizacja menu konta (Dashboard → Kokpit, My Account → Moje konto, Wishlist → Lista życzeń, Edit Profile → Edytuj profil, Log Out → Wyloguj się)
@@ -119,7 +119,7 @@ docker compose exec wordpress wp cache flush --allow-root
   - Hotfix DB: `woocommerce_myaccount_page_id` 10 → 9 (page 10 nie istniała, generowała relatywne URL-e wishlist linkujące do bieżącej strony)
 - **Hotfix DB: `woocommerce_cart_page_id` 980 → 7** (page 980 nie istniała, `wc_get_cart_url()` spadało do `home_url('/')`, więc mini-cart „Zobacz koszyk" prowadził na stronę główną zamiast `/koszyk/`)
 - **Checkout/Cart split (v6.5)** — page 7 (Koszyk) zostaje jako `wp:woocommerce/cart` block; page 8 (Zamówienie) wrócił do `[woocommerce_checkout]` classic shortcode (Przelewy24/PayU compatibility w bloku jeszcze nie ready)
-- **Customizer CSS v6.5** (post 260, źródło `docs/customizer-additional-css-v6.3.css`):
+- **Customizer CSS** (post 260, mirror w repo `docs/customizer-additional-css-v6.20.css` — live wyprzedził, plik odświeżony 2026-06-15):
   - przywrócone classic-checkout rules (`.woocommerce-checkout {input[…],label,form.checkout,h3,#customer_details,#order_review}`) — bezpieczne, bo page 8 jest klasyczna ekskluzywnie (`body.woocommerce-checkout` nie współwystępuje z `.wc-block-checkout` markup)
   - sidebar card chrome zawężony tylko do zewnętrznego `.wc-block-cart__sidebar` (cart page); wewnętrzne `.wc-block-components-totals-wrapper` rows mają stripped chrome
   - dla cart-block: InPost icon inline-flex w `__label-group`, block-input `padding-top: 26px` + label `line-height: 1.1`
@@ -128,9 +128,9 @@ docker compose exec wordpress wp cache flush --allow-root
 - **Zdjęcia produktów — ostrość siatek (2026-05-27):** `woocommerce_thumbnail_image_width` 300→500 + regeneracja 243 miniatur produktowych (Imagify lossless+backup, źródła 800px); `single_image_width` zostaje 800. Przyczyna była upscale miniatury 300px na siatkach (nie over-kompresja). Pełny reference + pułapki: `.claude/product-images.md`
 
 ### 🔧 Do zrobienia — priorytety
-1. **[POST-DEPLOY]** Wkleić aktualną zawartość `docs/customizer-additional-css-v6.3.css` do WP Admin → Wygląd → Dostosuj → Dodatkowy CSS — bez tego CSS fixy z Customizer nie zadziałają.
+1. ~~**[POST-DEPLOY]** Wkleić Additional CSS~~ ✅ ZROBIONE — live Customizer (post 260) = **v6.20** z URL-ami `sklep.gorvita.pl`, aktywny. Repo `docs/customizer-additional-css-v6.20.css` to mirror (odświeżony 2026-06-15). Re-paste do Customizera potrzebny TYLKO gdy edytujesz plik by wepchnąć NOWE zmiany CSS. NIE wklejać starych wersji — cofnęłoby produkcję.
 
-2. **[CLEANUP]** Stopka strony głównej: leftover demo-link „Wishlist" → `https://startersites.io/blocksy/furniture/...` z importu starter site. Do wyczyszczenia w Footer Builder / widget.
+2. ~~**[CLEANUP]** Stopka demo-link „Wishlist" → startersites.io~~ ✅ ZROBIONE (2026-06-15) — usunięty orphan `wp_navigation` post 1041 (5 demo-linków mebli); zero żywych referencji `startersites.io` (poza nieszkodliwym komentarzem CSS w post 260). Backup: `.claude/backups/prod-nav-1041-categories-menu-2026-06-15.html`.
 
 3. **[PO BLOCKSY]** PayU — konfiguracja (czeka credentials od Pawła)
 
