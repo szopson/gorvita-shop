@@ -75,7 +75,7 @@ function gorvita_b2b_announcement_bar() {
     ?>
 <div class="gorvita-b2b-bar" role="region" aria-label="Oferta hurtowa B2B" style="display:none">
     <span class="gorvita-b2b-bar__text">Dla Aptek, Hurtowników i&nbsp;Dystrybutorów mamy specjalną ofertę B2B</span>
-    <a class="gorvita-b2b-bar__btn" href="<?php echo esc_url( home_url( '/rejestracja-b2b/' ) ); ?>">Sprawdź ofertę B2B &rarr;</a>
+    <a class="gorvita-b2b-bar__btn" href="<?php echo esc_url( home_url( '/b2b/' ) ); ?>">Sprawdź ofertę B2B &rarr;</a>
     <button type="button" class="gorvita-b2b-bar__close" aria-label="Zamknij baner B2B">&times;</button>
 </div>
 <script>
