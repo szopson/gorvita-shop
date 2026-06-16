@@ -1,0 +1,45 @@
+# =============================================================================
+# 301 migracja: stary sklep  sklep.gorvita.com.pl  ->  sklep.gorvita.pl
+# WDROZONE 2026-06-15 (zweryfikowane: kategorie/produkty/homepage -> nowy sklep,
+# /admin pozostaje 200 na starej domenie).
+# =============================================================================
+# UWAGA: to NIE jest standalone .htaccess. Stary sklep = custom PHP framework
+# (front-controller + integracje: Subiekt ERP sync, platnosci, sitemap, ceneo).
+# Ponizsze reguly zostaly WMERGOWANE w istniejacy .htaccess starego sklepu
+# (docroot: public_html/sklep/ na netmark cPanel). Backup oryginalu: .htaccess.bak
+#
+# Dwie wstawki:
+#   1) BLOK MAPUJACY — tuz po pierwszym `RewriteEngine On`, PRZED reszta.
+#   2) CATCH-ALL — tuz przed oryginalnym front-controllerem
+#      (`RewriteRule .* index.php`), z warunkami !-f !-d, dzieki czemu
+#      realne pliki/katalogi (/admin, /img, /css, /.well-known, sync) NIE sa
+#      ruszane — backend i SSL dzialaja dalej.
+#
+# Mapowanie (zrodlo: stary sitemap.xml 132 URL; cele potwierdzone HTTP 200):
+#   /                                            -> /            (homepage)
+#   /produkty/suplementy-diety/...               -> /kategorie/suplementy-diety/
+#   /produkty/do-zastosowania-zewnetrznego/...   -> /kategorie/skora-cialo/
+#   /produkty/pozostale-nos-gardlo-ucho/...       -> /kategorie/nos-gardlo-ucho/
+#   /produkty/dla-roznych-potrzeb-organizmu/...   -> /kategorie/suplementy-diety/
+#   /produkty/pulmonologia-i-laryngologia (legacy)-> /kategorie/nos-gardlo-ucho/
+#   /produkty/dermatologia (legacy)              -> /kategorie/skora-cialo/
+#   /produkty/{bestsellery,nowosci,polecane,promocje,inne} -> /  (homepage)
+#   reszta wirtualnych URL-i (nie -f/-d)         -> /  (homepage)
+# Produkty w mapowanej kategorii -> nowy LISTING kategorii (brak tabeli slug<->slug).
+# =============================================================================
+
+# --- WSTAWKA 1: blok mapujacy (po pierwszym `RewriteEngine On`) ---
+RewriteRule ^$ https://sklep.gorvita.pl/ [R=301,L]
+RewriteRule ^produkty/suplementy-diety              https://sklep.gorvita.pl/kategorie/suplementy-diety/ [R=301,L]
+RewriteRule ^produkty/do-zastosowania-zewnetrznego  https://sklep.gorvita.pl/kategorie/skora-cialo/      [R=301,L]
+RewriteRule ^produkty/pozostale-nos-gardlo-ucho     https://sklep.gorvita.pl/kategorie/nos-gardlo-ucho/  [R=301,L]
+RewriteRule ^produkty/dla-roznych-potrzeb-organizmu https://sklep.gorvita.pl/kategorie/suplementy-diety/ [R=301,L]
+RewriteRule ^produkty/pulmonologia-i-laryngologia   https://sklep.gorvita.pl/kategorie/nos-gardlo-ucho/  [R=301,L]
+RewriteRule ^produkty/dermatologia                  https://sklep.gorvita.pl/kategorie/skora-cialo/      [R=301,L]
+RewriteRule ^produkty/(bestsellery|nowosci|polecane|promocje|inne) https://sklep.gorvita.pl/ [R=301,L]
+
+# --- WSTAWKA 2: catch-all (tuz przed `RewriteRule .* index.php`) ---
+# !-f !-d => realne pliki/katalogi (admin, assets, .well-known) pomijane.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* https://sklep.gorvita.pl/ [R=301,L]

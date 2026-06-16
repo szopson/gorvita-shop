@@ -25,6 +25,46 @@ function gorvita_preload_hero() {
 add_action( 'wp_head', 'gorvita_preload_hero', 1 );
 
 /**
+ * Consent Mode v2 default state — denied for ads + analytics until the user
+ * accepts via the Blocksy cookie banner. MUST print before the GTM snippet
+ * (hooked at priority 1; GTM head is at priority 2) so Google tags read the
+ * consent state before they fire. Returning visitors who already accepted
+ * (Blocksy cookie `blocksy_cookies_consent_accepted=true`) are upgraded to
+ * granted here, pre-GTM, so their tags fire immediately without a reload.
+ */
+function gorvita_consent_mode_default() {
+    ?>
+<!-- Consent Mode v2 default -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'functionality_storage': 'granted',
+  'security_storage': 'granted',
+  'wait_for_update': 500
+});
+(function(){
+  var m = document.cookie.match(/(?:^|;\s*)blocksy_cookies_consent_accepted=([^;]+)/);
+  if (m && decodeURIComponent(m[1]) === 'true') {
+    gtag('consent', 'update', {
+      'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'analytics_storage': 'granted'
+    });
+  }
+})();
+</script>
+<!-- End Consent Mode v2 default -->
+    <?php
+}
+add_action( 'wp_head', 'gorvita_consent_mode_default', 1 );
+
+/**
  * Google Tag Manager — container GTM-W9L2RVMZ.
  * GA4 measurement ID G-929B3GEFXW is configured inside the container.
  */
@@ -52,6 +92,44 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <?php
 }
 add_action( 'wp_body_open', 'gorvita_gtm_body' );
+
+/**
+ * Consent Mode v2 bridge — translate Blocksy cookie-banner clicks into a gtag
+ * consent update. Blocksy injects the banner dynamically and only sets its own
+ * cookie (`blocksy_cookies_consent_accepted`), so we delegate on document and
+ * push the consent signal plus a dataLayer event the GTM Meta Pixel tag can
+ * trigger on — no page reload needed.
+ */
+function gorvita_consent_mode_bridge() {
+    ?>
+<script>
+document.addEventListener('click', function(e){
+  var accept  = e.target.closest && e.target.closest('.ct-cookies-accept-button');
+  var decline = e.target.closest && e.target.closest('.ct-cookies-decline-button');
+  if (!accept && !decline) return;
+  if (typeof gtag !== 'function') return;
+  if (accept) {
+    gtag('consent', 'update', {
+      'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+      'analytics_storage': 'granted'
+    });
+    window.dataLayer.push({ event: 'consent_update_accepted' });
+  } else {
+    gtag('consent', 'update', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied'
+    });
+    window.dataLayer.push({ event: 'consent_update_declined' });
+  }
+});
+</script>
+    <?php
+}
+add_action( 'wp_footer', 'gorvita_consent_mode_bridge' );
 
 function gorvita_dl_view_item() {
     if ( ! function_exists( 'is_product' ) || ! is_product() ) {
