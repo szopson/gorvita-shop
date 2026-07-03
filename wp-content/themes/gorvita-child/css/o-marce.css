@@ -12,9 +12,11 @@
   --ga-ink:    #1a1a18;
 }
 
-/* Ukryj domyślny tytuł strony */
+/* Ukryj domyślny tytuł strony (o-marce + strony z body class .gorvita-landing) */
 .page-id-119 .entry-title,
-.page-id-119 .page-title {
+.page-id-119 .page-title,
+.gorvita-landing .entry-title,
+.gorvita-landing .page-title {
   display: none !important;
 }
 
@@ -378,6 +380,105 @@
   padding-bottom: 22px;
 }
 
+/* ── LEKSYKON SKŁADNIKÓW (/leksykon-skladnikow/) ── */
+.ga .lex-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+.ga .lex-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--ga-border);
+  background: #fff;
+  color: var(--ga-green);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.18s ease;
+}
+.ga .lex-nav a:hover {
+  background: var(--ga-green);
+  border-color: var(--ga-green);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.ga .lex-letter {
+  scroll-margin-top: 110px;
+  padding-top: clamp(28px, 4vw, 44px);
+}
+.ga .lex-letter-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.ga .lex-letter-head h2 {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  margin: 0;
+  color: var(--ga-gold);
+}
+.ga .lex-letter-head::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--ga-border);
+}
+.ga .lex-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.ga .lex-card {
+  background: #fff;
+  border: 1px solid var(--ga-border);
+  border-radius: 16px;
+  padding: 24px 26px;
+  display: flex;
+  flex-direction: column;
+}
+.ga .lex-card h3 {
+  font-size: 1.35rem;
+  margin-bottom: 2px;
+}
+.ga .lex-latin {
+  display: block;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--ga-muted);
+  margin-bottom: 12px;
+}
+.ga .lex-card p { font-size: 14px; margin-bottom: 12px; }
+.ga .lex-fun {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #6b5d43;
+  background: #fdf6ec;
+  border-left: 3px solid var(--ga-gold);
+  border-radius: 0 10px 10px 0;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+.ga .lex-fun strong { color: var(--ga-gold); font-weight: 600; }
+.ga .lex-prods { margin-top: auto; }
+.ga .lex-prods-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ga-muted);
+  margin-bottom: 8px;
+}
+.ga a.tag { text-decoration: none; transition: 0.18s ease; }
+.ga a.tag:hover { background: var(--ga-green); color: #fff; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 980px) {
   .ga .woda-grid { grid-template-columns: 1fr; }
@@ -385,7 +486,8 @@
 }
 @media (max-width: 768px) {
   .ga .stats-grid,
-  .ga .cert-grid { grid-template-columns: 1fr; }
+  .ga .cert-grid,
+  .ga .lex-grid { grid-template-columns: 1fr; }
   .ga .dark-stats { grid-template-columns: repeat(2, 1fr); }
   .ga .b2b-grid { grid-template-columns: 1fr; }
   .ga .hero-actions { flex-direction: column; }

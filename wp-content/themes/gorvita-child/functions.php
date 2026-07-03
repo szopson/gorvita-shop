@@ -425,11 +425,11 @@ function gorvita_enqueue_b2b_registration_toggle() {
 add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_b2b_registration_toggle' );
 
 function gorvita_enqueue_o_marce_assets() {
-    if ( ! is_page( 119 ) && ! is_front_page() ) {
+    if ( ! is_page( 119 ) && ! is_front_page() && ! gorvita_is_ga_landing() ) {
         return;
     }
 
-    // Cormorant Garamond — shared by /o-marce/ (v6.26) and home (v6.29).
+    // Cormorant Garamond — shared by /o-marce/ (v6.26), home (v6.29) and .ga landings.
     wp_enqueue_style(
         'gorvita-cormorant',
         'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap',
@@ -437,7 +437,7 @@ function gorvita_enqueue_o_marce_assets() {
         null
     );
 
-    if ( is_page( 119 ) ) {
+    if ( is_page( 119 ) || gorvita_is_ga_landing() ) {
         $path = get_stylesheet_directory() . '/css/o-marce.css';
         if ( file_exists( $path ) ) {
             wp_enqueue_style(
@@ -462,6 +462,25 @@ function gorvita_enqueue_o_marce_assets() {
     }
 }
 add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_o_marce_assets' );
+
+/* ============================================================
+   GORVITA — .ga landing pages (o-marce design system reuse)
+   Pages listed here (by slug, environment-independent) get the
+   o-marce.css component library and a `gorvita-landing` body
+   class that hides the default Blocksy page title, so the
+   in-content hero <h1> stays the page's single H1.
+   ============================================================ */
+function gorvita_is_ga_landing() {
+    return is_page( array( 'cbd', 'leksykon-skladnikow' ) );
+}
+
+add_filter( 'body_class', 'gorvita_ga_landing_body_class' );
+function gorvita_ga_landing_body_class( $classes ) {
+    if ( gorvita_is_ga_landing() ) {
+        $classes[] = 'gorvita-landing';
+    }
+    return $classes;
+}
 
 /**
  * Premium product-card styling — shop, product archives (category/tag/attribute)
@@ -1535,6 +1554,18 @@ function gorvita_redirect_legacy_product_category() {
     $target = home_url( '/kategorie/' . substr( $uri, strlen( $prefix ) ) );
     wp_safe_redirect( esc_url_raw( $target ), 301 );
     exit;
+}
+
+/* ============================================================
+   GORVITA — pagination: link page 1 to the archive base URL
+   WordPress emits /page/1/ for the first-page pagination link,
+   which 301-redirects to the archive base — crawlers flag these
+   as internal links to redirects. Strip the /page/1/ segment so
+   pagination links point straight at the final URL.
+   ============================================================ */
+add_filter( 'paginate_links', 'gorvita_paginate_links_strip_page1' );
+function gorvita_paginate_links_strip_page1( $link ) {
+    return preg_replace( '#/page/1/($|\?|\#)#', '/$1', $link );
 }
 
 /* ============================================================
