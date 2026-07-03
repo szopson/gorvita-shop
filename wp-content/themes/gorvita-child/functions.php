@@ -1569,6 +1569,23 @@ function gorvita_paginate_links_strip_page1( $link ) {
 }
 
 /* ============================================================
+   GORVITA — paged archives: differentiate the H1
+   Paginated category/shop pages render the same archive-title H1
+   as page 1 (Blocksy dynamic-data block), which crawlers flag as
+   duplicate H1. Append " – strona N" on /page/N/ so each page in
+   the series has a distinct heading (title tags already vary via
+   RankMath %page%).
+   ============================================================ */
+add_filter( 'render_block_blocksy/dynamic-data', 'gorvita_paged_archive_title_suffix', 10, 2 );
+function gorvita_paged_archive_title_suffix( $content, $block ) {
+    if ( ( $block['attrs']['field'] ?? '' ) !== 'wp:archive_title' || ! is_paged() ) {
+        return $content;
+    }
+    $page = max( 2, (int) get_query_var( 'paged' ) );
+    return preg_replace( '/<\/h([1-6])>/', ' – strona ' . $page . '</h$1>', $content, 1 );
+}
+
+/* ============================================================
    GORVITA — sharper grid thumbnails on 1x screens
    WP 7.0 auto-sizes (sizes="auto, …") makes the browser pick the
    ~300px candidate for the ~280px card slot on 1x displays. Opting
