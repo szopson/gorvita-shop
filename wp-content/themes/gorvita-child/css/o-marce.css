@@ -12,9 +12,11 @@
   --ga-ink:    #1a1a18;
 }
 
-/* Ukryj domyślny tytuł strony */
+/* Ukryj domyślny tytuł strony (o-marce + strony z body class .gorvita-landing) */
 .page-id-119 .entry-title,
-.page-id-119 .page-title {
+.page-id-119 .page-title,
+.gorvita-landing .entry-title,
+.gorvita-landing .page-title {
   display: none !important;
 }
 
