@@ -1538,6 +1538,18 @@ function gorvita_redirect_legacy_product_category() {
 }
 
 /* ============================================================
+   GORVITA — pagination: link page 1 to the archive base URL
+   WordPress emits /page/1/ for the first-page pagination link,
+   which 301-redirects to the archive base — crawlers flag these
+   as internal links to redirects. Strip the /page/1/ segment so
+   pagination links point straight at the final URL.
+   ============================================================ */
+add_filter( 'paginate_links', 'gorvita_paginate_links_strip_page1' );
+function gorvita_paginate_links_strip_page1( $link ) {
+    return preg_replace( '#/page/1/($|\?|\#)#', '/$1', $link );
+}
+
+/* ============================================================
    GORVITA — sharper grid thumbnails on 1x screens
    WP 7.0 auto-sizes (sizes="auto, …") makes the browser pick the
    ~300px candidate for the ~280px card slot on 1x displays. Opting
