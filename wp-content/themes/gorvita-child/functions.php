@@ -471,7 +471,7 @@ add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_o_marce_assets' );
    in-content hero <h1> stays the page's single H1.
    ============================================================ */
 function gorvita_is_ga_landing() {
-    return is_page( array( 'cbd' ) );
+    return is_page( array( 'cbd', 'leksykon-skladnikow' ) );
 }
 
 add_filter( 'body_class', 'gorvita_ga_landing_body_class' );
