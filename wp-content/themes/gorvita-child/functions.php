@@ -1595,3 +1595,30 @@ function gorvita_paged_archive_title_suffix( $content, $block ) {
    This reverts to the classic pre-6.7 responsive behavior site-wide.
    ============================================================ */
 add_filter( 'wp_img_tag_add_auto_sizes', '__return_false' );
+
+/* ============================================================
+   GORVITA — hide sale badge (ZNIŻKA) for logged-in B2B users
+   B2B prices are already discounted via B2BKing group rules, so
+   the retail sale badge is misleading for them. Keep the struck
+   <del> price; only the badge is removed. Guests and B2C users
+   keep the badge. (Moved from mu-plugin gorvita-hide-b2b-sale-badge.)
+   ============================================================ */
+function gorvita_is_b2b_user() {
+    return is_user_logged_in()
+        && get_user_meta( get_current_user_id(), 'b2bking_b2buser', true ) === 'yes';
+}
+
+// Classic WooCommerce templates
+add_filter( 'woocommerce_sale_flash', 'gorvita_hide_sale_flash_for_b2b', 10 );
+function gorvita_hide_sale_flash_for_b2b( $html ) {
+    return gorvita_is_b2b_user() ? '' : $html;
+}
+
+// Block templates (woocommerce/product-sale-badge, e.g. Product Collection)
+add_filter( 'render_block', 'gorvita_hide_sale_badge_block_for_b2b', 10, 2 );
+function gorvita_hide_sale_badge_block_for_b2b( $content, $block ) {
+    if ( ( $block['blockName'] ?? '' ) === 'woocommerce/product-sale-badge' && gorvita_is_b2b_user() ) {
+        return '';
+    }
+    return $content;
+}
