@@ -486,7 +486,8 @@ function gorvita_ga_landing_body_class( $classes ) {
  * Premium product-card styling — shop, product archives (category/tag/attribute)
  * and single product (related products). Kept separate from the o-marce/front
  * enqueue above, which early-returns on every other page. Also loads Cormorant
- * Garamond here (it isn't enqueued globally) for the serif price.
+ * Garamond here (it isn't enqueued globally) for the serif price, plus Inter 600
+ * for the card title (global Customizer import only ships Inter 400/500).
  */
 function gorvita_enqueue_product_cards_assets() {
     if ( ! function_exists( 'is_woocommerce' )
@@ -496,7 +497,7 @@ function gorvita_enqueue_product_cards_assets() {
     }
     wp_enqueue_style(
         'gorvita-cormorant',
-        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap',
+        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@600&display=swap',
         [],
         null
     );
