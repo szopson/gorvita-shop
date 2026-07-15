@@ -85,15 +85,25 @@ services:
       - gorvita-internal
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.wordpress.rule=Host(`${WP_DOMAIN}`)"
+      - "traefik.http.routers.wordpress.rule=Host(`${WP_DOMAIN}`) || Host(`sklep.gorvita.pl`)"
       - "traefik.http.routers.wordpress.entrypoints=websecure"
       - "traefik.http.routers.wordpress.tls.certresolver=letsencrypt"
       - "traefik.http.services.wordpress.loadbalancer.server.port=80"
-      # Block search-engine indexation of staging — applies to ALL responses.
-      # Remove this middleware (and the routers.wordpress.middlewares line)
-      # when going live on production domain.
-      - "traefik.http.middlewares.staging-noindex.headers.customresponseheaders.X-Robots-Tag=noindex, nofollow, noarchive, nosnippet"
-      - "traefik.http.routers.wordpress.middlewares=staging-noindex"
+      # Hard-block Meta's AI training crawler (meta-externalagent): it fell into
+      # the WooCommerce cart crawler trap (infinite add-to-cart/remove_item URL
+      # permutations) and generated ~94% of outbound traffic. The UA regex is
+      # deliberately unanchored — the token usually appears mid-UA inside
+      # "(compatible; meta-externalagent/1.1 ...)". robots.txt stays fetchable
+      # so the bot can read "Disallow: /" and stop crawling instead of
+      # hammering 403s. facebookexternalhit (FB/IG link previews) is unaffected.
+      - "traefik.http.middlewares.block-meta-crawler.ipallowlist.sourcerange=192.0.2.0/24"
+      - "traefik.http.middlewares.block-meta-crawler.ipallowlist.rejectstatuscode=403"
+      - "traefik.http.routers.wordpress-metablock.rule=(Host(`${WP_DOMAIN}`) || Host(`sklep.gorvita.pl`)) && HeaderRegexp(`User-Agent`, `(?i)meta-externalagent`) && !Path(`/robots.txt`)"
+      - "traefik.http.routers.wordpress-metablock.entrypoints=websecure"
+      - "traefik.http.routers.wordpress-metablock.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.wordpress-metablock.priority=1000"
+      - "traefik.http.routers.wordpress-metablock.middlewares=block-meta-crawler"
+      - "traefik.http.routers.wordpress-metablock.service=wordpress"
 
   backup:
     image: fradelg/mysql-cron-backup
