@@ -194,9 +194,10 @@ $gorvita_pdf_price = function( $amount ) {
 			</td>
 			<td class="no-borders totals-cell">
 				<?php
+				// Sum rounded per-line values so this row always equals the sum of the lines above.
 				$items_net = 0.0;
 				foreach ( $this->order->get_items() as $order_item ) {
-					$items_net += (float) $order_item->get_total();
+					$items_net += round( (float) $order_item->get_total(), 2 );
 				}
 				$order_net    = round( (float) $this->order->get_total() - (float) $this->order->get_total_tax(), 2 );
 				$shipping_net = round( (float) $this->order->get_shipping_total(), 2 );
