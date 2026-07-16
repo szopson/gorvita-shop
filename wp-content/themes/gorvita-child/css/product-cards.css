@@ -165,6 +165,16 @@
   margin: 0 !important;
 }
 
+/* ── Rating stars — centered in the card ── */
+.woocommerce ul.products li.product .ct-woo-card-rating {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+.woocommerce ul.products li.product .ct-woo-card-rating .star-rating {
+  margin: 0 auto !important;
+}
+
 /* ── Footer wrapper (price + button), pinned to bottom ── */
 .woocommerce ul.products li.product .ct-woo-card-actions {
   order: 4;
