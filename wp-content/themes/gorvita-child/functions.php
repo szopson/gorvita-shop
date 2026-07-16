@@ -1624,3 +1624,34 @@ function gorvita_hide_sale_badge_block_for_b2b( $content, $block ) {
     }
     return $content;
 }
+
+/**
+ * HPOS: fix meta-cap mapping for roles with only shop_order capabilities.
+ *
+ * With HPOS enabled, order rows in wp_posts are `shop_order_placehold` posts
+ * registered with `capability_type: post`, so `edit_shop_order` meta caps get
+ * mapped to `edit_others_posts` instead of `edit_others_shop_orders`. Roles
+ * without generic post caps (e.g. `ksiegowosc_zamowienia`) would pass the
+ * orders list but hit wp_die() in PageController::verify_edit_permission().
+ * Remap edit/read/delete checks on placeholder posts back to shop_order caps.
+ * Note: the filter receives the already-translated cap (edit_post, not
+ * edit_shop_order).
+ */
+add_filter( 'map_meta_cap', 'gorvita_map_hpos_order_caps', 10, 4 );
+function gorvita_map_hpos_order_caps( $caps, $cap, $user_id, $args ) {
+    if ( ! in_array( $cap, array( 'edit_post', 'read_post', 'delete_post' ), true ) || empty( $args[0] ) ) {
+        return $caps;
+    }
+    if ( get_post_type( $args[0] ) !== 'shop_order_placehold' ) {
+        return $caps;
+    }
+    switch ( $cap ) {
+        case 'edit_post':
+            return array( 'edit_shop_orders', 'edit_others_shop_orders' );
+        case 'read_post':
+            return array( 'read_private_shop_orders' );
+        case 'delete_post':
+            return array( 'delete_shop_orders', 'delete_others_shop_orders' );
+    }
+    return $caps;
+}
