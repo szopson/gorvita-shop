@@ -1655,3 +1655,39 @@ function gorvita_map_hpos_order_caps( $caps, $cap, $user_id, $args ) {
     }
     return $caps;
 }
+
+/**
+ * B2B plain price display for B2BKing "show discount everywhere" rules.
+ *
+ * When everywhere-discount rules are active, B2BKing renders the discounted
+ * price as sale markup (<del>old</del> <ins>new</ins>) and the theme adds a
+ * sale badge, which reads as a promotion. B2B customers should instead see
+ * the discounted price as their normal price. No-op while everywhere rules
+ * are off (current prod state) or for non-B2B users, so B2C sale display is
+ * untouched.
+ */
+function gorvita_b2b_plain_price_active() {
+    if ( ! function_exists( 'b2bking' ) || ! is_user_logged_in() ) {
+        return false;
+    }
+    if ( get_option( 'b2bking_have_discount_everywhere_rules', 'no' ) !== 'yes' ) {
+        return false;
+    }
+    $user_id = b2bking()->get_top_parent_account( get_current_user_id() );
+    return get_user_meta( $user_id, 'b2bking_b2buser', true ) === 'yes';
+}
+
+add_filter( 'b2bking_dynamic_recalculate_sale_price_display', 'gorvita_b2b_plain_price_html', 10, 3 );
+function gorvita_b2b_plain_price_html( $price_html, $product, $sale_price_display ) {
+    // Variable products use this filter as a change-detector; leave them alone.
+    if ( $product->is_type( 'variable' ) || '' === $sale_price_display || ! gorvita_b2b_plain_price_active() ) {
+        return $price_html;
+    }
+    return wc_price( $sale_price_display ) . $product->get_price_suffix( $sale_price_display );
+}
+
+// After B2BKing (9999) rewrites the badge to the discount label.
+add_filter( 'woocommerce_sale_flash', 'gorvita_b2b_hide_sale_flash', 10000 );
+function gorvita_b2b_hide_sale_flash( $html ) {
+    return gorvita_b2b_plain_price_active() ? '' : $html;
+}
