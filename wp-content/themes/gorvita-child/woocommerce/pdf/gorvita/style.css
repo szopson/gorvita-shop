@@ -201,6 +201,40 @@ table.notes-totals {
 	text-align: right;
 }
 
+/* 9-column variant: B2B invoices carrying a discount fee (after-discount net columns) */
+.order-details.has-discount-cols {
+	font-size: 8pt;
+}
+
+.order-details.has-discount-cols .product {
+	width: 20%;
+}
+
+.order-details.has-discount-cols .quantity {
+	width: 6%;
+}
+
+.order-details.has-discount-cols .unit-price,
+.order-details.has-discount-cols .unit-price-discounted,
+.order-details.has-discount-cols .net-total,
+.order-details.has-discount-cols .net-total-discounted,
+.order-details.has-discount-cols .vat-amount {
+	width: 11%;
+}
+
+.order-details.has-discount-cols .vat-rate {
+	width: 6%;
+}
+
+.order-details.has-discount-cols .gross-total {
+	width: 13%;
+}
+
+.order-details.has-discount-cols .unit-price-discounted,
+.order-details.has-discount-cols .net-total-discounted {
+	text-align: right;
+}
+
 .order-details tbody {
 	border-bottom: 1px solid #ccc;
 }
