@@ -207,11 +207,11 @@ table.notes-totals {
 }
 
 .order-details.has-discount-cols .product {
-	width: 21%;
+	width: 20%;
 }
 
 .order-details.has-discount-cols .quantity {
-	width: 5%;
+	width: 6%;
 }
 
 .order-details.has-discount-cols .unit-price,
