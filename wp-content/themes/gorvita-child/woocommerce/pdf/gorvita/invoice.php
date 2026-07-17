@@ -123,13 +123,65 @@ $gorvita_pdf_price = function( $amount ) {
 
 <?php do_action( 'wpo_wcpdf_before_order_details', $this->get_type(), $this->order ); ?>
 
-<table class="order-details">
+<?php
+/*
+ * B2B after-discount columns. B2BKing persists its cart discount only as a
+ * negative fee item (no order meta), computed at checkout as pct% of the net
+ * items subtotal. Allocating the exact fee amount proportionally over line
+ * net values reproduces that same percentage per line — historically correct
+ * for this order regardless of the customer's current rule — while a residual
+ * cent correction on the largest line guarantees the column sums to
+ * (items net - discount) exactly. Orders without a negative fee (B2C, guests,
+ * everywhere-rule orders whose line prices are already discounted) render the
+ * unchanged 7-column table.
+ */
+$gorvita_discount_net = 0.0; // discount as a POSITIVE amount
+foreach ( $this->order->get_items( 'fee' ) as $gorvita_fee_item ) {
+	if ( (float) $gorvita_fee_item->get_total() < 0 ) {
+		$gorvita_discount_net += - (float) $gorvita_fee_item->get_total();
+	}
+}
+$gorvita_items_net_raw = 0.0;
+foreach ( $this->order->get_items() as $gorvita_oi ) {
+	$gorvita_items_net_raw += (float) $gorvita_oi->get_total();
+}
+$gorvita_show_discount_cols = ( $gorvita_discount_net > 0 && $gorvita_items_net_raw > 0 );
+
+$gorvita_line_discounts = array(); // item_id => discount share
+if ( $gorvita_show_discount_cols ) {
+	$gorvita_allocated       = 0.0;
+	$gorvita_largest_item_id = null;
+	$gorvita_largest_net     = -1.0;
+	foreach ( $this->order->get_items() as $gorvita_oi_id => $gorvita_oi ) {
+		$gorvita_oi_net = (float) $gorvita_oi->get_total();
+		$gorvita_share  = round( $gorvita_discount_net * $gorvita_oi_net / $gorvita_items_net_raw, 2 );
+		$gorvita_line_discounts[ $gorvita_oi_id ] = $gorvita_share;
+		$gorvita_allocated += $gorvita_share;
+		if ( $gorvita_oi_net > $gorvita_largest_net ) {
+			$gorvita_largest_net     = $gorvita_oi_net;
+			$gorvita_largest_item_id = $gorvita_oi_id;
+		}
+	}
+	$gorvita_residual = round( $gorvita_discount_net - $gorvita_allocated, 2 );
+	if ( 0.0 !== $gorvita_residual && null !== $gorvita_largest_item_id ) {
+		$gorvita_line_discounts[ $gorvita_largest_item_id ] = round( $gorvita_line_discounts[ $gorvita_largest_item_id ] + $gorvita_residual, 2 );
+	}
+}
+?>
+
+<table class="order-details<?php echo $gorvita_show_discount_cols ? ' has-discount-cols' : ''; ?>">
 	<thead>
 		<tr>
 			<th class="product"><?php esc_html_e( 'Produkt', 'gorvita' ); ?></th>
 			<th class="quantity"><?php esc_html_e( 'Ilość', 'gorvita' ); ?></th>
 			<th class="unit-price"><?php esc_html_e( 'Cena netto', 'gorvita' ); ?></th>
+			<?php if ( $gorvita_show_discount_cols ) : ?>
+				<th class="unit-price-discounted"><?php esc_html_e( 'Cena netto po rabacie', 'gorvita' ); ?></th>
+			<?php endif; ?>
 			<th class="net-total"><?php esc_html_e( 'Wartość netto', 'gorvita' ); ?></th>
+			<?php if ( $gorvita_show_discount_cols ) : ?>
+				<th class="net-total-discounted"><?php esc_html_e( 'Wartość netto po rabacie', 'gorvita' ); ?></th>
+			<?php endif; ?>
 			<th class="vat-rate"><?php esc_html_e( 'VAT', 'gorvita' ); ?></th>
 			<th class="vat-amount"><?php esc_html_e( 'Kwota VAT', 'gorvita' ); ?></th>
 			<th class="gross-total"><?php esc_html_e( 'Wartość brutto', 'gorvita' ); ?></th>
@@ -145,6 +197,9 @@ $gorvita_pdf_price = function( $amount ) {
 			$line_gross = round( $line_net + $line_tax, 2 );
 			$unit_net   = round( (float) $order_item->get_total() / $qty, 2 );
 			$tax_rates  = ! empty( $item['tax_rates'] ) ? $item['tax_rates'] : '-';
+			// Line value is authoritative; unit price is derived (same as $unit_net above).
+			$line_net_after = round( $line_net - ( $gorvita_line_discounts[ $item_id ] ?? 0.0 ), 2 );
+			$unit_net_after = round( $line_net_after / $qty, 2 );
 			?>
 			<tr class="<?php echo esc_html( $item['row_class'] ); ?>">
 				<td class="product">
@@ -162,7 +217,13 @@ $gorvita_pdf_price = function( $amount ) {
 				</td>
 				<td class="quantity"><?php echo esc_html( $item['quantity'] ); ?></td>
 				<td class="unit-price"><?php echo esc_html( $gorvita_pdf_price( $unit_net ) ); ?></td>
+				<?php if ( $gorvita_show_discount_cols ) : ?>
+					<td class="unit-price-discounted"><?php echo esc_html( $gorvita_pdf_price( $unit_net_after ) ); ?></td>
+				<?php endif; ?>
 				<td class="net-total"><?php echo esc_html( $gorvita_pdf_price( $line_net ) ); ?></td>
+				<?php if ( $gorvita_show_discount_cols ) : ?>
+					<td class="net-total-discounted"><?php echo esc_html( $gorvita_pdf_price( $line_net_after ) ); ?></td>
+				<?php endif; ?>
 				<td class="vat-rate"><?php echo esc_html( $tax_rates ); ?></td>
 				<td class="vat-amount"><?php echo esc_html( $gorvita_pdf_price( $line_tax ) ); ?></td>
 				<td class="gross-total"><?php echo esc_html( $gorvita_pdf_price( $line_gross ) ); ?></td>
