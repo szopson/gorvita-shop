@@ -46,8 +46,10 @@ function gorvita_equalize_free_shipping_rates( $rates, $package ) {
 	foreach ( $rates as $rate_id => $rate ) {
 		$method = $rate->get_method_id();
 
-		if ( 'flat_rate' === $method ) {
-			// FedEx / Poczta Polska — flat_rate has no native threshold, zero it.
+		if ( 'flat_rate' === $method || 0 === strpos( $method, 'easypack' ) ) {
+			// FedEx / Poczta Polska (flat_rate, no native threshold) AND InPost
+			// (easypack_*, whose own free_shipping_cost check reads the NET
+			// displayed subtotal for B2B) — zero them once the cart qualifies.
 			$rate->set_cost( 0 );
 			$taxes = $rate->get_taxes();
 			if ( is_array( $taxes ) ) {
