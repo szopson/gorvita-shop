@@ -84,6 +84,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 add_action( 'wp_head', 'gorvita_gtm_head', 2 );
 
+/**
+ * PostHog (EU cloud) — production only. Loads early but starts opted-out with
+ * in-memory persistence (no cookies, no capture) until the user accepts the
+ * Blocksy cookie banner; the wp_footer consent bridge flips it to opt-in.
+ * Returning visitors with `blocksy_cookies_consent_accepted=true` are opted
+ * in immediately below, mirroring gorvita_consent_mode_default().
+ */
+function gorvita_posthog_head() {
+    $host = isset( $_SERVER['HTTP_HOST'] ) ? strtolower( $_SERVER['HTTP_HOST'] ) : '';
+    if ( $host !== 'sklep.gorvita.pl' ) {
+        return;
+    }
+    ?>
+<!-- PostHog -->
+<script>
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ai Ri init Vi Yi Rr zi Gi Zi capture calculateEventProperties en register register_once register_for_session unregister unregister_for_session sn getFeatureFlag getFeatureFlagPayload getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync an identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty rn Ki createPersonProfile setInternalOrTestUser nn $i hn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Xi debug Mr tn getPageViewId captureTraceFeedback captureTraceMetric Di".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_uus6szrTRaWJDbh35VSFa2YiLkZaNQYtpZ9GnZiac94k', {
+        api_host: 'https://eu.i.posthog.com',
+        defaults: '2026-01-30',
+        person_profiles: 'identified_only',
+        opt_out_capturing_by_default: true,
+        persistence: 'memory'
+    });
+    (function(){
+      var m = document.cookie.match(/(?:^|;\s*)blocksy_cookies_consent_accepted=([^;]+)/);
+      if (m && decodeURIComponent(m[1]) === 'true') {
+        posthog.set_config({ persistence: 'localStorage+cookie' });
+        posthog.opt_in_capturing();
+      }
+    })();
+</script>
+<!-- End PostHog -->
+    <?php
+}
+add_action( 'wp_head', 'gorvita_posthog_head', 2 );
+
 function gorvita_gtm_body() {
     ?>
 <!-- Google Tag Manager (noscript) -->
@@ -108,6 +144,13 @@ document.addEventListener('click', function(e){
   var accept  = e.target.closest && e.target.closest('.ct-cookies-accept-button');
   var decline = e.target.closest && e.target.closest('.ct-cookies-decline-button');
   if (!accept && !decline) return;
+  var ph = window.posthog && typeof window.posthog.opt_in_capturing === 'function' ? window.posthog : null;
+  if (accept && ph) {
+    ph.set_config({ persistence: 'localStorage+cookie' });
+    ph.opt_in_capturing();
+  } else if (decline && ph) {
+    ph.opt_out_capturing();
+  }
   if (typeof gtag !== 'function') return;
   if (accept) {
     gtag('consent', 'update', {
