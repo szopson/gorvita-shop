@@ -79,6 +79,7 @@ services:
     volumes:
       - wordpress_data:/var/www/html
       - ./wp-content/themes/gorvita-child:/var/www/html/wp-content/themes/gorvita-child
+      - ./wp-content/mu-plugins:/var/www/html/wp-content/mu-plugins
       - ./scripts:/var/scripts:ro
     networks:
       - gorvita-public
