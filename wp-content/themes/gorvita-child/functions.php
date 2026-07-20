@@ -1734,3 +1734,67 @@ add_filter( 'woocommerce_sale_flash', 'gorvita_b2b_hide_sale_flash', 10000 );
 function gorvita_b2b_hide_sale_flash( $html ) {
     return gorvita_b2b_plain_price_active() ? '' : $html;
 }
+
+/**
+ * Free shipping threshold must be evaluated on the GROSS (tax-inclusive) cart
+ * subtotal for every customer, including B2B.
+ *
+ * Why: the store runs prices_include_tax=yes and the 250 zl free-shipping
+ * threshold is a gross figure. B2BKing (rule "tax_exemption_user", showtax=yes)
+ * filters woocommerce_tax_display_cart to 'excl' for logged-in B2B users, so
+ * WC_Cart::get_displayed_subtotal() — which WC_Shipping_Free_Shipping::is_available()
+ * uses — returns the NET subtotal for them. A cart at net 231 / gross 251 then
+ * fails the 250 test even though gross clears it.
+ *
+ * We recompute the min_amount branch on gross (subtotal + subtotal_tax),
+ * mirroring core exactly (ignore_discounts handling + coupon recombination for
+ * 'either'/'both'), and return the corrected value via the purpose-built
+ * woocommerce_shipping_free_shipping_is_available filter. No core edit; the tax
+ * DISPLAY mode for B2B is left untouched (net stays net — intentional).
+ *
+ * Per-carrier free thresholds (InPost easypack_*, flat_rate carriers) are
+ * equalised to 0 once free_shipping qualifies — see inc/free-shipping-equalize.php.
+ */
+function gorvita_free_shipping_gross_qualify( $is_available, $package, $method ) {
+	if ( ! WC()->cart || ! is_object( $method ) ) {
+		return $is_available;
+	}
+
+	$requires = $method->requires;
+
+	// Methods that do not use a minimum amount are unaffected.
+	if ( ! in_array( $requires, array( 'min_amount', 'either', 'both' ), true ) ) {
+		return $is_available;
+	}
+
+	// Gross subtotal, independent of the tax display mode.
+	$total = (float) WC()->cart->get_subtotal() + (float) WC()->cart->get_subtotal_tax();
+
+	// Mirror core: subtract discounts only when the method does NOT ignore them.
+	if ( 'no' === $method->ignore_discounts ) {
+		$total = $total - (float) WC()->cart->get_discount_total();
+		$total = $total - (float) WC()->cart->get_discount_tax();
+	}
+
+	$total              = round( $total, wc_get_price_decimals() );
+	$has_met_min_amount = $total >= (float) $method->min_amount;
+
+	if ( 'min_amount' === $requires ) {
+		return $has_met_min_amount;
+	}
+
+	// 'either' / 'both' also depend on a free-shipping coupon — evaluate and
+	// recombine exactly as core does.
+	$has_coupon = false;
+	foreach ( WC()->cart->get_coupons() as $coupon ) {
+		if ( $coupon->is_valid() && $coupon->get_free_shipping() ) {
+			$has_coupon = true;
+			break;
+		}
+	}
+
+	return ( 'both' === $requires )
+		? ( $has_met_min_amount && $has_coupon )
+		: ( $has_met_min_amount || $has_coupon );
+}
+add_filter( 'woocommerce_shipping_free_shipping_is_available', 'gorvita_free_shipping_gross_qualify', 10, 3 );
