@@ -1244,12 +1244,51 @@ button.wc-block-cart-item__remove-link:hover {
 }
 .gorvita-shipping-hint--achieved .gorvita-shipping-hint__bar { display: none !important; }
 
-/* === v6.11: CHATBOT WIDGET ABOVE STICKY FLOATING BAR ===
-   #gorvita-chatbot-root was at bottom: 20px and overlapped the 70px
-   .ct-floating-bar.ct-ajax-add-to-cart on PDPs. Lift to clear it. */
+/* === v6.24: CHATBOT BUBBLE — ROZMIAR I POZYCJA NA MOBILE ===
+   Supersedes v6.11. Both the size AND the position of this widget live here
+   rather than in the plugin, for two reasons:
+     1. Cascade — this block loads after the plugin stylesheet and uses
+        !important on an #id selector, so the plugin can never win. The
+        v6.11 offset already worked this way; v6.11 just never said so.
+     2. Persistence — the plugin lives only inside the wordpress_data docker
+        volume: it is not in the repo and wp-content/plugins/ is excluded
+        from the deploy rsync, so any edit there is lost on a plugin update.
+        Post 260 survives it.
+
+   Desktop unchanged (bottom 90px) — clears the Blocksy floating cart bar.
+
+   Mobile (<= 999px):
+     - bubble 60px -> 48px, icon 28px -> 22px (48 >= 44px, WCAG 2.5.5 AAA,
+       so no transparent padding is needed to keep the tap target legal)
+     - pulled into the corner: bottom/right 16px
+     - pulse halo switched off entirely. At scale 1.6 it made a 48px bubble
+       read as 96px, so shrinking the bubble alone bought nothing visually.
+       The pulse is purely decorative — static markup in widget.js:182, with
+       no unread/badge logic anywhere in the plugin JS — so removing it costs
+       no signal. Desktop keeps the pulse.
+
+   PDP EXCEPTION — load-bearing, do not remove:
+     Blocksy's floating add-to-cart bar (.ct-drawer-inner) is 70px tall with
+     z-index 100. #gorvita-chatbot-root has z-index 99999, so the bubble
+     renders ABOVE that bar. At bottom:16px the bubble box (measured at
+     390x844: 326-374 x 780-828) overlaps the "Do koszyka" button
+     (246-367 x 785-833) and would cover it. Lift the bubble clear of the
+     bar on product pages: 70px bar + 16px gap.
+     The z-index is deliberately left alone — lowering it below 100 would
+     also drop the OPENED chat panel under the bar, which is a worse bug. */
 #gorvita-chatbot-root { bottom: 90px !important; }
-@media (max-width: 768px) {
-  #gorvita-chatbot-root { bottom: 100px !important; }
+
+@media (max-width: 999px) {
+  #gorvita-chatbot-root {
+    bottom: 16px !important;
+    right: 16px !important;
+  }
+  body.single-product #gorvita-chatbot-root {
+    bottom: 86px !important;   /* 70px pasek ATC + 16px odstępu */
+  }
+  .gvc-bubble { width: 48px !important; height: 48px !important; }
+  .gvc-bubble svg { width: 22px !important; height: 22px !important; }
+  .gvc-bubble-pulse { display: none !important; }
 }
 
 /* === v6.10: KILL EMPTY PAGE HERO ON WC PAGES ===
