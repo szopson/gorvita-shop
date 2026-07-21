@@ -113,8 +113,12 @@
         `inc/product-description-cleanup.php` filter that promotes
         bullet-paragraph runs (e.g. `<p>- pomaga w funkcjonowaniu</p>`)
         into a proper `<ul><li>` on PDP. Affects ~15 products.
-     5. Cookie banner offset on cart/checkout — `.ct-cookies-notification`
-        was overlapping the sticky CTA on mobile.
+     5. Cookie banner offset on cart/checkout — NEVER WORKED: the selector
+        `.ct-cookies-notification` does not exist (Blocksy renders
+        `.cookie-notification`), and the gorvita sticky CTA it referenced
+        had already been moved to disabled-overrides in PR #10. Superseded
+        by the v6.23 block further down, which fixes the real conflict
+        against WooCommerce Blocks' own sticky cart bar.
      6. i18n: "You may be interested in…" — block strings come from JS
         (React), gettext alone misses them. Defensive CSS to hide the
         original heading; the PHP filter on cart-cross-sells already
@@ -1166,14 +1170,31 @@ button.wc-block-cart-item__remove-link:hover {
   background: var(--gor-sage) !important;
 }
 
-/* === v6.13: COOKIE BANNER OFFSET ON STICKY-CTA PAGES ===
-   Blocksy cookies-consent extension renders `.ct-cookies-notification`
-   pinned bottom. On /koszyk/ + /zamowienie/ on mobile it overlapped the
-   sticky checkout CTA. Lift it 80px on these pages so both are usable. */
+/* === v6.23: COOKIE BANNER OFFSET ABOVE THE STICKY CART CTA ===
+   Supersedes the v6.13 block, which targeted `.ct-cookies-notification` —
+   a class that does not exist. Blocksy's cookies-consent extension renders
+   `.cookie-notification` (framework/extensions/cookies-consent/helpers.php),
+   so that rule was dead from the day it shipped.
+
+   Real conflict, measured at 390x844, first visit, cart with 1 item:
+     .wc-block-cart__submit-container--sticky   fixed  z-index 9999    765-844
+     .cookie-notification                       fixed  z-index 999999  698-844
+   The banner wins the stacking context and covers the sticky
+   "Przejdź do płatności" bar completely — elementFromPoint at the button's
+   centre returns .ct-cookies-accept-button, so a tap aimed at checkout
+   hits "Akceptuję" instead.
+
+   Fix: lift the banner by the sticky bar's own height (79px). The banner
+   deliberately KEEPS its z-index — consent has to stay on top, so we move
+   it out of the way rather than demote it. calc() preserves Blocksy's
+   --theme-frame-size, which the original `bottom` value depends on.
+
+   Cart only. /zamowienie/ verified clean: "Kupuję i płacę" is
+   position:relative with no sticky container, at 390x844 and at 390x400
+   (keyboard open) alike — hence no checkout scope, unlike v6.13. */
 @media (max-width: 768px) {
-  body.woocommerce-cart .ct-cookies-notification,
-  body.woocommerce-checkout .ct-cookies-notification {
-    bottom: 80px !important;
+  body.woocommerce-cart .cookie-notification {
+    bottom: calc(79px + var(--theme-frame-size, 0px)) !important;
   }
 }
 
