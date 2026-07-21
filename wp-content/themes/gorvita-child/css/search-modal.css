@@ -19,9 +19,16 @@
 
 @media (max-width: 999px) {
 
-    /* --- panel: gutter, tak zeby form mial pelna szerokosc --- */
+    /* --- panel: gutter, tak zeby form mial pelna szerokosc ---
+       .ct-panel-actions ma padding "20px 35px 0" i wysokosc 40px, ale
+       .ct-toggle-close (40x40, padding 10px) wystaje 10px ponizej niego.
+       Bez wlasnego padding-block-start input startuje dokladnie na y=40,
+       czyli glif X styka sie z polem (0px), a pole kliknięcia przycisku
+       zamknięcia nachodzi 10px na input i na przycisk lupy.
+       24px daje 24px oddechu pod glifem i 14px miedzy tap targetami. */
     #search-modal .ct-panel-content {
         padding-inline: 20px;
+        padding-block-start: 24px;
         padding-block-end: 20px;
     }
 
