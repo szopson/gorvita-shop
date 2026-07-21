@@ -1530,6 +1530,43 @@ function gorvita_archive_hero_on_page( $content ) {
 }
 
 /* ============================================================
+   GORVITA — single H1 on product search results
+   Content block 971 ("Archives - Hero Section", hooked at
+   blocksy:header:after) prints wp:archive_title as an <h1> through
+   wp:blocksy/dynamic-data. Its display condition all_product_archives
+   also matches /?s=…&post_type=product, where Blocksy prints its own
+   h1.page-title on top (prefix `search` has no search_hero_enabled
+   theme mod, so the `yes` default applies) — two identical H1s.
+
+   Only the search prefix is demoted. On woo_categories (shop,
+   product_cat, product_tag, attribute archives) Blocksy's page title
+   is switched off via woo_categories_hero_enabled = no, so the hero
+   H1 is the ONLY H1 there and must stay an h1.
+
+   tagName is read from the block attributes at render time
+   (blocksy-companion-pro/…/dynamic-data/views/wp-field.php:432), so
+   overriding it here leaves post_content and the Greenshift
+   _gspb_post_css meta of block 971 untouched.
+   ============================================================ */
+add_filter( 'render_block_data', 'gorvita_demote_archive_hero_title_on_search' );
+function gorvita_demote_archive_hero_title_on_search( $parsed_block ) {
+    if ( ! is_search() || is_admin() ) {
+        return $parsed_block;
+    }
+    if ( 'blocksy/dynamic-data' !== ( $parsed_block['blockName'] ?? '' ) ) {
+        return $parsed_block;
+    }
+    if ( 'wp:archive_title' !== ( $parsed_block['attrs']['field'] ?? '' ) ) {
+        return $parsed_block;
+    }
+    if ( 'h1' !== ( $parsed_block['attrs']['tagName'] ?? '' ) ) {
+        return $parsed_block;
+    }
+    $parsed_block['attrs']['tagName'] = 'h2';
+    return $parsed_block;
+}
+
+/* ============================================================
    GORVITA — /b2b/ (Hurt/B2B) landing assets (page 120 only)
    Scoped CSS (.gorvita-b2b) + Cormorant/Inter fonts.
    ============================================================ */
