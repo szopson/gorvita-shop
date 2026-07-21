@@ -1,0 +1,129 @@
+/* ============================================================
+   GORVITA — search modal (#search-modal) mobile layout
+   ------------------------------------------------------------
+   Blocksy builds the modal as: .ct-panel (fixed, flex column)
+   > .ct-panel-content (flex column) > form. In the modal it also
+   switches the live-results dropdown from absolute to a static
+   2-column grid:
+       #search-modal .ct-search-results {
+           display:grid; grid-template-columns:repeat(2,1fr);
+           --search-dropdown-position:static; --items-divider:none }
+   Two columns are unusable at phone widths, so we collapse to one
+   and give the input a visible field.
+
+   The Customizer block "SEARCH FORM" (post 260, l. 296-304) is
+   scoped to :is(.ct-header, .ct-no-results), so none of its
+   !important rules reach the modal any more — everything below is
+   plain cascade, driven by Blocksy's own custom properties.
+   ============================================================ */
+
+@media (max-width: 999px) {
+
+    /* --- panel: gutter, tak zeby form mial pelna szerokosc --- */
+    #search-modal .ct-panel-content {
+        padding-inline: 20px;
+        padding-block-end: 20px;
+    }
+
+    /* --- form: pion zamiast domyslnego margin:auto centrowania --- */
+    #search-modal .ct-search-form {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        margin: 0;
+        width: 100%;
+        max-width: none;
+        height: 100%;
+        min-height: 0;
+    }
+
+    /* Pole wejsciowe.
+       Blocksy wylacza tu "classic form" przez
+           #search-modal input { --has-classic-forms: var(--false) }
+       a --false nie istnieje, wiec kazda wlasciwosc czytana jako
+       var(--has-classic-forms, …) — tlo, radius, padding — staje sie
+       nieprawidlowa i odpada. Dlatego tlo/ramke/radius podajemy wprost,
+       a zmienne deklarujemy NA input (Blocksy deklaruje je tam samo,
+       wiec deklaracja na formie przegrywa jako dalsza w drzewie). */
+    #search-modal .ct-search-form input[name="s"] {
+        --theme-form-field-height: 44px;
+        --theme-form-font-size: 16px;
+        flex: 0 0 auto;
+        min-height: 44px;
+        margin-bottom: 0;
+        padding: 0 44px 0 14px;                /* miejsce na lupe po prawej */
+        font-size: 16px;                       /* < 16px => iOS zoomuje przy focusie */
+        line-height: 1.2;
+        color: #1A1A1A;
+        background-color: #F7F7F5;
+        border: 1px solid #D5D5D0;
+        border-radius: 8px;
+        transition: border-color .18s ease, background-color .18s ease;
+    }
+
+    #search-modal .ct-search-form input[name="s"]:focus {
+        background-color: #FFFFFF;
+        border-color: #009036;
+    }
+
+    /* przycisk lupy jest absolute — wyrownaj go do 44px pola */
+    #search-modal form .ct-search-form-controls {
+        top: 0;
+        height: 44px;
+        align-items: center;
+    }
+
+    /* --- wyniki: jedna kolumna, przewijalne, input zostaje na gorze --- */
+    #search-modal form .ct-search-results {
+        grid-template-columns: 1fr;
+        row-gap: 12px;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;                       /* Blocksy ma overflow:clip */
+        overscroll-behavior: contain;
+        margin-block-start: 12px;
+        padding-block-start: 12px;
+        border-block-start: 1px solid #E5E5E0;  /* separator input <-> wyniki */
+
+        --items-spacing: 12px;
+        --items-padding: 0 0 12px 0;
+        --items-divider: 1px solid #E5E5E0;
+    }
+
+    /* Blocksy ustawia --search-image-size na SAMYM .ct-media-container
+       (15%/20% zaleznie od breakpointu), wiec deklaracja na przodku
+       przegrywa — trzeba nadpisac dokladnie tu. */
+    #search-modal form .ct-search-results .ct-media-container {
+        --search-image-size: 40px;
+        align-self: center;
+        aspect-ratio: 1;
+    }
+
+    /* Produkty bez obrazka wyroznionego nie dostaja .ct-media-container
+       w ogole (Blocksy pomija element), przez co tekst startuje od
+       krawedzi i wiersz lamie rytm listy. Rezerwujemy ten sam slot 40px
+       neutralnym kafelkiem. Blocksy uzywa :has() we wlasnym CSS, wiec
+       baza wsparcia jest juz zalozona przez motyw.
+       Celujemy w .ct-search-item, a nie w gole "a" — ostatnim dzieckiem
+       listy jest a.ct-search-more ("Pokaz wiecej"), ktory rowniez nie ma
+       .ct-media-container i dostalby pusty kafelek. */
+    #search-modal form .ct-search-results a.ct-search-item:not(:has(.ct-media-container))::before {
+        content: "";
+        flex: 0 0 40px;
+        height: 40px;
+        align-self: center;
+        border-radius: 2px;
+        background-color: #F5F3F0;
+    }
+
+    /* cena + status w jednej linii, bez lamania w pionie */
+    #search-modal form .ct-search-results .product-search-meta {
+        flex-wrap: nowrap;
+        white-space: nowrap;
+    }
+
+    /* "Pokaz wiecej" rozciaga sie na cala (jedna) kolumne */
+    #search-modal form .ct-search-results .ct-search-more {
+        padding-block-start: 4px;
+    }
+}

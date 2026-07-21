@@ -557,6 +557,26 @@ function gorvita_enqueue_product_cards_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_product_cards_assets', 20 );
 
+/**
+ * Mobile layout for the Blocksy search modal (#search-modal).
+ * Loaded on every view — the modal lives in .ct-drawer-canvas, which the
+ * header renders on all pages. Media-queried to <=999px inside the file,
+ * so desktop is untouched.
+ */
+function gorvita_enqueue_search_modal_css() {
+    $path = get_stylesheet_directory() . '/css/search-modal.css';
+    if ( ! file_exists( $path ) ) {
+        return;
+    }
+    wp_enqueue_style(
+        'gorvita-search-modal',
+        get_stylesheet_directory_uri() . '/css/search-modal.css',
+        [ 'gorvita-child-style' ],
+        filemtime( $path )
+    );
+}
+add_action( 'wp_enqueue_scripts', 'gorvita_enqueue_search_modal_css', 20 );
+
 function gorvita_o_marce_accordion_js() {
     if ( ! is_page( 119 ) ) {
         return;
@@ -1798,3 +1818,80 @@ function gorvita_free_shipping_gross_qualify( $is_available, $package, $method )
 		: ( $has_met_min_amount || $has_coupon );
 }
 add_filter( 'woocommerce_shipping_free_shipping_is_available', 'gorvita_free_shipping_gross_qualify', 10, 3 );
+
+/* ============================================================
+   GORVITA — mobile header search: restrict to products
+   The Blocksy "search" header element (magnifier → #search-modal)
+   defaults to searching posts + pages + products. With more than
+   one post type, blocksy/searchform.php:346 emits ct_post_type
+   instead of post_type, so the results page is not a WooCommerce
+   product archive and renders the blog listing with no product
+   grid. Collapse it to products only — matching the desktop and
+   off-canvas boxes, which already send post_type=product — and
+   turn on the price in the live results for parity.
+   ============================================================ */
+add_filter( 'search_form_args', 'gorvita_search_form_products_only' );
+function gorvita_search_form_products_only( $args ) {
+    if ( empty( $args['ct_post_type'] ) || ! is_array( $args['ct_post_type'] ) ) {
+        return $args;
+    }
+    if ( count( $args['ct_post_type'] ) < 2
+        || ! in_array( 'product', $args['ct_post_type'], true ) ) {
+        return $args;
+    }
+
+    $args['ct_post_type']     = array( 'product' );
+    $args['ct_product_price'] = true;
+
+    return $args;
+}
+
+/* ============================================================
+   GORVITA — Polish strings for the Blocksy search UI
+   The blocksy theme ships no pl_PL .mo at all (only blocksy.pot),
+   and blocksy-companion-pl_PL.po leaves these msgstr empty, so the
+   search page renders English headings on a pl_PL site. Override
+   via gettext — survives theme/plugin updates and language packs.
+   ============================================================ */
+add_filter( 'gettext', 'gorvita_translate_search_strings', 10, 3 );
+function gorvita_translate_search_strings( $translation, $text, $domain ) {
+    if ( 'blocksy' !== $domain && 'blocksy-companion' !== $domain ) {
+        return $translation;
+    }
+    static $map = null;
+    if ( null === $map ) {
+        $map = array(
+            // hero / archive title — blocksy + blocksy-companion
+            'Search Results for %1$s'         => 'Wyniki wyszukiwania: %1$s',
+            '%1$sSearch Results for%2$s %3$s' => '%1$sWyniki wyszukiwania:%2$s %3$s',
+            // breadcrumbs
+            'Searching for:'                  => 'Wyniki dla:',
+            // empty state
+            '%sSorry, but nothing matched your search terms. Please try again with some different keywords.%s'
+                => '%sNiestety, nic nie pasuje do tego zapytania. Spróbuj ponownie, używając innych słów.%s',
+            // modal + form a11y
+            'Search modal'                    => 'Okno wyszukiwania',
+            'Close search modal'              => 'Zamknij wyszukiwanie',
+            'Search for...'                   => 'Szukaj…',
+            // live results
+            'Search results'                  => 'Wyniki wyszukiwania',
+            'No results'                      => 'Brak wyników',
+            'Show more'                       => 'Pokaż więcej',
+            'In stock'                        => 'Dostępny',
+            'Out of stock'                    => 'Niedostępny',
+        );
+    }
+    return $map[ $text ] ?? $translation;
+}
+
+/* Live-search result count uses _n(), which gettext does not cover. */
+add_filter( 'ngettext', 'gorvita_translate_search_plurals', 10, 5 );
+function gorvita_translate_search_plurals( $translation, $single, $plural, $number, $domain ) {
+    if ( 'blocksy' !== $domain
+        || 'You got %s result. Please press Tab to select it.' !== $single ) {
+        return $translation;
+    }
+    return ( 1 === (int) $number )
+        ? 'Znaleziono %s wynik. Naciśnij Tab, aby go wybrać.'
+        : 'Znaleziono %s wyników. Naciśnij Tab, aby wybrać.';
+}
