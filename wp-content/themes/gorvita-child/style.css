@@ -1247,9 +1247,27 @@ body.page-id-991 .gorvita-hero {
 .fluent_form_2 .error.text-danger { color: #ffd9d9 !important; }
 
 /* === Archive hero title — keep the h1 look after the H2 downgrade on search ===
-   gorvita_demote_archive_hero_title_on_search() renders the hero title of
-   content block 971 as <h2> on /?s=…&post_type=product so the page keeps a
-   single H1 (Blocksy's h1.page-title). The Customizer sheet sets
-   h1 { font-weight: 300 } but h2 { font-weight: 400 }, so re-pin the weight —
-   .ct-dynamic-data.has-large-font-size (0,2,0) outranks the bare h2 selector. */
+
+   WHY THIS RULE EXISTS
+   gorvita_demote_archive_hero_title_on_search() in functions.php renders the
+   hero title of content block 971 ("Archives - Hero Section") as <h2> instead
+   of <h1> on /?s=…&post_type=product, so that page keeps a single H1
+   (Blocksy's own h1.page-title). Without the rule below, that downgrade is
+   VISIBLE: the live Customizer Additional CSS — WP post 260, mirrored in
+   docs/customizer-additional-css-v6.20.css:288 — declares
+
+       h1 { font-weight: 300 !important; }  h2 { font-weight: 400 !important; }
+
+   so the search-page hero title would jump from light 300 to 400 while the
+   identical hero on /sklep/ and /kategorie/* (still an h1) stays at 300.
+
+   This is the counter-rule. It wins despite post 260 loading AFTER style.css:
+   both declarations are !important, and .ct-dynamic-data.has-large-font-size
+   (0,2,0) outranks the bare h2 element selector (0,0,1).
+
+   Scoped to .has-large-font-size so it only touches dynamic-data blocks used
+   as archive titles, not every ct-dynamic-data field on the site.
+
+   Remove this rule ONLY together with the functions.php filter — see the
+   comment block above gorvita_demote_archive_hero_title_on_search(). */
 .ct-dynamic-data.has-large-font-size { font-weight: 300 !important; }
