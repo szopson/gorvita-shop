@@ -53,6 +53,14 @@ docker compose exec wordpress wp cache flush --allow-root
 - Push do `main` → GitHub Actions `deploy-staging.yml` → rsync do VPS `/opt/gorvita-shop/` → `docker compose exec wordpress wp cache flush`
 - Merge do `production` → `deploy-production.yml` (gdy będzie produkcja gotowa)
 
+## Backup
+- **Migawki całej VM u Hostingera** — automatyczne, przechowywane **poza serwerem**, ~4 kopie, czas przywracania ok. **54 min**. To jedyna kopia, która przeżyje utratę VPS-a. Niewidoczne z wnętrza maszyny (poziom hipernadzorcy) — sprawdzać w panelu Hostingera, nie przez `cron`/`systemctl` na VM.
+  - **Zastrzeżenie 1:** przywracanie obejmuje **CAŁĄ maszynę** — produkcję i staging naraz. Nie da się przywrócić jednego środowiska.
+  - **Zastrzeżenie 2:** nie da się odzyskać samej bazy ani pojedynczego pliku — tylko cały obraz.
+  - **Zastrzeżenie 3:** najnowsza migawka bywa o kilkanaście godzin starsza niż ostatnia zmiana.
+- **Do cofania pojedynczej operacji migawki się NIE nadają.** Przed każdą operacją na danych robić własny zrzut (`wp db export`) bezpośrednio przed nią — tak jak w całym audycie cen z 2026-07-22. Migawka to zabezpieczenie przed utratą maszyny, zrzut to zabezpieczenie przed własnym błędem.
+- **Zrzut przed deployem** — `deploy-production.yml` robi bramkowany `mariadb-dump` do `backups/pre-deploy-*.sql.gz` i przerywa wdrożenie, gdy plik jest pusty. Wyzwalany **wdrożeniem, nie kalendarzem** — w tygodniu bez wdrożeń nie powstaje nic. Leży na tym samym dysku, więc nie zastępuje migawki.
+
 ## Credentials (NIE w repo!)
 - `.env` na VPS w `/opt/gorvita-shop/.env`
 - `.env.example` w repo jako template
