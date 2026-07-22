@@ -201,6 +201,40 @@ table.notes-totals {
 	text-align: right;
 }
 
+/* 8-column variant: B2B invoices under wariant B — one combined "catalogue / discount"
+   column ("20,10 zł / −18%"). Mutually exclusive with .has-discount-cols below: an order
+   either carries a discount fee or has the discount baked into the unit price, never both.
+   Product column gives up 8pp so the combined column fits without shrinking the money
+   columns, which must stay wide enough for 3-digit values. */
+.order-details.has-catalog-col {
+	font-size: 8.5pt;
+}
+
+.order-details.has-catalog-col .product {
+	width: 22%;
+}
+
+.order-details.has-catalog-col .quantity {
+	width: 6%;
+}
+
+.order-details.has-catalog-col .catalog-discount {
+	width: 15%;
+	text-align: right;
+	white-space: nowrap;
+}
+
+.order-details.has-catalog-col .unit-price,
+.order-details.has-catalog-col .net-total,
+.order-details.has-catalog-col .vat-amount,
+.order-details.has-catalog-col .gross-total {
+	width: 12%;
+}
+
+.order-details.has-catalog-col .vat-rate {
+	width: 7%;
+}
+
 /* 9-column variant: B2B invoices carrying a discount fee (after-discount net columns) */
 .order-details.has-discount-cols {
 	font-size: 8pt;

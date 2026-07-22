@@ -167,13 +167,35 @@ if ( $gorvita_show_discount_cols ) {
 		$gorvita_line_discounts[ $gorvita_largest_item_id ] = round( $gorvita_line_discounts[ $gorvita_largest_item_id ] + $gorvita_residual, 2 );
 	}
 }
+
+/*
+ * "Cena katalogowa / rabat" column — the wariant-B counterpart of the fee-based
+ * columns above. Under discount_show_everywhere the discount is already inside the
+ * unit price, so there is no fee to allocate; instead each line carries
+ * _gorvita_cena_katalogowa_netto and _gorvita_rabat_procent, written at order
+ * creation (inc/b2b-rabat-na-pozycji.php).
+ *
+ * The two column sets are mutually exclusive by construction: a fee order takes the
+ * branch above, a wariant-B order takes this one. Rendering both would state the
+ * discount twice and break the reconciliation between lines and totals.
+ *
+ * B2C orders get no column at all — not an empty one. An order predating the meta
+ * (wariant B before this deployment) gets the column with an em dash, because the
+ * discount is real but unrecorded, and inventing it from today's rules would put a
+ * fabricated number on an invoice.
+ */
+$gorvita_is_b2b = ( 'yes' === $this->order->get_meta( 'b2bking_is_b2b_order' ) );
+$gorvita_pokaz_katalog = ( $gorvita_is_b2b && ! $gorvita_show_discount_cols );
 ?>
 
-<table class="order-details<?php echo $gorvita_show_discount_cols ? ' has-discount-cols' : ''; ?>">
+<table class="order-details<?php echo $gorvita_show_discount_cols ? ' has-discount-cols' : ''; ?><?php echo $gorvita_pokaz_katalog ? ' has-catalog-col' : ''; ?>">
 	<thead>
 		<tr>
 			<th class="product"><?php esc_html_e( 'Produkt', 'gorvita' ); ?></th>
 			<th class="quantity"><?php esc_html_e( 'Ilość', 'gorvita' ); ?></th>
+			<?php if ( $gorvita_pokaz_katalog ) : ?>
+				<th class="catalog-discount"><?php esc_html_e( 'Katalog / rabat', 'gorvita' ); ?></th>
+			<?php endif; ?>
 			<th class="unit-price"><?php esc_html_e( 'Cena netto', 'gorvita' ); ?></th>
 			<?php if ( $gorvita_show_discount_cols ) : ?>
 				<th class="unit-price-discounted"><?php esc_html_e( 'Cena netto po rabacie', 'gorvita' ); ?></th>
@@ -216,6 +238,23 @@ if ( $gorvita_show_discount_cols ) {
 					<?php do_action( 'wpo_wcpdf_after_item_meta', $this->get_type(), $item, $this->order ); ?>
 				</td>
 				<td class="quantity"><?php echo esc_html( $item['quantity'] ); ?></td>
+				<?php if ( $gorvita_pokaz_katalog ) : ?>
+					<?php
+					$gorvita_kat  = $order_item->get_meta( '_gorvita_cena_katalogowa_netto' );
+					$gorvita_proc = $order_item->get_meta( '_gorvita_rabat_procent' );
+					?>
+					<td class="catalog-discount">
+						<?php if ( '' !== $gorvita_kat && '' !== $gorvita_proc ) : ?>
+							<?php
+							// Trailing zeros off: 18.00 reads as "18%", 17.50 stays "17,5%".
+							$gorvita_proc_txt = rtrim( rtrim( number_format( (float) $gorvita_proc, 2, ',', '' ), '0' ), ',' );
+							echo esc_html( $gorvita_pdf_price( (float) $gorvita_kat ) . ' / −' . $gorvita_proc_txt . '%' );
+							?>
+						<?php else : ?>
+							—
+						<?php endif; ?>
+					</td>
+				<?php endif; ?>
 				<td class="unit-price"><?php echo esc_html( $gorvita_pdf_price( $unit_net ) ); ?></td>
 				<?php if ( $gorvita_show_discount_cols ) : ?>
 					<td class="unit-price-discounted"><?php echo esc_html( $gorvita_pdf_price( $unit_net_after ) ); ?></td>

@@ -1,0 +1,130 @@
+ID	sku	nazwa	status	regular_price	sale_price	tax_class	tax_status
+12	GV-22	Acerola 500mg 60 kapsułek	publish	21.0		reduced-rate	taxable
+14	GV-133	Apleplus C,E 30 kapsułek	publish	13.0		reduced-rate	taxable
+16	5907636994800	ARTREVIT 60 kapsułek	publish	34.0		reduced-rate	taxable
+18	GV-33	Artrofit 3w1 60 kapsułek	publish	55.0		reduced-rate	taxable
+19	5907636994749	Babka Płesznik 60 kapsułek	publish	24.0		reduced-rate	taxable
+21	5903317643081	BABKA PŁESZNIK mielona 150g	publish	17.0		reduced-rate	taxable
+23	GV-114	Calcium Natural 70 kapsułek	publish	17.0		reduced-rate	taxable
+25	5907636994107	CARBOsal syrop 100ml	publish	16.0		reduced-rate	taxable
+27	5907636994077	CARBOSAL + z czarną jagodą 30 kapsułek	publish	13.0		reduced-rate	taxable
+29	5907636994572	Chrom Forte	publish	17.0		reduced-rate	taxable
+31	GV-140	Chrom z zieloną herbatą	publish	17.0		reduced-rate	taxable
+35	GV-103	Citrogreft 60 kapsułek	publish	27.0		reduced-rate	taxable
+37	GV-40	Colacal - kolagen z wapniem 60 kapsułek	publish	51.0		reduced-rate	taxable
+39	8594011210111	Colafit 60 kostek	publish	77.0		reduced-rate	taxable
+41	8594011210173	Colafit SLIM z Chitosanem 60 kapsułek	publish	51.0		reduced-rate	taxable
+43	GV-43	Colahial 60 kapsułek	publish	53.0		reduced-rate	taxable
+45	GV-44	Cynk + witamina B6 30 tabletek	publish	16.0		reduced-rate	taxable
+47	5907636994589	Energia	publish	14.0		reduced-rate	taxable
+49	5907636994084	Erotic dla kobiet - afrodyzjak 20 kapsułek	publish	32.0		reduced-rate	taxable
+51	5907636994091	Erotic dla mężczyzn - afrodyzjak 20 kapsułek	publish	32.0		reduced-rate	taxable
+53	GV-130	Geriafix x60 kapsułek	publish	43.0		reduced-rate	taxable
+55	5907636994404	GOTU KOLA x60 kapsułek	publish	19.0		reduced-rate	taxable
+57	5907636994183	Hepasal 40 kapsułek	publish	16.0		reduced-rate	taxable
+61	GV-105	Jarmuż 60 kapsułek	publish	24.0		reduced-rate	taxable
+63	GV-50	KUDZU 60 kapsułek	publish	28.0		reduced-rate	taxable
+65	GV-112	Magnez B6 60 kapsułek	publish	12.0		reduced-rate	taxable
+67	GV-143	Olej CBD w Kapsułkach	publish	69.0		reduced-rate	taxable
+69	GV-122	Olej z konopii CBD 10% 10ml	publish	166.0		reduced-rate	taxable
+70	GV-123	Olej z konopii CBD 10% 20ml	publish	320.0		reduced-rate	taxable
+71	GV-124	Olej z konopii CBD 5% 10ml	publish	92.0		reduced-rate	taxable
+72	GV-125	Olej z konopii CBD 5% 20ml	publish	177.0		reduced-rate	taxable
+73	5903317643074	OSTROPEST mielony 150g	publish	14.0		reduced-rate	taxable
+75	5903317643067	OSTROPEST x60 kaps.	publish	15.0		reduced-rate	taxable
+77	GV-115	Resveratrol 60 kapsułek	publish	44.0		reduced-rate	taxable
+79	GV-104	Rokitnik i Acerola 60 kapsułek	publish	26.0		reduced-rate	taxable
+81	5907636994015	Silicum + H ( KRZEM+ BIOTYNA ) 30 tabletek	publish	19.0		reduced-rate	taxable
+83	GV-102	Spirulina 60 kapsułek	publish	20.0		reduced-rate	taxable
+85	5907636994428	Zielona Kawa 60 kapsułek	publish	31.0		reduced-rate	taxable
+87	5907636994176	Zielony Jęczmień 120 kapsułek	publish	38.0		reduced-rate	taxable
+89	5907636994732	Zielony Jęczmień 60 kapsułek	publish	24.0		reduced-rate	taxable
+91	5907636994169	Zielony Jęczmień w proszku 100 gram	publish	30.0		reduced-rate	taxable
+93	GV-23	Alantoin Maść 50 ml	publish	14.0			taxable
+95	GV-24	AloeVera Żel 150 ml	publish	22.0	20.15		taxable
+97	5907636994831	ARCACET pianka 100 ml	publish	19.0			taxable
+99	GV-32	ArtroŻel 100 ml	publish	21.0			taxable
+101	5907636994664	Balsam do ust z witaminami A,E,F 20 ml	publish	13.0			taxable
+103	5907636994251	Balsam Koński 250 ml	publish	20.0			taxable
+105	GV-37	Balsam z Konopii 5% CBD 200 ml	publish	24.0			taxable
+107	GV-145	BLIZNA Maść na blizny 20ml	publish	25.0			taxable
+109	5907636994862	Diabelski (Czarci) Pazur balsam 200 ml	publish	24.0			taxable
+111	5907636994503	Końska Maść 250 ml	publish	21.0			taxable
+113	5907636994602	Końska Maść Chłodząca 130 ml	publish	15.0			taxable
+139	GV-54	Maść Arnikowa 130 ml	publish	23.0			taxable
+141	GV-55	Maść Borowinowa 130 ml	publish	23.0			taxable
+143	GV-56	Maść dla Sportowców 150 ml	publish	23.0			taxable
+145	5907636994541	Maść Kasztanowa 130 ml	publish	22.0			taxable
+155	GV-126	Maść Konopna 5% CBD	publish	27.0			taxable
+157	GV-109	Maść Nagietkowa 130ml	publish	23.0			taxable
+159	5907636994244	Maść Niedźwiedzi Ząb 200 ml	publish	23.0			taxable
+161	5907636994695	Maść Propolisowa 10% z witaminami A,E,F 50 ml	publish	17.0			taxable
+163	5903317643029	Maść Rokitnikowa 140ml	publish	23.0			taxable
+165	GV-148	Maść Rumiankowa z olejem CBD 5% 80 ml	publish	25.0	12.51		taxable
+167	5907636994237	Maść Świerkowa 135 ml	publish	24.0			taxable
+169	5907636994633	Maść Witaminowa A,E,F 20ml	publish	11.0			taxable
+171	5903317643180	Maść z kurkumą, nagietkiem i olejem CBD 5% 80 ml	publish	23.0			taxable
+173	GV-64	Maść z Żyworódki 130 ml	publish	23.0			taxable
+175	GV-131	Maść żywokostowa z olejem CBD 140ml	publish	25.0			taxable
+177	5903317643234	Mosqitos 100ml	publish	12.0			taxable
+179	5903317643241	Mosqitos Zestaw Płyn 20ml i Żel 20ml	publish	16.0	14.62		taxable
+181	5907636994930	Olej Kokosowy w żelu 200 ml	publish	22.0			taxable
+183	5907636994329	Olejek Pichtowy 100 ml	publish	15.0	13.51	reduced-rate	taxable
+185	GV-67	Panthenol Pianka 100 ml	publish	17.0			taxable
+187	5907636994534	Panthenol Żel 100 ml	publish	17.0			taxable
+189	5907636994312	Pneumovit Żel 100 ml	publish	17.0		reduced-rate	taxable
+191	5907636994213	Pneumovit Żel 200 ml	publish	22.0		reduced-rate	taxable
+193	GV-74	Puder Rodzinny Pielęgnacyjny 50 ml	publish	12.0			taxable
+195	GV-108	RABKA SPA MINERALE spray 200 ml	publish	17.0		reduced-rate	taxable
+197	5907636994374	RABKA SPA MINERALE żel 200 ml	publish	19.0		reduced-rate	taxable
+199	5907636994381	Venal Spray 115 ml	publish	19.0			taxable
+201	GV-78	Venal Żel 150 ml	publish	22.0			taxable
+203	5907636994343	Zdrowa Stopa Kremo - Żel do stóp 100 ml	publish	14.0			taxable
+205	5907636994497	Żel Anticelluitis 200 ml	publish	21.0			taxable
+207	GV-86	Żel kasztanowy z rutyną 200 ml	publish	23.0			taxable
+209	GV-147	Żel łagodzący po ukąszeniach owadów 20ml	publish	9.0		reduced-rate	taxable
+210	5907636994527	Żel z Arniką i Bursztynem 200 ml	publish	23.0			taxable
+212	5907636994466	Żel z Kasztanowcem 200 ml	publish	22.0			taxable
+214	GV-90	Żel z Kasztanowcem, Miłorzębem i Babką Lancetowatą 200 ml	publish	23.0			taxable
+216	GV-94	Żel z Żywkostem 200 ml	publish	23.0			taxable
+218	GV-95	Żel ze świetlikiem i kolagenem 20 ml	publish	15.0			taxable
+220	GV-93	Żel Żywokostowy z Boswellią 200 ml	publish	23.0			taxable
+222	GV-96	Żel Żywokostowy z Jałowcem i MSM 200 ml	publish	23.0			taxable
+224	5907636994916	Żyworódka w Zasypce 50 ml	publish	16.0			taxable
+226	GV-27	APHTIHELP gel 10 g	publish	15.0			taxable
+228	5907636994763	Aurix 35 ml	publish	20.0		reduced-rate	taxable
+230	GV-69	Pneumovit BABY 35 ml	publish	17.0		reduced-rate	taxable
+232	5907636994206	Pneumovit Spray do nosa 35 ml	publish	17.0		reduced-rate	taxable
+234	GV-73	Pneumovit Zatoki 50 ml	publish	17.0		reduced-rate	taxable
+1058		Offer	draft				
+1059		Credit	draft			zero-rate	none
+1441	5903317643302	Witamina C 500mg VEGAN	publish	21.0		reduced-rate	taxable
+1486		LIBIDO Vegan	publish	42.0		reduced-rate	taxable
+1549		LUTEINA Vegan	publish	23.0		reduced-rate	taxable
+1550		Magnez B6 VEGAN	publish	14.0		reduced-rate	taxable
+1551	5903317643289	Collagen Vegan	publish	56.0		reduced-rate	taxable
+2038	5907636994756	AloeVera z Zieloną Herbatą x60 kaps.	publish	21.0		reduced-rate	taxable
+2040	5907636994121	Apleplus C,E – Ocet Jabłkowy x30 kaps.	publish	13.0		reduced-rate	taxable
+2042	5907636994220	Apleplus Forte z Zieloną Herbatą x30 kaps.	publish	17.0		reduced-rate	taxable
+2044	5903317643043	Ashwagandha x60 kaps.	publish	25.0		reduced-rate	taxable
+2046	5903317643050	Ashwagandha + Gotu Kola x60 kaps.	publish	25.0		reduced-rate	taxable
+2048	5907636994060	Carbocaps x30 kaps.	publish	12.0		reduced-rate	taxable
+2049	5907636994725	Carbocaps x20 kaps.	publish	9.0		reduced-rate	taxable
+2050	5907636994992	Czystek x60 kaps.	publish	21.0		reduced-rate	taxable
+2052	5907636994114	Koenzym Q10 30mg z Magnezem x30 kaps.	publish	23.0		reduced-rate	taxable
+2053	5907636994985	Kwas Hialuronowy x60 kaps.	publish	38.0		reduced-rate	taxable
+2054	5903317643210	Magnez B6 + Ashwagandha x60 kaps.	publish	24.0		reduced-rate	taxable
+2056	5907636994558	Maść Końska Rozgrzewająca 130ml	publish	15.0			taxable
+2058	5903317643258	Mosqitos Płyn 20ml	publish	7.0			taxable
+2059	5907636994596	Pneumovit Pastylki x16	publish	13.0			taxable
+2060	5907636994565	Pneumovit Pastylki x8	publish	9.0			taxable
+2061	5907636994282	Pneumovit Sept Aerozol 35ml	publish	17.0		reduced-rate	taxable
+2063	5907636994022	Selen A,C,E Antyoksydanty x30 tab.	publish	20.0		reduced-rate	taxable
+2065	5907636994190	Zdrowe Oczy x30 kaps.	publish	16.0		reduced-rate	taxable
+2067	5907636994411	Carbosal + z Czarną Jagodą x20 kaps.	publish	11.0		reduced-rate	taxable
+2068	5903317643333	Karczoch Ostropest x60 kaps.	publish	24.0		reduced-rate	taxable
+2069	5907636994879	Maść Witaminowa 50ml	publish	15.0			taxable
+2070	5907636994510	Maść Żywokostowa 130ml	publish	23.0			taxable
+2071	5907636994923	Żyworódka w Płynie 115ml	publish	19.0			taxable
+2304	GV-151	Maść żywokostowa z gojnikiem i olejem CBD 140ml	publish	24.72			taxable
+

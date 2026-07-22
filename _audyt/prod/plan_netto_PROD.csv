@@ -1,0 +1,131 @@
+wc_id;sku;nazwa;tax_class_obecna;tax_class_docelowa;vat_docelowy;cena_obecna_brutto;netto_docelowe;brutto_wynikowe;delta_brutto;zrodlo_netto;decyzja;pole
+12;5907636994152;Acerola 500mg 60 kapsułek;reduced-rate;reduced-rate;8%;21;19.50;21.06;+0.06;cennik lp1;DO_IMPORTU;regular
+14;GV-133;Apleplus C,E 30 kapsułek;reduced-rate;reduced-rate;8%;13;12.04;13.00;+0.00;z_ceny_obecnej;duplikat, poza cennikiem;regular
+16;5907636994800;ARTREVIT 60 kapsułek;reduced-rate;reduced-rate;8%;34;31.60;34.13;+0.13;cennik lp9;DO_IMPORTU;regular
+18;8594011210104;Artrofit 3w1 60 kapsułek;reduced-rate;reduced-rate;8%;55;51.00;55.08;+0.08;cennik lp11;DO_IMPORTU;regular
+19;5907636994749;Babka Płesznik 60 kapsułek;reduced-rate;reduced-rate;8%;24;22.50;24.30;+0.30;cennik lp16;DO_IMPORTU;regular
+21;5903317643081;BABKA PŁESZNIK mielona 150g;reduced-rate;reduced-rate;8%;17;15.40;16.63;-0.37;cennik lp15;DO_IMPORTU;regular
+23;5903317643012;Calcium Natural 70 kapsułek;reduced-rate;reduced-rate;8%;17;15.74;17.00;+0.00;z_ceny_obecnej;BEZ_ZMIAN lp20;regular
+25;5907636994107;CARBOsal syrop 100ml;reduced-rate;reduced-rate;8%;16;15.00;16.20;+0.20;cennik lp25;DO_IMPORTU;regular
+27;5907636994077;CARBOSAL + z czarną jagodą 30 kapsułek;reduced-rate;reduced-rate;8%;13;11.70;12.64;-0.36;cennik lp24;DO_IMPORTU;regular
+29;5907636994572;Chrom Forte;reduced-rate;reduced-rate;8%;17;15.90;17.17;+0.17;cennik lp26;DO_IMPORTU;regular
+31;5907636994794;Chrom z zieloną herbatą 30 kapsułek;reduced-rate;reduced-rate;8%;17;15.80;17.06;+0.06;cennik lp28;DO_IMPORTU;regular
+35;5907636994978;Citrogreft 60 kapsułek;reduced-rate;reduced-rate;8%;27;24.90;26.89;-0.11;cennik lp30;DO_IMPORTU;regular
+37;8594011210012;Colacal - kolagen z wapniem 60 kapsułek;reduced-rate;reduced-rate;8%;51;49.50;53.46;+2.46;cennik lp31;DO_IMPORTU;regular
+39;8594011210111;Colafit 60 kostek;reduced-rate;reduced-rate;8%;77;71.00;76.68;-0.32;cennik lp32;DO_IMPORTU;regular
+41;8594011210173;Colafit SLIM z Chitosanem 60 kapsułek;reduced-rate;reduced-rate;8%;51;47.00;50.76;-0.24;cennik lp33;DO_IMPORTU;regular
+43;5907636994817;Colahial 60 kapsułek;reduced-rate;reduced-rate;8%;53;47.50;51.30;-1.70;cennik lp34;DO_IMPORTU;regular
+45;5907636994053;Cynk + witamina B6 30 tabletek;reduced-rate;reduced-rate;8%;16;15.10;16.31;+0.31;cennik lp36;DO_IMPORTU;regular
+47;5907636994589;Energia 30 kapsułek;reduced-rate;reduced-rate;8%;14;13.00;14.04;+0.04;cennik lp39;DO_IMPORTU;regular
+49;5907636994084;Erotic dla kobiet - afrodyzjak 20 kapsułek;reduced-rate;reduced-rate;8%;32;30.00;32.40;+0.40;cennik lp40;DO_IMPORTU;regular
+51;5907636994091;Erotic dla mężczyzn - afrodyzjak 20 kapsułek;reduced-rate;reduced-rate;8%;32;30.00;32.40;+0.40;cennik lp41;DO_IMPORTU;regular
+53;5907636994848;Geriafix x60 kapsułek;reduced-rate;reduced-rate;8%;43;40.20;43.42;+0.42;cennik lp42;DO_IMPORTU;regular
+55;5907636994404;GOTU KOLA x60 kapsułek;reduced-rate;reduced-rate;8%;19;17.90;19.33;+0.33;cennik lp43;DO_IMPORTU;regular
+57;5907636994183;Hepasal 40 kapsułek;reduced-rate;reduced-rate;8%;16;14.90;16.09;+0.09;cennik lp44;DO_IMPORTU;regular
+61;5907636994954;Jarmuż 60 kapsułek;reduced-rate;reduced-rate;8%;24;22.10;23.87;-0.13;cennik lp45;DO_IMPORTU;regular
+63;5907636994299;KUDZU 60 kapsułek;reduced-rate;reduced-rate;8%;28;26.10;28.19;+0.19;cennik lp49;DO_IMPORTU;regular
+65;5907636994039;Magnez B6 60 kapsułek;reduced-rate;reduced-rate;8%;12;11.10;11.99;-0.01;cennik lp54;DO_IMPORTU;regular
+67;5903317643203;Olej CBD w Kapsułkach 60 kapsułek;reduced-rate;reduced-rate;8%;69;64.00;69.12;+0.12;cennik lp79;DO_IMPORTU;regular
+69;5903317643111;Olej z konopii CBD 10% 10ml;reduced-rate;reduced-rate;8%;166;154.00;166.32;+0.32;cennik lp82;DO_IMPORTU;regular
+70;5903317643128;Olej z konopii CBD 10% 20ml;reduced-rate;reduced-rate;8%;320;296.00;319.68;-0.32;cennik lp83;DO_IMPORTU;regular
+71;5903317643098;Olej z konopii CBD 5% 10ml;reduced-rate;reduced-rate;8%;92;85.00;91.80;-0.20;cennik lp84;DO_IMPORTU;regular
+72;5903317643104;Olej z konopii CBD 5% 20ml;reduced-rate;reduced-rate;8%;177;164.00;177.12;+0.12;cennik lp85;DO_IMPORTU;regular
+73;5903317643074;OSTROPEST mielony 150g;reduced-rate;reduced-rate;8%;14;12.90;13.93;-0.07;cennik lp86;DO_IMPORTU;regular
+75;5903317643067;OSTROPEST 60 kapsułek;reduced-rate;reduced-rate;8%;15;14.30;15.44;+0.44;cennik lp87;DO_IMPORTU;regular
+77;5907636994961;Resveratrol 60 kapsułek;reduced-rate;reduced-rate;8%;44;40.40;43.63;-0.37;cennik lp99;DO_IMPORTU;regular
+79;5907636994138;Rokitnik i Acerola 60 kapsułek;reduced-rate;reduced-rate;8%;26;23.90;25.81;-0.19;cennik lp100;DO_IMPORTU;regular
+81;5907636994015;Silicum + H ( KRZEM+ BIOTYNA ) 30 tabletek;reduced-rate;reduced-rate;8%;19;18.00;19.44;+0.44;cennik lp102;DO_IMPORTU;regular
+83;5907636994947;Spirulina 60 kapsułek;reduced-rate;reduced-rate;8%;20;18.20;19.66;-0.34;cennik lp103;DO_IMPORTU;regular
+85;5907636994428;Zielona Kawa 60 kapsułek;reduced-rate;reduced-rate;8%;31;28.30;30.56;-0.44;cennik lp109;DO_IMPORTU;regular
+87;5907636994176;Zielony Jęczmień 120 kapsułek;reduced-rate;reduced-rate;8%;38;34.90;37.69;-0.31;cennik lp111;DO_IMPORTU;regular
+89;5907636994732;Zielony Jęczmień 60 kapsułek;reduced-rate;reduced-rate;8%;24;22.40;24.19;+0.19;cennik lp112;DO_IMPORTU;regular
+91;5907636994169;Zielony Jęczmień w proszku 100 gram;reduced-rate;reduced-rate;8%;30;27.40;29.59;-0.41;cennik lp110;DO_IMPORTU;regular
+93;5907636994893;Alantoin Maść 50 ml;std;std;23%;14;11.60;14.27;+0.27;cennik lp2;DO_IMPORTU;regular
+95;5907636994367;AloeVera Żel 150 ml;std;std;23%;22;18.20;22.39;+0.39;cennik lp3;DO_IMPORTU;regular
+97;5907636994831;ARCACET pianka 100 ml;std;std;23%;19;15.30;18.82;-0.18;cennik lp8;DO_IMPORTU;regular
+99;5907636994350;ArtroŻel 100 ml;std;std;23%;21;16.80;20.66;-0.34;cennik lp10;DO_IMPORTU;regular
+101;5907636994664;Balsam do ust z witaminami A,E,F 20 ml;std;std;23%;13;10.20;12.55;-0.45;cennik lp17;DO_IMPORTU;regular
+103;5907636994251;Balsam Koński 250 ml;std;std;23%;20;16.00;19.68;-0.32;cennik lp48;DO_IMPORTU;regular
+105;5907636994145;Balsam z Konopii 5% CBD 200 ml;std;std;23%;24;19.40;23.86;-0.14;cennik lp18;DO_IMPORTU;regular
+107;5903317643272;BLIZNA Maść na blizny 20ml;std;std;23%;25;20.50;25.22;+0.22;cennik lp19;DO_IMPORTU;regular
+109;5907636994862;Diabelski (Czarci) Pazur balsam 200 ml;std;std;23%;24;19.70;24.23;+0.23;cennik lp38;DO_IMPORTU;regular
+111;5907636994503;Końska Maść 250 ml;std;std;23%;21;16.70;20.54;-0.46;cennik lp62;DO_IMPORTU;regular
+113;5907636994602;Końska Maść Chłodząca 130 ml;std;std;23%;15;11.90;14.64;-0.36;cennik lp61;DO_IMPORTU;regular
+139;5907636994886;Maść Arnikowa 130 ml;std;std;23%;23;18.50;22.76;-0.24;cennik lp56;DO_IMPORTU;regular
+141;5907636994626;Maść Borowinowa 130 ml;std;std;23%;23;18.70;23.00;+0.00;cennik lp57;DO_IMPORTU;regular
+143;5907636994442;Maść dla Sportowców 150 ml;std;std;23%;23;18.50;22.76;-0.24;cennik lp58;DO_IMPORTU;regular
+145;5907636994541;Maść Kasztanowa 130 ml;std;std;23%;22;18.00;22.14;+0.14;cennik lp59;DO_IMPORTU;regular
+155;5903317643135;Maść Konopna 5% CBD 80 ml;std;std;23%;27;21.90;26.94;-0.06;cennik lp60;DO_IMPORTU;regular
+157;5907636994398;Maść Nagietkowa 130ml;std;std;23%;23;18.00;22.14;-0.86;cennik lp64;DO_IMPORTU;regular
+159;5907636994244;Maść Niedźwiedzi Ząb 200 ml;std;std;23%;23;18.70;23.00;+0.00;cennik lp65;DO_IMPORTU;regular
+161;5907636994695;Maść Propolisowa 10% z witaminami A,E,F 50 ml;std;std;23%;17;13.70;16.85;-0.15;cennik lp66;DO_IMPORTU;regular
+163;5903317643029;Maść Rokitnikowa 140ml;std;std;23%;23;18.70;23.00;+0.00;cennik lp67;DO_IMPORTU;regular
+165;5903317643265;Maść Rumiankowa z olejem CBD 5% 80 ml;std;std;23%;14;11.30;13.90;-0.10;cennik lp68;DO_IMPORTU;regular
+167;5907636994237;Maść Świerkowa 135 ml;std;std;23%;24;19.70;24.23;+0.23;cennik lp69;DO_IMPORTU;regular
+169;5907636994633;Maść Witaminowa A,E,F 20ml;std;std;23%;11;9.00;11.07;+0.07;cennik lp71;DO_IMPORTU;regular
+171;5903317643180;Maść z kurkumą, nagietkiem i olejem CBD 5% 80 ml;std;std;23%;23;18.60;22.88;-0.12;cennik lp72;DO_IMPORTU;regular
+173;5907636994657;Maść z Żyworódki 130 ml;std;std;23%;23;19.00;23.37;+0.37;cennik lp73;DO_IMPORTU;regular
+175;5903317643197;Maść żywokostowa z olejem CBD 140ml;std;std;23%;25;20.10;24.72;-0.28;cennik lp78;DO_IMPORTU;regular
+177;5903317643234;Mosqitos 100ml;std;std;23%;12;9.50;11.69;-0.31;cennik lp75;DO_IMPORTU;regular
+179;5903317643241;Mosqitos Zestaw Płyn 20ml i Żel 20ml;std;std;23%;16;13.20;16.24;+0.24;cennik lp76;DO_IMPORTU;regular
+181;5907636994930;Olej Kokosowy w żelu 200 ml;std;std;23%;22;17.50;21.53;-0.47;cennik lp80;DO_IMPORTU;regular
+183;5907636994329;Olejek Pichtowy 100 ml;reduced-rate;reduced-rate;8%;15;13.90;15.01;+0.01;cennik lp81;DO_IMPORTU;regular
+185;5907636994688;Panthenol Pianka 100 ml;std;std;23%;17;13.50;16.61;-0.39;cennik lp88;DO_IMPORTU;regular
+187;5907636994534;Panthenol Żel 100 ml;std;std;23%;17;13.50;16.61;-0.39;cennik lp89;DO_IMPORTU;regular
+189;5907636994312;Pneumovit Żel 100 ml;reduced-rate;reduced-rate;8%;17;15.80;17.06;+0.06;cennik lp116;DO_IMPORTU;regular
+191;5907636994213;Pneumovit Żel 200 ml;reduced-rate;reduced-rate;8%;22;20.00;21.60;-0.40;cennik lp117;DO_IMPORTU;regular
+193;5907636994909;Puder Rodzinny Pielęgnacyjny 50 ml;std;std;23%;12;10.00;12.30;+0.30;cennik lp96;DO_IMPORTU;regular
+195;5907636994305;RABKA SPA MINERALE spray 200 ml;reduced-rate;reduced-rate;8%;17;15.74;17.00;+0.00;z_ceny_obecnej;BEZ_ZMIAN lp97;regular
+197;5907636994374;RABKA SPA MINERALE żel 200 ml;reduced-rate;reduced-rate;8%;19;17.40;18.79;-0.21;cennik lp98;DO_IMPORTU;regular
+199;5907636994381;Venal Spray 115 ml;std;std;23%;19;15.30;18.82;-0.18;cennik lp104;DO_IMPORTU;regular
+201;5907636994336;Venal Żel 150 ml;std;std;23%;22;19.00;23.37;+1.37;cennik lp105;DO_IMPORTU;regular
+203;5907636994343;Zdrowa Stopa Kremo - Żel do stóp 100 ml;std;std;23%;14;11.40;14.02;+0.02;cennik lp107;DO_IMPORTU;regular
+205;5907636994497;Żel Anticelluitis 200 ml;std;std;23%;21;17.40;21.40;+0.40;cennik lp113;DO_IMPORTU;regular
+207;5907636994619;Żel kasztanowy z rutyną 200 ml;std;std;23%;23;19.00;23.37;+0.37;cennik lp114;DO_IMPORTU;regular
+209;5903317643227;Żel łagodzący po ukąszeniach owadów 20ml;reduced-rate;(standard);23%;9;8.90;10.95;+1.95;cennik lp115;DO_IMPORTU + ZMIANA KLASY 8%->23% (decyzja klienta);regular
+210;5907636994527;Żel z Arniką i Bursztynem 200 ml;std;std;23%;23;19.00;23.37;+0.37;cennik lp118;DO_IMPORTU;regular
+212;5907636994466;Żel z Kasztanowcem 200 ml;std;std;23%;22;18.00;22.14;+0.14;cennik lp120;DO_IMPORTU;regular
+214;5907636994480;Żel z Kasztanowcem, Miłorzębem i Babką Lancetowatą 200 ml;std;std;23%;23;19.00;23.37;+0.37;cennik lp119;DO_IMPORTU;regular
+216;5907636994459;Żel z Żywkostem 200 ml;std;std;23%;23;18.50;22.76;-0.24;cennik lp122;DO_IMPORTU;regular
+218;5907636994640;Żel ze świetlikiem i kolagenem 20 ml;std;std;23%;15;12.60;15.50;+0.50;cennik lp123;DO_IMPORTU;regular
+220;5907636994473;Żel Żywokostowy z Boswellią 200 ml;std;std;23%;23;19.00;23.37;+0.37;cennik lp121;DO_IMPORTU;regular
+222;5907636994435;Żel Żywokostowy z Jałowcem i MSM 200 ml;std;std;23%;23;19.00;23.37;+0.37;cennik lp124;DO_IMPORTU;regular
+224;5907636994916;Żyworódka w Zasypce 50 ml;std;std;23%;16;12.70;15.62;-0.38;cennik lp126;DO_IMPORTU;regular
+226;5907636994718;APHTIHELP gel 10 g;std;std;23%;15;12.50;15.38;+0.38;cennik lp5;DO_IMPORTU;regular
+228;5907636994763;Aurix 35 ml;reduced-rate;reduced-rate;8%;20;18.40;19.87;-0.13;cennik lp14;DO_IMPORTU;regular
+230;5907636994770;Pneumovit BABY 35 ml;reduced-rate;reduced-rate;8%;17;16.10;17.39;+0.39;cennik lp90;DO_IMPORTU;regular
+232;5907636994206;Pneumovit Spray do nosa 35 ml;reduced-rate;reduced-rate;8%;17;15.50;16.74;-0.26;cennik lp94;DO_IMPORTU;regular
+234;5907636994787;Pneumovit Zatoki 50 ml;reduced-rate;reduced-rate;8%;17;16.20;17.50;+0.50;cennik lp95;DO_IMPORTU;regular
+1441;5903317643302;Witamina C 500mg VEGAN 60 kapsułek;reduced-rate;reduced-rate;8%;21;19.40;20.95;-0.05;cennik lp106;DO_IMPORTU;regular
+1486;5903317643319;LIBIDO Vegan 60 kapsułek;reduced-rate;reduced-rate;8%;42;39.00;42.12;+0.12;cennik lp51;DO_IMPORTU;regular
+1549;5903317643326;LUTEINA Vegan 60 kapsułek;reduced-rate;reduced-rate;8%;23;20.90;22.57;-0.43;cennik lp52;DO_IMPORTU;regular
+1550;5903317643296;Magnez B6 VEGAN 60 kapsułek;reduced-rate;reduced-rate;8%;14;12.70;13.72;-0.28;cennik lp55;DO_IMPORTU;regular
+1551;5903317643289;Collagen Vegan 60 kapsułek;reduced-rate;reduced-rate;8%;56;52.00;56.16;+0.16;cennik lp35;DO_IMPORTU;regular
+2038;5907636994756;AloeVera z Zieloną Herbatą 60 kapsułek;reduced-rate;reduced-rate;8%;21;19.50;21.06;+0.06;cennik lp4;DO_IMPORTU;regular
+2040;5907636994121;Apleplus C,E – Ocet Jabłkowy 30 kapsułek;reduced-rate;reduced-rate;8%;13;12.20;13.18;+0.18;cennik lp6;DO_IMPORTU;regular
+2042;5907636994220;Apleplus Forte z Zieloną Herbatą 30 kapsułek;reduced-rate;reduced-rate;8%;17;15.80;17.06;+0.06;cennik lp7;DO_IMPORTU;regular
+2044;5903317643043;Ashwagandha 60 kapsułek;reduced-rate;reduced-rate;8%;25;23.50;25.38;+0.38;cennik lp12;DO_IMPORTU;regular
+2046;5903317643050;Ashwagandha + Gotu Kola 60 kapsułek;reduced-rate;reduced-rate;8%;25;23.00;24.84;-0.16;cennik lp13;DO_IMPORTU;regular
+2048;5907636994060;Carbocaps 30 kapsułek;reduced-rate;reduced-rate;8%;12;10.70;11.56;-0.44;cennik lp21;DO_IMPORTU;regular
+2049;5907636994725;Carbocaps 20 kapsułek;reduced-rate;reduced-rate;8%;9;8.30;8.96;-0.04;cennik lp22;DO_IMPORTU;regular
+2050;5907636994992;Czystek 60 kapsułek;reduced-rate;reduced-rate;8%;21;19.60;21.17;+0.17;cennik lp37;DO_IMPORTU;regular
+2052;5907636994114;Koenzym Q10 30mg z Magnezem 30 kapsułek;reduced-rate;reduced-rate;8%;23;21.40;23.11;+0.11;cennik lp47;DO_IMPORTU;regular
+2053;5907636994985;Kwas Hialuronowy 60 kapsułek;reduced-rate;reduced-rate;8%;38;35.00;37.80;-0.20;cennik lp50;DO_IMPORTU;regular
+2054;5903317643210;Magnez B6 + Ashwagandha 60 kapsułek;reduced-rate;reduced-rate;8%;24;21.80;23.54;-0.46;cennik lp53;DO_IMPORTU;regular
+2056;5907636994558;Maść Końska Rozgrzewająca 130ml;std;std;23%;15;11.90;14.64;-0.36;cennik lp63;DO_IMPORTU;regular
+2058;5903317643258;Mosqitos Płyn 20ml;std;std;23%;7;5.90;7.26;+0.26;cennik lp77;DO_IMPORTU;regular
+2059;5907636994596;Pneumovit Pastylki 16 pastylek;std;std;23%;13;10.80;13.28;+0.28;cennik lp91;DO_IMPORTU;regular
+2060;5907636994565;Pneumovit Pastylki 8 pastylek;std;std;23%;9;7.50;9.23;+0.23;cennik lp92;DO_IMPORTU;regular
+2061;5907636994282;Pneumovit Sept Aerozol 35ml;reduced-rate;reduced-rate;8%;17;15.40;16.63;-0.37;cennik lp93;DO_IMPORTU;regular
+2063;5907636994022;Selen A,C,E Antyoksydanty 30 tabletek;reduced-rate;reduced-rate;8%;20;18.50;19.98;-0.02;cennik lp101;DO_IMPORTU;regular
+2065;5907636994190;Zdrowe Oczy 30 kapsułek;reduced-rate;reduced-rate;8%;16;15.20;16.42;+0.42;cennik lp108;DO_IMPORTU;regular
+2067;5907636994411;Carbosal + z Czarną Jagodą 20 kapsułek;reduced-rate;reduced-rate;8%;11;9.80;10.58;-0.42;cennik lp23;DO_IMPORTU;regular
+2068;5903317643333;Karczoch Ostropest 60 kapsułek;reduced-rate;reduced-rate;8%;24;22.50;24.30;+0.30;cennik lp46;DO_IMPORTU;regular
+2069;5907636994879;Maść Witaminowa 50ml;std;std;23%;15;11.80;14.51;-0.49;cennik lp70;DO_IMPORTU;regular
+2070;5907636994510;Maść Żywokostowa 130ml;std;std;23%;23;19.00;23.37;+0.37;cennik lp74;DO_IMPORTU;regular
+2071;5907636994923;Żyworódka w Płynie 115ml;std;std;23%;19;15.80;19.43;+0.43;cennik lp125;DO_IMPORTU;regular
+11586;GV-151;Maść żywokostowa z gojnikiem i olejem CBD 140ml;std;std;23%;24.72;20.10;24.72;+0.00;z_ceny_obecnej;poza cennikiem;regular
+95;5907636994367;AloeVera Żel 150 ml;;;23%;20.15;16.38;20.15;+0.00;z_ceny_promocyjnej;PROMOCJA;sale
+179;5903317643241;Mosqitos Zestaw Płyn 20ml i Żel 20ml;;;23%;14.62;11.89;14.62;+0.00;z_ceny_promocyjnej;PROMOCJA;sale
+183;5907636994329;Olejek Pichtowy 100 ml;;;8%;13.51;12.51;13.51;+0.00;z_ceny_promocyjnej;PROMOCJA;sale
+11586;GV-151;Maść żywokostowa z gojnikiem i olejem CBD 140ml;;;23%;22.25;18.09;22.25;+0.00;z_ceny_promocyjnej;PROMOCJA;sale

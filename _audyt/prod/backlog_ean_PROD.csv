@@ -1,0 +1,50 @@
+wc_id;sku_obecny;nazwa_wc;kandydat_1_nazwa;kandydat_1_score;kandydat_2_nazwa;kandydat_2_score;margines;powod
+175;GV-131;Maść żywokostowa z olejem CBD 140ml;MAŚĆ ŻYWOKOSTOWA Z OLEJEM CBD 140ml;1.150;produkt: Maść żywokostowa z gojnikiem i olejem CBD 140ml;0.993;0.157;AMBIGUOUS: konkurent 0.993 vs 1.150
+31;GV-140;Chrom z zieloną herbatą 30 kapsułek;CHROM Z ZIELONĄ HERBATĄ X 30 KAPS.;1.134;cennik: CHROM Z ZIELONĄ HERBATĄ X 30 TAB.;0.928;0.206;WYMUSZONE: warianty Chromu nierozstrzygnięte
+1550;;Magnez B6 VEGAN 60 kapsułek;MAGNEZ B6 VEGAN X 60 KAPS.;1.129;produkt: Magnez B6 60 kapsułek;0.955;0.174;AMBIGUOUS: konkurent 0.955 vs 1.129
+18;GV-33;Artrofit 3w1 60 kapsułek;ARTROFIT X 60 KAPS.;0.972;produkt: ARTREVIT 60 kapsułek;0.812;0.160;AMBIGUOUS: konkurent 0.812 vs 0.972
+12;GV-22;Acerola 500mg 60 kapsułek;ACEROLA x 60 KAPS.;0.946;produkt: Rokitnik i Acerola 60 kapsułek;0.874;0.072;AMBIGUOUS: konkurent 0.874 vs 0.946
+193;GV-74;Puder Rodzinny Pielęgnacyjny 50 ml;PUDER RODZINNY PIELĘGNUJĄCY 50 ML;0.946;produkt: Alantoin Maść 50 ml;0.524;0.422;score 0,70–0,94
+79;GV-104;Rokitnik i Acerola 60 kapsułek;ROKITNIK I ACEROLA x60 kaps.;0.941;cennik: ACEROLA x 60 KAPS.;0.874;0.067;AMBIGUOUS: konkurent 0.874 vs 0.941
+67;GV-143;Olej CBD w Kapsułkach 60 kapsułek;OLEJ CBD W KAPSUŁKACH x60 KAPS.;0.939;cennik: COLACAL X 60 KAPS.;0.625;0.314;score 0,70–0,94
+216;GV-94;Żel z Żywkostem 200 ml;ŻEL Z ŻYWOKOSTEM 200 ML;0.939;cennik: ŻEL Z KASZTANOWCEM 200 ML;0.833;0.106;AMBIGUOUS: konkurent 0.833 vs 0.939
+201;GV-78;Venal Żel 150 ml;VENAL ŻEL CHŁODZĄCY 150 ML;0.931;cennik: ALOE VERA ŻEL 150 ML;0.761;0.170;AMBIGUOUS: konkurent 0.761 vs 0.931
+222;GV-96;Żel Żywokostowy z Jałowcem i MSM 200 ml;ŻEL ŻYWOKOSTOWY Z JAŁOWCEM I MSM 200ML;0.929;cennik: ŻEL Z ŻYWOKOSTEM 200 ML;0.703;0.226;score 0,70–0,94
+63;GV-50;KUDZU 60 kapsułek;KUDZU ROOT X 60 KAPS.;0.919;cennik: COLACAL X 60 KAPS.;0.667;0.252;score 0,70–0,94
+105;GV-37;Balsam z Konopii 5% CBD 200 ml;BALSAM Z KONOPII 200 ML;0.917;produkt: Żel z Kasztanowcem 200 ml;0.608;0.309;score 0,70–0,94
+43;GV-43;Colahial 60 kapsułek;COLAHIAL KOLAGEN X 60 KAPS.;0.906;cennik: COLACAL X 60 KAPS.;0.824;0.082;AMBIGUOUS: konkurent 0.824 vs 0.906
+220;GV-93;Żel Żywokostowy z Boswellią 200 ml;ŻEL Z ŻYWOK. I BOSWELLIĄ 200 ML;0.905;produkt: Żel z Żywkostem 200 ml;0.785;0.120;AMBIGUOUS: konkurent 0.785 vs 0.905
+155;GV-126;Maść Konopna 5% CBD 80 ml;MAŚĆ KONOPNA 80 ml;0.902;produkt: Maść Rumiankowa z olejem CBD 5% 80 ml;0.592;0.310;score 0,70–0,94
+207;GV-86;Żel kasztanowy z rutyną 200 ml;ŻEL KASZTANOWY Z RUTYNĄ 200ML;0.892;cennik: ŻEL Z KASZTANOWCEM 200 ML;0.764;0.128;AMBIGUOUS: konkurent 0.764 vs 0.892
+107;GV-145;BLIZNA Maść na blizny 20ml;BLIZNA MAŚĆ NA BLIZNY 20 ML;0.891;cennik: MAŚĆ WITAMINOWA A,E,F 20ML;0.525;0.366;score 0,70–0,94
+143;GV-56;Maść dla Sportowców 150 ml;MAŚĆ DLA SPORTOWCÓW 150ML;0.890;cennik: ALOE VERA ŻEL 150 ML;0.514;0.376;score 0,70–0,94
+95;GV-24;AloeVera Żel 150 ml;ALOE VERA ŻEL 150 ML;0.887;produkt: Venal Żel 150 ml;0.761;0.126;AMBIGUOUS: konkurent 0.761 vs 0.887
+77;GV-115;Resveratrol 60 kapsułek;RESVERATROL x60 kaps.;0.887;cennik: ACEROLA x 60 KAPS.;0.733;0.154;AMBIGUOUS: konkurent 0.733 vs 0.887
+35;GV-103;Citrogreft 60 kapsułek;CITROGREFT x60 kaps.;0.886;cennik: ARTROFIT X 60 KAPS.;0.761;0.125;AMBIGUOUS: konkurent 0.761 vs 0.886
+53;GV-130;Geriafix x60 kapsułek;GERIAFIX X 60 KAPS.;0.886;cennik: RESVERATROL x60 kaps.;0.724;0.162;AMBIGUOUS: konkurent 0.724 vs 0.886
+75;GV-128;OSTROPEST 60 kapsułek;OSTROPEST x60 kaps.;0.886;cennik: ARTREVIT X 60 KAPS.;0.743;0.143;AMBIGUOUS: konkurent 0.743 vs 0.886
+83;GV-102;Spirulina 60 kapsułek;SPIRULINA x60 kaps.;0.886;produkt: Geriafix x60 kapsułek;0.714;0.172;AMBIGUOUS: konkurent 0.714 vs 0.886
+61;GV-105;Jarmuż 60 kapsułek;JARMUŻ x60 kaps.;0.883;cennik: ACEROLA x 60 KAPS.;0.723;0.160;AMBIGUOUS: konkurent 0.723 vs 0.883
+214;GV-90;Żel z Kasztanowcem, Miłorzębem i Babką Lancetowatą 200 ml;ŻEL Z KASZTAN. MIŁORZĘBEM I BABKĄ LANCET. 200 ML;0.879;cennik: ŻEL Z KASZTANOWCEM 200 ML;0.744;0.135;AMBIGUOUS: konkurent 0.744 vs 0.879
+173;GV-64;Maść z Żyworódki 130 ml;MAŚĆ Z ŻYWORÓDKI 130ML;0.839;cennik: MAŚĆ KASZTANOWA 130 ML;0.739;0.100;AMBIGUOUS: konkurent 0.739 vs 0.839
+185;GV-67;Panthenol Pianka 100 ml;PANTHENOL PIANKA 100ML;0.839;cennik: ARCACET PIANKA 100 ML;0.814;0.025;AMBIGUOUS: konkurent 0.814 vs 0.839
+141;GV-55;Maść Borowinowa 130 ml;MAŚĆ BOROWINOWA 130ML;0.838;cennik: MAŚĆ KASZTANOWA 130 ML;0.814;0.024;AMBIGUOUS: konkurent 0.814 vs 0.838
+234;GV-73;Pneumovit Zatoki 50 ml;PNEUMOVIT ZATOKI 50ML;0.838;cennik: ŻYWORÓDKA W ZASYPCE 50 ML;0.529;0.309;score 0,70–0,94
+139;GV-54;Maść Arnikowa 130 ml;MAŚĆ ARNIKOWA 130ML;0.837;cennik: MAŚĆ KASZTANOWA 130 ML;0.831;0.006;AMBIGUOUS: konkurent 0.831 vs 0.837
+93;GV-23;Alantoin Maść 50 ml;ALANTOIN MAŚĆ 50ML;0.836;cennik: ŻYWORÓDKA W ZASYPCE 50 ML;0.567;0.269;score 0,70–0,94
+226;GV-27;APHTIHELP gel 10 g;APHTIHELP GEL 10G;0.836;cennik: MAŚĆ NAGIETKOWA;0.121;0.715;score 0,70–0,94
+99;GV-32;ArtroŻel 100 ml;ARTRO ŻEL 100 ML;0.834;produkt: Pneumovit Żel 100 ml;0.783;0.051;AMBIGUOUS: konkurent 0.783 vs 0.834
+65;GV-112;Magnez B6 60 kapsułek;MAGNEZ B6 + CYNK x60 KAPS.;0.825;cennik: MAGNEZ B6 VEGAN X 60 KAPS.;0.955;-0.130;AMBIGUOUS: konkurent 0.955 vs 0.825
+209;GV-147;Żel łagodzący po ukąszeniach owadów 20ml;ŻEL ŁAGODZĄCY PO UKĄSZENIACH 20 ML;0.810;produkt: Żel ze świetlikiem i kolagenem 20 ml;0.579;0.231;score 0,70–0,94
+218;GV-95;Żel ze świetlikiem i kolagenem 20 ml;ŻEL ZE ŚWIETLIKIEM I KOLAGENEM POD OCZY 20ML;0.775;cennik: ŻEL ŁAGODZĄCY PO UKĄSZENIACH 20 ML;0.579;0.196;AMBIGUOUS: konkurent 0.579 vs 0.775
+37;GV-40;Colacal - kolagen z wapniem 60 kapsułek;COLACAL X 60 KAPS.;0.770;produkt: Colahial 60 kapsułek;0.824;-0.054;AMBIGUOUS: konkurent 0.824 vs 0.770
+45;GV-44;Cynk + witamina B6 30 tabletek;CYNK + WIT. B6 12 MG X 30 TAB.;0.767;cennik: CHROM Z ZIELONĄ HERBATĄ X 30 TAB.;0.530;0.237;score 0,70–0,94
+157;GV-109;Maść Nagietkowa 130ml;MAŚĆ NAGIETKOWA;0.750;cennik: MAŚĆ ARNIKOWA 130ML;0.825;-0.075;AMBIGUOUS: konkurent 0.825 vs 0.750
+230;GV-69;Pneumovit BABY 35 ml;PNEUMOVIT BABY SPRAY 35ML;0.739;cennik: PNEUMOVIT SPRAY DO NOSA 35 ML;0.767;-0.028;AMBIGUOUS: konkurent 0.767 vs 0.739
+69;GV-122;Olej z konopii CBD 10% 10ml;OLEK Z KONOPI 10% 10ml;0.721;produkt: Olej z konopii CBD 10% 20ml;0.621;0.100;AMBIGUOUS: konkurent 0.621 vs 0.721
+70;GV-123;Olej z konopii CBD 10% 20ml;OLEK Z KONOPI 10% 20ml;0.721;produkt: Olej z konopii CBD 10% 10ml;0.621;0.100;AMBIGUOUS: konkurent 0.621 vs 0.721
+71;GV-124;Olej z konopii CBD 5% 10ml;OLEK Z KONOPI 5% 10ml;0.718;produkt: Olej z konopii CBD 5% 20ml;0.617;0.101;AMBIGUOUS: konkurent 0.617 vs 0.718
+72;GV-125;Olej z konopii CBD 5% 20ml;OLEK Z KONOPI 5% 20ml;0.718;produkt: Olej z konopii CBD 5% 10ml;0.617;0.101;AMBIGUOUS: konkurent 0.617 vs 0.718
+165;GV-148;Maść Rumiankowa z olejem CBD 5% 80 ml;MAŚĆ RUMIANKOWA 80ML;0.626;cennik: MAŚĆ Z KURKUMĄ, NAGIETKIEM i OLEJEM CBD 5%;0.680;-0.054;AMBIGUOUS: konkurent 0.680 vs 0.626
+195;GV-108;RABKA SPA MINERALE spray 200 ml;RABKA SPA MINERALE SPRAY 215 ML;0.525;cennik: RABKA SPA MINERALE ŻEL 200 ML;0.940;-0.415;WYMUSZONE: sprzeczna gramatura ['215ml'] vs ['200ml']
+23;GV-114;Calcium Natural 70 kapsułek;CALCIUM NATURAL 60 KAPS;0.478;produkt: Colahial 60 kapsułek;0.683;-0.205;WYMUSZONE: sprzeczna gramatura ['60cnt'] vs ['70cnt']

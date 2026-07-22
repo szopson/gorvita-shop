@@ -1,0 +1,30 @@
+cennik_lp;wc_id;produkt;vat;netto_cennik;brutto;oczekiwane_netto_x082;renderowane_b2b;delta_gr;widoczne_w_modelu_netto_niezaokr
+3;95;AloeVera Żel 150 ml;23%;18.20;22.39;14.92;14.93;+0.01;tak
+6;2040;Apleplus C,E – Ocet Jabłkowy x30 kaps.;8%;12.20;13.18;10.00;10.01;+0.01;tak
+7;2042;Apleplus Forte z Zieloną Herbatą x30 k;8%;15.80;17.06;12.96;12.95;-0.01;tak
+8;97;ARCACET pianka 100 ml;23%;15.30;18.82;12.55;12.54;-0.01;NIE
+9;16;ARTREVIT 60 kapsułek;8%;31.60;34.13;25.91;25.92;+0.01;NIE
+10;99;ArtroŻel 100 ml;23%;16.80;20.66;13.78;13.77;-0.01;tak
+14;228;Aurix 35 ml;8%;18.40;19.87;15.09;15.08;-0.01;NIE
+17;101;Balsam do ust z witaminami A,E,F 20 ml;23%;10.20;12.55;8.36;8.37;+0.01;tak
+21;2048;Carbocaps x30 kaps.;8%;10.70;11.56;8.77;8.78;+0.01;tak
+28;31;Chrom z zieloną herbatą;8%;15.80;17.06;12.96;12.95;-0.01;tak
+44;57;Hepasal 40 kapsułek;8%;14.90;16.09;12.22;12.21;-0.01;NIE
+49;63;KUDZU 60 kapsułek;8%;26.10;28.19;21.40;21.41;+0.01;NIE
+53;2054;Magnez B6 + Ashwagandha x60 kaps.;8%;21.80;23.54;17.88;17.87;-0.01;tak
+55;1550;Magnez B6 VEGAN;8%;12.70;13.72;10.41;10.42;+0.01;tak
+66;161;Maść Propolisowa 10% z witaminami A,E,;23%;13.70;16.85;11.23;11.24;+0.01;NIE
+70;2069;Maść Witaminowa 50ml;23%;11.80;14.51;9.68;9.67;-0.01;tak
+75;177;Mosqitos 100ml;23%;9.50;11.69;7.79;7.80;+0.01;NIE
+76;179;Mosqitos Zestaw Płyn 20ml i Żel 20ml;23%;13.20;16.24;10.82;10.83;+0.01;tak
+86;73;OSTROPEST mielony 150g;8%;12.90;13.93;10.58;10.57;-0.01;NIE
+87;75;OSTROPEST x60 kaps.;8%;14.30;15.44;11.73;11.72;-0.01;tak
+91;2059;Pneumovit Pastylki x16;23%;10.80;13.28;8.86;8.85;-0.01;tak
+95;234;Pneumovit Zatoki 50 ml;8%;16.20;17.50;13.28;13.29;+0.01;tak
+100;79;Rokitnik i Acerola 60 kapsułek;8%;23.90;25.81;19.60;19.59;-0.01;NIE
+103;83;Spirulina 60 kapsułek;8%;18.20;19.66;14.92;14.93;+0.01;tak
+104;199;Venal Spray 115 ml;23%;15.30;18.82;12.55;12.54;-0.01;NIE
+109;85;Zielona Kawa 60 kapsułek;8%;28.30;30.56;23.21;23.20;-0.01;tak
+110;91;Zielony Jęczmień w proszku 100 gram;8%;27.40;29.59;22.47;22.46;-0.01;NIE
+116;189;Pneumovit Żel 100 ml;8%;15.80;17.06;12.96;12.95;-0.01;tak
+125;2071;Żyworódka w Płynie 115ml;23%;15.80;19.43;12.96;12.95;-0.01;tak

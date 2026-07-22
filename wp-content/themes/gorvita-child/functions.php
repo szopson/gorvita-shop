@@ -6,6 +6,7 @@ require_once get_stylesheet_directory() . '/inc/checkout-cta-mover.php';
 require_once get_stylesheet_directory() . '/inc/product-description-cleanup.php';
 require_once get_stylesheet_directory() . '/inc/b2b-announcement-bar.php';
 require_once get_stylesheet_directory() . '/inc/free-shipping-equalize.php';
+require_once get_stylesheet_directory() . '/inc/b2b-rabat-na-pozycji.php';
 require_once get_stylesheet_directory() . '/inc/robots-txt.php';
 
 // Block staging from search-engine indexation. Belt-and-suspenders alongside

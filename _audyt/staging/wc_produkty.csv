@@ -1,0 +1,129 @@
+ID,SKU,nazwa,typ,status,_regular_price,_sale_price,tax_class,tax_status,liczba_wariantow,EAN_z_SKU
+12,GV-22,Acerola 500mg 60 kapsułek,simple,publish,21.0,,reduced-rate,taxable,0,
+14,GV-133,"Apleplus C,E 30 kapsułek",simple,publish,13.0,,reduced-rate,taxable,0,
+16,GV-31,ARTREVIT 60 kapsułek,simple,publish,34.0,,reduced-rate,taxable,0,
+18,GV-33,Artrofit 3w1 60 kapsułek,simple,publish,55.0,,reduced-rate,taxable,0,
+19,GV-35,Babka Płesznik 60 kapsułek,simple,publish,24.0,,reduced-rate,taxable,0,
+21,GV-127,BABKA PŁESZNIK mielona 150g,simple,publish,17.0,,reduced-rate,taxable,0,
+23,GV-114,Calcium Natural 70 kapsułek,simple,publish,17.0,,reduced-rate,taxable,0,
+25,5907636994107,CARBOsal syrop 100ml,simple,publish,16.0,,reduced-rate,taxable,0,5907636994107
+27,GV-134,CARBOSAL + z czarną jagodą 30 kapsułek,simple,publish,13.0,,reduced-rate,taxable,0,
+29,5907636994572,Chrom Forte,simple,publish,17.0,,reduced-rate,taxable,0,5907636994572
+31,GV-140,Chrom z zieloną herbatą,simple,publish,17.0,,reduced-rate,taxable,0,
+35,GV-103,Citrogreft 60 kapsułek,simple,publish,27.0,,reduced-rate,taxable,0,
+37,GV-40,Colacal - kolagen z wapniem 60 kapsułek,simple,publish,51.0,,reduced-rate,taxable,0,
+39,8594011210111,Colafit 60 kostek,simple,publish,77.0,,reduced-rate,taxable,0,8594011210111
+41,GV-42,Colafit SLIM z Chitosanem 60 kapsułek,simple,publish,51.0,,reduced-rate,taxable,0,
+43,GV-43,Colahial 60 kapsułek,simple,publish,53.0,,reduced-rate,taxable,0,
+45,GV-44,Cynk + witamina B6 30 tabletek,simple,publish,16.0,,reduced-rate,taxable,0,
+47,5907636994589,Energia,simple,publish,14.0,,reduced-rate,taxable,0,5907636994589
+49,GV-47,Erotic dla kobiet - afrodyzjak 20 kapsułek,simple,publish,32.0,,reduced-rate,taxable,0,
+51,GV-46,Erotic dla mężczyzn - afrodyzjak 20 kapsułek,simple,publish,32.0,,reduced-rate,taxable,0,
+53,GV-130,Geriafix x60 kapsułek,simple,publish,43.0,,reduced-rate,taxable,0,
+55,5907636994404,GOTU KOLA x60 kapsułek,simple,publish,19.0,,reduced-rate,taxable,0,5907636994404
+57,GV-136,Hepasal 40 kapsułek,simple,publish,16.0,,reduced-rate,taxable,0,
+61,GV-105,Jarmuż 60 kapsułek,simple,publish,24.0,,reduced-rate,taxable,0,
+63,GV-50,KUDZU 60 kapsułek,simple,publish,28.0,,reduced-rate,taxable,0,
+65,GV-112,Magnez B6 60 kapsułek,simple,publish,12.0,,reduced-rate,taxable,0,
+67,GV-143,Olej CBD w Kapsułkach,simple,publish,69.0,,reduced-rate,taxable,0,
+69,GV-122,Olej z konopii CBD 10% 10ml,simple,publish,166.0,,reduced-rate,taxable,0,
+70,GV-123,Olej z konopii CBD 10% 20ml,simple,publish,320.0,,reduced-rate,taxable,0,
+71,GV-124,Olej z konopii CBD 5% 10ml,simple,publish,92.0,,reduced-rate,taxable,0,
+72,GV-125,Olej z konopii CBD 5% 20ml,simple,publish,177.0,,reduced-rate,taxable,0,
+73,GV-129,OSTROPEST mielony 150g,simple,publish,14.0,,reduced-rate,taxable,0,
+75,GV-128,OSTROPEST x60 kaps.,simple,publish,15.0,,reduced-rate,taxable,0,
+77,GV-115,Resveratrol 60 kapsułek,simple,publish,44.0,,reduced-rate,taxable,0,
+79,GV-104,Rokitnik i Acerola 60 kapsułek,simple,publish,26.0,,reduced-rate,taxable,0,
+81,GV-76,Silicum + H ( KRZEM+ BIOTYNA ) 30 tabletek,simple,publish,19.0,,reduced-rate,taxable,0,
+83,GV-102,Spirulina 60 kapsułek,simple,publish,20.0,,reduced-rate,taxable,0,
+85,GV-81,Zielona Kawa 60 kapsułek,simple,publish,31.0,,reduced-rate,taxable,0,
+87,GV-83,Zielony Jęczmień 120 kapsułek,simple,publish,38.0,,reduced-rate,taxable,0,
+89,GV-82,Zielony Jęczmień 60 kapsułek,simple,publish,24.0,,reduced-rate,taxable,0,
+91,GV-84,Zielony Jęczmień w proszku 100 gram,simple,publish,30.0,,reduced-rate,taxable,0,
+93,GV-23,Alantoin Maść 50 ml,simple,publish,14.0,,,taxable,0,
+95,GV-24,AloeVera Żel 150 ml,simple,publish,22.0,20.15,,taxable,0,
+97,GV-30,ARCACET pianka 100 ml,simple,publish,19.0,,,taxable,0,
+99,GV-32,ArtroŻel 100 ml,simple,publish,21.0,,,taxable,0,
+101,GV-36,"Balsam do ust z witaminami A,E,F 20 ml",simple,publish,13.0,,,taxable,0,
+103,5907636994251,Balsam Koński 250 ml,simple,publish,20.0,,,taxable,0,5907636994251
+105,GV-37,Balsam z Konopii 5% CBD 200 ml,simple,publish,24.0,,,taxable,0,
+107,GV-145,BLIZNA Maść na blizny 20ml,simple,publish,25.0,,,taxable,0,
+109,GV-45,Diabelski (Czarci) Pazur balsam 200 ml,simple,publish,24.0,,,taxable,0,
+111,5907636994503,Końska Maść 250 ml,simple,publish,21.0,,,taxable,0,5907636994503
+113,GV-59,Końska Maść Chłodząca 130 ml,simple,publish,15.0,,,taxable,0,
+139,GV-54,Maść Arnikowa 130 ml,simple,publish,23.0,,,taxable,0,
+141,GV-55,Maść Borowinowa 130 ml,simple,publish,23.0,,,taxable,0,
+143,GV-56,Maść dla Sportowców 150 ml,simple,publish,23.0,,,taxable,0,
+145,GV-57,Maść Kasztanowa 130 ml,simple,publish,22.0,,,taxable,0,
+155,GV-126,Maść Konopna 5% CBD,simple,publish,27.0,,,taxable,0,
+157,GV-109,Maść Nagietkowa 130ml,simple,publish,23.0,,,taxable,0,
+159,GV-60,Maść Niedźwiedzi Ząb 200 ml,simple,publish,23.0,,,taxable,0,
+161,5907636994695,"Maść Propolisowa 10% z witaminami A,E,F 50 ml",simple,publish,17.0,,,taxable,0,5907636994695
+163,GV-111,Maść Rokitnikowa 140ml,simple,publish,23.0,,,taxable,0,
+165,GV-148,Maść Rumiankowa z olejem CBD 5% 80 ml,simple,publish,25.0,12.51,,taxable,0,
+167,GV-100,Maść Świerkowa 135 ml,simple,publish,24.0,,,taxable,0,
+169,GV-62,"Maść Witaminowa A,E,F 20ml",simple,publish,11.0,,,taxable,0,
+171,GV-132,"Maść z kurkumą, nagietkiem i olejem CBD 5% 80 ml",simple,publish,23.0,,,taxable,0,
+173,GV-64,Maść z Żyworódki 130 ml,simple,publish,23.0,,,taxable,0,
+175,GV-131,Maść żywokostowa z olejem CBD 140ml,simple,publish,25.0,,,taxable,0,
+177,5903317643234,Mosqitos 100ml,simple,publish,12.0,,,taxable,0,5903317643234
+179,GV-150,Mosqitos Zestaw Płyn 20ml i Żel 20ml,simple,publish,16.0,14.62,,taxable,0,
+181,GV-99,Olej Kokosowy w żelu 200 ml,simple,publish,22.0,,,taxable,0,
+183,GV-66,Olejek Pichtowy 100 ml,simple,publish,15.0,13.51,reduced-rate,taxable,0,
+185,GV-67,Panthenol Pianka 100 ml,simple,publish,17.0,,,taxable,0,
+187,5907636994534,Panthenol Żel 100 ml,simple,publish,17.0,,,taxable,0,5907636994534
+189,GV-87,Pneumovit Żel 100 ml,simple,publish,17.0,,reduced-rate,taxable,0,
+191,GV-88,Pneumovit Żel 200 ml,simple,publish,22.0,,reduced-rate,taxable,0,
+193,GV-74,Puder Rodzinny Pielęgnacyjny 50 ml,simple,publish,12.0,,,taxable,0,
+195,GV-108,RABKA SPA MINERALE spray 200 ml,simple,publish,17.0,,reduced-rate,taxable,0,
+197,GV-107,RABKA SPA MINERALE żel 200 ml,simple,publish,19.0,,reduced-rate,taxable,0,
+199,5907636994381,Venal Spray 115 ml,simple,publish,19.0,,,taxable,0,5907636994381
+201,GV-78,Venal Żel 150 ml,simple,publish,22.0,,,taxable,0,
+203,GV-79,Zdrowa Stopa Kremo - Żel do stóp 100 ml,simple,publish,14.0,,,taxable,0,
+205,GV-85,Żel Anticelluitis 200 ml,simple,publish,21.0,,,taxable,0,
+207,GV-86,Żel kasztanowy z rutyną 200 ml,simple,publish,23.0,,,taxable,0,
+209,GV-147,Żel łagodzący po ukąszeniach owadów 20ml,simple,publish,9.0,,zero-rate,taxable,0,
+210,GV-89,Żel z Arniką i Bursztynem 200 ml,simple,publish,23.0,,,taxable,0,
+212,GV-92,Żel z Kasztanowcem 200 ml,simple,publish,22.0,,,taxable,0,
+214,GV-90,"Żel z Kasztanowcem, Miłorzębem i Babką Lancetowatą 200 ml",simple,publish,23.0,,,taxable,0,
+216,GV-94,Żel z Żywkostem 200 ml,simple,publish,23.0,,,taxable,0,
+218,GV-95,Żel ze świetlikiem i kolagenem 20 ml,simple,publish,15.0,,,taxable,0,
+220,GV-93,Żel Żywokostowy z Boswellią 200 ml,simple,publish,23.0,,,taxable,0,
+222,GV-96,Żel Żywokostowy z Jałowcem i MSM 200 ml,simple,publish,23.0,,,taxable,0,
+224,GV-98,Żyworódka w Zasypce 50 ml,simple,publish,16.0,,,taxable,0,
+226,GV-27,APHTIHELP gel 10 g,simple,publish,15.0,,,taxable,0,
+228,5907636994763,Aurix 35 ml,simple,publish,20.0,,reduced-rate,taxable,0,5907636994763
+230,GV-69,Pneumovit BABY 35 ml,simple,publish,17.0,,reduced-rate,taxable,0,
+232,GV-72,Pneumovit Spray do nosa 35 ml,simple,publish,17.0,,reduced-rate,taxable,0,
+234,GV-73,Pneumovit Zatoki 50 ml,simple,publish,17.0,,reduced-rate,taxable,0,
+1058,,Offer,simple,draft,,,,,0,
+1059,,Credit,simple,draft,,,zero-rate,none,0,
+1441,5903317643302,Witamina C 500mg VEGAN,simple,publish,21.0,,reduced-rate,taxable,0,5903317643302
+1486,,LIBIDO Vegan,simple,publish,42.0,,reduced-rate,taxable,0,
+1549,,LUTEINA Vegan,simple,publish,23.0,,reduced-rate,taxable,0,
+1550,,Magnez B6 VEGAN,simple,publish,14.0,,reduced-rate,taxable,0,
+1551,5903317643289,Collagen Vegan,simple,publish,56.0,,reduced-rate,taxable,0,5903317643289
+2038,5907636994756,AloeVera z Zieloną Herbatą x60 kaps.,simple,publish,21.0,,reduced-rate,taxable,0,5907636994756
+2040,5907636994121,"Apleplus C,E – Ocet Jabłkowy x30 kaps.",simple,publish,13.0,,reduced-rate,taxable,0,5907636994121
+2042,5907636994220,Apleplus Forte z Zieloną Herbatą x30 kaps.,simple,publish,17.0,,reduced-rate,taxable,0,5907636994220
+2044,5903317643043,Ashwagandha x60 kaps.,simple,publish,25.0,,reduced-rate,taxable,0,5903317643043
+2046,5903317643050,Ashwagandha + Gotu Kola x60 kaps.,simple,publish,25.0,,reduced-rate,taxable,0,5903317643050
+2048,5907636994060,Carbocaps x30 kaps.,simple,publish,12.0,,reduced-rate,taxable,0,5907636994060
+2049,5907636994725,Carbocaps x20 kaps.,simple,publish,9.0,,reduced-rate,taxable,0,5907636994725
+2050,5907636994992,Czystek x60 kaps.,simple,publish,21.0,,reduced-rate,taxable,0,5907636994992
+2052,5907636994114,Koenzym Q10 30mg z Magnezem x30 kaps.,simple,publish,23.0,,reduced-rate,taxable,0,5907636994114
+2053,5907636994985,Kwas Hialuronowy x60 kaps.,simple,publish,38.0,,reduced-rate,taxable,0,5907636994985
+2054,5903317643210,Magnez B6 + Ashwagandha x60 kaps.,simple,publish,24.0,,reduced-rate,taxable,0,5903317643210
+2056,5907636994558,Maść Końska Rozgrzewająca 130ml,simple,publish,15.0,,reduced-rate,taxable,0,5907636994558
+2058,5903317643258,Mosqitos Płyn 20ml,simple,publish,7.0,,reduced-rate,taxable,0,5903317643258
+2059,5907636994596,Pneumovit Pastylki x16,simple,publish,13.0,,reduced-rate,taxable,0,5907636994596
+2060,5907636994565,Pneumovit Pastylki x8,simple,publish,9.0,,reduced-rate,taxable,0,5907636994565
+2061,5907636994282,Pneumovit Sept Aerozol 35ml,simple,publish,17.0,,reduced-rate,taxable,0,5907636994282
+2063,5907636994022,"Selen A,C,E Antyoksydanty x30 tab.",simple,publish,20.0,,reduced-rate,taxable,0,5907636994022
+2065,5907636994190,Zdrowe Oczy x30 kaps.,simple,publish,16.0,,reduced-rate,taxable,0,5907636994190
+2067,5907636994411,Carbosal + z Czarną Jagodą x20 kaps.,simple,publish,11.0,,reduced-rate,taxable,0,5907636994411
+2068,5903317643333,Karczoch Ostropest x60 kaps.,simple,publish,24.0,,reduced-rate,taxable,0,5903317643333
+2069,5907636994879,Maść Witaminowa 50ml,simple,publish,15.0,,,taxable,0,5907636994879
+2070,5907636994510,Maść Żywokostowa 130ml,simple,publish,23.0,,,taxable,0,5907636994510
+2071,5907636994923,Żyworódka w Płynie 115ml,simple,publish,19.0,,,taxable,0,5907636994923
+2304,GV-151,Maść żywokostowa z gojnikiem i olejem CBD 140ml,simple,publish,24.72,,,taxable,0,
