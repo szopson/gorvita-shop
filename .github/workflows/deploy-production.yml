@@ -59,6 +59,7 @@ jobs:
             --exclude='data/images/' \
             --exclude='docs/' \
             --exclude='backups/' \
+            --exclude='_audyt/' \
             --exclude='node_modules/' \
             --exclude='vendor/' \
             --exclude='wp-content/uploads/' \
